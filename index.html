@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate | Professional Learning Platform</title>
+    <title>Deblevate | Physics MCQ Boost</title>
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -48,6 +48,7 @@
         .course-select {
             padding: 0.6rem 1.2rem; background-color: #1f2937; color: white;
             border: 1px solid #374151; border-radius: 6px; font-size: 1rem; cursor: pointer;
+            width: 100%; max-width: 400px;
         }
 
         /* Main Studio Layout */
@@ -69,10 +70,10 @@
             margin-top: 1.5rem; background-color: var(--card-bg);
             padding: 1.5rem; border-radius: 12px; border: 1px solid #1f2937;
         }
-        .video-title { margin: 0 0 0.5rem 0; font-size: 1.6rem; color: white; }
+        .video-title { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: white; line-height: 1.4; }
         .instructor-tag {
             display: inline-block; background: rgba(34, 197, 94, 0.1);
-            color: var(--accent-color); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold;
+            color: var(--accent-color); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-top: 0.5rem;
         }
 
         /* Right Side: Scrollable List */
@@ -93,13 +94,14 @@
         }
         .video-item:hover { background-color: #242f47; }
         .video-item.active { background-color: rgba(34, 197, 94, 0.15); border: 1px solid var(--accent-color); }
-        .video-index { font-size: 0.9rem; font-weight: bold; color: var(--accent-color); margin-right: 1rem; min-width: 20px; }
-        .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: white; }
+        .video-index { font-size: 0.9rem; font-weight: bold; color: var(--accent-color); margin-right: 1rem; min-width: 25px; }
+        .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: white; line-height: 1.3;}
 
         @media (max-width: 768px) {
             .studio-container { flex-direction: column; padding: 0 1rem; }
             .top-bar { flex-direction: column; align-items: flex-start; }
             .course-select { width: 100%; }
+            .video-title { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -112,10 +114,9 @@
 <div class="top-bar">
     <label for="courseDropdown">Select Active Course:</label>
     <select id="courseDropdown" class="course-select" onchange="loadCourse()">
-        <!-- 💡 ড্রপডাউনে তোমার ৩টি কোর্স এর অপশন -->
-        <option value="course1">Course 1: Complete Web Development</option>
-        <option value="course2">Course 2: React JS Full Course</option>
-        <option value="course3">Course 3: JavaScript Masterclass</option>
+        <!-- 💡 ড্রপডাউনে তোমার কোর্সের আসল নামগুলো -->
+        <option value="course1">Physics 1st Paper MCQ Boost</option>
+        <option value="course2">Physics 2nd Paper MCQ Boost</option>
     </select>
 </div>
 
@@ -146,30 +147,36 @@
 // =========================================================================
 const courseData = {
     
-    // প্রথম কোর্স (Complete Web Development প্লেলিস্টের ভিডিওসমূহ)
+    // কোর্স ১: Physics 1st Paper MCQ Boost
     course1: {
         videos: [
-            { title: "০১. Web Development Introduction", id: "juamFhUp0cC" },
-            { title: "০২. HTML5 Basics & Structure", id: "JG1MiQbE-A" },
-            { title: "০৩. Styling with CSS3", id: "qSGOMtOu2YR" }
+            { title: "অধ্যায় ১: ভৌতজগৎ ও পরিমাপ", id: "xYFnKAbm8lY" },
+            { title: "অধ্যায় ২: ভেক্টর", id: "hPoEUHtpfm8" },
+            { title: "অধ্যায় ৩: গতিবিদ্যা", id: "HUtcNV8VjW4" },
+            { title: "অধ্যায় ৪: নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg" },
+            { title: "অধ্যায় ৫: কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA" },
+            { title: "অধ্যায় ৬: মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico" },
+            { title: "অধ্যায় ৭: পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU" },
+            { title: "অধ্যায় ৮: পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs" },
+            { title: "অধ্যায় ৯: তরঙ্গ", id: "z-sq1FI52F4" },
+            { title: "অধ্যায় ১০: আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk" }
         ]
     },
 
-    // দ্বিতীয় কোর্স (React JS Full Course প্লেলিস্টের ভিডিওসমূহ)
+    // কোর্স ২: Physics 2nd Paper MCQ Boost
     course2: {
         videos: [
-            { title: "০১. React JS Prerequisites", id: "ZcVE2eowg4T" },
-            { title: "০২. Components & Props", id: "x-05uSmlI" },
-            { title: "০৩. State & Hooks Guide", id: "92lkOpGjzFY" }
-        ]
-    },
-
-    // তৃতীয় কোর্স (JavaScript Masterclass প্লেলিস্টের ভিডিওসমূহ)
-    course3: {
-        videos: [
-            { title: "০১. JavaScript Advanced Engine", id: "C6ykivVtxR5" },
-            { title: "০২. Scope & Closures Deep Dive", id: "DQfuFL2Bn" },
-            { title: "০৩. Async JS & Promises", id: "J63Ob4C0SVb" }
+            { title: "অধ্যায় ১: তাপগতিবিদ্যা", id: "Mte0En3e-TQ" },
+            { title: "অধ্যায় ২: স্থির তড়িৎ", id: "qFB1T_x3pEU" },
+            { title: "অধ্যায় ৩: চল তড়িৎ", id: "jBz4518XC7Y" },
+            { title: "অধ্যায় ৪: তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw" },
+            { title: "অধ্যায় ৫: তাড়িতচৌম্বক আবেশ ও পরিবর্তী প্রবাহ", id: "mbH0BSv5MAY" },
+            { title: "অধ্যায় ৬: জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU" },
+            { title: "অধ্যায় ৭: ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY" },
+            { title: "অধ্যায় ৮: আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk" },
+            { title: "অধ্যায় ৯: পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", id: "x3pN3lHvXE4" },
+            { title: "অধ্যায় ১০: সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4" },
+            { title: "অধ্যায় ১১: জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68" }
         ]
     }
 };
