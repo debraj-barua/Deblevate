@@ -26,48 +26,18 @@
         }
 
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 0;
-            background-color: var(--bg-main);
-            color: var(--text-light);
-            background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #070d19 70%);
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-main); color: var(--text-light); }
 
-        /* NAVBAR STYLING */
-        header {
-            background-color: var(--bg-nav);
-            padding: 1rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            position: sticky; top: 0; z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-        .header-logo {
-            display: flex; align-items: center; gap: 15px; text-decoration: none;
-        }
-        .header-logo img {
-            width: 50px; height: 50px; border-radius: 8px; object-fit: cover;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        }
+        /* NAVBAR */
+        header { background-color: var(--bg-nav); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .header-logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .header-logo img { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
         .brand-text-container { display: flex; flex-direction: column; }
-        .brand-name {
-            font-family: 'Times New Roman', Times, serif; 
-            font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
-            background: linear-gradient(to bottom, var(--accent-gold-light) 0%, var(--accent-gold) 50%, var(--accent-gold-dark) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0; line-height: 1;
-        }
-        .brand-sub {
-            font-size: 0.75rem; color: #cbd5e1; letter-spacing: 1.5px; margin-top: 4px; font-weight: 600; text-transform: uppercase;
-        }
-        
+        .brand-name { font-family: 'Times New Roman', Times, serif; font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to bottom, var(--accent-gold-light) 0%, var(--accent-gold) 50%, var(--accent-gold-dark) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1; }
+        .brand-sub { font-size: 0.75rem; color: #cbd5e1; letter-spacing: 1.5px; margin-top: 4px; font-weight: 600; text-transform: uppercase; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center;}
-        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; padding: 0.5rem 1rem; border-radius: 8px;}
-        .nav-links a:hover { background-color: rgba(255,255,255,0.05); color: var(--accent-gold); }
-
-        /* AUTHENTICATION UI BUTTONS */
+        
+        /* AUTH UI */
         .login-btn { background: #ea4335; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; transition: 0.3s; }
         .login-btn:hover { background: #d33426; box-shadow: 0 4px 15px rgba(234, 67, 53, 0.4); }
         .user-profile { display: flex; align-items: center; gap: 10px; }
@@ -75,96 +45,74 @@
         .logout-btn { background: #1e293b; color: #f8fafc; border: 1px solid rgba(255,255,255,0.1); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; transition: 0.2s;}
         .logout-btn:hover { background: #ef4444; color: white; border-color: #ef4444;}
         #login-screen { text-align: center; padding: 10rem 2rem; }
-        #login-screen h2 { color: var(--accent-gold); margin-bottom: 1rem; }
 
-        /* MAIN DASHBOARD */
+        /* DASHBOARD */
         #main-app { display: none; } 
         #home-view { padding: 2.5rem 5%; max-width: 1400px; margin: 0 auto; }
-        
         .hero-banner { padding: 0; border-radius: 20px; text-align: center; margin-bottom: 3rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #0f172a; overflow: hidden; }
         .hero-banner img { width: 100%; height: auto; display: block; }
         .hero-motivation { padding: 1.5rem; background: rgba(15, 23, 42, 0.95); color: var(--text-light); font-style: italic; font-size: 1.1rem; border-top: 1px solid var(--accent-blue); line-height: 1.6; }
-
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-bottom: 3rem; }
         .filter-btn { background-color: #1e293b; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.05); padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.2); font-size: 0.9rem; }
+        .filter-btn.active { background-color: var(--accent-blue); color: white; }
         
-        .filter-btn[data-target="physics"].active, .filter-btn[data-target="physics"]:hover { background-color: var(--color-physics); color: #000; box-shadow: 0 0 15px rgba(0,210,255,0.4); border-color: var(--color-physics); }
-        .filter-btn[data-target="chemistry"].active, .filter-btn[data-target="chemistry"]:hover { background-color: var(--color-chemistry); color: #000; box-shadow: 0 0 15px rgba(255,159,67,0.4); border-color: var(--color-chemistry); }
-        .filter-btn[data-target="math"].active, .filter-btn[data-target="math"]:hover { background-color: var(--color-math); color: #fff; box-shadow: 0 0 15px rgba(255,71,87,0.4); border-color: var(--color-math); }
-        .filter-btn[data-target="biology"].active, .filter-btn[data-target="biology"]:hover { background-color: var(--color-biology); color: #000; box-shadow: 0 0 15px rgba(46,213,115,0.4); border-color: var(--color-biology); }
-        .filter-btn[data-target="ict"].active, .filter-btn[data-target="ict"]:hover { background-color: var(--color-ict); color: #fff; box-shadow: 0 0 15px rgba(165,94,234,0.4); border-color: var(--color-ict); }
-        .filter-btn[data-target="bangla"].active, .filter-btn[data-target="bangla"]:hover { background-color: var(--color-bangla); color: #000; box-shadow: 0 0 15px rgba(0,206,209,0.4); border-color: var(--color-bangla); }
-        .filter-btn[data-target="english"].active, .filter-btn[data-target="english"]:hover { background-color: var(--color-english); color: #fff; box-shadow: 0 0 15px rgba(255,0,127,0.4); border-color: var(--color-english); }
-
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 2.5rem; }
-        .course-card { background-color: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); transition: all 0.4s; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.3); display: none; }
-        
-        .course-card[data-subject="physics"]:hover { transform: translateY(-8px); border-color: var(--color-physics); box-shadow: 0 15px 30px rgba(0,210,255,0.25); }
-        .course-card[data-subject="chemistry"]:hover { transform: translateY(-8px); border-color: var(--color-chemistry); box-shadow: 0 15px 30px rgba(255,159,67,0.25); }
-        .course-card[data-subject="math"]:hover { transform: translateY(-8px); border-color: var(--color-math); box-shadow: 0 15px 30px rgba(255,71,87,0.25); }
-        .course-card[data-subject="biology"]:hover { transform: translateY(-8px); border-color: var(--color-biology); box-shadow: 0 15px 30px rgba(46,213,115,0.25); }
-        .course-card[data-subject="ict"]:hover { transform: translateY(-8px); border-color: var(--color-ict); box-shadow: 0 15px 30px rgba(165,94,234,0.25); }
-        .course-card[data-subject="bangla"]:hover { transform: translateY(-8px); border-color: var(--color-bangla); box-shadow: 0 15px 30px rgba(0,206,209,0.25); }
-        .course-card[data-subject="english"]:hover { transform: translateY(-8px); border-color: var(--color-english); box-shadow: 0 15px 30px rgba(255,0,127,0.25); }
-        
+        .course-card { background-color: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); transition: all 0.4s; cursor: pointer; display: none; }
+        .course-card:hover { transform: translateY(-8px); border-color: var(--accent-blue); box-shadow: 0 15px 30px rgba(37,99,235,0.25); }
         .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; }
         .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
         .course-card:hover .card-img-wrapper img { transform: scale(1.05); }
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; flex-wrap: wrap;}
-        .tag { padding: 0.35rem 0.9rem; border-radius: 8px; font-size: 0.75rem; font-weight: 800; color: white; letter-spacing: 0.5px; text-transform: uppercase;}
-        .tag-gold { background: linear-gradient(135deg, var(--accent-gold-dark), var(--accent-gold)); color: #000; }
-        .tag-physics { background-color: var(--color-physics); color: #000; }
-        .tag-chemistry { background-color: var(--color-chemistry); color: #000; }
-        .tag-math { background-color: var(--color-math); color: #fff; }
-        .tag-biology { background-color: var(--color-biology); color: #000; }
-        .tag-ict { background-color: var(--color-ict); color: #fff; }
-        .tag-bangla { background-color: var(--color-bangla); color: #000; }
-        .tag-english { background-color: var(--color-english); color: #fff; }
-
-        .card-content { padding: 1.5rem; text-align: left; background: linear-gradient(to bottom, #0f172a, #0b0f19); }
-        .card-title { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.4rem 0; line-height: 1.4; color: #fff; }
+        .tag { padding: 0.35rem 0.9rem; border-radius: 8px; font-size: 0.75rem; font-weight: 800; color: white; letter-spacing: 0.5px; text-transform: uppercase; background: var(--accent-blue);}
+        .card-content { padding: 1.5rem; background: #0f172a; }
+        .card-title { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.4rem 0; color: #fff; }
         .card-subtitle { font-size: 0.88rem; color: #94a3b8; margin: 0; }
 
-        /* CLASSROOM PLAYER VIEW */
+        /* PLAYER VIEW & CUSTOM CONTROLS */
         #player-view { display: none; max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; }
-        .back-bar { margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-        .back-btn { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.05); padding: 0.6rem 1.4rem; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .back-btn:hover { background: #334155; }
-
+        .back-btn { background: #1e293b; color: white; border: 1px solid rgba(255,255,255,0.05); padding: 0.6rem 1.4rem; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 1.5rem; }
         .studio-container { display: flex; flex-direction: row; gap: 2rem; }
         .main-content { flex: 2; display: flex; flex-direction: column; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 16px; overflow: hidden; background: #000; box-shadow: 0 20px 40px rgba(0,0,0,0.6); border: 1px solid var(--accent-blue);}
-        .video-wrapper iframe, .video-wrapper div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        .video-info { margin-top: 1.5rem; background-color: var(--bg-card); padding: 1.8rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .video-title { margin: 0 0 0.6rem 0; font-size: 1.5rem; color: white; line-height: 1.4; font-weight: 700; }
-        .tag-container { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.2rem; }
-        .instructor-tag { display: inline-block; background: rgba(212,175,55,0.1); color: var(--accent-gold); padding: 0.45rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; border: 1px solid rgba(212,175,55,0.2); }
-        .sheet-btn { display: inline-block; background: linear-gradient(135deg, #22c55e, #15803d); color: #000; padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.9rem; font-weight: 800; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 10px rgba(34,197,94,0.3); }
-        .sheet-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(34,197,94,0.4); color: #fff; }
+        
+        /* 💡 Video Protection System */
+        .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 12px 12px 0 0; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); border-bottom: none; }
+        .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none; /* Stops interaction with YT */ }
+        .video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; cursor: pointer; } /* Shields video, allows click to pause */
 
-        .custom-controls { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); flex-wrap: wrap; }
-        .control-btn { background-color: #1e293b; color: var(--text-light); border: 1px solid rgba(255,255,255,0.05); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 0.88rem; }
-        .control-btn:hover { background-color: #334155; }
-        .volume-container { display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 0.9rem; font-weight: 600; color: #94a3b8;}
-        .volume-slider { -webkit-appearance: none; width: 110px; height: 6px; background: #1e293b; border-radius: 3px; outline: none; }
-        .volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: #3b82f6; cursor: pointer; box-shadow: 0 0 8px rgba(59,130,246,0.6); }
+        /* 💡 Custom Player Controls */
+        .custom-player-bar { background: #0b0f19; border: 1px solid rgba(255,255,255,0.1); border-radius: 0 0 12px 12px; padding: 12px 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); margin-bottom: 1.5rem;}
+        .play-btn { background: var(--accent-gold); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: bold; transition: 0.2s;}
+        .play-btn:hover { transform: scale(1.05); }
+        .time-display { font-size: 0.85rem; font-weight: bold; color: #cbd5e1; min-width: 90px; text-align: center;}
+        
+        /* Sliders */
+        input[type=range] { -webkit-appearance: none; background: #334155; height: 6px; border-radius: 3px; cursor: pointer; outline: none; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-gold); box-shadow: 0 0 10px rgba(212,175,55,0.5); transition: 0.2s; }
+        .seek-bar-container { flex-grow: 1; display: flex; align-items: center; }
+        #seekSlider { width: 100%; }
+        .vol-container { display: flex; align-items: center; gap: 8px; margin-left: 10px; }
+        #volSlider { width: 80px; }
+        .control-icon { background: none; border: none; color: white; font-size: 1.1rem; cursor: pointer; padding: 5px; }
 
-        .sidebar { flex: 1; background-color: var(--bg-card); border-radius: 16px; border: 1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; max-height: 600px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .sidebar-header { padding: 1.2rem; background-color: #0b0f19; border-radius: 16px 16px 0 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: #fff; font-weight: 800; letter-spacing: 0.5px; }
+        .video-info { background-color: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
+        .video-title { margin: 0 0 10px 0; font-size: 1.5rem; color: white; }
+        
+        /* 💡 Integrated Slide Viewer Segment */
+        .slide-segment { margin-top: 2rem; background: var(--bg-card); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); overflow: hidden; display: none; }
+        .slide-header { background: #0b0f19; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .slide-header h3 { margin: 0; color: var(--accent-blue); font-size: 1.1rem; }
+        .download-btn { background: #22c55e; color: #000; padding: 0.5rem 1.2rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .download-btn:hover { background: #16a34a; color: white; }
+        .slide-frame-container { width: 100%; height: 600px; background: #000; }
+        .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
+
+        .sidebar { flex: 1; background-color: var(--bg-card); border-radius: 12px; display: flex; flex-direction: column; max-height: 600px; }
+        .sidebar-header { padding: 1.2rem; background-color: #0b0f19; border-radius: 12px 12px 0 0; }
         .video-list { overflow-y: auto; flex-grow: 1; padding: 0.6rem; }
-        .video-item { display: flex; align-items: center; padding: 0.9rem 1.1rem; margin-bottom: 0.6rem; border-radius: 10px; cursor: pointer; transition: 0.2s; background-color: #131c2e; border: 1px solid transparent;}
-        .video-item:hover { background-color: #1e293b; }
-        .video-item.active { background-color: rgba(59,130,246,0.1); border-color: #3b82f6; }
-        .video-index { font-size: 0.9rem; font-weight: 800; color: #3b82f6; margin-right: 1rem; min-width: 25px; }
-        .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: #e2e8f0; line-height: 1.3;}
+        .video-item { display: flex; padding: 0.9rem; margin-bottom: 0.5rem; border-radius: 8px; cursor: pointer; background: #131c2e; color: #cbd5e1; }
+        .video-item.active { background: rgba(37,99,235,0.15); border-left: 3px solid var(--accent-blue); color: white; }
 
-        @media (max-width: 900px) {
-            .studio-container { flex-direction: column; }
-            .nav-links { display: none; }
-            .volume-container { margin-left: 0; width: 100%; justify-content: flex-start; margin-top: 8px;}
-            #login-screen { padding: 5rem 1rem; }
-        }
+        @media (max-width: 900px) { .studio-container { flex-direction: column; } .custom-player-bar { flex-wrap: wrap; } #seekSlider { width: 100%; order: -1; margin-bottom: 10px;} .slide-frame-container { height: 400px; } }
     </style>
 </head>
 <body>
@@ -178,10 +126,7 @@
         </div>
     </a>
     <div class="nav-links">
-        <button id="loginBtnUI" class="login-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg>
-            Google Login
-        </button>
+        <button id="loginBtnUI" class="login-btn">Google Login</button>
         <div id="userInfo" class="user-profile" style="display: none;">
             <img id="userPic" src="" alt="User">
             <div>
@@ -192,255 +137,84 @@
     </div>
 </header>
 
-<!-- LOGIN SCREEN PROMPT -->
 <div id="login-screen">
     <h2>Access Denied!</h2>
-    <p style="color: var(--text-muted); margin-bottom: 2rem;">Please login with an authorized Google account to access all premium courses and materials.</p>
-    <button id="loginBtnCenter" class="login-btn" style="margin: 0 auto; font-size: 1.1rem; padding: 0.8rem 1.5rem;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/></svg>
-        Login to Continue
-    </button>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">Please login with an authorized Google account.</p>
+    <button id="loginBtnCenter" class="login-btn" style="margin: 0 auto; font-size: 1.1rem; padding: 0.8rem 1.5rem;">Login to Continue</button>
 </div>
 
-<!-- CONTAINER FOR AUTHENTICATED APP -->
 <div id="main-app">
     <div id="home-view">
         <div class="hero-banner">
             <img src="photo_2026-06-23_21-57-30_2.jpg" alt="Deblevate Banner">
             <div class="hero-motivation">
-                "তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন। চলো, একসাথে করি জয়!" <br>
-                <span style="color: var(--accent-gold); font-size: 1.25rem; font-weight: bold; display: inline-block; margin-top: 10px; letter-spacing: 1px;">Best of Luck for HSC!</span>
+                "তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।" <br>
+                <span style="color: var(--accent-gold); font-size: 1.25rem; font-weight: bold; display: inline-block; margin-top: 10px;">Best of Luck for HSC!</span>
             </div>
         </div>
 
         <div class="filters" id="subject-filters">
-            <button class="filter-btn active" data-target="physics" onclick="filterSubject('physics', this)">Physics</button>
-            <button class="filter-btn" data-target="chemistry" onclick="filterSubject('chemistry', this)">Chemistry</button>
-            <button class="filter-btn" data-target="math" onclick="filterSubject('math', this)">Math</button>
-            <button class="filter-btn" data-target="biology" onclick="filterSubject('biology', this)">Biology</button>
-            <button class="filter-btn" data-target="ict" onclick="filterSubject('ict', this)">ICT</button>
-            <button class="filter-btn" data-target="bangla" onclick="filterSubject('bangla', this)">Bangla</button>
-            <button class="filter-btn" data-target="english" onclick="filterSubject('english', this)">English</button>
+            <button class="filter-btn active" onclick="filterSubject('physics', this)">Physics</button>
+            <button class="filter-btn" onclick="filterSubject('chemistry', this)">Chemistry</button>
+            <button class="filter-btn" onclick="filterSubject('math', this)">Math</button>
+            <button class="filter-btn" onclick="filterSubject('biology', this)">Biology</button>
+            <button class="filter-btn" onclick="filterSubject('ict', this)">ICT</button>
+            <button class="filter-btn" onclick="filterSubject('bangla', this)">Bangla</button>
+            <button class="filter-btn" onclick="filterSubject('english', this)">English</button>
         </div>
 
-        <div class="course-grid">
-            <!-- Physics 1 -->
-            <div class="course-card" data-subject="physics" onclick="openCourse('course1')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/lhC3bVV_g9M/maxresdefault.jpg" alt="Physics Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-physics">Physics</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Physics 1st Paper MCQ Boost</h3>
-                    <p class="card-subtitle">Complete MCQ Preparation</p>
-                </div>
-            </div>
-
-            <!-- Physics 2 -->
-            <div class="course-card" data-subject="physics" onclick="openCourse('course2')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/Mte0En3e-TQ/maxresdefault.jpg" alt="Physics 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-physics">Physics</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Physics 2nd Paper MCQ Boost</h3>
-                    <p class="card-subtitle">Advanced MCQ Strategies</p>
-                </div>
-            </div>
-
-            <!-- Chemistry 1 -->
-            <div class="course-card" data-subject="chemistry" onclick="openCourse('course4')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/HtPDwesuQfc/maxresdefault.jpg" alt="Chem 1 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-chemistry">Chemistry</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Chemistry 1st Paper MCQ Boost</h3>
-                    <p class="card-subtitle">Master Chemical Reactions</p>
-                </div>
-            </div>
-
-            <!-- Chemistry 2 -->
-            <div class="course-card" data-subject="chemistry" onclick="openCourse('course5')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/_HV5fDT1txg/maxresdefault.jpg" alt="Chem 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-chemistry">Chemistry</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Chemistry 2nd Paper MCQ Boost</h3>
-                    <p class="card-subtitle">Organic & Env. Chemistry</p>
-                </div>
-            </div>
-
-            <!-- Biology 1 -->
-            <div class="course-card" data-subject="biology" onclick="openCourse('course6')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/VIAOG6TPE4U/maxresdefault.jpg" alt="Bio 1 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-biology">Biology</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Biology 1st Paper MCQ Hacks</h3>
-                    <p class="card-subtitle">Botany & Plant Science</p>
-                </div>
-            </div>
-
-            <!-- Biology 2 -->
-            <div class="course-card" data-subject="biology" onclick="openCourse('course7')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/BN4-Nmz3qxM/maxresdefault.jpg" alt="Bio 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-biology">Biology</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Biology 2nd Paper MCQ Hacks</h3>
-                    <p class="card-subtitle">Zoology & Human Body</p>
-                </div>
-            </div>
-
-            <!-- Higher Math 1 -->
-            <div class="course-card" data-subject="math" onclick="openCourse('course8')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/nE4kCCRdUTA/maxresdefault.jpg" alt="Math 1 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-math">Higher Math</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Higher Math 1st Paper</h3>
-                    <p class="card-subtitle">Complete Concept Mastering</p>
-                </div>
-            </div>
-
-            <!-- Higher Math 2 -->
-            <div class="course-card" data-subject="math" onclick="openCourse('course9')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/FxUUvxX9HRw/maxresdefault.jpg" alt="Math 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-math">Higher Math</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Higher Math 2nd Paper</h3>
-                    <p class="card-subtitle">Advanced Problem Solving</p>
-                </div>
-            </div>
-
-            <!-- Bangla 1 (Omor Faruq) -->
-            <div class="course-card" data-subject="bangla" onclick="openCourse('course10')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/L_TDshu8WLs/maxresdefault.jpg" alt="Bangla 1 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-bangla">Bangla</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Bangla 1st Paper (Omor Faruq)</h3>
-                    <p class="card-subtitle">গদ্য, পদ্য ও সহপাঠ</p>
-                </div>
-            </div>
-
-            <!-- Bangla 1 (Sakib Vai) -->
-            <div class="course-card" data-subject="bangla" onclick="openCourse('course11')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/-wwSNXrP9QE/maxresdefault.jpg" alt="Bangla 1 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-bangla">Bangla</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Bangla 1st Paper (Sakib Vai)</h3>
-                    <p class="card-subtitle">Fahad's Tutorial Special</p>
-                </div>
-            </div>
-
-            <!-- Bangla 2 (Omor Faruq) -->
-            <div class="course-card" data-subject="bangla" onclick="openCourse('course12')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/sSWsrnn0qa0/maxresdefault.jpg" alt="Bangla 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-bangla">Bangla</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Bangla 2nd Paper (Omor Faruq)</h3>
-                    <p class="card-subtitle">ব্যাকরণ ও নির্মিতি</p>
-                </div>
-            </div>
-
-            <!-- Bangla 2 (Sakib Vai) -->
-            <div class="course-card" data-subject="bangla" onclick="openCourse('course13')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/OJAq_YD8bCc/maxresdefault.jpg" alt="Bangla 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-bangla">Bangla</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">Bangla 2nd Paper (Sakib Vai)</h3>
-                    <p class="card-subtitle">Fahad's Tutorial Special</p>
-                </div>
-            </div>
-
-            <!-- English 1 -->
-            <div class="course-card" data-subject="english" onclick="openCourse('course14')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/jegosLHD8vs/maxresdefault.jpg" alt="English 1 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-english">English</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">English 1st Paper</h3>
-                    <p class="card-subtitle">Passage & Grammar Hacks</p>
-                </div>
-            </div>
-
-            <!-- English 2 -->
-            <div class="course-card" data-subject="english" onclick="openCourse('course15')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/RI1y7DxcT70/maxresdefault.jpg" alt="English 2 Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-english">English</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">English 2nd Paper</h3>
-                    <p class="card-subtitle">Advanced Grammar Rules</p>
-                </div>
-            </div>
-
-            <!-- ICT -->
-            <div class="course-card" data-subject="ict" onclick="openCourse('course3')">
-                <div class="card-img-wrapper">
-                    <img src="https://img.youtube.com/vi/O1G18efvIyA/maxresdefault.jpg" alt="ICT Cover">
-                    <div class="card-tags"><span class="tag tag-gold">HSC 26/27</span><span class="tag tag-ict">ICT</span></div>
-                </div>
-                <div class="card-content">
-                    <h3 class="card-title">HSC ICT MCQ Boost</h3>
-                    <p class="card-subtitle">Master Information Technology</p>
-                </div>
-            </div>
-            
+        <div class="course-grid" id="courseGridContainer">
+            <!-- Courses are auto-generated here by JS -->
         </div>
     </div>
 
     <div id="player-view">
-        <div class="back-bar">
-            <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-            <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-gold);">Course Title</h3>
-        </div>
+        <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
 
         <div class="studio-container">
             <div class="main-content">
-                <div class="video-wrapper" id="playerWrapper">
+                
+                <!-- 💡 Protected Video Area -->
+                <div class="protected-video-wrapper">
                     <div id="studioPlayer"></div>
+                    <div class="video-overlay" id="vidOverlay" onclick="togglePlayPause()"></div>
                 </div>
-                <div class="video-info">
-                    <h2 id="mainVideoTitle" class="video-title">Loading Lesson...</h2>
-                    <div class="tag-container">
-                        <span class="instructor-tag">LEAD INSTRUCTOR: Debraj Barua</span>
-                        <a id="sheetDownloadBtn" href="#" target="_blank" class="sheet-btn" style="display: none;">📄 Class Notes / Sheet</a>
+
+                <!-- 💡 Custom Player Controls -->
+                <div class="custom-player-bar">
+                    <button class="play-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸</button>
+                    <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+                    
+                    <div class="seek-bar-container">
+                        <input type="range" id="seekSlider" value="0" min="0" max="100" step="0.1" oninput="seekDrag(this.value)">
                     </div>
 
-                    <div class="custom-controls">
-                        <button class="control-btn" onclick="seekVideo(-10)">⏪ 10s</button>
-                        <button class="control-btn" onclick="seekVideo(10)">10s ⏩</button>
-                        
-                        <div class="volume-container">
-                            <span>🔊 Volume:</span>
-                            <input type="range" class="volume-slider" id="volSlider" min="0" max="100" value="100" oninput="changeVolume(this.value)">
-                        </div>
+                    <div class="vol-container">
+                        <span style="font-size: 1.2rem;">🔊</span>
+                        <input type="range" id="volSlider" value="100" min="0" max="100" oninput="changeVolume(this.value)">
                     </div>
                 </div>
+
+                <div class="video-info">
+                    <h2 id="mainVideoTitle" class="video-title">Loading...</h2>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">⌨ Shortcuts: Space (Play/Pause) | ← → (Seek 10s) | ↑ ↓ (Volume)</span>
+                </div>
+
+                <!-- 💡 Integrated Slide Viewer Segment -->
+                <div class="slide-segment" id="slideSegment">
+                    <div class="slide-header">
+                        <h3>📄 Class Lecture Slide</h3>
+                        <a id="sheetDownloadBtn" href="#" target="_blank" class="download-btn">⬇ Download PDF</a>
+                    </div>
+                    <div class="slide-frame-container">
+                        <iframe id="slideIframe" src="" allowfullscreen="true"></iframe>
+                    </div>
+                </div>
+
             </div>
 
             <div class="sidebar">
-                <div class="sidebar-header">
-                    <h3>CLASS PLAYLIST</h3>
-                </div>
+                <div class="sidebar-header"><h3 style="margin:0; color:white;">Class Playlist</h3></div>
                 <div id="videoListContainer" class="video-list"></div>
             </div>
         </div>
@@ -449,374 +223,284 @@
 
 <script src="https://www.youtube.com/iframe_api"></script>
 
-<!-- 💡 FIREBASE INTEGRATION SCRIPT WITH WHITELIST -->
+<!-- Firebase Auth -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
-  // Your Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCH1Vf9rxaMwCJZFBcSzKPP12EBbXGCbIU",
     authDomain: "deblevate.firebaseapp.com",
     projectId: "deblevate",
     storageBucket: "deblevate.firebasestorage.app",
     messagingSenderId: "475175725126",
-    appId: "1:475175725126:web:387a318d4cccaf74ef4247",
-    measurementId: "G-8KMMHRHD3B"
+    appId: "1:475175725126:web:387a318d4cccaf74ef4247"
   };
 
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const loginBtnUI = document.getElementById('loginBtnUI');
-  const loginBtnCenter = document.getElementById('loginBtnCenter');
-  const logoutBtnUI = document.getElementById('logoutBtnUI');
-  const userInfo = document.getElementById('userInfo');
-  const userName = document.getElementById('userName');
-  const userPic = document.getElementById('userPic');
-  const mainApp = document.getElementById('main-app');
-  const loginScreen = document.getElementById('login-screen');
+  const allowedEmails = ["debrajbarua8@gmail.com", "debrajbarua08@gmail.com", "prithabarua08@gmail.com", "pritha.khuki@gmail.com"];
 
-  // 💡 Whitelisted Emails
-  const allowedEmails = [
-      "debrajbarua8@gmail.com",
-      "debrajbarua08@gmail.com",
-      "prithabarua08@gmail.com",
-      "pritha.khuki@gmail.com"
-  ];
-
-  const handleLogin = () => {
-      signInWithPopup(auth, provider).catch(error => {
-          console.error("Login Failed:", error);
-          alert("Login error! Please try again.");
-      });
-  };
-
-  loginBtnUI.addEventListener('click', handleLogin);
-  loginBtnCenter.addEventListener('click', handleLogin);
-  
-  logoutBtnUI.addEventListener('click', () => {
-      signOut(auth).then(() => {
-          if(window.ytPlayer && typeof window.ytPlayer.stopVideo === 'function') {
-              window.ytPlayer.stopVideo();
-          }
-      });
-  });
+  document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
+  document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
+  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); if(window.ytPlayer && window.ytPlayer.stopVideo) window.ytPlayer.stopVideo(); };
 
   onAuthStateChanged(auth, (user) => {
-      if (user) {
-          if (allowedEmails.includes(user.email.toLowerCase())) {
-              loginBtnUI.style.display = 'none';
-              userInfo.style.display = 'flex';
-              userName.textContent = user.displayName;
-              userPic.src = user.photoURL;
-              loginScreen.style.display = 'none';
-              mainApp.style.display = 'block';
-          } else {
-              alert("Access Denied! You are not authorized to view these courses.");
-              signOut(auth);
-          }
+      if (user && allowedEmails.includes(user.email.toLowerCase())) {
+          document.getElementById('loginBtnUI').style.display = 'none';
+          document.getElementById('userInfo').style.display = 'flex';
+          document.getElementById('userName').textContent = user.displayName;
+          document.getElementById('userPic').src = user.photoURL;
+          document.getElementById('login-screen').style.display = 'none';
+          document.getElementById('main-app').style.display = 'block';
+          renderAllCourses(); // Load courses after login
       } else {
-          loginBtnUI.style.display = 'flex';
-          userInfo.style.display = 'none';
-          loginScreen.style.display = 'block';
-          mainApp.style.display = 'none';
+          if(user) { alert("Access Denied!"); signOut(auth); }
+          document.getElementById('loginBtnUI').style.display = 'flex';
+          document.getElementById('userInfo').style.display = 'none';
+          document.getElementById('login-screen').style.display = 'block';
+          document.getElementById('main-app').style.display = 'none';
       }
   });
 </script>
 
 <script>
-// =========================================================================
-// COURSE DATA LOGIC
-// =========================================================================
+// ==========================================
+// COURSE DATABASE
+// ==========================================
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
-
 const courseData = {
-    course1: {
-        title: "Physics 1st Paper MCQ Boost",
-        videos: [
-            { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
-            { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
-            { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
-            { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" },
-            { title: "৫. কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view" },
-            { title: "৬. মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view" },
-            { title: "৭. পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view" },
-            { title: "৮. পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view" },
-            { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
-            { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
-        ]
-    },
-    course2: {
-        title: "Physics 2nd Paper MCQ Boost",
-        videos: [
-            { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" },  
-            { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" },  
-            { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" },  
-            { title: "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view" },  
-            { title: "৫. তাড়িতচৌম্বক আবেশ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view" },  
-            { title: "৬. জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view" },  
-            { title: "৭. ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view" },  
-            { title: "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view" },  
-            { title: "৯. পরমাণুর মডেল ও নিউক্লিয়ার", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view" },  
-            { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" },  
-            { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
-        ]
-    },
-    course3: {
-        title: "HSC ICT MCQ Boost Full Course",
-        videos: [
-            { title: "১. তথ্য ও যোগাযোগ প্রযুক্তি", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
-            { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
-            { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
-            { title: "৪. ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view" },
-            { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
-            { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
-        ]
-    },
-    course4: {
-        title: "Chemistry 1st Paper MCQ Boost",
-        videos: [
-            { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
-            { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
-            { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
-            { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
-            { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
-            { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
-        ]
-    },
-    course5: {
-        title: "Chemistry 2nd Paper MCQ Boost",
-        videos: [
-            { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
-            { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
-            { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
-            { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
-            { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
-            { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
-        ]
-    },
-    course6: {
-        title: "Biology 1st Paper MCQ Hacks",
-        videos: [
-            { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
-            { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
-            { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
-            { title: "৪. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
-            { title: "৫. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
-            { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRchQnAJfr/view" },
-            { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
-            { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
-            { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
-            { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
-            { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
-            { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
-            { title: "১৩. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
-            { title: "১৪. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
-            { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
-            { title: "১৬. জীবের পরিবেশ ও বিস্তার", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
-        ]
-    },
-    course7: {
-        title: "Biology 2nd Paper MCQ Hacks",
-        videos: [
-            { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
-            { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
-            { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
-            { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
-            { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
-            { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
-            { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
-            { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
-            { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
-            { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
-            { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
-            { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
-            { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
-        ]
-    },
-    course8: {
-        title: "Higher Math 1st Paper",
-        videos: [
-            { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
-            { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
-            { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
-            { title: "৪. বিন্যাস ও সমাবেশ", id: "qyP-bbCSAr4", sheet: mathSheet },
-            { title: "৫. ত্রিকোণমিতি", id: "IvMPzm4Ap3w", sheet: mathSheet },
-            { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
-            { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
-        ]
-    },
-    course9: {
-        title: "Higher Math 2nd Paper",
-        videos: [
-            { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
-            { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
-            { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
-            { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
-            { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
-            { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
-            { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
-            { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
-        ]
-    },
-    course10: {
-        title: "Bangla 1st Paper (Omor Faruq)",
-        videos: [
-            { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
-            { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
-            { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" }
-        ]
-    },
-    course11: {
-        title: "Bangla 1st Paper (Sakib Vai)",
-        videos: [
-            { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
-        ]
-    },
-    course12: {
-        title: "Bangla 2nd Paper (Omor Faruq)",
-        videos: [
-            { title: "১. ব্যাকরণ ও নির্মিতি", id: "sSWsrnn0qa0", sheet: "https://drive.google.com/file/d/1BrvqvJnuUceiO_tqoIcZ5wwa78nmxfRd/view" }
-        ]
-    },
-    course13: {
-        title: "Bangla 2nd Paper (Sakib Vai)",
-        videos: [
-            { title: "১. ব্যাকরণ ও নির্মিতি (Fahad's Tutorial)", id: "OJAq_YD8bCc", sheet: "https://drive.google.com/drive/u/0/mobile/folders/18Bgh7HvaYAXeJ-vf3eDsqzn_E00lfv2u?usp=drive_link" }
-        ]
-    },
-    course14: {
-        title: "English 1st Paper",
-        videos: [
-            { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
-        ]
-    },
-    course15: {
-        title: "English 2nd Paper",
-        videos: [
-            { title: "English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" }
-        ]
-    }
+    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
+        { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
+        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
+        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" }
+    ]},
+    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
+        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" }
+    ]},
+    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
+        { title: "১. তথ্য ও যোগাযোগ প্রযুক্তি", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" }
+    ]},
+    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
+        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" }
+    ]},
+    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
+        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" }
+    ]},
+    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", videos: [
+        { title: "১. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" }
+    ]},
+    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
+        { title: "১. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" }
+    ]},
+    course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", videos: [
+        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
+        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
+        { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet }
+    ]},
+    course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", videos: [
+        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
+        { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
+        { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet }
+    ]},
+    course10: { sub: "bangla", title: "Bangla 1st Paper", img: "L_TDshu8WLs", videos: [
+        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" }
+    ]},
+    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
+        { title: "English 1st Paper Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
+    ]}
 };
+
+// Auto-generate course cards
+function renderAllCourses() {
+    const grid = document.getElementById('courseGridContainer');
+    grid.innerHTML = "";
+    Object.keys(courseData).forEach(key => {
+        let c = courseData[key];
+        grid.innerHTML += `
+        <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
+            <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
+            <div class="card-tags"><span class="tag">${c.sub}</span></div></div>
+            <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
+        </div>`;
+    });
+    filterSubject('physics', document.querySelector('.filter-btn'));
+}
 
 window.ytPlayer = null;
 let isApiReady = false;
 let queuedVideoId = null;
+let isPlaying = false;
+let timeTracker = null;
 
 function onYouTubeIframeAPIReady() {
     isApiReady = true;
-    if (queuedVideoId) {
-        initPlayerInstance(queuedVideoId);
-    }
+    if (queuedVideoId) initPlayerInstance(queuedVideoId);
 }
 
 function initPlayerInstance(id) {
+    // 💡 Using disablekb=1 & controls=0 to lock the player but allow our custom controls
     window.ytPlayer = new YT.Player('studioPlayer', {
         height: '100%', width: '100%', videoId: id,
-        playerVars: { 'rel': 0, 'autoplay': 1, 'modestbranding': 1, 'controls': 1 },
-        events: { 'onReady': function(event) { document.getElementById('volSlider').value = 100; } }
-    });
-}
-
-function showHome() {
-    document.getElementById('home-view').style.display = 'block';
-    document.getElementById('player-view').style.display = 'none';
-    if(window.ytPlayer && typeof window.ytPlayer.stopVideo === 'function') {
-        window.ytPlayer.stopVideo();
-    }
-    window.scrollTo(0,0);
-}
-
-function filterSubject(subject, btnElement) {
-    const buttons = document.querySelectorAll('#subject-filters .filter-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    btnElement.classList.add('active');
-
-    const cards = document.querySelectorAll('.course-card');
-    cards.forEach(card => {
-        if (card.getAttribute('data-subject') === subject) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
+        playerVars: { 'rel': 0, 'autoplay': 1, 'modestbranding': 1, 'controls': 0, 'disablekb': 1, 'fs': 0 },
+        events: { 
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
         }
     });
 }
 
-function openCourse(courseKey) {
+function onPlayerReady(event) {
+    document.getElementById('volSlider').value = window.ytPlayer.getVolume();
+    event.target.playVideo();
+}
+
+function onPlayerStateChange(event) {
+    const playBtn = document.getElementById('playPauseBtn');
+    if (event.data == YT.PlayerState.PLAYING) {
+        playBtn.innerText = "⏸";
+        isPlaying = true;
+        startTimeTracker();
+    } else {
+        playBtn.innerText = "▶";
+        isPlaying = false;
+        clearInterval(timeTracker);
+    }
+}
+
+// 💡 Custom Controls Logic
+function togglePlayPause() {
+    if(!window.ytPlayer || !window.ytPlayer.getPlayerState) return;
+    if (isPlaying) { window.ytPlayer.pauseVideo(); } 
+    else { window.ytPlayer.playVideo(); }
+}
+
+function seekDrag(val) {
+    if(!window.ytPlayer) return;
+    let duration = window.ytPlayer.getDuration();
+    let seekToTime = (val / 100) * duration;
+    window.ytPlayer.seekTo(seekToTime, true);
+}
+
+function seekVideo(seconds) {
+    if(!window.ytPlayer) return;
+    let curr = window.ytPlayer.getCurrentTime();
+    window.ytPlayer.seekTo(curr + seconds, true);
+}
+
+function changeVolume(val) {
+    if(!window.ytPlayer) return;
+    window.ytPlayer.setVolume(val);
+}
+
+function startTimeTracker() {
+    clearInterval(timeTracker);
+    timeTracker = setInterval(() => {
+        if(window.ytPlayer && isPlaying) {
+            let curr = window.ytPlayer.getCurrentTime();
+            let duration = window.ytPlayer.getDuration();
+            document.getElementById('seekSlider').value = (curr / duration) * 100;
+            document.getElementById('timeDisplay').innerText = formatTime(curr) + " / " + formatTime(duration);
+        }
+    }, 1000);
+}
+
+function formatTime(time) {
+    time = Math.round(time);
+    let m = Math.floor(time / 60);
+    let s = time % 60;
+    return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+// 💡 Keyboard Event Listeners for Video Controls
+document.addEventListener('keydown', (e) => {
+    if(document.getElementById('player-view').style.display === 'block' && window.ytPlayer) {
+        if (e.code === 'Space') {
+            e.preventDefault(); // Prevents page scrolling
+            togglePlayPause();
+        } else if (e.code === 'ArrowRight') {
+            e.preventDefault(); seekVideo(10);
+        } else if (e.code === 'ArrowLeft') {
+            e.preventDefault(); seekVideo(-10);
+        } else if (e.code === 'ArrowUp') {
+            e.preventDefault();
+            let v = window.ytPlayer.getVolume();
+            let newV = Math.min(v + 10, 100);
+            changeVolume(newV);
+            document.getElementById('volSlider').value = newV;
+        } else if (e.code === 'ArrowDown') {
+            e.preventDefault();
+            let v = window.ytPlayer.getVolume();
+            let newV = Math.max(v - 10, 0);
+            changeVolume(newV);
+            document.getElementById('volSlider').value = newV;
+        }
+    }
+}, {passive: false});
+
+function showHome() {
+    document.getElementById('home-view').style.display = 'block';
+    document.getElementById('player-view').style.display = 'none';
+    if(window.ytPlayer) window.ytPlayer.stopVideo();
+    clearInterval(timeTracker);
+    window.scrollTo(0,0);
+}
+
+function filterSubject(sub, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.course-card').forEach(c => {
+        c.style.display = (c.getAttribute('data-subject') === sub) ? 'block' : 'none';
+    });
+}
+
+function openCourse(key) {
     document.getElementById('home-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
-    
-    const data = courseData[courseKey];
-    document.getElementById('currentCourseTitle').innerText = data.title;
-    
+    const data = courseData[key];
     const container = document.getElementById("videoListContainer");
     container.innerHTML = "";
-    
-    data.videos.forEach((video, index) => {
-        const item = document.createElement("div");
-        item.className = "video-item" + (index === 0 ? " active" : "");
-        item.onclick = function() {
-            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('active'));
-            item.classList.add('active');
-            setVideo(video.id, video.title, video.sheet);
+    data.videos.forEach((vid, i) => {
+        let div = document.createElement("div");
+        div.className = "video-item" + (i===0 ? " active" : "");
+        div.onclick = () => {
+            document.querySelectorAll('.video-item').forEach(e=>e.classList.remove('active'));
+            div.classList.add('active');
+            setVideo(vid.id, vid.title, vid.sheet);
         };
-        const displayIndex = (index + 1) < 10 ? "0" + (index + 1) : (index + 1);
-        item.innerHTML = `<div class="video-index">${displayIndex}</div><div class="video-text-details"><p class="video-item-title">${video.title}</p></div>`;
-        container.appendChild(item);
+        div.innerHTML = `<div class="video-index">${i+1}</div><div class="video-item-title">${vid.title}</div>`;
+        container.appendChild(div);
     });
-
-    if(data.videos.length > 0) {
-        setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
-    }
+    if(data.videos.length > 0) setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
     window.scrollTo(0,0);
 }
 
 function setVideo(id, title, sheetLink) {
     document.getElementById("mainVideoTitle").innerText = title;
     
-    const sheetBtn = document.getElementById("sheetDownloadBtn");
+    // 💡 Slide Viewer Logic
+    const slideSegment = document.getElementById("slideSegment");
+    const slideIframe = document.getElementById("slideIframe");
+    const dlBtn = document.getElementById("sheetDownloadBtn");
+
     if(sheetLink && sheetLink.trim() !== "") {
-        sheetBtn.href = sheetLink;
-        sheetBtn.style.display = "inline-block";
+        dlBtn.href = sheetLink;
+        // Convert google drive /view link to /preview for embedded iframe
+        let embedLink = sheetLink;
+        if(sheetLink.includes('/view')) { embedLink = sheetLink.replace('/view', '/preview'); }
+        slideIframe.src = embedLink;
+        slideSegment.style.display = "block";
     } else {
-        sheetBtn.style.display = "none";
+        slideIframe.src = "";
+        slideSegment.style.display = "none";
     }
 
     if (!isApiReady) { queuedVideoId = id; return; }
-
-    if (!window.ytPlayer) {
-        initPlayerInstance(id);
-    } else {
-        if(typeof window.ytPlayer.loadVideoById === 'function') {
-            window.ytPlayer.loadVideoById(id);
-        } else {
-            document.getElementById('playerWrapper').innerHTML = `<div id="studioPlayer"></div>`;
-            initPlayerInstance(id);
-        }
-    }
+    if (!window.ytPlayer) { initPlayerInstance(id); } 
+    else { window.ytPlayer.loadVideoById(id); }
 }
-
-function changeVolume(volValue) {
-    if (window.ytPlayer && typeof window.ytPlayer.setVolume === 'function') {
-        window.ytPlayer.setVolume(volValue);
-    }
-}
-
-function seekVideo(seconds) {
-    if (window.ytPlayer && typeof window.ytPlayer.getCurrentTime === 'function') {
-        const currentTime = window.ytPlayer.getCurrentTime();
-        window.ytPlayer.seekTo(currentTime + seconds, true);
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const firstFilterBtn = document.querySelector('#subject-filters .filter-btn');
-    if(firstFilterBtn) { filterSubject('physics', firstFilterBtn); }
-});
 </script>
 </body>
 </html>
