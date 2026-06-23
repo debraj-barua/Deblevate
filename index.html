@@ -122,4 +122,240 @@
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid var(--accent-blue);}
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        .video-info { margin-top: 1.5rem; background-color: var(--
+        .video-info { margin-top: 1.5rem; background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid #1f2937; }
+        .video-title { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: white; line-height: 1.4; }
+        
+        .tag-container { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1rem; }
+        .instructor-tag { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; border: 1px solid rgba(212, 175, 55, 0.3);}
+        .sheet-btn { display: inline-block; background-color: var(--accent-gold); color: #000; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .sheet-btn:hover { background-color: #aa771c; color: white; }
+
+        .sidebar { flex: 1; background-color: var(--bg-card); border-radius: 12px; border: 1px solid #1f2937; display: flex; flex-direction: column; max-height: 550px; }
+        .sidebar-header { padding: 1.2rem; background-color: var(--bg-nav); border-radius: 12px 12px 0 0; border-bottom: 1px solid #1f2937; }
+        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--accent-gold); font-weight: 800; letter-spacing: 1px;}
+        .video-list { overflow-y: auto; flex-grow: 1; padding: 0.5rem; }
+        
+        .video-item { display: flex; align-items: center; padding: 0.8rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; cursor: pointer; transition: 0.2s; background-color: #1a2235; border: 1px solid transparent;}
+        .video-item:hover { background-color: #252f48; }
+        .video-item.active { background-color: rgba(30, 98, 208, 0.15); border-color: var(--accent-blue); }
+        .video-index { font-size: 0.9rem; font-weight: bold; color: var(--accent-gold); margin-right: 1rem; min-width: 25px; }
+        .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: white; line-height: 1.3;}
+
+        @media (max-width: 900px) {
+            .studio-container { flex-direction: column; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="header-logo" onclick="showHome()">
+        <img src="channels4_profile.jpg" alt="Logo" onerror="this.style.display='none'">
+        <div class="brand-text-container">
+            <span class="brand-name">DEBLEVATE</span>
+            <span class="brand-sub">Dream Edtech</span>
+        </div>
+    </a>
+    <div class="nav-links">
+        <a href="#" class="active" onclick="showHome()">Home</a>
+        <a href="#" onclick="alert('Coming Soon! This feature is currently not available.'); return false;">My Courses</a>
+        <a href="#" onclick="alert('Coming Soon! This feature is currently not available.'); return false;">Exam</a>
+    </div>
+</header>
+
+<div id="home-view">
+    <div class="hero-banner">
+        <h1>Elevate Your Learning</h1>
+        <p>Mastering Concepts | Cracking Exams</p>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active">All Batches</button>
+        <button class="filter-btn">HSC 26</button>
+        <button class="filter-btn gold">HSC 27</button>
+    </div>
+
+    <div class="course-grid">
+        <div class="course-card" onclick="openCourse('course1')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/lhC3bVV_g9M/maxresdefault.jpg" alt="Physics Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Physics</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Physics 1st Paper MCQ Boost</h3>
+                <p class="card-subtitle">Complete MCQ Preparation</p>
+            </div>
+        </div>
+
+        <div class="course-card" onclick="openCourse('course2')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/Mte0En3e-TQ/maxresdefault.jpg" alt="Physics 2 Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Physics</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Physics 2nd Paper MCQ Boost</h3>
+                <p class="card-subtitle">Advanced MCQ Strategies</p>
+            </div>
+        </div>
+
+        <div class="course-card" onclick="openCourse('course3')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/O1G18efvIyA/maxresdefault.jpg" alt="ICT Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">ICT</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">HSC ICT MCQ Boost Full Course</h3>
+                <p class="card-subtitle">Master Information Technology</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="player-view">
+    <div class="back-bar">
+        <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
+        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-gold);">Course Title</h3>
+    </div>
+
+    <div class="studio-container">
+        <div class="main-content">
+            <div class="video-wrapper">
+                <iframe id="studioPlayer" src="" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+                <h2 id="mainVideoTitle" class="video-title">Loading Lesson...</h2>
+                <div class="tag-container">
+                    <span class="instructor-tag">LEAD INSTRUCTOR: Debraj Barua</span>
+                    <a id="sheetDownloadBtn" href="#" target="_blank" class="sheet-btn" style="display: none;">📄 Class Notes / Sheet</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>CLASS PLAYLIST</h3>
+            </div>
+            <div id="videoListContainer" class="video-list">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// =========================================================================
+// COURSE DATABASE
+// =========================================================================
+const courseData = {
+    course1: {
+        title: "Physics 1st Paper MCQ Boost",
+        videos: [
+            { title: "অধ্যায় ১: ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view?usp=sharing" },
+            { title: "অধ্যায় ২: ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view?usp=sharing" },
+            { title: "অধ্যায় ৩: গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view?usp=sharing" },
+            { title: "অধ্যায় ৪: নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view?usp=sharing" },
+            { title: "অধ্যায় ৫: কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view?usp=sharing" },
+            { title: "অধ্যায় ৬: মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view?usp=sharing" },
+            { title: "অধ্যায় ৭: পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view?usp=sharing" },
+            { title: "অধ্যায় ৮: পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view?usp=sharing" },
+            { title: "অধ্যায় ৯: তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view?usp=sharing" },
+            { title: "অধ্যায় ১০: আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view?usp=sharing" }
+        ]
+    },
+    course2: {
+        title: "Physics 2nd Paper MCQ Boost",
+        videos: [
+            { title: "অধ্যায় ১: তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view?usp=sharing" },  
+            { title: "অধ্যায় ২: স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view?usp=sharing" },  
+            { title: "অধ্যায় ৩: চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view?usp=sharing" },  
+            { title: "অধ্যায় ৪: তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view?usp=sharing" },  
+            { title: "অধ্যায় ৫: তাড়িতচৌম্বক আবেশ ও পরিবর্তী প্রবাহ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view?usp=sharing" },  
+            { title: "অধ্যায় ৬: জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view?usp=sharing" },  
+            { title: "অধ্যায় ৭: ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view?usp=sharing" },  
+            { title: "অধ্যায় ৮: আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view?usp=sharing" },  
+            { title: "অধ্যায় ৯: পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view?usp=sharing" },  
+            { title: "অধ্যায় ১০: সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view?usp=sharing" },  
+            { title: "অধ্যায় ১১: জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view?usp=sharing" }
+        ]
+    },
+    course3: {
+        title: "HSC ICT MCQ Boost Full Course",
+        videos: [
+            { title: "অধ্যায় ১: তথ্য ও যোগাযোগ প্রযুক্তি", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view?usp=sharing" },
+            { title: "অধ্যায় ২: কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view?usp=sharing" },
+            { title: "অধ্যায় ৩: সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view?usp=sharing" },
+            { title: "অধ্যায় ৪: ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view?usp=sharing" },
+            { title: "অধ্যায় ৫: প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view?usp=sharing" },
+            { title: "অধ্যায় ৬: ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view?usp=sharing" }
+        ]
+    }
+};
+
+function showHome() {
+    document.getElementById('home-view').style.display = 'block';
+    document.getElementById('player-view').style.display = 'none';
+    
+    // Stop video when going back to home
+    document.getElementById('studioPlayer').src = ""; 
+    window.scrollTo(0,0);
+}
+
+function openCourse(courseKey) {
+    document.getElementById('home-view').style.display = 'none';
+    document.getElementById('player-view').style.display = 'block';
+    
+    const data = courseData[courseKey];
+    document.getElementById('currentCourseTitle').innerText = data.title;
+    
+    const container = document.getElementById("videoListContainer");
+    container.innerHTML = "";
+    
+    data.videos.forEach((video, index) => {
+        const item = document.createElement("div");
+        item.className = "video-item" + (index === 0 ? " active" : "");
+        item.onclick = function() {
+            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('active'));
+            item.classList.add('active');
+            setVideo(video.id, video.title, video.sheet);
+        };
+        const displayIndex = (index + 1) < 10 ? "0" + (index + 1) : (index + 1);
+        item.innerHTML = `<div class="video-index">${displayIndex}</div><div class="video-text-details"><p class="video-item-title">${video.title}</p></div>`;
+        container.appendChild(item);
+    });
+
+    if(data.videos.length > 0) {
+        setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
+    }
+    
+    window.scrollTo(0,0);
+}
+
+// 💡 Using the Native, Unbreakable YouTube Iframe
+function setVideo(id, title, sheetLink) {
+    const player = document.getElementById("studioPlayer");
+    // rel=0 prevents random videos from showing up at the end
+    player.src = "https://www.youtube.com/embed/" + id + "?rel=0&autoplay=1&modestbranding=1";
+    
+    document.getElementById("mainVideoTitle").innerText = title;
+    
+    const sheetBtn = document.getElementById("sheetDownloadBtn");
+    if(sheetLink) {
+        sheetBtn.href = sheetLink;
+        sheetBtn.style.display = "inline-block";
+    } else {
+        sheetBtn.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
