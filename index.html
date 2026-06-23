@@ -56,8 +56,7 @@
         .course-card { background-color: var(--bg-card); border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); transition: all 0.4s; cursor: pointer; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.3);}
         .course-card:hover { transform: translateY(-8px); border-color: var(--accent-blue); box-shadow: 0 15px 30px rgba(37,99,235,0.25); }
         
-        /* 💡 THUMBNAIL ZOOM FIX */
-        .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; /* This fixes the zoom issue */ }
+        .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; }
         .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .course-card:hover .card-img-wrapper img { transform: scale(1.1); }
         
@@ -75,12 +74,23 @@
         .studio-container { display: flex; flex-direction: row; gap: 2rem; }
         .main-content { flex: 2; display: flex; flex-direction: column; }
         
-        /* 💡 PERFECT NATIVE VIDEO AREA */
+        /* PERFECT NATIVE VIDEO AREA */
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.5rem; }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        /* 💡 Smart Title Shield: ONLY covers the top-left area so people can't click the title to go to YouTube. Leaves settings & full screen perfectly clickable! */
-        .title-shield { position: absolute; top: 0; left: 0; width: 70%; height: 60px; z-index: 10; background: transparent; cursor: default; }
+        /* 🛠️ ADVANCED SMART SHIELD: 
+           ভিডিওর ভেতরের টাইটেল, শেয়ার বাটন এবং মাঝখানের স্ক্রিন সম্পূর্ণ ব্লক করবে। 
+           নিচের ১০% (bottom: 10%) ফাঁকা রাখা হয়েছে যাতে প্লে/পজ, সেটিংস, ফুলস্ক্রিন ঠিকমত কাজ করে। */
+        .video-main-shield { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 90%; 
+            z-index: 10; 
+            background: transparent; 
+            cursor: default; 
+        }
 
         .video-info { background-color: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
         .video-title { margin: 0 0 10px 0; font-size: 1.5rem; color: white; }
@@ -105,7 +115,6 @@
         @media (max-width: 900px) { .studio-container { flex-direction: column; } .slide-frame-container { height: 400px; } }
     </style>
 </head>
-<!-- 💡 Right Click Disabled to prevent 'Copy Video URL' natively -->
 <body oncontextmenu="return false;">
 
 <header>
@@ -137,7 +146,6 @@
 <div id="main-app">
     <div id="home-view">
         <div class="hero-banner">
-            <!-- 💡 Banner Fixed -->
             <img src="photo_2026-06-23_21-57-30.jpg" alt="Deblevate Banner" onerror="console.log('Banner missing')">
             <div class="hero-motivation">
                 "তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।" <br>
@@ -159,283 +167,4 @@
     </div>
 
     <div id="player-view">
-        <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-
-        <div class="studio-container">
-            <div class="main-content">
-                
-                <div class="protected-video-wrapper">
-                    <!-- 💡 Full Native Player with quality and settings available! -->
-                    <iframe id="studioPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
-                    <!-- 💡 Tiny shield just to block the Top-Left Title click -->
-                    <div class="title-shield"></div>
-                </div>
-
-                <div class="video-info">
-                    <h2 id="mainVideoTitle" class="video-title">Loading...</h2>
-                </div>
-
-                <div class="slide-segment" id="slideSegment">
-                    <div class="slide-header">
-                        <h3>📄 Class Lecture Slide</h3>
-                        <a id="sheetDownloadBtn" href="#" target="_blank" class="download-btn">⬇ Download PDF</a>
-                    </div>
-                    <div class="slide-frame-container">
-                        <iframe id="slideIframe" src="" allowfullscreen="true"></iframe>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="sidebar">
-                <div class="sidebar-header"><h3 style="margin:0; color:white;">Class Playlist</h3></div>
-                <div id="videoListContainer" class="video-list"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCH1Vf9rxaMwCJZFBcSzKPP12EBbXGCbIU",
-    authDomain: "deblevate.firebaseapp.com",
-    projectId: "deblevate",
-    storageBucket: "deblevate.firebasestorage.app",
-    messagingSenderId: "475175725126",
-    appId: "1:475175725126:web:387a318d4cccaf74ef4247"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  const allowedEmails = ["debrajbarua8@gmail.com", "debrajbarua08@gmail.com", "prithabarua08@gmail.com", "pritha.khuki@gmail.com"];
-
-  document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
-  document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
-  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); document.getElementById('studioPlayer').src=""; };
-
-  onAuthStateChanged(auth, (user) => {
-      if (user && allowedEmails.includes(user.email.toLowerCase())) {
-          document.getElementById('loginBtnUI').style.display = 'none';
-          document.getElementById('userInfo').style.display = 'flex';
-          document.getElementById('userName').textContent = user.displayName;
-          document.getElementById('userPic').src = user.photoURL;
-          document.getElementById('login-screen').style.display = 'none';
-          document.getElementById('main-app').style.display = 'block';
-          renderAllCourses();
-      } else {
-          if(user) { alert("Access Denied!"); signOut(auth); }
-          document.getElementById('loginBtnUI').style.display = 'flex';
-          document.getElementById('userInfo').style.display = 'none';
-          document.getElementById('login-screen').style.display = 'block';
-          document.getElementById('main-app').style.display = 'none';
-      }
-  });
-</script>
-
-<script>
-const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
-const courseData = {
-    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
-        { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
-        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
-        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
-        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" },
-        { title: "৫. কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view" },
-        { title: "৬. মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view" },
-        { title: "৭. পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view" },
-        { title: "৮. পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view" },
-        { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
-        { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
-    ]},
-    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
-        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" },  
-        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" },  
-        { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" },  
-        { title: "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view" },  
-        { title: "৫. তাড়িতচৌম্বক আবেশ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view" },  
-        { title: "৬. জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view" },  
-        { title: "৭. ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view" },  
-        { title: "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view" },  
-        { title: "৯. পরমাণুর মডেল ও নিউক্লিয়ার", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view" },  
-        { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" },  
-        { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
-    ]},
-    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
-        { title: "১. তথ্য ও যোগাযোগ প্রযুক্তি", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
-        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
-        { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
-        { title: "৪. ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view" },
-        { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
-        { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
-    ]},
-    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
-        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
-        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
-        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
-        { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
-        { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
-        { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
-    ]},
-    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
-        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
-        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
-        { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
-        { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
-        { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
-        { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
-    ]},
-    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", videos: [
-        { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
-        { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
-        { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
-        { title: "৪. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
-        { title: "৫. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
-        { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRchQnAJfr/view" },
-        { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
-        { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
-        { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
-        { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
-        { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
-        { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
-        { title: "১৩. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
-        { title: "১৪. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
-        { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
-        { title: "১৬. জীবের পরিবেশ ও বিস্তার", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
-    ]},
-    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
-        { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
-        { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
-        { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
-        { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
-        { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
-        { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
-        { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
-        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
-        { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
-        { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
-        { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
-        { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
-        { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
-    ]},
-    course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", videos: [
-        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
-        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
-        { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
-        { title: "৪. বিন্যাস ও সমাবেশ", id: "qyP-bbCSAr4", sheet: mathSheet },
-        { title: "৫. ত্রিকোণমিতি", id: "IvMPzm4Ap3w", sheet: mathSheet },
-        { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
-        { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
-    ]},
-    course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", videos: [
-        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
-        { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
-        { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
-        { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
-        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
-        { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
-        { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
-        { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
-    ]},
-    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
-        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
-        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
-        { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" }
-    ]},
-    course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", videos: [
-        { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
-    ]},
-    course12: { sub: "bangla", title: "Bangla 2nd Paper (Omor Faruq)", img: "sSWsrnn0qa0", videos: [
-        { title: "১. ব্যাকরণ ও নির্মিতি", id: "sSWsrnn0qa0", sheet: "https://drive.google.com/file/d/1BrvqvJnuUceiO_tqoIcZ5wwa78nmxfRd/view" }
-    ]},
-    course13: { sub: "bangla", title: "Bangla 2nd Paper (Sakib Vai)", img: "OJAq_YD8bCc", videos: [
-        { title: "১. ব্যাকরণ ও নির্মিতি (Fahad's Tutorial)", id: "OJAq_YD8bCc", sheet: "https://drive.google.com/drive/u/0/mobile/folders/18Bgh7HvaYAXeJ-vf3eDsqzn_E00lfv2u?usp=drive_link" }
-    ]},
-    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
-        { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
-    ]},
-    course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", videos: [
-        { title: "English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" }
-    ]}
-};
-
-function renderAllCourses() {
-    const grid = document.getElementById('courseGridContainer');
-    grid.innerHTML = "";
-    Object.keys(courseData).forEach(key => {
-        let c = courseData[key];
-        grid.innerHTML += `
-        <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
-            <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
-            <div class="card-tags"><span class="tag">${c.sub}</span></div></div>
-            <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
-        </div>`;
-    });
-    filterSubject('physics', document.querySelector('.filter-btn'));
-}
-
-function showHome() {
-    document.getElementById('home-view').style.display = 'block';
-    document.getElementById('player-view').style.display = 'none';
-    document.getElementById('studioPlayer').src = "";
-    window.scrollTo(0,0);
-}
-
-function filterSubject(sub, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    if(btn) btn.classList.add('active');
-    document.querySelectorAll('.course-card').forEach(c => {
-        c.style.display = (c.getAttribute('data-subject') === sub) ? 'block' : 'none';
-    });
-}
-
-function openCourse(key) {
-    document.getElementById('home-view').style.display = 'none';
-    document.getElementById('player-view').style.display = 'block';
-    const data = courseData[key];
-    const container = document.getElementById("videoListContainer");
-    container.innerHTML = "";
-    
-    data.videos.forEach((vid, i) => {
-        let div = document.createElement("div");
-        div.className = "video-item" + (i===0 ? " active" : "");
-        div.onclick = () => {
-            document.querySelectorAll('.video-item').forEach(e=>e.classList.remove('active'));
-            div.classList.add('active');
-            setVideo(vid.id, vid.title, vid.sheet);
-        };
-        div.innerHTML = `<div class="video-index">▶</div><div class="video-item-title">${vid.title}</div>`;
-        container.appendChild(div);
-    });
-    if(data.videos.length > 0) setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
-    window.scrollTo(0,0);
-}
-
-function setVideo(id, title, sheetLink) {
-    document.getElementById("mainVideoTitle").innerText = title;
-    
-    // Embed with native controls enabled
-    document.getElementById('studioPlayer').src = `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
-
-    const slideSegment = document.getElementById("slideSegment");
-    const slideIframe = document.getElementById("slideIframe");
-    const dlBtn = document.getElementById("sheetDownloadBtn");
-
-    if(sheetLink && sheetLink.trim() !== "") {
-        dlBtn.href = sheetLink;
-        let embedLink = sheetLink;
-        if(sheetLink.includes('/view')) { embedLink = sheetLink.replace('/view', '/preview'); }
-        slideIframe.src = embedLink;
-        slideSegment.style.display = "block";
-    } else {
-        slideIframe.src = "";
-        slideSegment.style.display = "none";
-    }
-}
-</script>
-</body>
-</html>
+        <button class="back-btn" onclick="showHome()">← Back to Dashboard</button
