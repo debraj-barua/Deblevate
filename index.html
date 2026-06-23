@@ -112,8 +112,10 @@
 <div class="top-bar">
     <label for="courseDropdown">Select Active Course:</label>
     <select id="courseDropdown" class="course-select" onchange="loadCourse()">
+        <!-- 💡 ড্রপডাউনে তোমার ৩টি কোর্স এর অপশন -->
         <option value="course1">Course 1: Complete Web Development</option>
         <option value="course2">Course 2: React JS Full Course</option>
+        <option value="course3">Course 3: JavaScript Masterclass</option>
     </select>
 </div>
 
@@ -133,30 +135,41 @@
             <h3>CLASS PLAYLIST</h3>
         </div>
         <div id="videoListContainer" class="video-list">
-            </div>
+            <!-- Videos will load here -->
+        </div>
     </div>
 </div>
 
 <script>
 // =========================================================================
-// 🛑 ভিডিও এড বা রিমুভ করার জায়গা (তোমার ডেটাবেস) 🛑
+// 🛑 ভিডিও এড বা রিমুভ করার জায়গা (তোমার ডেটাবেস) 🛑
 // =========================================================================
 const courseData = {
     
-    // প্রথম কোর্স
+    // প্রথম কোর্স (Complete Web Development প্লেলিস্টের ভিডিওসমূহ)
     course1: {
         videos: [
-            { title: "০১. ভৌত জগৎ ও পরিমাপ (Intro)", id: "tgbNymZ7vqY" },
-            { title: "০২. HTML5 Advanced Crash Course", id: "dQw4w9WgXcQ" },
-            { title: "০৩. Web Layout Planning & CSS", id: "PkZNo7MFOUg" }
+            { title: "০১. Web Development Introduction", id: "juamFhUp0cC" },
+            { title: "০২. HTML5 Basics & Structure", id: "JG1MiQbE-A" },
+            { title: "০৩. Styling with CSS3", id: "qSGOMtOu2YR" }
         ]
     },
 
-    // দ্বিতীয় কোর্স
+    // দ্বিতীয় কোর্স (React JS Full Course প্লেলিস্টের ভিডিওসমূহ)
     course2: {
         videos: [
-            { title: "০১. React JS Ecosystem Intro", id: "Ke90Tje7VS0" },
-            { title: "০২. Setup Environment & Vite", id: "VJ8v4SAs4BM" }
+            { title: "০১. React JS Prerequisites", id: "ZcVE2eowg4T" },
+            { title: "০২. Components & Props", id: "x-05uSmlI" },
+            { title: "০৩. State & Hooks Guide", id: "92lkOpGjzFY" }
+        ]
+    },
+
+    // তৃতীয় কোর্স (JavaScript Masterclass প্লেলিস্টের ভিডিওসমূহ)
+    course3: {
+        videos: [
+            { title: "০১. JavaScript Advanced Engine", id: "C6ykivVtxR5" },
+            { title: "০২. Scope & Closures Deep Dive", id: "DQfuFL2Bn" },
+            { title: "০৩. Async JS & Promises", id: "J63Ob4C0SVb" }
         ]
     }
 };
@@ -196,4 +209,4 @@ window.onload = loadCourse;
 </script>
 
 </body>
-        </html>
+</html>
