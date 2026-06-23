@@ -89,6 +89,8 @@
         .tag { padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: bold; color: white; }
         .tag-blue { background-color: var(--accent-blue); }
         .tag-purple { background-color: var(--accent-purple); }
+        .tag-gold { background-color: var(--accent-gold); color: #000; }
+        .tag-green { background-color: #22c55e; color: #000; }
 
         .card-content { padding: 1.5rem; text-align: center; }
         .card-title { font-size: 1.1rem; font-weight: bold; margin: 0 0 0.5rem 0; line-height: 1.4; }
@@ -102,8 +104,10 @@
 
         .studio-container { display: flex; flex-direction: row; gap: 2rem; }
         .main-content { flex: 2; display: flex; flex-direction: column; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5);}
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid var(--accent-blue);}
+        .video-wrapper iframe, .video-wrapper div { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
         .video-info { margin-top: 1.5rem; background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid #1f2937; }
         .video-title { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: white; line-height: 1.4; }
         
@@ -111,6 +115,23 @@
         .instructor-tag { display: inline-block; background: rgba(37, 99, 235, 0.2); color: #60a5fa; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
         .sheet-btn { display: inline-block; background-color: #22c55e; color: #000; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
         .sheet-btn:hover { background-color: #16a34a; color: white; }
+
+        .custom-controls {
+            display: flex; align-items: center; gap: 12px; margin-top: 15px; padding-top: 15px;
+            border-top: 1px solid #1f2937; flex-wrap: wrap;
+        }
+        .control-btn {
+            background-color: var(--bg-main); color: var(--text-light); border: 1px solid var(--accent-blue);
+            padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; font-size: 0.85rem;
+        }
+        .control-btn:hover { background-color: var(--accent-blue); }
+        .volume-container { display: flex; align-items: center; gap: 8px; margin-left: auto;}
+        .volume-slider {
+            -webkit-appearance: none; width: 100px; height: 5px; background: #1f2937; border-radius: 3px; outline: none;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-blue); cursor: pointer;
+        }
 
         .sidebar { flex: 1; background-color: var(--bg-card); border-radius: 12px; border: 1px solid #1f2937; display: flex; flex-direction: column; max-height: 550px; }
         .sidebar-header { padding: 1.2rem; background-color: #0f131f; border-radius: 12px 12px 0 0; border-bottom: 1px solid #1f2937; }
@@ -126,6 +147,7 @@
         @media (max-width: 900px) {
             .studio-container { flex-direction: column; }
             .nav-links { display: none; }
+            .volume-container { margin-left: 0; width: 100%; justify-content: flex-start; margin-top: 5px;}
         }
     </style>
 </head>
@@ -152,24 +174,31 @@
         <p>Explore, Enroll & Excel with Deblevate's Premium Modules</p>
     </div>
 
+    <!-- Batches Filter -->
     <div class="filters">
         <button class="filter-btn active">All Batches</button>
         <button class="filter-btn">HSC 26</button>
         <button class="filter-btn purple">HSC 27</button>
     </div>
-    <div class="filters">
-        <button class="filter-btn active">All Subject</button>
-        <button class="filter-btn">Physics</button>
-        <button class="filter-btn">ICT</button>
+
+    <!-- 💡 NEW: Subject Filters -->
+    <div class="filters" id="subject-filters">
+        <button class="filter-btn active" onclick="filterSubject('all', this)">All Subject</button>
+        <button class="filter-btn" onclick="filterSubject('physics', this)">Physics</button>
+        <button class="filter-btn" onclick="filterSubject('chemistry', this)">Chemistry</button>
+        <button class="filter-btn" onclick="filterSubject('biology', this)">Biology</button>
+        <button class="filter-btn" onclick="filterSubject('ict', this)">ICT</button>
     </div>
 
     <div class="course-grid">
-        <div class="course-card" onclick="openCourse('course1')">
+        
+        <!-- Physics 1 -->
+        <div class="course-card" data-subject="physics" onclick="openCourse('course1')">
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/lhC3bVV_g9M/maxresdefault.jpg" alt="Physics Cover">
                 <div class="card-tags">
-                    <span class="tag tag-blue">HSC 26/27</span>
-                    <span class="tag tag-purple">Physics</span>
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Physics</span>
                 </div>
             </div>
             <div class="card-content">
@@ -178,12 +207,13 @@
             </div>
         </div>
 
-        <div class="course-card" onclick="openCourse('course2')">
+        <!-- Physics 2 -->
+        <div class="course-card" data-subject="physics" onclick="openCourse('course2')">
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/Mte0En3e-TQ/maxresdefault.jpg" alt="Physics 2 Cover">
                 <div class="card-tags">
-                    <span class="tag tag-blue">HSC 26/27</span>
-                    <span class="tag tag-purple">Physics</span>
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Physics</span>
                 </div>
             </div>
             <div class="card-content">
@@ -192,11 +222,72 @@
             </div>
         </div>
 
-        <div class="course-card" onclick="openCourse('course3')">
+        <!-- Chemistry 1 -->
+        <div class="course-card" data-subject="chemistry" onclick="openCourse('course4')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/HtPDwesuQfc/maxresdefault.jpg" alt="Chem 1 Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Chemistry</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Chemistry 1st Paper MCQ Boost</h3>
+                <p class="card-subtitle">Master Chemical Reactions</p>
+            </div>
+        </div>
+
+        <!-- Chemistry 2 -->
+        <div class="course-card" data-subject="chemistry" onclick="openCourse('course5')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/_HV5fDT1txg/maxresdefault.jpg" alt="Chem 2 Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Chemistry</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Chemistry 2nd Paper MCQ Boost</h3>
+                <p class="card-subtitle">Organic & Env. Chemistry</p>
+            </div>
+        </div>
+
+        <!-- 💡 NEW: Biology 1 -->
+        <div class="course-card" data-subject="biology" onclick="openCourse('course6')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/VIAOG6TPE4U/maxresdefault.jpg" alt="Bio 1 Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-green">Biology</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Biology 1st Paper MCQ Boost</h3>
+                <p class="card-subtitle">Botany & Plant Science</p>
+            </div>
+        </div>
+
+        <!-- 💡 NEW: Biology 2 -->
+        <div class="course-card" data-subject="biology" onclick="openCourse('course7')">
+            <div class="card-img-wrapper">
+                <img src="https://img.youtube.com/vi/BN4-Nmz3qxM/maxresdefault.jpg" alt="Bio 2 Cover">
+                <div class="card-tags">
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-green">Biology</span>
+                </div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Biology 2nd Paper MCQ Boost</h3>
+                <p class="card-subtitle">Zoology & Human Body</p>
+            </div>
+        </div>
+
+        <!-- ICT -->
+        <div class="course-card" data-subject="ict" onclick="openCourse('course3')">
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/O1G18efvIyA/maxresdefault.jpg" alt="ICT Cover">
                 <div class="card-tags">
-                    <span class="tag tag-blue">HSC 26/27</span>
+                    <span class="tag tag-gold">HSC 26/27</span>
                     <span class="tag tag-purple">ICT</span>
                 </div>
             </div>
@@ -211,19 +302,29 @@
 <div id="player-view">
     <div class="back-bar">
         <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-blue);">Course Title</h3>
+        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-gold);">Course Title</h3>
     </div>
 
     <div class="studio-container">
         <div class="main-content">
-            <div class="video-wrapper">
-                <iframe id="studioPlayer" src="" allowfullscreen></iframe>
+            <div class="video-wrapper" id="playerWrapper">
+                <div id="studioPlayer"></div>
             </div>
             <div class="video-info">
                 <h2 id="mainVideoTitle" class="video-title">Loading Lesson...</h2>
                 <div class="tag-container">
                     <span class="instructor-tag">LEAD INSTRUCTOR: Debraj Barua</span>
                     <a id="sheetDownloadBtn" href="#" target="_blank" class="sheet-btn" style="display: none;">📄 Class Notes / Sheet</a>
+                </div>
+
+                <div class="custom-controls">
+                    <button class="control-btn" onclick="seekVideo(-10)">⏪ 10s</button>
+                    <button class="control-btn" onclick="seekVideo(10)">10s ⏩</button>
+                    
+                    <div class="volume-container">
+                        <span>🔊 Volume:</span>
+                        <input type="range" class="volume-slider" id="volSlider" min="0" max="100" value="100" oninput="changeVolume(this.value)">
+                    </div>
                 </div>
             </div>
         </div>
@@ -237,7 +338,12 @@
     </div>
 </div>
 
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script>
+// =========================================================================
+// 🛑 COURSE DATABASE
+// =========================================================================
 const courseData = {
     course1: {
         title: "Physics 1st Paper MCQ Boost",
@@ -280,14 +386,122 @@ const courseData = {
             { title: "অধ্যায় ৫: প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view?usp=sharing" },
             { title: "অধ্যায় ৬: ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view?usp=sharing" }
         ]
+    },
+    course4: {
+        title: "Chemistry 1st Paper MCQ Boost",
+        videos: [
+            { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
+            { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
+            { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
+            { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
+            { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
+            { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
+        ]
+    },
+    course5: {
+        title: "Chemistry 2nd Paper MCQ Boost",
+        videos: [
+            { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
+            { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
+            { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
+            { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
+            { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
+            { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
+        ]
+    },
+    // 💡 NEW: Biology 1st Paper (Botany)
+    course6: {
+        title: "Biology 1st Paper MCQ Boost",
+        videos: [
+            { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
+            { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
+            { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
+            { title: "৪. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
+            { title: "৫. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
+            { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRqchQnAJfr/view" },
+            { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
+            { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
+            { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
+            { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
+            { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
+            { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
+            { title: "১৩. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
+            { title: "১৪. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
+            { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
+            { title: "১৬. জীবের পরিবেশ, বিস্তার ও সংরক্ষণ", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
+        ]
+    },
+    // 💡 NEW: Biology 2nd Paper (Zoology)
+    course7: {
+        title: "Biology 2nd Paper MCQ Boost",
+        videos: [
+            { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
+            { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
+            { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
+            { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
+            { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
+            { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
+            { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
+            { title: "২৪. সমন্বয় ও নিয়ন্ত্রন - ১", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
+            { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
+            { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
+            { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
+            { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
+            { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
+        ]
     }
 };
+
+let ytPlayer = null;
+let isApiReady = false;
+let queuedVideoId = null;
+
+function onYouTubeIframeAPIReady() {
+    isApiReady = true;
+    if (queuedVideoId) {
+        initPlayerInstance(queuedVideoId);
+    }
+}
+
+function initPlayerInstance(id) {
+    ytPlayer = new YT.Player('studioPlayer', {
+        height: '100%',
+        width: '100%',
+        videoId: id,
+        playerVars: { 'rel': 0, 'autoplay': 1, 'modestbranding': 1, 'controls': 1 },
+        events: {
+            'onReady': function(event) {
+                document.getElementById('volSlider').value = 100;
+            }
+        }
+    });
+}
 
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
-    document.getElementById('studioPlayer').src = ""; 
+    if(ytPlayer && typeof ytPlayer.stopVideo === 'function') {
+        ytPlayer.stopVideo();
+    }
     window.scrollTo(0,0);
+}
+
+// 💡 NEW: Subject Filter Logic
+function filterSubject(subject, btnElement) {
+    // Make clicked button active
+    const buttons = document.querySelectorAll('#subject-filters .filter-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    // Filter courses
+    const cards = document.querySelectorAll('.course-card');
+    cards.forEach(card => {
+        if (subject === 'all' || card.getAttribute('data-subject') === subject) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
 }
 
 function openCourse(courseKey) {
@@ -320,7 +534,6 @@ function openCourse(courseKey) {
 }
 
 function setVideo(id, title, sheetLink) {
-    document.getElementById("studioPlayer").src = "https://www.youtube.com/embed/" + id + "?rel=0&autoplay=1";
     document.getElementById("mainVideoTitle").innerText = title;
     
     const sheetBtn = document.getElementById("sheetDownloadBtn");
@@ -329,6 +542,35 @@ function setVideo(id, title, sheetLink) {
         sheetBtn.style.display = "inline-block";
     } else {
         sheetBtn.style.display = "none";
+    }
+
+    if (!isApiReady) {
+        queuedVideoId = id;
+        return;
+    }
+
+    if (!ytPlayer) {
+        initPlayerInstance(id);
+    } else {
+        if(typeof ytPlayer.loadVideoById === 'function') {
+            ytPlayer.loadVideoById(id);
+        } else {
+            document.getElementById('playerWrapper').innerHTML = `<div id="studioPlayer"></div>`;
+            initPlayerInstance(id);
+        }
+    }
+}
+
+function changeVolume(volValue) {
+    if (ytPlayer && typeof ytPlayer.setVolume === 'function') {
+        ytPlayer.setVolume(volValue);
+    }
+}
+
+function seekVideo(seconds) {
+    if (ytPlayer && typeof ytPlayer.getCurrentTime === 'function') {
+        const currentTime = ytPlayer.getCurrentTime();
+        ytPlayer.seekTo(currentTime + seconds, true);
     }
 }
 </script>
