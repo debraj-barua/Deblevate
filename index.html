@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate | Elevate Your Learning</title>
-
+    <title>Deblevate's Dream Edtech</title>
     <style>
         :root {
-            --bg-main: #06101e; 
-            --bg-card: #111b2e;
-            --bg-nav: #040b14;
-            --accent-blue: #1e62d0; 
+            --bg-main: #0b0f19;
+            --bg-card: #151b2b;
+            --bg-nav: #070a13;
+            --accent-blue: #2563eb;
+            --accent-purple: #7c3aed;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
             --accent-gold: #d4af37; 
             --accent-gold-light: #fdf5a9; 
             --accent-gold-dark: #aa771c; 
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
         }
 
         html { scroll-behavior: smooth; }
@@ -26,29 +26,22 @@
             color: var(--text-light);
         }
 
-        /* =========================================
-           NAVBAR & LOGO STYLING
-           ========================================= */
+        /* NAVBAR STYLING */
         header {
             background-color: var(--bg-nav);
             padding: 1rem 5%;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid #1f2937;
             position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        
         .header-logo {
             display: flex; align-items: center; gap: 15px; text-decoration: none;
         }
-        
         .header-logo img {
             width: 50px; height: 50px; border-radius: 8px; object-fit: cover;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
         }
-
         .brand-text-container { display: flex; flex-direction: column; }
-        
         .brand-name {
             font-family: 'Times New Roman', Times, serif; 
             font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
@@ -57,88 +50,77 @@
             -webkit-text-fill-color: transparent;
             margin: 0; line-height: 1;
         }
-        
         .brand-sub {
             font-size: 0.75rem; color: #cbd5e1; letter-spacing: 1.5px; margin-top: 4px; font-weight: 600; text-transform: uppercase;
         }
-
+        
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; padding: 0.5rem 1rem; border-radius: 8px;}
-        .nav-links a:hover, .nav-links a.active { background-color: rgba(212, 175, 55, 0.1); color: var(--accent-gold); }
+        .nav-links a:hover, .nav-links a.active { background-color: var(--accent-blue); color: white; }
 
-        /* =========================================
-           HOME VIEW (DASHBOARD)
-           ========================================= */
+        /* DASHBOARD VIEW */
         #home-view { padding: 2rem 5%; max-width: 1400px; margin: 0 auto; }
-
         .hero-banner {
-            background: linear-gradient(rgba(6, 16, 30, 0.8), rgba(6, 16, 30, 0.9)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000&auto=format&fit=crop') center/cover;
+            background: linear-gradient(rgba(11, 15, 25, 0.7), rgba(11, 15, 25, 0.7)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000&auto=format&fit=crop') center/cover;
             padding: 4rem 2rem; border-radius: 16px; text-align: center; margin-bottom: 2rem; border: 1px solid #1f2937; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .hero-banner h1 { font-size: 2.5rem; margin: 0 0 1rem 0; color: var(--accent-gold); font-family: 'Times New Roman', serif; letter-spacing: 1px;}
+        .hero-banner h1 { font-size: 2.5rem; margin: 0 0 1rem 0; color: white; }
         .hero-banner p { font-size: 1.1rem; color: var(--text-muted); margin: 0; }
 
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
         .filter-btn {
-            background-color: transparent; color: var(--text-light); border: 1px solid var(--accent-blue); padding: 0.5rem 1.5rem;
+            background-color: white; color: #0b0f19; border: none; padding: 0.5rem 1.5rem;
             border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        .filter-btn.active { background-color: var(--accent-blue); color: white; border-color: var(--accent-blue);}
-        .filter-btn.gold { background-color: transparent; border-color: var(--accent-gold); color: var(--accent-gold); }
-        .filter-btn.gold:hover { background-color: var(--accent-gold); color: #000; }
+        .filter-btn.active { background-color: var(--accent-blue); color: white; }
+        .filter-btn.purple { background-color: var(--accent-purple); color: white; }
 
+        /* Course Grid */
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
-        
         .course-card {
             background-color: var(--bg-card); border-radius: 12px; overflow: hidden;
             border: 1px solid #1f2937; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
         }
-        .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); border-color: var(--accent-gold); }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); border-color: var(--accent-blue); }
         
         .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; }
         .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .card-tags { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px; }
         .tag { padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: bold; color: white; }
         .tag-blue { background-color: var(--accent-blue); }
-        .tag-gold { background-color: var(--accent-gold); color: #000; }
+        .tag-purple { background-color: var(--accent-purple); }
 
         .card-content { padding: 1.5rem; text-align: center; }
-        .card-title { font-size: 1.1rem; font-weight: bold; margin: 0 0 0.5rem 0; line-height: 1.4; color: var(--text-light);}
+        .card-title { font-size: 1.1rem; font-weight: bold; margin: 0 0 0.5rem 0; line-height: 1.4; }
         .card-subtitle { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
 
-        /* =========================================
-           PLAYER VIEW (CLASSROOM)
-           ========================================= */
+        /* PLAYER VIEW */
         #player-view { display: none; max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; }
-        
         .back-bar { margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
         .back-btn { background: #1f2937; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .back-btn:hover { background: var(--accent-gold); color: #000; }
+        .back-btn:hover { background: var(--accent-blue); }
 
         .studio-container { display: flex; flex-direction: row; gap: 2rem; }
         .main-content { flex: 2; display: flex; flex-direction: column; }
-        
-        /* Native Iframe Wrapper */
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid var(--accent-blue);}
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5);}
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        
         .video-info { margin-top: 1.5rem; background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid #1f2937; }
         .video-title { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: white; line-height: 1.4; }
         
         .tag-container { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1rem; }
-        .instructor-tag { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; border: 1px solid rgba(212, 175, 55, 0.3);}
-        .sheet-btn { display: inline-block; background-color: var(--accent-gold); color: #000; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
-        .sheet-btn:hover { background-color: #aa771c; color: white; }
+        .instructor-tag { display: inline-block; background: rgba(37, 99, 235, 0.2); color: #60a5fa; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+        .sheet-btn { display: inline-block; background-color: #22c55e; color: #000; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .sheet-btn:hover { background-color: #16a34a; color: white; }
 
         .sidebar { flex: 1; background-color: var(--bg-card); border-radius: 12px; border: 1px solid #1f2937; display: flex; flex-direction: column; max-height: 550px; }
-        .sidebar-header { padding: 1.2rem; background-color: var(--bg-nav); border-radius: 12px 12px 0 0; border-bottom: 1px solid #1f2937; }
-        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--accent-gold); font-weight: 800; letter-spacing: 1px;}
+        .sidebar-header { padding: 1.2rem; background-color: #0f131f; border-radius: 12px 12px 0 0; border-bottom: 1px solid #1f2937; }
+        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--text-light); }
         .video-list { overflow-y: auto; flex-grow: 1; padding: 0.5rem; }
         
         .video-item { display: flex; align-items: center; padding: 0.8rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; cursor: pointer; transition: 0.2s; background-color: #1a2235; border: 1px solid transparent;}
         .video-item:hover { background-color: #252f48; }
-        .video-item.active { background-color: rgba(30, 98, 208, 0.15); border-color: var(--accent-blue); }
-        .video-index { font-size: 0.9rem; font-weight: bold; color: var(--accent-gold); margin-right: 1rem; min-width: 25px; }
+        .video-item.active { background-color: rgba(37, 99, 235, 0.15); border-color: var(--accent-blue); }
+        .video-index { font-size: 0.9rem; font-weight: bold; color: #60a5fa; margin-right: 1rem; min-width: 25px; }
         .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: white; line-height: 1.3;}
 
         @media (max-width: 900px) {
@@ -166,14 +148,19 @@
 
 <div id="home-view">
     <div class="hero-banner">
-        <h1>Elevate Your Learning</h1>
-        <p>Mastering Concepts | Cracking Exams</p>
+        <h1>Explore Courses</h1>
+        <p>Explore, Enroll & Excel with Deblevate's Premium Modules</p>
     </div>
 
     <div class="filters">
         <button class="filter-btn active">All Batches</button>
         <button class="filter-btn">HSC 26</button>
-        <button class="filter-btn gold">HSC 27</button>
+        <button class="filter-btn purple">HSC 27</button>
+    </div>
+    <div class="filters">
+        <button class="filter-btn active">All Subject</button>
+        <button class="filter-btn">Physics</button>
+        <button class="filter-btn">ICT</button>
     </div>
 
     <div class="course-grid">
@@ -181,8 +168,8 @@
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/lhC3bVV_g9M/maxresdefault.jpg" alt="Physics Cover">
                 <div class="card-tags">
-                    <span class="tag tag-gold">HSC 26/27</span>
-                    <span class="tag tag-blue">Physics</span>
+                    <span class="tag tag-blue">HSC 26/27</span>
+                    <span class="tag tag-purple">Physics</span>
                 </div>
             </div>
             <div class="card-content">
@@ -195,8 +182,8 @@
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/Mte0En3e-TQ/maxresdefault.jpg" alt="Physics 2 Cover">
                 <div class="card-tags">
-                    <span class="tag tag-gold">HSC 26/27</span>
-                    <span class="tag tag-blue">Physics</span>
+                    <span class="tag tag-blue">HSC 26/27</span>
+                    <span class="tag tag-purple">Physics</span>
                 </div>
             </div>
             <div class="card-content">
@@ -209,8 +196,8 @@
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/O1G18efvIyA/maxresdefault.jpg" alt="ICT Cover">
                 <div class="card-tags">
-                    <span class="tag tag-gold">HSC 26/27</span>
-                    <span class="tag tag-blue">ICT</span>
+                    <span class="tag tag-blue">HSC 26/27</span>
+                    <span class="tag tag-purple">ICT</span>
                 </div>
             </div>
             <div class="card-content">
@@ -224,7 +211,7 @@
 <div id="player-view">
     <div class="back-bar">
         <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-gold);">Course Title</h3>
+        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-blue);">Course Title</h3>
     </div>
 
     <div class="studio-container">
@@ -245,16 +232,12 @@
             <div class="sidebar-header">
                 <h3>CLASS PLAYLIST</h3>
             </div>
-            <div id="videoListContainer" class="video-list">
-                </div>
+            <div id="videoListContainer" class="video-list"></div>
         </div>
     </div>
 </div>
 
 <script>
-// =========================================================================
-// COURSE DATABASE
-// =========================================================================
 const courseData = {
     course1: {
         title: "Physics 1st Paper MCQ Boost",
@@ -295,67 +278,4 @@ const courseData = {
             { title: "অধ্যায় ৩: সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view?usp=sharing" },
             { title: "অধ্যায় ৪: ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view?usp=sharing" },
             { title: "অধ্যায় ৫: প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view?usp=sharing" },
-            { title: "অধ্যায় ৬: ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view?usp=sharing" }
-        ]
-    }
-};
-
-function showHome() {
-    document.getElementById('home-view').style.display = 'block';
-    document.getElementById('player-view').style.display = 'none';
-    
-    // Stop video when going back to home
-    document.getElementById('studioPlayer').src = ""; 
-    window.scrollTo(0,0);
-}
-
-function openCourse(courseKey) {
-    document.getElementById('home-view').style.display = 'none';
-    document.getElementById('player-view').style.display = 'block';
-    
-    const data = courseData[courseKey];
-    document.getElementById('currentCourseTitle').innerText = data.title;
-    
-    const container = document.getElementById("videoListContainer");
-    container.innerHTML = "";
-    
-    data.videos.forEach((video, index) => {
-        const item = document.createElement("div");
-        item.className = "video-item" + (index === 0 ? " active" : "");
-        item.onclick = function() {
-            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('active'));
-            item.classList.add('active');
-            setVideo(video.id, video.title, video.sheet);
-        };
-        const displayIndex = (index + 1) < 10 ? "0" + (index + 1) : (index + 1);
-        item.innerHTML = `<div class="video-index">${displayIndex}</div><div class="video-text-details"><p class="video-item-title">${video.title}</p></div>`;
-        container.appendChild(item);
-    });
-
-    if(data.videos.length > 0) {
-        setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
-    }
-    
-    window.scrollTo(0,0);
-}
-
-// 💡 Using the Native, Unbreakable YouTube Iframe
-function setVideo(id, title, sheetLink) {
-    const player = document.getElementById("studioPlayer");
-    // rel=0 prevents random videos from showing up at the end
-    player.src = "https://www.youtube.com/embed/" + id + "?rel=0&autoplay=1&modestbranding=1";
-    
-    document.getElementById("mainVideoTitle").innerText = title;
-    
-    const sheetBtn = document.getElementById("sheetDownloadBtn");
-    if(sheetLink) {
-        sheetBtn.href = sheetLink;
-        sheetBtn.style.display = "inline-block";
-    } else {
-        sheetBtn.style.display = "none";
-    }
-}
-</script>
-
-</body>
-</html>
+            { title: "অধ্যায় ৬: ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "
