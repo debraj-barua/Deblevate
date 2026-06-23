@@ -78,11 +78,8 @@
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.5rem; }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        /* 💡 SMART TITLE SHIELD FIXED: 
-           এটির সাইড বাড়িয়ে width: 100% এবং height: 82% করে দেওয়া হয়েছে।
-           এর ফলে ইউটিউবের টাইটেল এবং ডান পাশের শেয়ার (Share) বাটন সম্পূর্ণ ব্লক হয়ে যাবে, কেউ ক্লিক করে লিংকে যেতে পারবে না। 
-           নিচের অংশটি ফাঁকা থাকবে যেন কোয়ালিটি বা ফুলস্ক্রিন চেঞ্জ করা যায়। */
-        .title-shield { position: absolute; top: 0; left: 0; width: 100%; height: 82%; z-index: 10; background: transparent; cursor: default; }
+        /* 💡 Smart Title Shield: Eita shudhumatro uporer 70px (Title ar Share button) block korbe. Majhkhaner pause/play ar nicher quality/fullscreen 100% thikthak kaj korbe! */
+        .title-shield { position: absolute; top: 0; left: 0; width: 100%; height: 70px; z-index: 10; background: transparent; cursor: default; }
 
         .video-info { background-color: var(--bg-card); padding: 1.8rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03); }
         .video-title { margin: 0 0 10px 0; font-size: 1.5rem; color: white; }
@@ -166,7 +163,6 @@
                 
                 <div class="protected-video-wrapper">
                     <iframe id="studioPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
-                    <!-- 💡 Shield Area Updated to block Title & Share button -->
                     <div class="title-shield"></div>
                 </div>
 
