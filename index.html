@@ -1,120 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate | Elevate Your Learning</title>
-    <style>
-        html {
-            scroll-behavior: smooth; /* This makes the links slide down smoothly! */
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-        header {
-            background-color: #0056b3;
-            color: white;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-weight: 500;
-        }
-        .hero {
-            text-align: center;
-            padding: 5rem 2rem;
-            background-color: #e0f0ff;
-        }
-        .hero h2 {
-            font-size: 3rem;
-            color: #002b5e;
-            margin-bottom: 1rem;
-        }
-        .btn {
-            background-color: #0056b3;
-            color: white;
-            padding: 1rem 2.5rem;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 1rem;
-        }
-        .section {
-            padding: 4rem 2rem;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .video-container {
-            margin-top: 2rem;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: #222;
-            color: #ddd;
-        }
-    </style>
-</head>
-<body>
+<script>
+// DATA STORAGE FOR INDIVIDUAL VIDEOS (Eikhane tumi tomar single video id gulo bosiye nibe!)
+const courseData = {
+    course1: {
+        playlistBase: "PL49v1u8vZEOyjuamFhUp0cCJG1MiQbE-A",
+        videos: [
+            { title: "০১. ভৌত জগৎ ও পরিমাপ (Intro)", id: "tgbNymZ7vqY" },
+            { title: "০২. HTML5 Advanced Crash Course", id: "dQw4w9WgXcQ" },
+            { title: "০৩. Web Layout Planning & CSS", id: "PkZNo7MFOUg" },
+            { title: "০৪. Responsive Media Queries", id: "2g811F776wA" }
+        ]
+    },
+    course2: {
+        playlistBase: "PL49v1u8vZEOy4ZcVE2eowg4Tx-05uSmlI",
+        videos: [
+            { title: "০১. React JS Ecosystem Intro", id: "Ke90Tje7VS0" },
+            { title: "০২. Setup Environment & Vite", id: "VJ8v4SAs4BM" },
+            { title: "০৩. Understanding Functional Components", id: "73_19A-YkZg" }
+        ]
+    },
+    course3: {
+        playlistBase: "PL49v1u8vZEOy3C6ykivVtxR5DQFUFL2Bn",
+        videos: [
+            { title: "০১. JavaScript Engine Masterclass", id: "W6NZfCO5SIk" },
+            { title: "০২. Closures, Scopes and Hoisting", id: "8aGhZQkoFbQ" }
+        ]
+    }
+};
 
-<header>
-    <h1>Deblevate</h1>
-    <nav>
-        <a href="#courses">Courses</a>
-        <a href="#about">About Us</a>
-        <a href="#contact">Contact</a>
-    </nav>
-</header>
+// Function to load the course and its individual video items
+function loadCourse() {
+    const selectedCourse = document.getElementById("courseDropdown").value;
+    const data = courseData[selectedCourse];
+    const container = document.getElementById("videoListContainer");
+    
+    // Clear old list
+    container.innerHTML = "";
+    
+    // Generate individual video item lists like HSC Crackers
+    data.videos.forEach((video, index) => {
+        const item = document.createElement("div");
+        item.className = "video-item" + (index === 0 ? " active" : "");
+        item.onclick = function() {
+            // Remove active class from others
+            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('active'));
+            // Add active to clicked item
+            item.classList.add('active');
+            // Change video player source
+            setVideo(video.id, video.title);
+        };
+        
+        // Pad zero for index numbers (01, 02...)
+        const displayIndex = (index + 1) < 10 ? "0" + (index + 1) : (index + 1);
+        
+        item.innerHTML = 
+            <div class="video-index">${displayIndex}</div>
+            <div class="video-text-details">
+                <p class="video-item-title">${video.title}</p>
+            </div>
+        ;
+        container.appendChild(item);
+    });
 
-<section class="hero">
-    <h2>Elevate Your Tech Skills</h2>
-    <p>Welcome to Deblevate. Start your learning journey today and master the skills of tomorrow.</p>
-    <a href="#courses" class="btn">Start Learning for Free</a>
-</section>
+    // Load first video by default
+    if(data.videos.length > 0) {
+        setVideo(data.videos[0].id, data.videos[0].title);
+    }
+}
 
-<section id="courses" class="section">
-    <h2>Our Featured Course</h2>
-    <p>Watch our introductory lesson below to get a taste of what Deblevate has to offer.</p>
-    <div class="video-container">
-        <!-- You can change this YouTube link later! -->
-        <iframe width="100%" height="400" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
-    </div>
-</section>
+function setVideo(id, title) {
+    const player = document.getElementById("studioPlayer");
+    player.src = "https://www.youtube.com/embed/" + id + "?rel=0";
+    document.getElementById("mainVideoTitle").innerText = title;
+}
 
-<section id="about" class="section">
-    <h2>About Deblevate</h2>
-    <p>Deblevate was founded with a single goal: to make high-quality tech education accessible to everyone directly from their phones or computers.</p>
-</section>
-
-<section id="contact" class="section">
-    <h2>Contact Us</h2>
-    <p>Ready to join? Have questions? Send us an email at <strong>support@deblevate.com</strong>.</p>
-</section>
-
-<footer>
-    <p>&copy; 2026 Deblevate. All rights reserved.</p>
-</footer>
+// Initial Run
+window.onload = function() {
+    loadCourse();
+};
+</script>
 
 </body>
 </html>
