@@ -1,46 +1,185 @@
-{ "title": "০৩. Web Layout Planning & CSS", "id": "PkZNo7MFOUg" }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deblevate | Professional Learning Platform</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --sidebar-bg: #1f2937;
+            --accent-color: #22c55e;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        /* Navbar */
+        header {
+            background-color: #070a13;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1f2937;
+        }
+        .logo { font-size: 1.6rem; font-weight: 800; color: white; text-decoration: none; }
+        .logo span { color: var(--accent-color); }
+
+        /* Dropdown Selector Bar */
+        .top-bar {
+            background-color: var(--card-bg);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid #1f2937;
+        }
+        .top-bar label { font-weight: bold; color: var(--text-main); }
+        .course-select {
+            padding: 0.6rem 1.2rem; background-color: #1f2937; color: white;
+            border: 1px solid #374151; border-radius: 6px; font-size: 1rem; cursor: pointer;
+        }
+
+        /* Main Studio Layout */
+        .studio-container {
+            display: flex; flex-direction: row; max-width: 1400px;
+            margin: 2rem auto; padding: 0 2rem; gap: 2rem;
+        }
+
+        /* Left Side: Video Player */
+        .main-content { flex: 2; display: flex; flex-direction: column; }
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            border-radius: 12px; overflow: hidden; background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+        }
+        .video-info {
+            margin-top: 1.5rem; background-color: var(--card-bg);
+            padding: 1.5rem; border-radius: 12px; border: 1px solid #1f2937;
+        }
+        .video-title { margin: 0 0 0.5rem 0; font-size: 1.6rem; color: white; }
+        .instructor-tag {
+            display: inline-block; background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-color); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold;
+        }
+
+        /* Right Side: Scrollable List */
+        .sidebar {
+            flex: 1; background-color: var(--card-bg); border-radius: 12px;
+            border: 1px solid #1f2937; display: flex; flex-direction: column; max-height: 550px;
+        }
+        .sidebar-header {
+            padding: 1.2rem; background-color: #172237;
+            border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom: 1px solid #1f2937;
+        }
+        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--accent-color); }
+        .video-list { overflow-y: auto; flex-grow: 1; padding: 0.5rem; }
+        
+        .video-item {
+            display: flex; align-items: center; padding: 0.8rem 1rem; margin-bottom: 0.5rem;
+            border-radius: 8px; cursor: pointer; transition: background 0.2s; background-color: #171e2e;
+        }
+        .video-item:hover { background-color: #242f47; }
+        .video-item.active { background-color: rgba(34, 197, 94, 0.15); border: 1px solid var(--accent-color); }
+        .video-index { font-size: 0.9rem; font-weight: bold; color: var(--accent-color); margin-right: 1rem; min-width: 20px; }
+        .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: white; }
+
+        @media (max-width: 768px) {
+            .studio-container { flex-direction: column; padding: 0 1rem; }
+            .top-bar { flex-direction: column; align-items: flex-start; }
+            .course-select { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">Deble<span>vate Studio</span></a>
+</header>
+
+<div class="top-bar">
+    <label for="courseDropdown">Select Active Course:</label>
+    <select id="courseDropdown" class="course-select" onchange="loadCourse()">
+        <option value="course1">Course 1: Complete Web Development</option>
+        <option value="course2">Course 2: React JS Full Course</option>
+    </select>
+</div>
+
+<div class="studio-container">
+    <div class="main-content">
+        <div class="video-wrapper">
+            <iframe id="studioPlayer" src="" allowfullscreen></iframe>
+        </div>
+        <div class="video-info">
+            <h2 id="mainVideoTitle" class="video-title">Loading Lesson...</h2>
+            <span class="instructor-tag">LEAD INSTRUCTOR: Debraj Barua</span>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>CLASS PLAYLIST</h3>
+        </div>
+        <div id="videoListContainer" class="video-list">
+            </div>
+    </div>
+</div>
+
+<script>
+// =========================================================================
+// 🛑 ভিডিও এড বা রিমুভ করার জায়গা (তোমার ডেটাবেস) 🛑
+// =========================================================================
+const courseData = {
+    
+    // প্রথম কোর্স
+    course1: {
+        videos: [
+            { title: "০১. ভৌত জগৎ ও পরিমাপ (Intro)", id: "tgbNymZ7vqY" },
+            { title: "০২. HTML5 Advanced Crash Course", id: "dQw4w9WgXcQ" },
+            { title: "০৩. Web Layout Planning & CSS", id: "PkZNo7MFOUg" }
         ]
     },
-    "course2": {
-        "videos": [
-            { "title": "০১. React JS Ecosystem Intro", "id": "Ke90Tje7VS0" },
-            { "title": "০২. Setup Environment & Vite", "id": "VJ8v4SAs4BM" }
-        ]
-    },
-    "course3": {
-        "videos": [
-            { "title": "০১. JavaScript Engine Masterclass", "id": "W6NZfCO5SIk" },
-            { "title": "০২. Closures, Scopes and Hoisting", "id": "8aGhZQkoFbQ" }
+
+    // দ্বিতীয় কোর্স
+    course2: {
+        videos: [
+            { title: "০১. React JS Ecosystem Intro", id: "Ke90Tje7VS0" },
+            { title: "০২. Setup Environment & Vite", id: "VJ8v4SAs4BM" }
         ]
     }
 };
+// =========================================================================
+// 🛑 এর নিচের কোনো কোড এডিট করার দরকার নেই 🛑
+// =========================================================================
 
 function loadCourse() {
-    var selectedCourse = document.getElementById("courseDropdown").value;
-    var data = courseData[selectedCourse];
-    var container = document.getElementById("videoListContainer");
-    
+    const selectedCourse = document.getElementById("courseDropdown").value;
+    const data = courseData[selectedCourse];
+    const container = document.getElementById("videoListContainer");
     container.innerHTML = "";
     
-    data.videos.forEach(function(video, index) {
-        var item = document.createElement("div");
+    data.videos.forEach((video, index) => {
+        const item = document.createElement("div");
         item.className = "video-item" + (index === 0 ? " active" : "");
-        
         item.onclick = function() {
-            var items = document.querySelectorAll('.video-item');
-            for(var i = 0; i < items.length; i++) {
-                items[i].classList.remove('active');
-            }
+            document.querySelectorAll('.video-item').forEach(el => el.classList.remove('active'));
             item.classList.add('active');
             setVideo(video.id, video.title);
         };
-        
-        var displayIndex = (index + 1) < 10 ? "0" + (index + 1) : (index + 1);
-        
-        item.innerHTML = '<div class="video-index">' + displayIndex + '</div>' +
-                         '<div class="video-text-details">' +
-                         '<p class="video-item-title">' + video.title + '</p>' +
-                         '</div>';
+        const displayIndex = (index + 1) < 10 ? "0" + (index + 1) : (index + 1);
+        item.innerHTML = `<div class="video-index">${displayIndex}</div><div class="video-text-details"><p class="video-item-title">${video.title}</p></div>`;
         container.appendChild(item);
     });
 
@@ -50,16 +189,11 @@ function loadCourse() {
 }
 
 function setVideo(id, title) {
-    var player = document.getElementById("studioPlayer");
-    player.src = "https://www.youtube.com/embed/" + id + "?rel=0";
+    document.getElementById("studioPlayer").src = "https://www.youtube.com/embed/" + id + "?rel=0";
     document.getElementById("mainVideoTitle").innerText = title;
 }
-
-// সেফ উইন্ডো লোড
-window.onload = function() {
-    loadCourse();
-};
+window.onload = loadCourse;
 </script>
 
 </body>
-</html>
+        </html>
