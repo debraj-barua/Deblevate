@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate's Dream Edtech</title>
+    <title>Deblevate | Elevate Your Learning</title>
+    
+    <!-- Premium Custom Player (Plyr) CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
     <style>
         :root {
-            --bg-main: #0b0f19;
-            --bg-card: #151b2b;
-            --bg-nav: #070a13;
-            --accent-blue: #2563eb;
-            --accent-purple: #7c3aed;
+            /* Theme matched with the Logo */
+            --bg-main: #06101e; 
+            --bg-card: #111b2e;
+            --bg-nav: #040b14;
+            --accent-blue: #1e62d0; 
+            --accent-gold: #d4af37; 
+            --accent-gold-light: #fdf5a9; 
+            --accent-gold-dark: #aa771c; 
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
+            /* Plyr Theme Color matched with logo blue */
+            --plyr-color-main: #1e62d0; 
         }
 
         html { scroll-behavior: smooth; }
@@ -23,62 +32,84 @@
             color: var(--text-light);
         }
 
-        /* NAVBAR (ACS Style) */
+        /* =========================================
+           NAVBAR & LOGO STYLING
+           ========================================= */
         header {
             background-color: var(--bg-nav);
             padding: 1rem 5%;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid #1f2937;
             position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .logo { font-size: 1.8rem; font-weight: 800; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px;}
-        .logo span { color: var(--accent-blue); }
-        .logo-icon { width: 35px; height: 35px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); border-radius: 8px; display: inline-block; }
         
+        .header-logo {
+            display: flex; align-items: center; gap: 15px; text-decoration: none;
+        }
+        
+        .header-logo img {
+            width: 50px; height: 50px; border-radius: 8px; object-fit: cover;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .brand-text-container { display: flex; flex-direction: column; }
+        
+        .brand-name {
+            font-family: 'Times New Roman', Times, serif; 
+            font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+            background: linear-gradient(to bottom, var(--accent-gold-light) 0%, var(--accent-gold) 50%, var(--accent-gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0; line-height: 1;
+        }
+        
+        .brand-sub {
+            font-size: 0.75rem; color: #cbd5e1; letter-spacing: 1.5px; margin-top: 4px; font-weight: 600; text-transform: uppercase;
+        }
+
         .nav-links { display: flex; gap: 2rem; }
         .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; padding: 0.5rem 1rem; border-radius: 8px;}
-        .nav-links a:hover, .nav-links a.active { background-color: var(--accent-blue); color: white; }
+        .nav-links a:hover, .nav-links a.active { background-color: rgba(212, 175, 55, 0.1); color: var(--accent-gold); }
 
         /* =========================================
            HOME VIEW (DASHBOARD)
            ========================================= */
         #home-view { padding: 2rem 5%; max-width: 1400px; margin: 0 auto; }
 
-        /* Banner */
         .hero-banner {
-            background: linear-gradient(rgba(11, 15, 25, 0.7), rgba(11, 15, 25, 0.7)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000&auto=format&fit=crop') center/cover;
+            background: linear-gradient(rgba(6, 16, 30, 0.8), rgba(6, 16, 30, 0.9)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2000&auto=format&fit=crop') center/cover;
             padding: 4rem 2rem; border-radius: 16px; text-align: center; margin-bottom: 2rem; border: 1px solid #1f2937; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .hero-banner h1 { font-size: 2.5rem; margin: 0 0 1rem 0; color: white; }
+        .hero-banner h1 { font-size: 2.5rem; margin: 0 0 1rem 0; color: var(--accent-gold); font-family: 'Times New Roman', serif; letter-spacing: 1px;}
         .hero-banner p { font-size: 1.1rem; color: var(--text-muted); margin: 0; }
 
-        /* Filter Pills */
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
         .filter-btn {
-            background-color: white; color: #0b0f19; border: none; padding: 0.5rem 1.5rem;
+            background-color: transparent; color: var(--text-light); border: 1px solid var(--accent-blue); padding: 0.5rem 1.5rem;
             border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-        .filter-btn.active { background-color: var(--accent-blue); color: white; }
-        .filter-btn.purple { background-color: var(--accent-purple); color: white; }
+        .filter-btn.active { background-color: var(--accent-blue); color: white; border-color: var(--accent-blue);}
+        .filter-btn.gold { background-color: transparent; border-color: var(--accent-gold); color: var(--accent-gold); }
+        .filter-btn.gold:hover { background-color: var(--accent-gold); color: #000; }
 
-        /* Course Grid */
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; }
         
         .course-card {
             background-color: var(--bg-card); border-radius: 12px; overflow: hidden;
             border: 1px solid #1f2937; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
         }
-        .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); border-color: var(--accent-blue); }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); border-color: var(--accent-gold); }
         
         .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; }
         .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .card-tags { position: absolute; bottom: 10px; left: 10px; display: flex; gap: 10px; }
         .tag { padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: bold; color: white; }
         .tag-blue { background-color: var(--accent-blue); }
-        .tag-purple { background-color: var(--accent-purple); }
+        .tag-gold { background-color: var(--accent-gold); color: #000; }
 
         .card-content { padding: 1.5rem; text-align: center; }
-        .card-title { font-size: 1.1rem; font-weight: bold; margin: 0 0 0.5rem 0; line-height: 1.4; }
+        .card-title { font-size: 1.1rem; font-weight: bold; margin: 0 0 0.5rem 0; line-height: 1.4; color: var(--text-light);}
         .card-subtitle { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
 
         /* =========================================
@@ -88,76 +119,77 @@
         
         .back-bar { margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
         .back-btn { background: #1f2937; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .back-btn:hover { background: var(--accent-blue); }
+        .back-btn:hover { background: var(--accent-gold); color: #000; }
 
         .studio-container { display: flex; flex-direction: row; gap: 2rem; }
         .main-content { flex: 2; display: flex; flex-direction: column; }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5);}
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        
+        .video-wrapper { border-radius: 12px; overflow: hidden; background: #000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid var(--accent-blue);}
+        
         .video-info { margin-top: 1.5rem; background-color: var(--bg-card); padding: 1.5rem; border-radius: 12px; border: 1px solid #1f2937; }
         .video-title { margin: 0 0 0.5rem 0; font-size: 1.4rem; color: white; line-height: 1.4; }
         
         .tag-container { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1rem; }
-        .instructor-tag { display: inline-block; background: rgba(37, 99, 235, 0.2); color: #60a5fa; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
-        .sheet-btn { display: inline-block; background-color: #22c55e; color: #000; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
-        .sheet-btn:hover { background-color: #16a34a; color: white; }
+        .instructor-tag { display: inline-block; background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; border: 1px solid rgba(212, 175, 55, 0.3);}
+        .sheet-btn { display: inline-block; background-color: var(--accent-gold); color: #000; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.9rem; font-weight: bold; text-decoration: none; transition: 0.3s; }
+        .sheet-btn:hover { background-color: #aa771c; color: white; }
 
         .sidebar { flex: 1; background-color: var(--bg-card); border-radius: 12px; border: 1px solid #1f2937; display: flex; flex-direction: column; max-height: 550px; }
-        .sidebar-header { padding: 1.2rem; background-color: #0f131f; border-radius: 12px 12px 0 0; border-bottom: 1px solid #1f2937; }
-        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--text-light); }
+        .sidebar-header { padding: 1.2rem; background-color: var(--bg-nav); border-radius: 12px 12px 0 0; border-bottom: 1px solid #1f2937; }
+        .sidebar-header h3 { margin: 0; font-size: 1.1rem; color: var(--accent-gold); font-weight: 800; letter-spacing: 1px;}
         .video-list { overflow-y: auto; flex-grow: 1; padding: 0.5rem; }
         
         .video-item { display: flex; align-items: center; padding: 0.8rem 1rem; margin-bottom: 0.5rem; border-radius: 8px; cursor: pointer; transition: 0.2s; background-color: #1a2235; border: 1px solid transparent;}
         .video-item:hover { background-color: #252f48; }
-        .video-item.active { background-color: rgba(37, 99, 235, 0.15); border-color: var(--accent-blue); }
-        .video-index { font-size: 0.9rem; font-weight: bold; color: #60a5fa; margin-right: 1rem; min-width: 25px; }
+        .video-item.active { background-color: rgba(30, 98, 208, 0.15); border-color: var(--accent-blue); }
+        .video-index { font-size: 0.9rem; font-weight: bold; color: var(--accent-gold); margin-right: 1rem; min-width: 25px; }
         .video-item-title { font-size: 0.95rem; font-weight: 600; margin: 0; color: white; line-height: 1.3;}
 
         @media (max-width: 900px) {
             .studio-container { flex-direction: column; }
-            .nav-links { display: none; } /* Hide links on mobile for cleaner look */
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <header>
-    <a href="#" class="logo" onclick="showHome()">
-        <div class="logo-icon"></div>
-        Deblevate's <span>Dream Edtech</span>
+    <a href="#" class="header-logo" onclick="showHome()">
+        <img src="channels4_profile.jpg" alt="Logo">
+        <div class="brand-text-container">
+            <span class="brand-name">DEBLEVATE</span>
+            <span class="brand-sub">Dream Edtech</span>
+        </div>
     </a>
     <div class="nav-links">
         <a href="#" class="active" onclick="showHome()">Home</a>
-        <a href="#">My Courses</a>
-        <a href="#">Exam</a>
+        <!-- 💡 NEW: Alerts for Not Available links -->
+        <a href="#" onclick="alert('Coming Soon! This feature is currently not available.'); return false;">My Courses</a>
+        <a href="#" onclick="alert('Coming Soon! This feature is currently not available.'); return false;">Exam</a>
     </div>
 </header>
 
+<!-- ================= DASHBOARD VIEW ================= -->
 <div id="home-view">
     <div class="hero-banner">
-        <h1>Explore Courses</h1>
-        <p>Explore, Enroll & Excel with Deblevate's Premium Modules</p>
+        <h1>Elevate Your Learning</h1>
+        <p>Mastering Concepts | Cracking Exams</p>
     </div>
 
     <div class="filters">
         <button class="filter-btn active">All Batches</button>
         <button class="filter-btn">HSC 26</button>
-        <button class="filter-btn purple">HSC 27</button>
-    </div>
-    <div class="filters">
-        <button class="filter-btn active">All Subject</button>
-        <button class="filter-btn">Physics</button>
-        <button class="filter-btn">ICT</button>
+        <button class="filter-btn gold">HSC 27</button>
     </div>
 
     <div class="course-grid">
-        
         <div class="course-card" onclick="openCourse('course1')">
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/lhC3bVV_g9M/maxresdefault.jpg" alt="Physics Cover">
                 <div class="card-tags">
-                    <span class="tag tag-blue">HSC 26/27</span>
-                    <span class="tag tag-purple">Physics</span>
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Physics</span>
                 </div>
             </div>
             <div class="card-content">
@@ -170,8 +202,8 @@
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/Mte0En3e-TQ/maxresdefault.jpg" alt="Physics 2 Cover">
                 <div class="card-tags">
-                    <span class="tag tag-blue">HSC 26/27</span>
-                    <span class="tag tag-purple">Physics</span>
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">Physics</span>
                 </div>
             </div>
             <div class="card-content">
@@ -184,8 +216,8 @@
             <div class="card-img-wrapper">
                 <img src="https://img.youtube.com/vi/O1G18efvIyA/maxresdefault.jpg" alt="ICT Cover">
                 <div class="card-tags">
-                    <span class="tag tag-blue">HSC 26/27</span>
-                    <span class="tag tag-purple">ICT</span>
+                    <span class="tag tag-gold">HSC 26/27</span>
+                    <span class="tag tag-blue">ICT</span>
                 </div>
             </div>
             <div class="card-content">
@@ -193,20 +225,21 @@
                 <p class="card-subtitle">Master Information Technology</p>
             </div>
         </div>
-
     </div>
 </div>
 
+<!-- ================= CLASSROOM PLAYER VIEW ================= -->
 <div id="player-view">
     <div class="back-bar">
         <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-blue);">Course Title</h3>
+        <h3 id="currentCourseTitle" style="margin:0; color: var(--accent-gold);">Course Title</h3>
     </div>
 
     <div class="studio-container">
+        <!-- Main Player -->
         <div class="main-content">
             <div class="video-wrapper">
-                <iframe id="studioPlayer" src="" allowfullscreen></iframe>
+                <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
             </div>
             <div class="video-info">
                 <h2 id="mainVideoTitle" class="video-title">Loading Lesson...</h2>
@@ -217,19 +250,23 @@
             </div>
         </div>
 
+        <!-- Playlist Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
                 <h3>CLASS PLAYLIST</h3>
             </div>
             <div id="videoListContainer" class="video-list">
-                </div>
+                <!-- Videos generate here dynamically -->
+            </div>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
 <script>
 // =========================================================================
-// 🛑 COURSE DATABASE (YOUR DATA PRESERVED!)
+// 🛑 COURSE DATABASE
 // =========================================================================
 const courseData = {
     course1: {
@@ -277,24 +314,39 @@ const courseData = {
 };
 
 // =========================================================================
-// UI SWITCHING LOGIC
+// 💡 NEW: Player controls with Rewind and Fast-Forward options
 // =========================================================================
+const player = new Plyr('#studioPlayer', {
+    controls: [
+        'play-large',   // The large play button in the center
+        'rewind',       // 💡 Rewind by 10 seconds
+        'play',         // Play/pause playback
+        'fast-forward', // 💡 Fast forward by 10 seconds
+        'progress',     // The progress bar
+        'current-time', // The current time of playback
+        'duration',     // The full duration of the media
+        'mute',         // Toggle mute
+        'volume',       // Volume control
+        'settings',     // Settings menu
+        'fullscreen'    // Toggle fullscreen
+    ],
+    youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 }
+});
+
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
-    document.getElementById('studioPlayer').src = ""; // Stop video when going back
+    player.stop(); 
     window.scrollTo(0,0);
 }
 
 function openCourse(courseKey) {
-    // Switch views
     document.getElementById('home-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
     
     const data = courseData[courseKey];
     document.getElementById('currentCourseTitle').innerText = data.title;
     
-    // Build Playlist
     const container = document.getElementById("videoListContainer");
     container.innerHTML = "";
     
@@ -311,7 +363,6 @@ function openCourse(courseKey) {
         container.appendChild(item);
     });
 
-    // Load first video automatically
     if(data.videos.length > 0) {
         setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
     }
@@ -320,7 +371,13 @@ function openCourse(courseKey) {
 }
 
 function setVideo(id, title, sheetLink) {
-    document.getElementById("studioPlayer").src = "https://www.youtube.com/embed/" + id + "?rel=0&autoplay=1";
+    player.source = {
+        type: 'video',
+        sources: [
+            { src: id, provider: 'youtube' }
+        ]
+    };
+    
     document.getElementById("mainVideoTitle").innerText = title;
     
     const sheetBtn = document.getElementById("sheetDownloadBtn");
