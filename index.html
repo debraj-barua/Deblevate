@@ -102,7 +102,7 @@
         .filter-btn { background: rgba(15, 23, 42, 0.5); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .filter-btn:hover { border-color: var(--accent-cyan); color: #fff; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2); background: rgba(15, 23, 42, 0.8); }
         
-        /* Colorful Glowing Active Filters */
+        /* Colorful Filters */
         .filter-btn[data-target="physics"].active { background: var(--color-physics); color: #000; box-shadow: 0 0 25px rgba(0,242,254,0.6); border-color: var(--color-physics); transform: scale(1.05); }
         .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #fff; box-shadow: 0 0 25px rgba(59,130,246,0.6); border-color: var(--color-chemistry); transform: scale(1.05); }
         .filter-btn[data-target="math"].active { background: var(--color-math); color: #000; box-shadow: 0 0 25px rgba(16,185,129,0.6); border-color: var(--color-math); transform: scale(1.05); }
@@ -113,14 +113,12 @@
 
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem; }
         
-        /* Premium Card Design with Glassmorphism Base */
+        /* Premium Card Design */
         .course-card { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.15); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); position: relative; }
-        
         .course-card:hover { transform: translateY(-12px); border-color: var(--accent-cyan); background: rgba(15, 23, 42, 0.7); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 242, 254, 0.1); }
         
         .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; border-bottom: 2px solid var(--accent-cyan); }
         .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: all 0.6s ease; opacity: 1; filter: brightness(1) contrast(1.05); }
-        
         .course-card:hover .card-img-wrapper img { transform: scale(1.12); filter: brightness(1.2) contrast(1.1); }
         
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 2;}
@@ -137,8 +135,13 @@
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
+        /* PROTECTED VIDEO WRAPPER WITH INVISIBLE CLICK SHIELDS */
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.3); margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15); }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .video-shield { position: absolute; z-index: 10; background: transparent; }
+        .top-shield { top: 0; left: 0; width: 100%; height: 70px; }
+        .bottom-right-shield { bottom: 0; right: 50px; width: 100px; height: 50px; }
 
         .video-info { background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
         .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); }
@@ -158,11 +161,9 @@
         .sidebar-header h3 { margin:0; color:white; font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
         .video-list { overflow-y: auto; flex-grow: 1; padding: 1.2rem; }
         
-        /* Custom Scrollbar */
         .video-list::-webkit-scrollbar { width: 8px; }
         .video-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
         .video-list::-webkit-scrollbar-thumb { background: rgba(0,242,254,0.4); border-radius: 10px; }
-        .video-list::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
         
         .video-item { display: flex; padding: 1.2rem; margin-bottom: 1rem; border-radius: 12px; cursor: pointer; background: rgba(255,255,255,0.03); color: var(--text-muted); align-items: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); font-weight: 600;}
         .video-item:hover { background: rgba(0,242,254,0.08); border-color: rgba(0,242,254,0.3); color: #fff; transform: translateX(5px); }
@@ -179,7 +180,6 @@
 </head>
 <body oncontextmenu="return false;">
 
-<!-- Premium Animated Background layers -->
 <div class="bg-animated-shapes">
     <div class="shape shape1"></div>
     <div class="shape shape2"></div>
@@ -243,7 +243,15 @@
             <div class="main-content">
                 
                 <div class="protected-video-wrapper">
-                    <iframe id="studioPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+                    <div class="video-shield top-shield"></div>
+                    <div class="video-shield bottom-right-shield"></div>
+                    
+                    <iframe id="studioPlayer" 
+                            src="" 
+                            allow="autoplay; encrypted-media; fullscreen" 
+                            sandbox="allow-scripts allow-same-origin allow-presentation"
+                            allowfullscreen>
+                    </iframe>
                 </div>
 
                 <div class="video-info">
@@ -384,7 +392,7 @@ const courseData = {
     ]},
     course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
         { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
-        { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
+        { title: "১৮. হাইড্রা, ঘাসফড়িং ও رুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
         { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
         { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
         { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
