@@ -7,7 +7,7 @@
     <style>
         :root {
             /* Cyan, Blue, Green Theme Palette */
-            --bg-main: #020617; /* Deeper midnight space */
+            --bg-main: #020617; 
             --bg-card: rgba(15, 23, 42, 0.6); 
             --bg-nav: rgba(2, 6, 23, 0.6);
             --text-light: #f8fafc; 
@@ -29,6 +29,14 @@
             --color-english: #06b6d4;
         }
 
+        /* --- GLOBAL ANTI-HIGHLIGHT CSS --- */
+        * {
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE10+/Edge */
+            user-select: none; /* Standard */
+        }
+
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -39,21 +47,16 @@
             position: relative;
         }
 
-        /* PREMIUM ANIMATED BACKGROUND (Aurora & Grid Effect) */
-        .bg-animated-shapes {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main);
-        }
-        .shape {
-            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* PREMIUM ANIMATED BACKGROUND */
+        .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); }
+        .shape { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
         .shape1 { width: 50vw; height: 50vw; background: var(--accent-cyan); top: -20%; left: -10%; animation-duration: 25s; }
         .shape2 { width: 45vw; height: 45vw; background: var(--accent-blue); bottom: -10%; right: -5%; animation-duration: 30s; animation-direction: alternate-reverse; }
         .shape3 { width: 40vw; height: 40vw; background: var(--accent-mint); top: 30%; left: 30%; animation-duration: 28s; opacity: 0.15; }
         
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
@@ -63,7 +66,7 @@
             100% { transform: translate(-30px, 40px) scale(0.9); }
         }
 
-        /* NAVBAR - Enhanced Glassmorphism */
+        /* NAVBAR */
         header { background-color: var(--bg-nav); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 242, 254, 0.2); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0, 242, 254, 0.1); }
         .header-logo { display: flex; align-items: center; gap: 15px; text-decoration: none; transition: transform 0.3s; }
         .header-logo:hover { transform: scale(1.05); }
@@ -73,7 +76,7 @@
         .brand-sub { font-size: 0.75rem; color: var(--accent-mint); letter-spacing: 3px; margin-top: 4px; font-weight: 700; text-transform: uppercase; }
         .nav-links { display: flex; gap: 1.5rem; align-items: center;}
         
-        /* AUTH UI - Pulsing Button */
+        /* AUTH UI */
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
@@ -102,7 +105,6 @@
         .filter-btn { background: rgba(15, 23, 42, 0.5); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .filter-btn:hover { border-color: var(--accent-cyan); color: #fff; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2); background: rgba(15, 23, 42, 0.8); }
         
-        /* Colorful Filters */
         .filter-btn[data-target="physics"].active { background: var(--color-physics); color: #000; box-shadow: 0 0 25px rgba(0,242,254,0.6); border-color: var(--color-physics); transform: scale(1.05); }
         .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #fff; box-shadow: 0 0 25px rgba(59,130,246,0.6); border-color: var(--color-chemistry); transform: scale(1.05); }
         .filter-btn[data-target="math"].active { background: var(--color-math); color: #000; box-shadow: 0 0 25px rgba(16,185,129,0.6); border-color: var(--color-math); transform: scale(1.05); }
@@ -113,23 +115,12 @@
 
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem; }
         
-        /* Premium Card Design */
         .course-card { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.15); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); position: relative; }
         .course-card:hover { transform: translateY(-12px); border-color: var(--accent-cyan); background: rgba(15, 23, 42, 0.7); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 242, 254, 0.1); }
         
         .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; border-bottom: 2px solid var(--accent-cyan); }
-        
-        /* FIXED THUMBNAILS: 100% natural colors, no fading */
-        .card-img-wrapper img { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; 
-            opacity: 1 !important; 
-            filter: none !important; 
-        }
-        .course-card:hover .card-img-wrapper img { 
-            transform: scale(1.12); 
-            filter: brightness(1.15) !important; /* Slight brightness boost on hover only */
-        }
+        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; opacity: 1 !important; filter: none !important; }
+        .course-card:hover .card-img-wrapper img { transform: scale(1.12); filter: brightness(1.15) !important; }
         
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 2;}
         .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #020617; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-mint)); box-shadow: 0 4px 15px rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
@@ -145,35 +136,24 @@
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
-        /* PROTECTED VIDEO WRAPPER & TARGETED INVISIBLE CLICK SHIELDS */
+        /* PROTECTED VIDEO WRAPPER & INVISIBLE SHIELDS */
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.3); margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15); }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        /* SHIELD SETTINGS: Temporarily change 'transparent' to 'rgba(255,0,0,0.4)' if you need to visually debug their positions! */
         .video-shield { position: absolute; z-index: 10; background: transparent; }
         
-        /* 1. Blocks the Top Title and Top Share buttons */
-        .top-shield { 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 65px; 
-        }
+        /* Top Shield */
+        .top-shield { top: 0; left: 0; width: 100%; height: 65px; }
 
-        /* 2. Blocks the YouTube Logo on the right (Leaves Fullscreen & Settings open) */
-        .bottom-right-shield { 
-            bottom: 0; 
-            right: 55px; 
-            width: 80px; 
-            height: 45px; 
-        }
+        /* Bottom-Right Shield (YouTube Logo) */
+        .bottom-right-shield { bottom: 0; right: 55px; width: 80px; height: 45px; }
 
-        /* 3. Blocks the bottom-left Share/More Videos section (Leaves Play & Volume fully open) */
+        /* MAXIMUM LOCKDOWN Bottom-Left Shield (Covers Play button + Share button) */
         .bottom-left-shield { 
             bottom: 0; 
-            left: 130px; /* Shifted to exactly start AFTER the volume controls */
+            left: 0; /* Forced all the way left to cover the share button shown in screenshot */
             width: 90px; 
-            height: 45px; 
+            height: 55px; 
         }
 
         .video-info { background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
@@ -355,6 +335,34 @@
 </script>
 
 <script>
+// ==========================================
+// MAXIMUM SECURITY ANTI-COPY JAVASCRIPT
+// ==========================================
+
+// 1. Block standard copy, cut, and paste events globally
+document.addEventListener('copy', (e) => e.preventDefault());
+document.addEventListener('cut', (e) => e.preventDefault());
+document.addEventListener('paste', (e) => e.preventDefault());
+
+// 2. Block Keyboard Shortcuts (F12, Ctrl+C, Ctrl+V, Ctrl+U, Ctrl+Shift+I)
+document.onkeydown = function(e) {
+    // F12 (Dev Tools)
+    if (e.keyCode === 123) return false;
+    
+    // Ctrl + C / V / U / S (Copy, Paste, View Source, Save)
+    if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 83)) {
+        return false;
+    }
+    
+    // Ctrl + Shift + I / J / C (Advanced Dev Tools)
+    if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+        return false;
+    }
+};
+
+// ==========================================
+// COURSE DATA AND PLAYER LOGIC
+// ==========================================
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
