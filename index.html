@@ -145,26 +145,35 @@
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
-        /* PROTECTED VIDEO WRAPPER & INVISIBLE CLICK SHIELDS */
+        /* PROTECTED VIDEO WRAPPER & TARGETED INVISIBLE CLICK SHIELDS */
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.3); margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15); }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
+        /* SHIELD SETTINGS: Temporarily change 'transparent' to 'rgba(255,0,0,0.4)' if you need to visually debug their positions! */
         .video-shield { position: absolute; z-index: 10; background: transparent; }
         
-        /* Blocks the Title and Top Share buttons */
+        /* 1. Blocks the Top Title and Top Share buttons */
         .top-shield { 
             top: 0; 
             left: 0; 
             width: 100%; 
-            height: 60px; 
+            height: 65px; 
         }
-        
-        /* NEW: Continuous bottom shield covering the exact green box area (Share, More Videos, YouTube Logo) */
-        .bottom-shield { 
+
+        /* 2. Blocks the YouTube Logo on the right (Leaves Fullscreen & Settings open) */
+        .bottom-right-shield { 
             bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 55px; /* Safely covers the bottom area below the timeline */
+            right: 55px; 
+            width: 80px; 
+            height: 45px; 
+        }
+
+        /* 3. Blocks the bottom-left Share/More Videos section (Leaves Play & Volume fully open) */
+        .bottom-left-shield { 
+            bottom: 0; 
+            left: 130px; /* Shifted to exactly start AFTER the volume controls */
+            width: 90px; 
+            height: 45px; 
         }
 
         .video-info { background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
@@ -204,7 +213,6 @@
 </head>
 <body oncontextmenu="return false;">
 
-<!-- Premium Animated Background layers -->
 <div class="bg-animated-shapes">
     <div class="shape shape1"></div>
     <div class="shape shape2"></div>
@@ -268,9 +276,9 @@
             <div class="main-content">
                 
                 <div class="protected-video-wrapper">
-                    <!-- Invisible Click Shields to block links -->
                     <div class="video-shield top-shield"></div>
-                    <div class="video-shield bottom-shield"></div>
+                    <div class="video-shield bottom-right-shield"></div>
+                    <div class="video-shield bottom-left-shield"></div>
                     
                     <iframe id="studioPlayer" 
                             src="" 
