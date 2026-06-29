@@ -140,21 +140,16 @@
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.3); margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15); }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
+        /* --- UPDATED INVISIBLE VIDEO SHIELDS --- */
         .video-shield { position: absolute; z-index: 10; background: transparent; }
         
-        /* Top Shield */
-        .top-shield { top: 0; left: 0; width: 100%; height: 65px; }
+        /* 1. Blocks the top Title, Share, and Watch Later buttons */
+        .top-shield { top: 0; left: 0; width: 100%; height: 70px; }
 
-        /* Bottom-Right Shield (YouTube Logo) */
-        .bottom-right-shield { bottom: 0; right: 55px; width: 80px; height: 45px; }
-
-        /* MAXIMUM LOCKDOWN Bottom-Left Shield (Covers Play button + Share button) */
-        .bottom-left-shield { 
-            bottom: 0; 
-            left: 0; /* Forced all the way left to cover the share button shown in screenshot */
-            width: 90px; 
-            height: 55px; 
-        }
+        /* 2. Blocks the "More videos" and "Share" overlay popups.
+           By setting bottom to 55px, it sits JUST above the YouTube control bar,
+           leaving the slider, play button, and quality settings fully clickable. */
+        .bottom-overlay-shield { bottom: 55px; left: 0; width: 100%; height: 80px; }
 
         .video-info { background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
         .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); }
@@ -257,8 +252,7 @@
                 
                 <div class="protected-video-wrapper">
                     <div class="video-shield top-shield"></div>
-                    <div class="video-shield bottom-right-shield"></div>
-                    <div class="video-shield bottom-left-shield"></div>
+                    <div class="video-shield bottom-overlay-shield"></div>
                     
                     <iframe id="studioPlayer" 
                             src="" 
