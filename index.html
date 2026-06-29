@@ -147,17 +147,24 @@
         
         /* PROTECTED VIDEO WRAPPER & INVISIBLE CLICK SHIELDS */
         .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.3); margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15); }
-        .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
+        .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        .video-shield { position: absolute; z-index: 999; background: transparent; }
+        .video-shield { position: absolute; z-index: 10; background: transparent; }
         
-        /* UPDATED SHIELD: Covers only the bottom-left Share/YouTube button area */
-        .target-corner-shield { 
-            bottom: 45px; /* Sits just above the main timeline/control bar */
+        /* Blocks the Title and Top Share buttons */
+        .top-shield { 
+            top: 0; 
             left: 0; 
-            width: 80px; 
-            height: 70px; 
-            border-radius: 10px;
+            width: 100%; 
+            height: 60px; 
+        }
+        
+        /* NEW: Continuous bottom shield covering the exact green box area (Share, More Videos, YouTube Logo) */
+        .bottom-shield { 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 55px; /* Safely covers the bottom area below the timeline */
         }
 
         .video-info { background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
@@ -261,8 +268,9 @@
             <div class="main-content">
                 
                 <div class="protected-video-wrapper">
-                    <!-- Invisible Click Shield to block only the red marked link -->
-                    <div class="video-shield target-corner-shield"></div>
+                    <!-- Invisible Click Shields to block links -->
+                    <div class="video-shield top-shield"></div>
+                    <div class="video-shield bottom-shield"></div>
                     
                     <iframe id="studioPlayer" 
                             src="" 
