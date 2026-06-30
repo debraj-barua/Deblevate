@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deblevate's Dream Edtech</title>
+    
+    <!-- Plyr CSS for Custom Video Player -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
     <style>
         :root {
             /* Cyberpunk Fusion: Deep Slate, Vivid Yellow, and Laser Red Theme Palette */
@@ -27,6 +31,12 @@
             --color-ict: #8b5cf6;
             --color-bangla: #0ea5e9;
             --color-english: #06b6d4;
+            
+            /* Plyr Custom Theme Overrides */
+            --plyr-color-main: var(--accent-cyan);
+            --plyr-video-control-background-hover: rgba(0, 242, 254, 0.2);
+            --plyr-menu-background: rgba(20, 10, 15, 0.95);
+            --plyr-menu-color: #fff;
         }
 
         /* --- GLOBAL ANTI-HIGHLIGHT --- */
@@ -165,52 +175,25 @@
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
-        /* RESPONSIVE VIDEO SHIELD SYSTEM */
+        /* PLYR VIDEO CONTAINER STYLING */
         .protected-video-wrapper { 
             position: relative; 
-            width: 100%;
-            /* 16:9 Aspect Ratio */
-            padding-bottom: 56.25%; 
-            background: #000; 
             border-radius: 20px; 
             overflow: hidden; 
-            border: 2px solid rgba(255, 221, 0, 0.4); 
+            border: 2px solid rgba(0, 242, 254, 0.4); 
             margin-bottom: 2rem; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(255, 42, 95, 0.15); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 254, 0.15); 
         }
         
-        .protected-video-wrapper iframe { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            border: none; 
-            z-index: 1; 
+        /* Make Plyr Play Button huge and vibrant */
+        .plyr__control--overlaid {
+            background: rgba(0, 242, 254, 0.8) !important;
+            padding: 25px !important;
         }
-
-        /* The transparent overlays that block clicks */
-        .video-shield { 
-            position: absolute; 
-            z-index: 10; 
-            left: 0; 
-            width: 100%; 
-            background: transparent; 
-        }
-        
-        /* 1. Blocks the top Title & Watch Later */
-        .top-shield { 
-            top: 0; 
-            height: 15%; 
-        }
-        
-        /* 2. Blocks the middle-bottom Share/More Videos popup.
-           Using percentages ensures that even in fullscreen or window resize,
-           the shield scales to cover the exact share bar location while leaving
-           the bottom 12% (the control bar and settings gear) fully clickable. */
-        .popup-shield {
-            bottom: 12%; 
-            height: 15%; 
+        .plyr__control--overlaid svg {
+            width: 35px !important;
+            height: 35px !important;
+            fill: #000 !important;
         }
 
         .video-info { background: rgba(20,10,15,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,42,95,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
@@ -312,16 +295,10 @@
         <div class="studio-container">
             <div class="main-content">
                 
+                <!-- NEW PLYR VIDEO WRAPPER -->
                 <div class="protected-video-wrapper">
-                    <div class="video-shield top-shield"></div>
-                    <div class="video-shield popup-shield"></div>
-                    
-                    <iframe id="studioPlayer" 
-                            src="" 
-                            allow="autoplay; encrypted-media; fullscreen" 
-                            sandbox="allow-scripts allow-same-origin allow-presentation"
-                            allowfullscreen>
-                    </iframe>
+                    <!-- Plyr Anchor -->
+                    <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
 
                 <div class="video-info">
@@ -348,6 +325,9 @@
     </div>
 </div>
 
+<!-- Load Plyr JS script -->
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
@@ -369,7 +349,7 @@
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
-  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); document.getElementById('studioPlayer').src=""; };
+  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); if(window.plyrPlayer) window.plyrPlayer.stop(); };
 
   onAuthStateChanged(auth, (user) => {
       if (user && allowedEmails.includes(user.email.toLowerCase())) {
@@ -558,7 +538,9 @@ function renderAllCourses() {
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
-    document.getElementById('studioPlayer').src = "";
+    if(window.plyrPlayer) {
+        window.plyrPlayer.stop();
+    }
     window.scrollTo(0,0);
 }
 
@@ -592,12 +574,36 @@ function openCourse(key) {
     window.scrollTo(0,0);
 }
 
+// Ensure global access for Plyr Instance
+window.plyrPlayer = null;
+
 function setVideo(id, title, sheetLink) {
     document.getElementById("mainVideoTitle").innerText = title;
     
-    // Using standard youtube.com embed to keep quality settings active.
-    // Relies on percentage-based CSS shields to block Share button.
-    document.getElementById('studioPlayer').src = `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
+    // Check if player exists to update source, otherwise create new Plyr instance
+    if(window.plyrPlayer) {
+        window.plyrPlayer.source = {
+            type: 'video',
+            sources: [{ src: id, provider: 'youtube' }]
+        };
+    } else {
+        document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
+        
+        window.plyrPlayer = new Plyr('#studioPlayer', {
+            youtube: { 
+                noCookie: true, 
+                rel: 0, 
+                showinfo: 0, 
+                iv_load_policy: 3, 
+                modestbranding: 1 
+            },
+            controls: [
+                'play-large', 'play', 'progress', 'current-time', 
+                'mute', 'volume', 'settings', 'fullscreen'
+            ],
+            settings: ['quality', 'speed']
+        });
+    }
 
     const slideSegment = document.getElementById("slideSegment");
     const slideIframe = document.getElementById("slideIframe");
