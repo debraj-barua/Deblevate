@@ -68,7 +68,7 @@
             100% { transform: translate(-20px, 30px) scale(0.95); }
         }
 
-        /* PREMIUM STREAMLINED GLOWING NAVBAR */
+        /* PREMIUM STREAMLINED NAVBAR */
         header { 
             background-color: var(--bg-nav); 
             padding: 1rem 5%; 
@@ -90,7 +90,7 @@
         .brand-sub { font-size: 0.8rem; color: var(--accent-yellow); letter-spacing: 4px; margin-top: 4px; font-weight: 800; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,221,0,0.5); }
         .nav-links { display: flex; gap: 1.5rem; align-items: center;}
         
-        /* AUTH BUTTON WITH PULSING CORONA */
+        /* AUTH BUTTON */
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.8); }
             70% { box-shadow: 0 0 0 18px rgba(255, 42, 95, 0); }
@@ -107,14 +107,13 @@
         #login-screen { text-align: center; padding: 12rem 2rem; position: relative; z-index: 10; }
         #login-screen h2 { color: var(--accent-yellow); font-size: 3.5rem; margin-bottom: 15px; text-shadow: 0 0 25px rgba(255,221,0,0.4); font-weight: 900; }
 
-        /* DASHBOARD & BRAND NEW SEPARATED MOTIVATION SECTION */
+        /* DASHBOARD & DETACHED MOTIVATION */
         #main-app { display: none; position: relative; z-index: 10; } 
         #home-view { padding: 3rem 5%; max-width: 1400px; margin: 0 auto; }
         
         .hero-banner { border-radius: 24px; text-align: center; border: 2px solid rgba(255, 42, 95, 0.25); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); background: #000; overflow: hidden; position: relative; }
         .hero-banner img { width: 100%; height: auto; display: block; }
         
-        /* Completely detached visual design block for the motivation panel */
         .motivation-container {
             margin: -2rem auto 4rem;
             max-width: 90%;
@@ -128,26 +127,10 @@
             box-shadow: 0 15px 40px rgba(255, 221, 0, 0.15), inset 0 0 20px rgba(255, 42, 95, 0.1);
             backdrop-filter: blur(15px);
         }
-        .motivation-text {
-            color: #fff;
-            font-size: 1.4rem;
-            font-weight: 700;
-            line-height: 1.7;
-            margin: 0;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-        }
-        .motivation-badge {
-            color: var(--accent-yellow); 
-            font-size: 1.6rem; 
-            font-weight: 900; 
-            display: inline-block; 
-            margin-top: 15px; 
-            text-shadow: 0 0 15px rgba(255,221,0,0.6); 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        .motivation-text { color: #fff; font-size: 1.4rem; font-weight: 700; line-height: 1.7; margin: 0; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+        .motivation-badge { color: var(--accent-yellow); font-size: 1.6rem; font-weight: 900; display: inline-block; margin-top: 15px; text-shadow: 0 0 15px rgba(255,221,0,0.6); letter-spacing: 2px; text-transform: uppercase; }
         
-        /* SUBJECT BUTTON FILTERS WITH NEON ACCENTS */
+        /* SUBJECT BUTTON FILTERS */
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 4rem; }
         .filter-btn { background: rgba(20, 10, 15, 0.6); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); padding: 0.8rem 1.8rem; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem; backdrop-filter: blur(10px); }
         .filter-btn:hover { border-color: var(--accent-yellow); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 221, 0, 0.15); }
@@ -174,7 +157,7 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
-        /* STUDIO PLAYROOM WORKSPACE */
+        /* PLAYROOM WORKSPACE */
         #player-view { display: none; max-width: 1500px; margin: 0 auto; padding: 2rem 5%; }
         .back-btn { background: rgba(255,42,95,0.1); color: var(--accent-red); border: 1px solid rgba(255,42,95,0.3); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 2.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
         .back-btn:hover { background: var(--accent-red); color: #fff; box-shadow: 0 0 25px var(--accent-red); transform: translateX(-4px); }
@@ -182,7 +165,7 @@
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
-        /* RESPONSIBILITIES WRAPPER DESIGN WITH FLUID STRIP SHIELDS */
+        /* SAFE RESPONSIVE CONTAINER WRAPPER WITH DIRECT EVENT BYPASS */
         .protected-video-wrapper { 
             position: relative; 
             padding-bottom: 56.25%; 
@@ -196,18 +179,15 @@
         }
         .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
 
-        .video-shield { position: absolute; z-index: 10; background: transparent; pointer-events: auto; width: 100%; }
+        /* Secure dynamic transparent filter layout */
+        .video-shield { position: absolute; z-index: 10; background: transparent; pointer-events: auto; left: 0; width: 100%; }
+        .top-shield { top: 0; height: 14%; }
         
-        /* Top Shield: Covers heading click leaks */
-        .top-shield { top: 0; left: 0; height: 12%; }
-
-        /* Middle-Bottom Popup Shield Bar: 
-           Pushed up from the base using relative height percentage parameters.
-           Leaves the bottom timeline slider track, settings gear, and captions fully unblocked. */
-        .middle-bottom-popup-shield { 
-            bottom: 52px;
-            left: 0;
-            height: 60px;
+        /* Precision horizontal blocker box sitting right over the pause popup line.
+           Stops share button clicks instantly but leaves base settings gear completely open. */
+        .share-blocker-strip { 
+            bottom: 48px; 
+            height: 52px; 
         }
 
         .video-info { background: rgba(20,10,15,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,42,95,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
@@ -281,12 +261,10 @@
 
 <div id="main-app">
     <div id="home-view">
-        <!-- Separate Frame System Layout -->
         <div class="hero-banner">
             <img src="photo_2026-06-23_21-57-30.jpg" alt="Deblevate Banner" onerror="console.log('Banner missing')">
         </div>
         
-        <!-- Detached Motivation Container Element Block -->
         <div class="motivation-container">
             <p class="motivation-text">"তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।"</p>
             <span class="motivation-badge">Best of Luck for HSC!</span>
@@ -314,14 +292,10 @@
                 <div class="protected-video-wrapper">
                     <!-- Layered Security Shield Overlays -->
                     <div class="video-shield top-shield"></div>
-                    <div class="video-shield middle-bottom-popup-shield"></div>
+                    <div class="video-shield share-blocker-strip"></div>
                     
-                    <iframe id="studioPlayer" 
-                            src="" 
-                            allow="autoplay; encrypted-media; fullscreen" 
-                            sandbox="allow-scripts allow-same-origin allow-presentation"
-                            allowfullscreen>
-                    </iframe>
+                    <!-- Dynamic targeted player node anchor element -->
+                    <div id="studioPlayer"></div>
                 </div>
 
                 <div class="video-info">
@@ -348,6 +322,9 @@
     </div>
 </div>
 
+<!-- Load official YouTube API asynchronously -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
@@ -369,7 +346,7 @@
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
-  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); document.getElementById('studioPlayer').src=""; };
+  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); window.destroyPlayerInstance(); };
 
   onAuthStateChanged(auth, (user) => {
       if (user && allowedEmails.includes(user.email.toLowerCase())) {
@@ -411,6 +388,20 @@ document.onkeydown = function(e) {
 // ==========================================
 // COURSE DATA AND PLAYER LOGIC
 // ==========================================
+var ytPlayerInstance = null;
+
+// Global method access mapping for authentication resets
+window.destroyPlayerInstance = function() {
+    if (ytPlayerInstance && typeof ytPlayerInstance.destroy === 'function') {
+        ytPlayerInstance.destroy();
+        ytPlayerInstance = null;
+    }
+    document.getElementById('protected-video-wrapper').innerHTML = `
+        <div class="video-shield top-shield"></div>
+        <div class="video-shield share-blocker-strip"></div>
+        <div id="studioPlayer"></div>`;
+};
+
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
@@ -471,7 +462,7 @@ const courseData = {
         { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRchQnAJfr/view" },
         { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
         { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
-        { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
+        { title: "৯. নग्नবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
         { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
         { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
         { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
@@ -540,6 +531,10 @@ const courseData = {
     ]}
 };
 
+function onYouTubeIframeAPIReady() {
+    // API load handshake success anchor method
+}
+
 function renderAllCourses() {
     const grid = document.getElementById('courseGridContainer');
     grid.innerHTML = "";
@@ -558,7 +553,10 @@ function renderAllCourses() {
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
-    document.getElementById('studioPlayer').src = "";
+    if (ytPlayerInstance && typeof ytPlayerInstance.destroy === 'function') {
+        ytPlayerInstance.destroy();
+        ytPlayerInstance = null;
+    }
     window.scrollTo(0,0);
 }
 
@@ -595,8 +593,26 @@ function openCourse(key) {
 function setVideo(id, title, sheetLink) {
     document.getElementById("mainVideoTitle").innerText = title;
     
-    // Privacy-Enhanced secure endpoint mapping pipeline
-    document.getElementById('studioPlayer').src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3`;
+    // Clean up old instance frames cleanly
+    if (ytPlayerInstance && typeof ytPlayerInstance.destroy === 'function') {
+        ytPlayerInstance.destroy();
+        ytPlayerInstance = null;
+    }
+
+    // Initialize clean interactive player context
+    ytPlayerInstance = new YT.Player('studioPlayer', {
+        height: '100%',
+        width: '100%',
+        videoId: id,
+        playerVars: {
+            'autoplay': 1,
+            'controls': 1,
+            'modestbranding': 1,
+            'rel': 0,
+            'showinfo': 0,
+            'iv_load_policy': 3
+        }
+    });
 
     const slideSegment = document.getElementById("slideSegment");
     const slideIframe = document.getElementById("slideIframe");
