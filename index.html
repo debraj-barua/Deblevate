@@ -194,7 +194,7 @@
         }
 
         /* 2. Place an absolute transparent blanket over the video area, 
-              but underneath the Plyr control bar. */
+              but underneath the Plyr control layers. */
         .plyr__video-wrapper::after {
             content: '';
             position: absolute;
@@ -202,11 +202,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 10;
+            z-index: 1; /* Changed from 10 to 1 so it doesn't block Plyr UI elements */
             background: transparent;
-            cursor: pointer;
         }
         
+        /* 3. Elevate the UI components over the safety blanket so they are clickable */
+        .plyr__controls,
+        .plyr__control--overlaid {
+            z-index: 3 !important;
+        }
+
         /* Make Plyr Play Button huge and vibrant */
         .plyr__control--overlaid {
             background: rgba(0, 242, 254, 0.8) !important;
@@ -294,7 +299,7 @@
         </div>
         
         <div class="motivation-container">
-            <p class="motivation-text">"তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।"</p>
+            <p class="motivation-text">"তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।"</p>
             <span class="motivation-badge">Best of Luck for HSC!</span>
         </div>
 
@@ -487,7 +492,7 @@ const courseData = {
         { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
         { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
         { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
-        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
+        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
         { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
         { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
         { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
