@@ -6,35 +6,36 @@
     <title>Deblevate's Dream Edtech</title>
     <style>
         :root {
-            /* Cyan, Blue, Green Theme Palette */
-            --bg-main: #020617; 
-            --bg-card: rgba(15, 23, 42, 0.6); 
-            --bg-nav: rgba(2, 6, 23, 0.6);
+            /* Cyberpunk Fusion: Deep Slate, Vivid Yellow, and Laser Red Theme Palette */
+            --bg-main: #05050a; 
+            --bg-card: rgba(20, 10, 15, 0.65); 
+            --bg-nav: rgba(5, 5, 10, 0.8);
             --text-light: #f8fafc; 
             --text-muted: #94a3b8;
             
-            /* Gradients & Accents */
+            /* Gradients & Eye-Catching Accents */
+            --accent-red: #ff2a5f;
+            --accent-yellow: #ffdd00;
+            --accent-orange: #ff7300;
             --accent-cyan: #00f2fe;
-            --accent-blue: #4facfe;
-            --accent-green: #10b981;
-            --accent-mint: #34d399;
             
-            /* Subject Colors */
-            --color-physics: #00f2fe;
-            --color-chemistry: #3b82f6;
-            --color-math: #10b981;
-            --color-biology: #34d399;
+            /* Subject Glow Mappings */
+            --color-physics: #ff2a5f;
+            --color-chemistry: #ffdd00;
+            --color-math: #ff7300;
+            --color-biology: #10b981;
             --color-ict: #8b5cf6;
             --color-bangla: #0ea5e9;
             --color-english: #06b6d4;
         }
 
-        /* --- GLOBAL ANTI-HIGHLIGHT CSS --- */
+        /* --- GLOBAL ANTI-HIGHLIGHT --- */
         * {
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE10+/Edge */
-            user-select: none; /* Standard */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            box-sizing: border-box;
         }
 
         html { scroll-behavior: smooth; }
@@ -45,143 +46,196 @@
             background-color: var(--bg-main); 
             color: var(--text-light); 
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* PREMIUM ANIMATED BACKGROUND */
+        /* DYNAMIC ANIMATED BACKGROUND SHAPES */
         .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); }
-        .shape { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.25; animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
-        .shape1 { width: 50vw; height: 50vw; background: var(--accent-cyan); top: -20%; left: -10%; animation-duration: 25s; }
-        .shape2 { width: 45vw; height: 45vw; background: var(--accent-blue); bottom: -10%; right: -5%; animation-duration: 30s; animation-direction: alternate-reverse; }
-        .shape3 { width: 40vw; height: 40vw; background: var(--accent-mint); top: 30%; left: 30%; animation-duration: 28s; opacity: 0.15; }
+        .shape { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.18; animation: float 18s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
+        .shape1 { width: 45vw; height: 45vw; background: var(--accent-red); top: -15%; left: -5%; animation-duration: 22s; }
+        .shape2 { width: 40vw; height: 40vw; background: var(--accent-yellow); bottom: -10%; right: -5%; animation-duration: 26s; animation-direction: alternate-reverse; }
+        .shape3 { width: 35vw; height: 35vw; background: var(--accent-orange); top: 40%; left: 25%; opacity: 0.12; }
         
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-image: linear-gradient(rgba(255, 42, 95, 0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 221, 0, 0.015) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 80px) scale(1.1); }
-            100% { transform: translate(-30px, 40px) scale(0.9); }
+            50% { transform: translate(40px, 60px) scale(1.08); }
+            100% { transform: translate(-20px, 30px) scale(0.95); }
         }
 
-        /* NAVBAR */
-        header { background-color: var(--bg-nav); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0, 242, 254, 0.2); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0, 242, 254, 0.1); }
+        /* PREMIUM STREAMLINED GLOWING NAVBAR */
+        header { 
+            background-color: var(--bg-nav); 
+            padding: 1rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid rgba(255, 42, 95, 0.3); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            backdrop-filter: blur(25px); 
+            box-shadow: 0 4px 30px rgba(255, 42, 95, 0.15); 
+        }
         .header-logo { display: flex; align-items: center; gap: 15px; text-decoration: none; transition: transform 0.3s; }
-        .header-logo:hover { transform: scale(1.05); }
-        .header-logo img { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 20px rgba(0, 242, 254, 0.6); border: 2px solid rgba(0, 242, 254, 0.5); }
+        .header-logo:hover { transform: scale(1.03); }
+        .header-logo img { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; box-shadow: 0 0 25px var(--accent-red); border: 2px solid var(--accent-red); }
         .brand-text-container { display: flex; flex-direction: column; }
-        .brand-name { font-family: 'Poppins', sans-serif; font-size: 1.9rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to right, #ffffff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1; filter: drop-shadow(0 0 8px rgba(0,242,254,0.3)); }
-        .brand-sub { font-size: 0.75rem; color: var(--accent-mint); letter-spacing: 3px; margin-top: 4px; font-weight: 700; text-transform: uppercase; }
+        .brand-name { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to right, #ffffff, var(--accent-yellow), var(--accent-red)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1; filter: drop-shadow(0 0 10px rgba(255,42,95,0.4)); }
+        .brand-sub { font-size: 0.8rem; color: var(--accent-yellow); letter-spacing: 4px; margin-top: 4px; font-weight: 800; text-transform: uppercase; text-shadow: 0 0 8px rgba(255,221,0,0.5); }
         .nav-links { display: flex; gap: 1.5rem; align-items: center;}
         
-        /* AUTH UI */
+        /* AUTH BUTTON WITH PULSING CORONA */
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0.8); }
+            70% { box-shadow: 0 0 0 18px rgba(255, 42, 95, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 42, 95, 0); }
         }
-        .login-btn { background: linear-gradient(135deg, var(--accent-green), #059669); color: white; border: none; padding: 0.6rem 1.6rem; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; transition: all 0.3s ease; animation: pulseGlow 2s infinite; text-transform: uppercase; letter-spacing: 1px;}
-        .login-btn:hover { transform: translateY(-3px) scale(1.05); background: linear-gradient(135deg, var(--accent-mint), var(--accent-green)); }
+        .login-btn { background: linear-gradient(135deg, var(--accent-red), var(--accent-orange)); color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); animation: pulseGlow 2s infinite; text-transform: uppercase; letter-spacing: 1px;}
+        .login-btn:hover { transform: translateY(-3px) scale(1.05); background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange)); color: #000; box-shadow: 0 0 25px var(--accent-yellow); }
         
-        .user-profile { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 5px 15px 5px 5px; border-radius: 50px; border: 1px solid rgba(0,242,254,0.3); box-shadow: inset 0 0 10px rgba(0,242,254,0.1); backdrop-filter: blur(10px); }
-        .user-profile img { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent-cyan); box-shadow: 0 0 10px rgba(0,242,254,0.5); }
+        .user-profile { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 6px 18px 6px 6px; border-radius: 50px; border: 1px solid rgba(255,42,95,0.4); box-shadow: inset 0 0 12px rgba(255,42,95,0.1); backdrop-filter: blur(10px); }
+        .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-yellow); box-shadow: 0 0 12px var(--accent-yellow); }
         .logout-btn { background: transparent; color: #f87171; border: none; padding: 0; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
-        .logout-btn:hover { color: #ef4444; text-shadow: 0 0 8px rgba(239, 68, 68, 0.6); }
-        #login-screen { text-align: center; padding: 10rem 2rem; position: relative; z-index: 10; }
-        #login-screen h2 { color: var(--accent-cyan); font-size: 3rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(0,242,254,0.4); }
+        .logout-btn:hover { color: var(--accent-red); text-shadow: 0 0 10px var(--accent-red); }
+        
+        #login-screen { text-align: center; padding: 12rem 2rem; position: relative; z-index: 10; }
+        #login-screen h2 { color: var(--accent-yellow); font-size: 3.5rem; margin-bottom: 15px; text-shadow: 0 0 25px rgba(255,221,0,0.4); font-weight: 900; }
 
-        /* DASHBOARD */
+        /* DASHBOARD & BRAND NEW SEPARATED MOTIVATION SECTION */
         #main-app { display: none; position: relative; z-index: 10; } 
         #home-view { padding: 3rem 5%; max-width: 1400px; margin: 0 auto; }
         
-        .hero-banner { padding: 0; border-radius: 24px; text-align: center; margin-bottom: 4rem; border: 1px solid rgba(0, 242, 254, 0.3); box-shadow: 0 15px 50px rgba(0, 242, 254, 0.15); background: var(--bg-card); overflow: hidden; position: relative; backdrop-filter: blur(10px); }
+        .hero-banner { border-radius: 24px; text-align: center; border: 2px solid rgba(255, 42, 95, 0.25); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); background: #000; overflow: hidden; position: relative; }
         .hero-banner img { width: 100%; height: auto; display: block; }
-        .hero-banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(2,6,23,0.9) 0%, transparent 60%); pointer-events: none; }
-        .hero-motivation { position: absolute; bottom: 0; left: 0; width: 100%; padding: 3rem 2rem 2rem; background: transparent; color: #fff; font-style: italic; font-size: 1.3rem; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.8); z-index: 10; }
         
+        /* Completely detached visual design block for the motivation panel */
+        .motivation-container {
+            margin: -2rem auto 4rem;
+            max-width: 90%;
+            position: relative;
+            z-index: 20;
+            background: linear-gradient(135deg, rgba(20, 10, 15, 0.9), rgba(5, 5, 10, 0.95));
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 2px solid var(--accent-yellow);
+            box-shadow: 0 15px 40px rgba(255, 221, 0, 0.15), inset 0 0 20px rgba(255, 42, 95, 0.1);
+            backdrop-filter: blur(15px);
+        }
+        .motivation-text {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.7;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .motivation-badge {
+            color: var(--accent-yellow); 
+            font-size: 1.6rem; 
+            font-weight: 900; 
+            display: inline-block; 
+            margin-top: 15px; 
+            text-shadow: 0 0 15px rgba(255,221,0,0.6); 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        /* SUBJECT BUTTON FILTERS WITH NEON ACCENTS */
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 4rem; }
-        .filter-btn { background: rgba(15, 23, 42, 0.5); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem 1.8rem; border-radius: 50px; font-weight: 700; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem; backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .filter-btn:hover { border-color: var(--accent-cyan); color: #fff; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 242, 254, 0.2); background: rgba(15, 23, 42, 0.8); }
+        .filter-btn { background: rgba(20, 10, 15, 0.6); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); padding: 0.8rem 1.8rem; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem; backdrop-filter: blur(10px); }
+        .filter-btn:hover { border-color: var(--accent-yellow); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 221, 0, 0.15); }
         
-        .filter-btn[data-target="physics"].active { background: var(--color-physics); color: #000; box-shadow: 0 0 25px rgba(0,242,254,0.6); border-color: var(--color-physics); transform: scale(1.05); }
-        .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #fff; box-shadow: 0 0 25px rgba(59,130,246,0.6); border-color: var(--color-chemistry); transform: scale(1.05); }
-        .filter-btn[data-target="math"].active { background: var(--color-math); color: #000; box-shadow: 0 0 25px rgba(16,185,129,0.6); border-color: var(--color-math); transform: scale(1.05); }
-        .filter-btn[data-target="biology"].active { background: var(--color-biology); color: #000; box-shadow: 0 0 25px rgba(52,211,153,0.6); border-color: var(--color-biology); transform: scale(1.05); }
-        .filter-btn[data-target="ict"].active { background: var(--color-ict); color: #fff; box-shadow: 0 0 25px rgba(139,92,246,0.6); border-color: var(--color-ict); transform: scale(1.05); }
-        .filter-btn[data-target="bangla"].active { background: var(--color-bangla); color: #000; box-shadow: 0 0 25px rgba(14,165,233,0.6); border-color: var(--color-bangla); transform: scale(1.05); }
-        .filter-btn[data-target="english"].active { background: var(--color-english); color: #000; box-shadow: 0 0 25px rgba(6,182,212,0.6); border-color: var(--color-english); transform: scale(1.05); }
+        .filter-btn[data-target="physics"].active { background: var(--color-physics); color: #fff; box-shadow: 0 0 25px rgba(255,42,95,0.5); border-color: var(--color-physics); }
+        .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #000; box-shadow: 0 0 25px rgba(255,221,0,0.6); border-color: var(--color-chemistry); }
+        .filter-btn[data-target="math"].active { background: var(--color-math); color: #fff; box-shadow: 0 0 25px rgba(255,115,0,0.5); border-color: var(--color-math); }
+        .filter-btn[data-target="biology"].active { background: var(--color-biology); color: #000; box-shadow: 0 0 25px rgba(16,185,129,0.5); border-color: var(--color-biology); }
+        .filter-btn[data-target="ict"].active { background: var(--color-ict); color: #fff; box-shadow: 0 0 25px rgba(139,92,246,0.5); border-color: var(--color-ict); }
+        .filter-btn[data-target="bangla"].active { background: var(--color-bangla); color: #000; box-shadow: 0 0 25px rgba(14,165,233,0.5); border-color: var(--color-bangla); }
+        .filter-btn[data-target="english"].active { background: var(--color-english); color: #000; box-shadow: 0 0 25px rgba(6,182,212,0.5); border-color: var(--color-english); }
 
+        /* GRID CONTENT CARDS */
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem; }
+        .course-card { background: rgba(15, 10, 20, 0.45); backdrop-filter: blur(12px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,42,95,0.15); transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative; }
+        .course-card:hover { transform: translateY(-10px); border-color: var(--accent-yellow); background: rgba(20, 15, 25, 0.75); box-shadow: 0 20px 45px rgba(255, 42, 95, 0.25); }
         
-        .course-card { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.15); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1); position: relative; }
-        .course-card:hover { transform: translateY(-12px); border-color: var(--accent-cyan); background: rgba(15, 23, 42, 0.7); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.3), inset 0 0 15px rgba(0, 242, 254, 0.1); }
+        .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; border-bottom: 2px solid var(--accent-red); }
+        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .course-card:hover .card-img-wrapper img { transform: scale(1.08); }
         
-        .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; border-bottom: 2px solid var(--accent-cyan); }
-        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, filter 0.6s ease; opacity: 1 !important; filter: none !important; }
-        .course-card:hover .card-img-wrapper img { transform: scale(1.12); filter: brightness(1.15) !important; }
-        
-        .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; flex-wrap: wrap; z-index: 2;}
-        .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #020617; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-mint)); box-shadow: 0 4px 15px rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
-        
+        .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; z-index: 2;}
+        .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #000; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-yellow), var(--accent-orange)); box-shadow: 0 4px 15px rgba(0,0,0,0.6); }
         .card-content { padding: 1.8rem; }
-        .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.5);}
+        .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
-        /* PLAYER VIEW */
+        /* STUDIO PLAYROOM WORKSPACE */
         #player-view { display: none; max-width: 1500px; margin: 0 auto; padding: 2rem 5%; }
-        .back-btn { background: rgba(0,242,254,0.1); color: var(--accent-cyan); border: 1px solid rgba(0,242,254,0.4); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 2.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
-        .back-btn:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 25px rgba(0,242,254,0.5); transform: translateX(-5px); }
+        .back-btn { background: rgba(255,42,95,0.1); color: var(--accent-red); border: 1px solid rgba(255,42,95,0.3); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 2.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
+        .back-btn:hover { background: var(--accent-red); color: #fff; box-shadow: 0 0 25px var(--accent-red); transform: translateX(-4px); }
         
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
-        /* PROTECTED VIDEO WRAPPER & HIGH PRECISION STRIP SHIELDS */
-        .protected-video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,242,254,0.3); margin-bottom: 2rem; box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 242, 254, 0.15); }
-        .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        /* RESPONSIBILITIES WRAPPER DESIGN WITH FLUID STRIP SHIELDS */
+        .protected-video-wrapper { 
+            position: relative; 
+            padding-bottom: 56.25%; 
+            height: 0; 
+            background: #000; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 2px solid rgba(255, 221, 0, 0.3); 
+            margin-bottom: 2rem; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(255, 42, 95, 0.1); 
+        }
+        .protected-video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 1; }
 
-        .video-shield { position: absolute; z-index: 10; background: transparent; }
+        .video-shield { position: absolute; z-index: 10; background: transparent; pointer-events: auto; width: 100%; }
         
-        /* 1. Top Shield: Covers the video title card links at the top */
-        .top-shield { top: 0; left: 0; width: 100%; height: 65px; }
+        /* Top Shield: Covers heading click leaks */
+        .top-shield { top: 0; left: 0; height: 12%; }
 
-        /* 2. Floating Popup Shield Bar: 
-           Pushed up exactly 52px so that the slider timeline tracker bar and settings gear 
-           remain fully clickable, while capturing clicks targeted at the horizontal share bar area. */
+        /* Middle-Bottom Popup Shield Bar: 
+           Pushed up from the base using relative height percentage parameters.
+           Leaves the bottom timeline slider track, settings gear, and captions fully unblocked. */
         .middle-bottom-popup-shield { 
-            bottom: 52px; 
-            left: 0; 
-            width: 100%; 
-            height: 65px; 
+            bottom: 52px;
+            left: 0;
+            height: 60px;
         }
 
-        .video-info { background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
-        .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); }
+        .video-info { background: rgba(20,10,15,0.6); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,42,95,0.2); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-yellow)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Slide Segment */
-        .slide-segment { margin-top: 3rem; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(16px); border-radius: 20px; border: 1px solid rgba(16,185,129,0.3); overflow: hidden; display: none; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .slide-header { background: rgba(16,185,129,0.15); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(16,185,129,0.3); }
-        .slide-header h3 { margin: 0; color: var(--accent-mint); font-size: 1.3rem; display: flex; align-items: center; gap: 10px; font-weight: 800;}
-        .download-btn { background: linear-gradient(135deg, var(--accent-mint), var(--accent-green)); color: #000; padding: 0.8rem 1.6rem; border-radius: 10px; font-size: 1rem; font-weight: 900; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 20px rgba(16,185,129,0.4); display: flex; align-items: center; gap: 8px;}
-        .download-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(16,185,129,0.6); color: #fff;}
+        /* Lecture Slides Layer Section */
+        .slide-segment { margin-top: 3rem; background: rgba(15, 10, 20, 0.6); backdrop-filter: blur(16px); border-radius: 20px; border: 1px solid rgba(255,221,0,0.25); overflow: hidden; display: none; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .slide-header { background: rgba(255,221,0,0.08); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,221,0,0.25); }
+        .slide-header h3 { margin: 0; color: var(--accent-yellow); font-size: 1.3rem; display: flex; align-items: center; gap: 10px; font-weight: 800;}
+        .download-btn { background: linear-gradient(135deg, var(--accent-yellow), var(--accent-orange)); color: #000; padding: 0.8rem 1.6rem; border-radius: 10px; font-size: 1rem; font-weight: 900; text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(255,221,0,0.3); }
+        .download-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,115,0,0.5); color: #fff; }
         .slide-frame-container { width: 100%; height: 700px; background: #000; }
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
 
-        /* Sidebar Playlist */
-        .sidebar { flex: 1; background: rgba(15,23,42,0.6); backdrop-filter: blur(16px); border-radius: 20px; display: flex; flex-direction: column; max-height: 700px; border: 1px solid rgba(0,242,254,0.2); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .sidebar-header { padding: 1.8rem; background: linear-gradient(to right, rgba(0,242,254,0.1), transparent); border-bottom: 1px solid rgba(0,242,254,0.2); }
+        /* Media Sidebar Playlists Layout */
+        .sidebar { flex: 1; background: rgba(20,10,15,0.5); backdrop-filter: blur(16px); border-radius: 20px; display: flex; flex-direction: column; max-height: 700px; border: 1px solid rgba(255,42,95,0.2); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+        .sidebar-header { padding: 1.8rem; background: linear-gradient(to right, rgba(255,42,95,0.08), transparent); border-bottom: 1px solid rgba(255,42,95,0.2); }
         .sidebar-header h3 { margin:0; color:white; font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
         .video-list { overflow-y: auto; flex-grow: 1; padding: 1.2rem; }
         
-        .video-list::-webkit-scrollbar { width: 8px; }
-        .video-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
-        .video-list::-webkit-scrollbar-thumb { background: rgba(0,242,254,0.4); border-radius: 10px; }
+        .video-list::-webkit-scrollbar { width: 6px; }
+        .video-list::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        .video-list::-webkit-scrollbar-thumb { background: var(--accent-red); border-radius: 10px; }
         
-        .video-item { display: flex; padding: 1.2rem; margin-bottom: 1rem; border-radius: 12px; cursor: pointer; background: rgba(255,255,255,0.03); color: var(--text-muted); align-items: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(255,255,255,0.05); font-weight: 600;}
-        .video-item:hover { background: rgba(0,242,254,0.08); border-color: rgba(0,242,254,0.3); color: #fff; transform: translateX(5px); }
-        .video-item.active { background: linear-gradient(135deg, rgba(0,242,254,0.2), rgba(79,172,254,0.05)); border-left: 5px solid var(--accent-cyan); border-right: 1px solid rgba(0,242,254,0.3); border-top: 1px solid rgba(0,242,254,0.3); border-bottom: 1px solid rgba(0,242,254,0.3); color: #fff; box-shadow: 0 5px 20px rgba(0,242,254,0.15); transform: translateX(5px); font-weight: 800;}
-        .video-index { margin-right: 15px; color: var(--accent-blue); font-size: 1.1rem; opacity: 0.8; }
-        .video-item.active .video-index { color: var(--accent-cyan); opacity: 1; text-shadow: 0 0 15px var(--accent-cyan); font-weight: 900;}
+        .video-item { display: flex; padding: 1.2rem; margin-bottom: 1rem; border-radius: 12px; cursor: pointer; background: rgba(255,255,255,0.02); color: var(--text-muted); align-items: center; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.04); font-weight: 600;}
+        .video-item:hover { background: rgba(255,42,95,0.05); border-color: rgba(255,42,95,0.25); color: #fff; transform: translateX(4px); }
+        .video-item.active { background: linear-gradient(135deg, rgba(255,42,95,0.15), rgba(255,221,0,0.03)); border-left: 5px solid var(--accent-red); border-right: 1px solid rgba(255,42,95,0.2); border-top: 1px solid rgba(255,42,95,0.2); border-bottom: 1px solid rgba(255,42,95,0.2); color: #fff; box-shadow: 0 5px 20px rgba(255,42,95,0.1); transform: translateX(4px); font-weight: 800;}
+        .video-index { margin-right: 15px; color: var(--accent-yellow); font-size: 1.1rem; }
 
         @media (max-width: 1024px) { 
             .studio-container { flex-direction: column; } 
@@ -212,7 +266,7 @@
         <div id="userInfo" class="user-profile" style="display: none;">
             <img id="userPic" src="" alt="User">
             <div>
-                <div id="userName" style="color: var(--accent-cyan); font-size: 0.9rem; font-weight: 900; margin-bottom: 3px; letter-spacing: 0.5px;"></div>
+                <div id="userName" style="color: var(--accent-yellow); font-size: 0.9rem; font-weight: 900; margin-bottom: 3px; letter-spacing: 0.5px;"></div>
                 <button id="logoutBtnUI" class="logout-btn">Logout</button>
             </div>
         </div>
@@ -227,12 +281,15 @@
 
 <div id="main-app">
     <div id="home-view">
+        <!-- Separate Frame System Layout -->
         <div class="hero-banner">
             <img src="photo_2026-06-23_21-57-30.jpg" alt="Deblevate Banner" onerror="console.log('Banner missing')">
-            <div class="hero-motivation">
-                "তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।" <br>
-                <span style="color: var(--accent-mint); font-size: 1.5rem; font-weight: 900; display: inline-block; margin-top: 15px; text-shadow: 0 0 15px rgba(52,211,153,0.5); letter-spacing: 1px;">Best of Luck for HSC!</span>
-            </div>
+        </div>
+        
+        <!-- Detached Motivation Container Element Block -->
+        <div class="motivation-container">
+            <p class="motivation-text">"তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।"</p>
+            <span class="motivation-badge">Best of Luck for HSC!</span>
         </div>
 
         <div class="filters" id="subject-filters">
@@ -255,6 +312,7 @@
             <div class="main-content">
                 
                 <div class="protected-video-wrapper">
+                    <!-- Layered Security Shield Overlays -->
                     <div class="video-shield top-shield"></div>
                     <div class="video-shield middle-bottom-popup-shield"></div>
                     
@@ -336,23 +394,15 @@
 // ==========================================
 // MAXIMUM SECURITY ANTI-COPY JAVASCRIPT
 // ==========================================
-
-// 1. Block standard copy, cut, and paste events globally
 document.addEventListener('copy', (e) => e.preventDefault());
 document.addEventListener('cut', (e) => e.preventDefault());
 document.addEventListener('paste', (e) => e.preventDefault());
 
-// 2. Block Keyboard Shortcuts (F12, Ctrl+C, Ctrl+V, Ctrl+U, Ctrl+Shift+I)
 document.onkeydown = function(e) {
-    // F12 (Dev Tools)
     if (e.keyCode === 123) return false;
-    
-    // Ctrl + C / V / U / S (Copy, Paste, View Source, Save)
     if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 83)) {
         return false;
     }
-    
-    // Ctrl + Shift + I / J / C (Advanced Dev Tools)
     if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
         return false;
     }
@@ -498,7 +548,7 @@ function renderAllCourses() {
         grid.innerHTML += `
         <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
             <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
-            <div class="card-tags"><span class="tag">${c.sub}</span></div></div>
+            <div class="card-tags"><span class="tag" style="background: var(--color-${c.sub}); color:${c.sub === 'chemistry' || c.sub === 'bangla' || c.sub === 'english' ? '#000' : '#fff'}">${c.sub}</span></div></div>
             <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
         </div>`;
     });
@@ -545,8 +595,8 @@ function openCourse(key) {
 function setVideo(id, title, sheetLink) {
     document.getElementById("mainVideoTitle").innerText = title;
     
-    // Embed with native controls enabled
-    document.getElementById('studioPlayer').src = `https://www.youtube.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
+    // Privacy-Enhanced secure endpoint mapping pipeline
+    document.getElementById('studioPlayer').src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3`;
 
     const slideSegment = document.getElementById("slideSegment");
     const slideIframe = document.getElementById("slideIframe");
