@@ -123,21 +123,22 @@
         .hero-banner { border-radius: 24px; text-align: center; border: 2px solid rgba(255, 42, 95, 0.25); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); background: #000; overflow: hidden; position: relative; }
         .hero-banner img { width: 100%; height: auto; display: block; }
         
+        /* Updated Motivation Container (More Compact) */
         .motivation-container {
-            margin: -2rem auto 4rem;
-            max-width: 90%;
+            margin: -1.5rem auto 3rem;
+            max-width: 85%;
             position: relative;
             z-index: 20;
             background: linear-gradient(135deg, rgba(20, 10, 15, 0.9), rgba(5, 5, 10, 0.95));
-            border-radius: 20px;
-            padding: 2rem;
+            border-radius: 16px;
+            padding: 1.5rem;
             text-align: center;
             border: 2px solid var(--accent-yellow);
             box-shadow: 0 15px 40px rgba(255, 221, 0, 0.15), inset 0 0 20px rgba(255, 42, 95, 0.1);
             backdrop-filter: blur(15px);
         }
-        .motivation-text { color: #fff; font-size: 1.4rem; font-weight: 700; line-height: 1.7; margin: 0; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
-        .motivation-badge { color: var(--accent-yellow); font-size: 1.6rem; font-weight: 900; display: inline-block; margin-top: 15px; text-shadow: 0 0 15px rgba(255,221,0,0.6); letter-spacing: 2px; text-transform: uppercase; }
+        .motivation-text { color: #fff; font-size: 1.15rem; font-weight: 700; line-height: 1.6; margin: 0; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+        .motivation-badge { color: var(--accent-yellow); font-size: 1.25rem; font-weight: 900; display: inline-block; margin-top: 10px; text-shadow: 0 0 15px rgba(255,221,0,0.6); letter-spacing: 2px; text-transform: uppercase; }
         
         /* SUBJECT BUTTON FILTERS */
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 4rem; }
@@ -187,14 +188,10 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 254, 0.15); 
         }
 
-        /* 1. Disable ALL click events on the YouTube iframe completely.
-              This kills any native interaction (Share, More videos, etc). */
         .plyr__video-wrapper iframe {
             pointer-events: none !important;
         }
 
-        /* 2. Place an absolute transparent blanket over the video area, 
-              but underneath the Plyr control layers. */
         .plyr__video-wrapper::after {
             content: '';
             position: absolute;
@@ -202,17 +199,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1; /* Changed from 10 to 1 so it doesn't block Plyr UI elements */
+            z-index: 1;
             background: transparent;
         }
         
-        /* 3. Elevate the UI components over the safety blanket so they are clickable */
         .plyr__controls,
         .plyr__control--overlaid {
             z-index: 3 !important;
         }
 
-        /* Make Plyr Play Button huge and vibrant */
         .plyr__control--overlaid {
             background: rgba(0, 242, 254, 0.8) !important;
             padding: 25px !important;
@@ -250,10 +245,66 @@
         .video-item.active { background: linear-gradient(135deg, rgba(255,42,95,0.15), rgba(255,221,0,0.03)); border-left: 5px solid var(--accent-red); border-right: 1px solid rgba(255,42,95,0.2); border-top: 1px solid rgba(255,42,95,0.2); border-bottom: 1px solid rgba(255,42,95,0.2); color: #fff; box-shadow: 0 5px 20px rgba(255,42,95,0.1); transform: translateX(4px); font-weight: 800;}
         .video-index { margin-right: 15px; color: var(--accent-yellow); font-size: 1.1rem; }
 
+        /* ==========================================
+           MOBILE RESPONSIVENESS OVERRIDES
+           ========================================== */
         @media (max-width: 1024px) { 
             .studio-container { flex-direction: column; } 
             .slide-frame-container { height: 500px; } 
             .sidebar { max-height: 500px; }
+        }
+
+        @media (max-width: 768px) {
+            /* Header adjustments */
+            header { padding: 0.8rem 4%; }
+            .header-logo img { width: 42px; height: 42px; }
+            .brand-name { font-size: 1.4rem; }
+            .brand-sub { font-size: 0.65rem; letter-spacing: 2px; }
+            .nav-links { gap: 1rem; }
+            .login-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
+            .user-profile { padding: 4px 12px 4px 4px; }
+            .user-profile img { width: 32px; height: 32px; }
+            
+            /* Login Screen */
+            #login-screen { padding: 6rem 1rem; }
+            #login-screen h2 { font-size: 2.2rem; }
+            #login-screen p { font-size: 1rem; margin-bottom: 2rem; }
+
+            /* Dashboard Layout */
+            #home-view { padding: 2rem 4%; }
+            .motivation-container { padding: 1.2rem; margin: -1rem auto 2.5rem; max-width: 95%; width: 100%; border-radius: 12px; }
+            .motivation-text { font-size: 0.95rem; line-height: 1.5; }
+            .motivation-badge { font-size: 1rem; }
+            
+            /* Filters */
+            .filters { gap: 0.6rem; margin-bottom: 2rem; }
+            .filter-btn { padding: 0.6rem 1rem; font-size: 0.85rem; border-radius: 10px; }
+
+            /* Course Grid - 1 column layout */
+            .course-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+            .card-content { padding: 1.2rem; }
+            .card-title { font-size: 1.1rem; }
+
+            /* Player View */
+            #player-view { padding: 1rem 4%; }
+            .back-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; margin-bottom: 1.5rem; }
+            
+            /* Video and Sidebar spacing */
+            .studio-container { gap: 1.5rem; }
+            .video-info { padding: 1.2rem; border-radius: 12px; }
+            .video-title { font-size: 1.3rem; }
+            
+            /* Slide segment */
+            .slide-segment { margin-top: 1.5rem; border-radius: 12px; }
+            .slide-header { flex-direction: column; gap: 12px; align-items: flex-start; padding: 1rem; }
+            .download-btn { font-size: 0.9rem; padding: 0.6rem 1.2rem; width: 100%; justify-content: center; box-sizing: border-box; }
+            .slide-frame-container { height: 350px; } /* Shorter slides for mobile to save scroll space */
+            
+            /* Sidebar Playlist */
+            .sidebar-header { padding: 1.2rem; }
+            .sidebar-header h3 { font-size: 1.1rem; }
+            .video-list { padding: 0.8rem; }
+            .video-item { padding: 0.8rem; margin-bottom: 0.6rem; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -299,7 +350,7 @@
         </div>
         
         <div class="motivation-container">
-            <p class="motivation-text">"তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।"</p>
+            <p class="motivation-text">"তোমার স্বপ্নগুলো আকাশ ছোঁয়ার অপেক্ষায়, শুধু সঠিক দিকনির্দেশনা আর কঠোর পরিশ্রমের প্রয়োজন।"</p>
             <span class="motivation-badge">Best of Luck for HSC!</span>
         </div>
 
@@ -492,7 +543,7 @@ const courseData = {
         { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
         { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
         { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
-        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
+        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
         { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
         { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
         { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
