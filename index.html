@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deblevate's Dream Edtech</title>
     
-    <!-- Plyr CSS for Custom Video Player -->
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
     <style>
@@ -175,7 +174,10 @@
         .studio-container { display: flex; flex-direction: row; gap: 3rem; }
         .main-content { flex: 2.2; display: flex; flex-direction: column; }
         
-        /* PLYR VIDEO CONTAINER STYLING */
+        /* ==========================================
+           THE ULTIMATE FULL VIDEO SHIELD (PLYR EXTENSION)
+           ========================================== */
+        
         .protected-video-wrapper { 
             position: relative; 
             border-radius: 20px; 
@@ -183,6 +185,26 @@
             border: 2px solid rgba(0, 242, 254, 0.4); 
             margin-bottom: 2rem; 
             box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(0, 242, 254, 0.15); 
+        }
+
+        /* 1. Disable ALL click events on the YouTube iframe completely.
+              This kills any native interaction (Share, More videos, etc). */
+        .plyr__video-wrapper iframe {
+            pointer-events: none !important;
+        }
+
+        /* 2. Place an absolute transparent blanket over the video area, 
+              but underneath the Plyr control bar. */
+        .plyr__video-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background: transparent;
+            cursor: pointer;
         }
         
         /* Make Plyr Play Button huge and vibrant */
@@ -295,9 +317,7 @@
         <div class="studio-container">
             <div class="main-content">
                 
-                <!-- NEW PLYR VIDEO WRAPPER -->
                 <div class="protected-video-wrapper">
-                    <!-- Plyr Anchor -->
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
 
@@ -325,7 +345,6 @@
     </div>
 </div>
 
-<!-- Load Plyr JS script -->
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script type="module">
