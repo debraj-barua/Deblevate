@@ -16,14 +16,14 @@
             --text-light: #f8fafc; 
             --text-muted: #a78bfa;
             
-            /* Gradients & Eye-Catching Accents */
+            /* Gradients & Accents */
             --accent-purple: #9333ea;
             --accent-purple-light: #c084fc;
             --accent-pink: #ec4899;
             --accent-cyan: #06b6d4;
             --accent-gold: #fbbf24;
             
-            /* Subject Glow Mappings (Adapted for contrast against purple) */
+            /* Subject Glow Mappings */
             --color-physics: #ec4899;
             --color-chemistry: #fbbf24;
             --color-math: #f97316;
@@ -139,7 +139,6 @@
         .filter-btn { background: rgba(30, 15, 45, 0.6); color: var(--text-muted); border: 1px solid rgba(147,51,234,0.3); padding: 0.8rem 1.8rem; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1rem; backdrop-filter: blur(10px); }
         .filter-btn:hover { border-color: var(--accent-purple-light); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(147, 51, 234, 0.25); }
         
-        /* Keep specific glows for categories, but matched with purple aesthetic */
         .filter-btn[data-target="physics"].active { background: var(--color-physics); color: #fff; box-shadow: 0 0 25px rgba(236,72,153,0.5); border-color: var(--color-physics); }
         .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #000; box-shadow: 0 0 25px rgba(251,191,36,0.5); border-color: var(--color-chemistry); }
         .filter-btn[data-target="math"].active { background: var(--color-math); color: #fff; box-shadow: 0 0 25px rgba(249,115,22,0.5); border-color: var(--color-math); }
@@ -159,6 +158,27 @@
         
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; z-index: 2;}
         .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #fff; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        
+        /* NEW: Enrollment Badge Styles */
+        .enrollment-stat {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(10, 5, 20, 0.85);
+            border: 1px solid var(--accent-cyan);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
@@ -210,9 +230,7 @@
         .slide-frame-container { width: 100%; height: 700px; background: #000; }
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
 
-        /* ==========================================
-           SIDEBAR REDESIGN: PLAYLIST & CHAT TABS
-           ========================================== */
+        /* SIDEBAR REDESIGN: PLAYLIST & CHAT TABS */
         .sidebar { flex: 1.2; background: rgba(25,10,40,0.7); backdrop-filter: blur(16px); border-radius: 20px; display: flex; flex-direction: column; height: 700px; border: 1px solid rgba(147,51,234,0.3); box-shadow: 0 15px 40px rgba(0,0,0,0.7); overflow: hidden; }
         
         .sidebar-tabs { display: flex; background: rgba(10,5,20,0.8); border-bottom: 2px solid rgba(147,51,234,0.3); }
@@ -255,9 +273,6 @@
         .send-btn:hover { background: var(--accent-cyan); transform: scale(1.1); box-shadow: 0 0 15px var(--accent-cyan); }
         .send-btn svg { width: 18px; height: 18px; fill: white; margin-left: 2px; }
 
-        /* ==========================================
-           MOBILE RESPONSIVENESS OVERRIDES
-           ========================================== */
         @media (max-width: 1024px) { 
             .studio-container { flex-direction: column; } 
             .slide-frame-container { height: 500px; } 
@@ -275,7 +290,6 @@
             .user-profile img { width: 32px; height: 32px; }
             
             #login-screen h2 { font-size: 2.2rem; }
-            
             #home-view { padding: 2rem 4%; }
             .motivation-container { padding: 1.2rem; margin: -1rem auto 2.5rem; max-width: 100%; }
             
@@ -473,45 +487,136 @@ document.onkeydown = function(e) {
 };
 
 // ==========================================
-// COURSE DATA & PLAYER LOGIC
+// FULL COURSE DATA & PLAYER LOGIC
 // ==========================================
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
-// (Course Data remains the same, injected here to save space but keeps all info)
+
+// ADDED "enrolled" property to each course for you to configure manually!
 const courseData = {
-    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
+    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", enrolled: "1,245", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
         { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
-        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" }
+        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
+        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" },
+        { title: "৫. কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view" },
+        { title: "৬. মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view" },
+        { title: "৭. পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view" },
+        { title: "৮. পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view" },
+        { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
+        { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
     ]},
-    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
-        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" }
+    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", enrolled: "950", videos: [
+        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" },  
+        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" },  
+        { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" },  
+        { title: "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view" },  
+        { title: "৫. তাড়িতচৌম্বক আবেশ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view" },  
+        { title: "৬. জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view" },  
+        { title: "৭. ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view" },  
+        { title: "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view" },  
+        { title: "৯. পরমাণুর মডেল ও নিউক্লিয়ার", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view" },  
+        { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" },  
+        { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
     ]},
-    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
-        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" }
+    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", enrolled: "2,100", videos: [
+        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
+        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
+        { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
+        { title: "৪. ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view" },
+        { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
+        { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
     ]},
-    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
-        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" }
+    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", enrolled: "1,850", videos: [
+        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
+        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
+        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
+        { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
+        { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
+        { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
     ]},
-    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
-        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" }
+    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", enrolled: "1,620", videos: [
+        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
+        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
+        { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
+        { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
+        { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
+        { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
     ]},
-    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", videos: [
-        { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" }
+    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", enrolled: "2,050", videos: [
+        { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
+        { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
+        { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
+        { title: "৪. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
+        { title: "৫. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
+        { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRchQnAJfr/view" },
+        { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
+        { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
+        { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
+        { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
+        { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
+        { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
+        { title: "১৩. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
+        { title: "১৪. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
+        { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
+        { title: "১৬. জীবের পরিবেশ ও বিস্তার", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
     ]},
-    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
-        { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" }
+    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", enrolled: "1,980", videos: [
+        { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
+        { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
+        { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
+        { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
+        { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
+        { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
+        { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
+        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
+        { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
+        { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
+        { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
+        { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
+        { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
     ]},
-    course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", videos: [
-        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet }
+    course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", enrolled: "1,430", videos: [
+        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
+        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
+        { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
+        { title: "৪. বিন্যাস ও সমাবেশ", id: "qyP-bbCSAr4", sheet: mathSheet },
+        { title: "৫. ত্রিকোণমিতি", id: "IvMPzm4Ap3w", sheet: mathSheet },
+        { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
+        { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
     ]},
-    course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", videos: [
-        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet }
+    course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", enrolled: "1,120", videos: [
+        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
+        { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
+        { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
+        { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
+        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
+        { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
+        { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
+        { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
     ]},
-    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
-        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" }
+    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", enrolled: "3,200", videos: [
+        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
+        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
+        { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" },
+        { title: "৪. সকল কনফিউজিং MCQ এর সমাধান 🔥", id: "2pDp58dcL_s", sheet: "https://drive.google.com/file/d/1-qpxUIU64w1uMtIn6fpTwhNbRNvV9vOG/view?usp=sharing" }
     ]},
-    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
+    course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", enrolled: "800", videos: [
+        { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
+    ]},
+    course12: { sub: "bangla", title: "Bangla 2nd Paper (Omor Faruq)", img: "sSWsrnn0qa0", enrolled: "2,750", videos: [
+        { title: "১. ব্যাকরণ ও নির্মিতি", id: "sSWsrnn0qa0", sheet: "https://drive.google.com/file/d/1BrvqvJnuUceiO_tqoIcZ5wwa78nmxfRd/view" }
+    ]},
+    course13: { sub: "bangla", title: "Bangla 2nd Paper (Sakib Vai)", img: "OJAq_YD8bCc", enrolled: "600", videos: [
+        { title: "১. ব্যাকরণ ও নির্মিতি (Fahad's Tutorial)", id: "OJAq_YD8bCc", sheet: "https://drive.google.com/drive/u/0/mobile/folders/18Bgh7HvaYAXeJ-vf3eDsqzn_E00lfv2u?usp=drive_link" }
+    ]},
+    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", enrolled: "1,550", videos: [
         { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
+    ]},
+    course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", enrolled: "1,350", videos: [
+        { title: "English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" }
+    ]},
+    course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", enrolled: "4,500", videos: [
+        { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
     ]}
 };
 
@@ -522,6 +627,7 @@ function renderAllCourses() {
         let c = courseData[key];
         grid.innerHTML += `
         <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
+            <div class="enrollment-stat">👥 ${c.enrolled} Enrolled</div>
             <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
             <div class="card-tags"><span class="tag" style="background: var(--color-${c.sub}); color:${c.sub === 'chemistry' || c.sub === 'biology' ? '#000' : '#fff'}">${c.sub}</span></div></div>
             <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
@@ -552,7 +658,6 @@ function openCourse(key) {
     const container = document.getElementById("playlistView");
     container.innerHTML = "";
     
-    // Clear chat on new course
     document.getElementById("chatMessagesBox").innerHTML = `<div class="chat-msg"><span class="chat-author">System</span>Welcome to ${data.title} Live Chat!</div>`;
     
     data.videos.forEach((vid, i) => {
@@ -563,7 +668,6 @@ function openCourse(key) {
             div.classList.add('active');
             setVideo(vid.id, vid.title, vid.sheet);
         };
-        // Added thumbnails to the playlist to make videos easier to find visually
         div.innerHTML = `
             <img class="vid-thumb" src="https://img.youtube.com/vi/${vid.id}/default.jpg" alt="thumbnail">
             <div class="vid-details">
@@ -574,7 +678,7 @@ function openCourse(key) {
         container.appendChild(div);
     });
     if(data.videos.length > 0) setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
-    switchSidebarTab('playlist'); // default to playlist
+    switchSidebarTab('playlist');
     window.scrollTo(0,0);
 }
 
@@ -636,17 +740,14 @@ function switchSidebarTab(tabName) {
     }
 }
 
-// LIVE VIEWERS COUNTER SIMULATION
-let currentViewers = Math.floor(Math.random() * 200) + 350; // Starts between 350-550
+let currentViewers = Math.floor(Math.random() * 200) + 350;
 setInterval(() => {
-    // fluctuate viewers by -5 to +7 randomly
     let fluctuation = Math.floor(Math.random() * 13) - 5;
     currentViewers += fluctuation;
-    if(currentViewers < 100) currentViewers = 100; // safety net
+    if(currentViewers < 100) currentViewers = 100;
     document.getElementById('liveViewerCount').innerText = currentViewers;
 }, 5000);
 
-// DUMMY CHAT GENERATOR
 const dummyNames = ["Rahim", "Tariqul", "Ayesha", "Sadia", "Rohan", "Nafis", "Tanvir", "Safa", "Mehdi", "Kabir"];
 const dummyMsgs = [
     "Awesome class!", "Can you explain this math again?", "Clear sir 💯", 
@@ -655,13 +756,12 @@ const dummyMsgs = [
 ];
 
 setInterval(() => {
-    // Only add chats if the user is in the player view to save memory
     if(document.getElementById('player-view').style.display === 'block') {
         let name = dummyNames[Math.floor(Math.random() * dummyNames.length)];
         let msg = dummyMsgs[Math.floor(Math.random() * dummyMsgs.length)];
         addChatMessage(name, msg, false);
     }
-}, 8000); // New message every 8 seconds
+}, 8000); 
 
 function addChatMessage(author, text, isSelf) {
     const chatBox = document.getElementById('chatMessagesBox');
@@ -676,7 +776,6 @@ function sendUserMessage() {
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
     if(text !== "") {
-        // Find user name if logged in
         let myName = document.getElementById('userName').textContent || "Me";
         addChatMessage(myName, text, true);
         input.value = "";
