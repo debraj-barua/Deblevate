@@ -314,7 +314,6 @@
 </head>
 <body oncontextmenu="return false;">
 
-<!-- Course Authenticating Formality Interceptor -->
 <div id="course-auth-overlay">
     <div class="auth-card">
         <div class="auth-spinner"></div>
@@ -455,8 +454,10 @@
     storageBucket: "deblevate.firebasestorage.app",
     messagingSenderId: "475175725126",
     appId: "1:475175725126:web:387a318d4cccaf74ef4247",
-    // Make sure your Realtime database configuration endpoint URL is correctly linked here
-    databaseURL: "https://deblevate-default-rtdb.firebaseio.com" 
+    
+    // 👇👇👇 PASTE YOUR NEW DATABASE URL HERE 👇👇👇
+    databaseURL: "PASTE_YOUR_URL_HERE" 
+    // 👆👆👆 PASTE YOUR NEW DATABASE URL HERE 👆👆👆
   };
 
   const app = initializeApp(firebaseConfig);
