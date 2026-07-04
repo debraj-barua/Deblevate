@@ -159,7 +159,7 @@
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; z-index: 2;}
         .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #fff; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         
-        /* Enrollment Badge Styles */
+        /* Dynamic Enrollment Badge Styles */
         .enrollment-stat {
             position: absolute;
             top: 12px;
@@ -381,7 +381,7 @@
                         <h2 id="mainVideoTitle" class="video-title">Loading...</h2>
                         <div class="live-viewer-badge">
                             <span class="pulse-dot"></span>
-                            <span id="liveViewerCount">0</span> Watching
+                            <span id="liveViewerCount">1</span> Watching
                         </div>
                     </div>
                 </div>
@@ -429,9 +429,37 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  
-  // NEW: Firebase Realtime Database Imports
   import { getDatabase, ref, set, onValue, onDisconnect, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+  // =========================================================================
+  // CORE MANAGEMENT: GRANTED EMAILS AND PER-COURSE AUTHENTICATION 
+  // =========================================================================
+  const allMasterStudents = [
+      "debrajbarua8@gmail.com", "debrajbarua08@gmail.com", "prithabarua08@gmail.com", 
+      "pritha.khuki@gmail.com", "ayondasgupta77@gmail.com", "ariyanz10858@gmail.com", 
+      "rmty5506@gmail.com", "sudiptobhattacharjee516@gmail.com"
+  ];
+
+  // Map specific courses to exactly who has authorization. 
+  // Enrollment count updates automatically based on the size of these arrays!
+  window.courseAccessControl = {
+      course1: [...allMasterStudents],
+      course2: ["debrajbarua8@gmail.com", "debrajbarua08@gmail.com", "ayondasgupta77@gmail.com"],
+      course3: [...allMasterStudents],
+      course4: ["debrajbarua8@gmail.com", "prithabarua08@gmail.com", "rmty5506@gmail.com"],
+      course5: ["debrajbarua8@gmail.com", "pritha.khuki@gmail.com"],
+      course6: [...allMasterStudents],
+      course7: [...allMasterStudents],
+      course8: ["debrajbarua8@gmail.com", "sudiptobhattacharjee516@gmail.com"],
+      course9: ["debrajbarua8@gmail.com", "ariyanz10858@gmail.com"],
+      course10: [...allMasterStudents],
+      course11: [...allMasterStudents],
+      course12: [...allMasterStudents],
+      course13: [...allMasterStudents],
+      course14: [...allMasterStudents],
+      course15: [...allMasterStudents],
+      course16: [...allMasterStudents]
+  };
 
   const firebaseConfig = {
     apiKey: "AIzaSyCH1Vf9rxaMwCJZFBcSzKPP12EBbXGCbIU",
@@ -439,7 +467,9 @@
     projectId: "deblevate",
     storageBucket: "deblevate.firebasestorage.app",
     messagingSenderId: "475175725126",
-    appId: "1:475175725126:web:387a318d4cccaf74ef4247"
+    appId: "1:475175725126:web:387a318d4cccaf74ef4247",
+    // CRITICAL: Replace this with your actual Database URL from the Firebase Console if tracking fails
+    databaseURL: "https://deblevate-default-rtdb.firebaseio.com" 
   };
 
   const app = initializeApp(firebaseConfig);
@@ -447,10 +477,7 @@
   const db = getDatabase(app);
   const provider = new GoogleAuthProvider();
 
-  // Reference for removing user on exit/logout
   window.currentUserRef = null;
-
-  const allowedEmails = ["debrajbarua8@gmail.com", "debrajbarua08@gmail.com", "prithabarua08@gmail.com", "pritha.khuki@gmail.com", "ayondasgupta77@gmail.com", "ariyanz10858@gmail.com", "rmty5506@gmail.com", "sudiptobhattacharjee516@gmail.com"];
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
@@ -462,7 +489,7 @@
   };
 
   onAuthStateChanged(auth, (user) => {
-      if (user && allowedEmails.includes(user.email.toLowerCase())) {
+      if (user && allMasterStudents.includes(user.email.toLowerCase())) {
           document.getElementById('loginBtnUI').style.display = 'none';
           document.getElementById('userInfo').style.display = 'flex';
           document.getElementById('userName').textContent = user.displayName;
@@ -479,32 +506,37 @@
       }
   });
 
-  // REALTIME VIEWER TRACKER
+  // REALTIME CONNECTION WATCHDOG
   window.trackRealViewers = function(courseKey) {
       if (!auth.currentUser) return;
 
-      // Remove from previous course if switching
-      if (window.currentUserRef) {
-          remove(window.currentUserRef);
-      }
+      if (window.currentUserRef) { remove(window.currentUserRef); }
 
       const userId = auth.currentUser.uid;
       const courseViewersRef = ref(db, `live_viewers/${courseKey}`);
       window.currentUserRef = ref(db, `live_viewers/${courseKey}/${userId}`);
 
-      // Add user to the course room
       set(window.currentUserRef, true);
-
-      // Auto-remove if they close the tab or disconnect
       onDisconnect(window.currentUserRef).remove();
 
-      // Listen to total viewer count
       onValue(courseViewersRef, (snapshot) => {
           const viewersData = snapshot.val();
-          const realCount = viewersData ? Object.keys(viewersData).length : 0;
-          const viewerCounterEl = document.getElementById('liveViewerCount');
-          if(viewerCounterEl) viewerCounterEl.innerText = realCount;
+          // Fallback to 1 (yourself) if Firebase isn't fully set up or returning empty
+          const realCount = viewersData ? Object.keys(viewersData).length : 1;
+          const counterEl = document.getElementById('liveViewerCount');
+          if(counterEl) counterEl.innerText = realCount;
+      }, (error) => {
+          console.log("Database connection error. Confirm rules are public:", error);
+          document.getElementById('liveViewerCount').innerText = "1";
       });
+  };
+
+  // Check individual course authorization access
+  window.checkCoursePermission = function(courseKey) {
+      if(!auth.currentUser) return false;
+      const userEmail = auth.currentUser.email.toLowerCase();
+      const allowedList = window.courseAccessControl[courseKey] || [];
+      return allowedList.includes(userEmail);
   };
 </script>
 
@@ -532,7 +564,7 @@ document.onkeydown = function(e) {
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 
 const courseData = {
-    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", enrolled: "1,245", videos: [
+    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
         { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
         { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
@@ -544,7 +576,7 @@ const courseData = {
         { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
         { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
     ]},
-    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", enrolled: "950", videos: [
+    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
         { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" },  
         { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" },  
         { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" },  
@@ -557,7 +589,7 @@ const courseData = {
         { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" },  
         { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
     ]},
-    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", enrolled: "2,100", videos: [
+    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
         { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
         { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
         { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
@@ -565,7 +597,7 @@ const courseData = {
         { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
         { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
     ]},
-    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", enrolled: "1,850", videos: [
+    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
         { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
         { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
         { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
@@ -573,7 +605,7 @@ const courseData = {
         { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
         { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
     ]},
-    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", enrolled: "1,620", videos: [
+    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
         { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
         { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
         { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
@@ -581,7 +613,7 @@ const courseData = {
         { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
         { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
     ]},
-    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", enrolled: "2,050", videos: [
+    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", videos: [
         { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
         { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
         { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
@@ -599,7 +631,7 @@ const courseData = {
         { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
         { title: "১৬. জীবের পরিবেশ ও বিস্তার", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
     ]},
-    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", enrolled: "1,980", videos: [
+    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
         { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
         { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
         { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
@@ -614,7 +646,7 @@ const courseData = {
         { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
         { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
     ]},
-    course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", enrolled: "1,430", videos: [
+    course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", videos: [
         { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
         { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
         { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
@@ -623,7 +655,7 @@ const courseData = {
         { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
         { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
     ]},
-    course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", enrolled: "1,120", videos: [
+    course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", videos: [
         { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
         { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
         { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
@@ -633,28 +665,28 @@ const courseData = {
         { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
         { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
     ]},
-    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", enrolled: "3,200", videos: [
+    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
         { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
         { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
         { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" },
         { title: "৪. সকল কনফিউজিং MCQ এর সমাধান 🔥", id: "2pDp58dcL_s", sheet: "https://drive.google.com/file/d/1-qpxUIU64w1uMtIn6fpTwhNbRNvV9vOG/view?usp=sharing" }
     ]},
-    course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", enrolled: "800", videos: [
+    course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", videos: [
         { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
     ]},
-    course12: { sub: "bangla", title: "Bangla 2nd Paper (Omor Faruq)", img: "sSWsrnn0qa0", enrolled: "2,750", videos: [
+    course12: { sub: "bangla", title: "Bangla 2nd Paper (Omor Faruq)", img: "sSWsrnn0qa0", videos: [
         { title: "১. ব্যাকরণ ও নির্মিতি", id: "sSWsrnn0qa0", sheet: "https://drive.google.com/file/d/1BrvqvJnuUceiO_tqoIcZ5wwa78nmxfRd/view" }
     ]},
-    course13: { sub: "bangla", title: "Bangla 2nd Paper (Sakib Vai)", img: "OJAq_YD8bCc", enrolled: "600", videos: [
+    course13: { sub: "bangla", title: "Bangla 2nd Paper (Sakib Vai)", img: "OJAq_YD8bCc", videos: [
         { title: "১. ব্যাকরণ ও নির্মিতি (Fahad's Tutorial)", id: "OJAq_YD8bCc", sheet: "https://drive.google.com/drive/u/0/mobile/folders/18Bgh7HvaYAXeJ-vf3eDsqzn_E00lfv2u?usp=drive_link" }
     ]},
-    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", enrolled: "1,550", videos: [
+    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
         { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
     ]},
-    course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", enrolled: "1,350", videos: [
+    course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", videos: [
         { title: "English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" }
     ]},
-    course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", enrolled: "4,500", videos: [
+    course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", videos: [
         { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
     ]}
 };
@@ -664,9 +696,12 @@ function renderAllCourses() {
     grid.innerHTML = "";
     Object.keys(courseData).forEach(key => {
         let c = courseData[key];
+        // Dynamic Member Access Calculation based on courseAccessControl lists
+        let totalAllowedMembers = window.courseAccessControl && window.courseAccessControl[key] ? window.courseAccessControl[key].length : 0;
+        
         grid.innerHTML += `
         <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
-            <div class="enrollment-stat">👥 ${c.enrolled} Enrolled</div>
+            <div class="enrollment-stat">👥 ${totalAllowedMembers} Members</div>
             <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
             <div class="card-tags"><span class="tag" style="background: var(--color-${c.sub}); color:${c.sub === 'chemistry' || c.sub === 'biology' ? '#000' : '#fff'}">${c.sub}</span></div></div>
             <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
@@ -691,6 +726,12 @@ function filterSubject(sub, btn) {
 }
 
 function openCourse(key) {
+    // Perform course access authentication check before unlocking player workspace
+    if(window.checkCoursePermission && !window.checkCoursePermission(key)) {
+        alert("Access Denied! Your email is not enrolled in this specific course module.");
+        return;
+    }
+
     document.getElementById('home-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
     const data = courseData[key];
@@ -720,7 +761,7 @@ function openCourse(key) {
     switchSidebarTab('playlist');
     window.scrollTo(0,0);
 
-    // Trigger the real-time viewer tracker for this specific course
+    // Trigger the real-time active viewer tracker for this specific course room
     if(window.trackRealViewers) {
         window.trackRealViewers(key);
     }
@@ -784,9 +825,7 @@ function switchSidebarTab(tabName) {
     }
 }
 
-// The fake viewer tracker was removed from here.
-
-// Dummy Chat logic kept intact per original request
+// Dummy Chat logic kept intact per original structure
 const dummyNames = ["Rahim", "Tariqul", "Ayesha", "Sadia", "Rohan", "Nafis", "Tanvir", "Safa", "Mehdi", "Kabir"];
 const dummyMsgs = [
     "Awesome class!", "Can you explain this math again?", "Clear sir 💯", 
