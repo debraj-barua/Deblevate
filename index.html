@@ -159,7 +159,7 @@
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; z-index: 2;}
         .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #fff; letter-spacing: 1px; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); box-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         
-        /* NEW: Enrollment Badge Styles */
+        /* Enrollment Badge Styles */
         .enrollment-stat {
             position: absolute;
             top: 12px;
@@ -381,7 +381,7 @@
                         <h2 id="mainVideoTitle" class="video-title">Loading...</h2>
                         <div class="live-viewer-badge">
                             <span class="pulse-dot"></span>
-                            <span id="liveViewerCount">124</span> Watching
+                            <span id="liveViewerCount">0</span> Watching
                         </div>
                     </div>
                 </div>
@@ -429,6 +429,9 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  
+  // NEW: Firebase Realtime Database Imports
+  import { getDatabase, ref, set, onValue, onDisconnect, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCH1Vf9rxaMwCJZFBcSzKPP12EBbXGCbIU",
@@ -441,13 +444,22 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getDatabase(app);
   const provider = new GoogleAuthProvider();
+
+  // Reference for removing user on exit/logout
+  window.currentUserRef = null;
 
   const allowedEmails = ["debrajbarua8@gmail.com", "debrajbarua08@gmail.com", "prithabarua08@gmail.com", "pritha.khuki@gmail.com", "ayondasgupta77@gmail.com", "ariyanz10858@gmail.com", "rmty5506@gmail.com", "sudiptobhattacharjee516@gmail.com"];
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
-  document.getElementById('logoutBtnUI').onclick = () => { signOut(auth); if(window.plyrPlayer) window.plyrPlayer.stop(); };
+  
+  document.getElementById('logoutBtnUI').onclick = () => { 
+      if(window.currentUserRef) { remove(window.currentUserRef); }
+      signOut(auth); 
+      if(window.plyrPlayer) window.plyrPlayer.stop(); 
+  };
 
   onAuthStateChanged(auth, (user) => {
       if (user && allowedEmails.includes(user.email.toLowerCase())) {
@@ -466,6 +478,34 @@
           document.getElementById('main-app').style.display = 'none';
       }
   });
+
+  // REALTIME VIEWER TRACKER
+  window.trackRealViewers = function(courseKey) {
+      if (!auth.currentUser) return;
+
+      // Remove from previous course if switching
+      if (window.currentUserRef) {
+          remove(window.currentUserRef);
+      }
+
+      const userId = auth.currentUser.uid;
+      const courseViewersRef = ref(db, `live_viewers/${courseKey}`);
+      window.currentUserRef = ref(db, `live_viewers/${courseKey}/${userId}`);
+
+      // Add user to the course room
+      set(window.currentUserRef, true);
+
+      // Auto-remove if they close the tab or disconnect
+      onDisconnect(window.currentUserRef).remove();
+
+      // Listen to total viewer count
+      onValue(courseViewersRef, (snapshot) => {
+          const viewersData = snapshot.val();
+          const realCount = viewersData ? Object.keys(viewersData).length : 0;
+          const viewerCounterEl = document.getElementById('liveViewerCount');
+          if(viewerCounterEl) viewerCounterEl.innerText = realCount;
+      });
+  };
 </script>
 
 <script>
@@ -491,7 +531,6 @@ document.onkeydown = function(e) {
 // ==========================================
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 
-// ADDED "enrolled" property to each course for you to configure manually!
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", enrolled: "1,245", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
@@ -680,6 +719,11 @@ function openCourse(key) {
     if(data.videos.length > 0) setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
     switchSidebarTab('playlist');
     window.scrollTo(0,0);
+
+    // Trigger the real-time viewer tracker for this specific course
+    if(window.trackRealViewers) {
+        window.trackRealViewers(key);
+    }
 }
 
 window.plyrPlayer = null;
@@ -740,14 +784,9 @@ function switchSidebarTab(tabName) {
     }
 }
 
-let currentViewers = Math.floor(Math.random() * 200) + 350;
-setInterval(() => {
-    let fluctuation = Math.floor(Math.random() * 13) - 5;
-    currentViewers += fluctuation;
-    if(currentViewers < 100) currentViewers = 100;
-    document.getElementById('liveViewerCount').innerText = currentViewers;
-}, 5000);
+// The fake viewer tracker was removed from here.
 
+// Dummy Chat logic kept intact per original request
 const dummyNames = ["Rahim", "Tariqul", "Ayesha", "Sadia", "Rohan", "Nafis", "Tanvir", "Safa", "Mehdi", "Kabir"];
 const dummyMsgs = [
     "Awesome class!", "Can you explain this math again?", "Clear sir 💯", 
