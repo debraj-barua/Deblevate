@@ -455,13 +455,13 @@
                         </div>
                     </div>
                     
-                    <!-- NEW ANTI-SPAM REACTION CENTER -->
                     <div class="reaction-center">
                         <button id="btn-like" class="reaction-btn" onclick="triggerReaction('like')">👍 <span id="like-count">0</span></button>
                         <button id="btn-love" class="reaction-btn" onclick="triggerReaction('love')">❤️ <span id="love-count">0</span></button>
                         <button id="btn-wow" class="reaction-btn" onclick="triggerReaction('wow')">😲 <span id="wow-count">0</span></button>
                         <button id="btn-sad" class="reaction-btn" onclick="triggerReaction('sad')">😢 <span id="sad-count">0</span></button>
                     </div>
+                    <div id="reaction-names-display" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; min-height: 20px;"></div>
                 </div>
 
                 <div class="slide-segment" id="slideSegment">
@@ -487,8 +487,7 @@
                     
                     <div id="commentsView">
                         <div class="chat-messages" id="chatMessagesBox">
-                            <!-- Messages will be injected here via Firebase -->
-                        </div>
+                            </div>
                         <div class="chat-input-container">
                             <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
                             <button class="send-btn" onclick="handleChatSubmit()">
@@ -594,7 +593,7 @@
   };
 
   // ==========================================
-  // REAL-TIME COMMENTS AND ANTI-SPAM REACTIONS
+  // REAL-TIME COMMENTS AND ANTI-SPAM REACTIONS (WITH NAMES)
   // ==========================================
   
   window.handleChatSubmit = function() {
@@ -617,14 +616,18 @@
       if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
       
       const userId = window.auth.currentUser.uid;
+      const userName = window.auth.currentUser.displayName;
       const userReactionRef = ref(window.db, `reactions/${window.currentCourseKey}/${window.currentVideoId}/${userId}`);
 
       // If they click the exact same reaction they already have, we remove it (toggle off)
-      // Otherwise, we set it (replacing any other reaction they had)
       if (window.currentReaction === type) {
           remove(userReactionRef);
       } else {
-          set(userReactionRef, type);
+          // Set new reaction with both type and name
+          set(userReactionRef, {
+              type: type,
+              name: userName
+          });
       }
   };
 
@@ -647,6 +650,7 @@
       document.getElementById('love-count').innerText = "0";
       document.getElementById('wow-count').innerText = "0";
       document.getElementById('sad-count').innerText = "0";
+      document.getElementById('reaction-names-display').innerText = "";
       document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.4)');
 
       // 4. Attach new chat listener
@@ -656,18 +660,28 @@
           addChatMessage(data.author, data.text, data.author === window.auth.currentUser.displayName);
       });
 
-      // 5. Attach new reaction listener (Counting unique users instead of spam clicks)
+      // 5. Attach new reaction listener (Counting unique users AND showing names)
       activeReactionListenerRef = ref(window.db, `reactions/${courseKey}/${videoId}`);
       onValue(activeReactionListenerRef, (snapshot) => {
           const reactionsData = snapshot.val() || {};
           
           let counts = { like: 0, love: 0, wow: 0, sad: 0 };
+          let recentReactors = []; // Array to store names
           const myUid = window.auth.currentUser.uid;
           window.currentReaction = null;
 
-          // Tally up everyone's individual reactions
-          for (const [uid, reactType] of Object.entries(reactionsData)) {
-              if (counts[reactType] !== undefined) counts[reactType]++;
+          // Tally up reactions and collect names
+          for (const [uid, reactData] of Object.entries(reactionsData)) {
+              // Support both old string format and new object format gracefully
+              let reactType = typeof reactData === 'object' ? reactData.type : reactData;
+              let reactorName = typeof reactData === 'object' ? reactData.name : "Someone";
+
+              if (counts[reactType] !== undefined) {
+                  counts[reactType]++;
+                  if (!recentReactors.includes(reactorName) && reactorName !== "Someone") {
+                      recentReactors.push(reactorName); // Add name to our list
+                  }
+              }
               if (uid === myUid) window.currentReaction = reactType; // Track my own reaction
           }
 
@@ -676,6 +690,19 @@
           document.getElementById('love-count').innerText = counts.love;
           document.getElementById('wow-count').innerText = counts.wow;
           document.getElementById('sad-count').innerText = counts.sad;
+
+          // Update the names text below the buttons
+          const namesDisplay = document.getElementById('reaction-names-display');
+          if (recentReactors.length > 0) {
+              // Show up to 3 names, then "+X others" to keep it clean
+              let displayString = recentReactors.slice(0, 3).join(", ");
+              if (recentReactors.length > 3) {
+                  displayString += ` and ${recentReactors.length - 3} others`;
+              }
+              namesDisplay.innerText = `Reacted by: ${displayString}`;
+          } else {
+              namesDisplay.innerText = "";
+          }
 
           // Highlight the button the user currently clicked
           document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.4)');
