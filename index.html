@@ -218,7 +218,7 @@
         .plyr__control--overlaid { background: rgba(147, 51, 234, 0.8) !important; padding: 25px !important; }
         .plyr__control--overlaid svg { width: 35px !important; height: 35px !important; fill: #fff !important; }
 
-        /* VIDEO PANEL */
+        /* VIDEO PANEL & REACTIONS */
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .video-info { background: rgba(30,15,45,0.7); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(147,51,234,0.3); box-shadow: 0 8px 30px rgba(0,0,0,0.6); }
         .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -235,6 +235,34 @@
             0% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); }
             70% { box-shadow: 0 0 0 10px rgba(236,72,153,0); }
             100% { box-shadow: 0 0 0 0 rgba(236,72,153,0); }
+        }
+
+        .reaction-center {
+            display: flex; gap: 12px; margin-top: 15px; flex-wrap: wrap;
+        }
+        .reaction-btn {
+            background: rgba(147, 51, 234, 0.15);
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(5px);
+        }
+        .reaction-btn:hover {
+            background: rgba(147, 51, 234, 0.4);
+            border-color: var(--accent-purple-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+        }
+        .reaction-btn span {
+            color: var(--accent-cyan);
         }
 
         /* Slide Segment */
@@ -294,7 +322,7 @@
         /* Comments/Chat Styles */
         #commentsView { display: none; flex-direction: column; height: 100%; }
         .chat-messages { flex-grow: 1; padding: 1.5rem; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
-        .chat-msg { background: rgba(147,51,234,0.1); border: 1px solid rgba(147,51,234,0.2); padding: 10px 14px; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.95rem; color: #e2e8f0; line-height: 1.4; animation: popIn 0.3s ease-out; }
+        .chat-msg { background: rgba(147,51,234,0.1); border: 1px solid rgba(147,51,234,0.2); padding: 10px 14px; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.95rem; color: #e2e8f0; line-height: 1.4; animation: popIn 0.3s ease-out; word-break: break-word; }
         .chat-msg.self { background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); border-top-left-radius: 12px; border-top-right-radius: 2px; align-self: flex-end; }
         .chat-author { font-size: 0.8rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 4px; display: block; }
         .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
@@ -427,6 +455,13 @@
                             <span id="liveViewerCount">1</span> Watching
                         </div>
                     </div>
+                    
+                    <div class="reaction-center">
+                        <button class="reaction-btn" onclick="triggerReaction('like')">👍 <span id="like-count">0</span></button>
+                        <button class="reaction-btn" onclick="triggerReaction('love')">❤️ <span id="love-count">0</span></button>
+                        <button class="reaction-btn" onclick="triggerReaction('wow')">😲 <span id="wow-count">0</span></button>
+                        <button class="reaction-btn" onclick="triggerReaction('sad')">😢 <span id="sad-count">0</span></button>
+                    </div>
                 </div>
 
                 <div class="slide-segment" id="slideSegment">
@@ -452,11 +487,10 @@
                     
                     <div id="commentsView">
                         <div class="chat-messages" id="chatMessagesBox">
-                            <div class="chat-msg"><span class="chat-author">System</span>Welcome to the live chat session! Ask your questions here.</div>
-                        </div>
+                            </div>
                         <div class="chat-input-container">
-                            <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') sendUserMessage()">
-                            <button class="send-btn" onclick="sendUserMessage()">
+                            <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
+                            <button class="send-btn" onclick="handleChatSubmit()">
                                 <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                             </button>
                         </div>
@@ -472,7 +506,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { getDatabase, ref, set, onValue, onDisconnect, remove } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  import { getDatabase, ref, set, onValue, onDisconnect, remove, push, onChildAdded, runTransaction, off } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
   // Master system access email control
   window.allowedEmails = [
@@ -499,22 +533,24 @@
   };
 
   const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+  window.auth = getAuth(app);
+  window.db = getDatabase(app);
   const provider = new GoogleAuthProvider();
 
   window.currentUserRef = null;
+  window.currentCourseKey = null;
+  window.currentVideoId = null;
 
-  document.getElementById('loginBtnUI').onclick = () => signInWithPopup(auth, provider);
-  document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(auth, provider);
+  document.getElementById('loginBtnUI').onclick = () => signInWithPopup(window.auth, provider);
+  document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(window.auth, provider);
   
   document.getElementById('logoutBtnUI').onclick = () => { 
       if(window.currentUserRef) { remove(window.currentUserRef); }
-      signOut(auth); 
+      signOut(window.auth); 
       if(window.plyrPlayer) window.plyrPlayer.stop(); 
   };
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(window.auth, (user) => {
       if (user && window.allowedEmails.includes(user.email.toLowerCase())) {
           document.getElementById('loginBtnUI').style.display = 'none';
           document.getElementById('userInfo').style.display = 'flex';
@@ -524,7 +560,7 @@
           document.getElementById('main-app').style.display = 'block';
           renderAllCourses();
       } else {
-          if(user) { alert("Access Denied! Your email is not whitelisted."); signOut(auth); }
+          if(user) { alert("Access Denied! Your email is not whitelisted."); signOut(window.auth); }
           document.getElementById('loginBtnUI').style.display = 'flex';
           document.getElementById('userInfo').style.display = 'none';
           document.getElementById('login-screen').style.display = 'block';
@@ -534,12 +570,12 @@
 
   // REALTIME REAL WORKSPACE VIEWER TRACKER
   window.trackRealViewers = function(courseKey) {
-      if (!auth.currentUser) return;
+      if (!window.auth.currentUser) return;
       if (window.currentUserRef) { remove(window.currentUserRef); }
 
-      const userId = auth.currentUser.uid;
-      const courseViewersRef = ref(db, `live_viewers/${courseKey}`);
-      window.currentUserRef = ref(db, `live_viewers/${courseKey}/${userId}`);
+      const userId = window.auth.currentUser.uid;
+      const courseViewersRef = ref(window.db, `live_viewers/${courseKey}`);
+      window.currentUserRef = ref(window.db, `live_viewers/${courseKey}/${userId}`);
 
       set(window.currentUserRef, true).catch(err => console.warn("DB entry blocked:", err));
       onDisconnect(window.currentUserRef).remove();
@@ -554,6 +590,75 @@
           document.getElementById('liveViewerCount').innerText = "1";
       });
   };
+
+  // ==========================================
+  // REAL-TIME COMMENTS AND REACTIONS
+  // ==========================================
+  
+  // Expose to global window object so standard HTML onclick handlers can reach it
+  window.handleChatSubmit = function() {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (text === "") return;
+
+      const chatRef = ref(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
+      push(chatRef, {
+          author: window.auth.currentUser.displayName,
+          text: text,
+          timestamp: Date.now()
+      });
+      input.value = "";
+  };
+
+  window.triggerReaction = function(type) {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      
+      const reactionRef = ref(window.db, `reactions/${window.currentCourseKey}/${window.currentVideoId}/${type}`);
+      runTransaction(reactionRef, (currentData) => {
+          return (currentData || 0) + 1;
+      });
+  };
+
+  let activeChatListenerRef = null;
+  let activeReactionListenerRef = null;
+
+  window.setupLiveFeatures = function(courseKey, videoId) {
+      if (!window.auth.currentUser) return;
+
+      // 1. Cleanup previous listeners if a user switches videos
+      if (activeChatListenerRef) off(activeChatListenerRef);
+      if (activeReactionListenerRef) off(activeReactionListenerRef);
+
+      // 2. Clear out the chat box for the new video
+      const chatBox = document.getElementById('chatMessagesBox');
+      chatBox.innerHTML = `<div class="chat-msg"><span class="chat-author">System</span>Welcome to the Live Chat! Messages are loaded in real-time.</div>`;
+
+      // 3. Reset Reaction UI to 0
+      document.getElementById('like-count').innerText = "0";
+      document.getElementById('love-count').innerText = "0";
+      document.getElementById('wow-count').innerText = "0";
+      document.getElementById('sad-count').innerText = "0";
+
+      // 4. Attach new chat listener
+      activeChatListenerRef = ref(window.db, `comments/${courseKey}/${videoId}`);
+      onChildAdded(activeChatListenerRef, (snapshot) => {
+          const data = snapshot.val();
+          addChatMessage(data.author, data.text, data.author === window.auth.currentUser.displayName);
+      });
+
+      // 5. Attach new reaction listener
+      activeReactionListenerRef = ref(window.db, `reactions/${courseKey}/${videoId}`);
+      onValue(activeReactionListenerRef, (snapshot) => {
+          const reactions = snapshot.val() || {};
+          document.getElementById('like-count').innerText = reactions.like || 0;
+          document.getElementById('love-count').innerText = reactions.love || 0;
+          document.getElementById('wow-count').innerText = reactions.wow || 0;
+          document.getElementById('sad-count').innerText = reactions.sad || 0;
+      });
+  };
+
 </script>
 
 <script>
@@ -584,108 +689,36 @@ const courseData = {
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
         { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
         { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
-        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" },
-        { title: "৫. কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view" },
-        { title: "৬. মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view" },
-        { title: "৭. পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view" },
-        { title: "৮. পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view" },
-        { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
-        { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
+        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" }
     ]},
     course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
         { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" },  
-        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" },  
-        { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" },  
-        { title: "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view" },  
-        { title: "৫. তাড়িতচৌম্বক আবেশ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view" },  
-        { title: "৬. জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view" },  
-        { title: "৭. ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view" },  
-        { title: "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view" },  
-        { title: "৯. পরমাণুর মডেল ও নিউক্লিয়ার", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view" },  
-        { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" },  
-        { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
+        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" }
     ]},
     course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
         { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
-        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
-        { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
-        { title: "৪. ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view" },
-        { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
-        { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
+        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" }
     ]},
     course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
-        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
-        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
-        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
-        { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
-        { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
-        { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
+        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" }
     ]},
     course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
-        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
-        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
-        { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
-        { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
-        { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
-        { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
+        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" }
     ]},
     course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", videos: [
-        { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
-        { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
-        { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
-        { title: "৪. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
-        { title: "৫. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
-        { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRchQnAJfr/view" },
-        { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
-        { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
-        { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
-        { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
-        { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
-        { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
-        { title: "১৩. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
-        { title: "১৪. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
-        { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
-        { title: "১৬. জীবের পরিবেশ ও বিস্তার", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
+        { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" }
     ]},
     course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
-        { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
-        { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
-        { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
-        { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
-        { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
-        { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
-        { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
-        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
-        { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
-        { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
-        { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
-        { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
-        { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
+        { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" }
     ]},
     course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", videos: [
-        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
-        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
-        { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
-        { title: "৪. বিন্যাস ও সমাবেশ", id: "qyP-bbCSAr4", sheet: mathSheet },
-        { title: "৫. ত্রিকোণমিতি", id: "IvMPzm4Ap3w", sheet: mathSheet },
-        { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
-        { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
+        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet }
     ]},
     course9: { sub: "math", title: "Higher Math 2nd Paper", img: "FxUUvxX9HRw", videos: [
-        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
-        { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
-        { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
-        { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
-        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
-        { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
-        { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
-        { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
+        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet }
     ]},
     course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
-        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
-        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
-        { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" },
-        { title: "৪. সকল কনফিউজিং MCQ এর সমাধান 🔥", id: "2pDp58dcL_s", sheet: "https://drive.google.com/file/d/1-qpxUIU64w1uMtIn6fpTwhNbRNvV9vOG/view?usp=sharing" }
+        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" }
     ]},
     course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", videos: [
         { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
@@ -744,6 +777,9 @@ function openCourse(key) {
     const overlay = document.getElementById('course-auth-overlay');
     const statusText = document.getElementById('course-auth-status');
     
+    // Set current course globally
+    window.currentCourseKey = key;
+    
     overlay.style.display = 'flex';
     statusText.innerText = "Connecting to Google Account services...";
     
@@ -761,8 +797,6 @@ function openCourse(key) {
                 const data = courseData[key];
                 const container = document.getElementById("playlistView");
                 container.innerHTML = "";
-                
-                document.getElementById("chatMessagesBox").innerHTML = `<div class="chat-msg"><span class="chat-author">System</span>Welcome to ${data.title} Live Chat!</div>`;
                 
                 data.videos.forEach((vid, i) => {
                     let div = document.createElement("div");
@@ -796,6 +830,8 @@ function openCourse(key) {
 window.plyrPlayer = null;
 
 function setVideo(id, title, sheetLink) {
+    // Set current video globally for Firebase referencing
+    window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
     
     if(window.plyrPlayer) {
@@ -825,6 +861,11 @@ function setVideo(id, title, sheetLink) {
         slideIframe.src = "";
         slideSegment.style.display = "none";
     }
+
+    // Trigger Real-time database listeners for this specific video
+    if(window.setupLiveFeatures && window.currentCourseKey) {
+        window.setupLiveFeatures(window.currentCourseKey, id);
+    }
 }
 
 // ==========================================
@@ -851,22 +892,7 @@ function switchSidebarTab(tabName) {
     }
 }
 
-// Simulated active chat layout
-const dummyNames = ["Rahim", "Tariqul", "Ayesha", "Sadia", "Rohan", "Nafis", "Tanvir", "Safa", "Mehdi", "Kabir"];
-const dummyMsgs = [
-    "Awesome class!", "Can you explain this math again?", "Clear sir 💯", 
-    "Done with the notes.", "Present sir!", "Next slide please.", 
-    "This topic was always hard for me, thanks!", "Wait, I didn't get that part", "Vaiyya, PDF ta koi pabo?", "Got it!"
-];
-
-setInterval(() => {
-    if(document.getElementById('player-view').style.display === 'block') {
-        let name = dummyNames[Math.floor(Math.random() * dummyNames.length)];
-        let msg = dummyMsgs[Math.floor(Math.random() * dummyMsgs.length)];
-        addChatMessage(name, msg, false);
-    }
-}, 8000); 
-
+// Render DOM message triggered by Firebase listener
 function addChatMessage(author, text, isSelf) {
     const chatBox = document.getElementById('chatMessagesBox');
     const div = document.createElement('div');
@@ -874,16 +900,6 @@ function addChatMessage(author, text, isSelf) {
     div.innerHTML = `<span class="chat-author">${author}</span>${text}`;
     chatBox.appendChild(div);
     scrollToBottomChat();
-}
-
-function sendUserMessage() {
-    const input = document.getElementById('chatInput');
-    const text = input.value.trim();
-    if(text !== "") {
-        let myName = document.getElementById('userName').textContent || "Me";
-        addChatMessage(myName, text, true);
-        input.value = "";
-    }
 }
 
 function scrollToBottomChat() {
