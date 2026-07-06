@@ -117,6 +117,19 @@
         #login-screen { text-align: center; padding: 12rem 2rem; position: relative; z-index: 10; }
         #login-screen h2 { color: var(--accent-purple-light); font-size: 3.5rem; margin-bottom: 15px; text-shadow: 0 0 25px rgba(192,132,252,0.5); font-weight: 900; }
 
+        /* IDENTITY CHOOSE MODAL INTERCEPTOR OVERLAY */
+        #identity-setup-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(10, 5, 20, 0.98); z-index: 10000; flex-direction: column;
+            justify-content: center; align-items: center; backdrop-filter: blur(15px);
+        }
+        .identity-input-field {
+            width: 100%; background: rgba(0,0,0,0.5); border: 2px solid var(--accent-purple);
+            color: #fff; padding: 12px 20px; border-radius: 12px; outline: none; font-size: 1.1rem;
+            text-align: center; font-family: inherit; margin: 20px 0; transition: 0.3s;
+        }
+        .identity-input-field:focus { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(6,182,212,0.3); }
+
         /* FORMALITY COURSE INTERCEPTOR OVERLAY */
         #course-auth-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -321,11 +334,18 @@
         /* Comments/Chat Styles */
         #commentsView { display: none; flex-direction: column; height: 100%; }
         .chat-messages { flex-grow: 1; padding: 1.5rem; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
-        .chat-msg { background: rgba(147,51,234,0.1); border: 1px solid rgba(147,51,234,0.2); padding: 10px 14px; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.95rem; color: #e2e8f0; line-height: 1.4; animation: popIn 0.3s ease-out; word-break: break-word; }
+        .chat-msg { position: relative; background: rgba(147,51,234,0.1); border: 1px solid rgba(147,51,234,0.2); padding: 10px 14px; padding-right: 35px; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.95rem; color: #e2e8f0; line-height: 1.4; animation: popIn 0.3s ease-out; word-break: break-word; }
         .chat-msg.self { background: rgba(6,182,212,0.15); border-color: rgba(6,182,212,0.3); border-top-left-radius: 12px; border-top-right-radius: 2px; align-self: flex-end; }
         .chat-author { font-size: 0.8rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 4px; display: block; }
         .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
         
+        .comment-delete-btn {
+            position: absolute; right: 10px; top: 10px; background: transparent;
+            border: none; color: #f87171; cursor: pointer; font-size: 0.85rem;
+            opacity: 0.4; transition: 0.2s; display: flex; align-items: center; justify-content: center;
+        }
+        .comment-delete-btn:hover { opacity: 1; text-shadow: 0 0 8px #f87171; }
+
         @keyframes popIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
 
         .chat-input-container { padding: 1rem; background: rgba(10,5,20,0.9); border-top: 1px solid rgba(147,51,234,0.3); display: flex; gap: 10px; }
@@ -370,6 +390,15 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
+
+<div id="identity-setup-overlay">
+    <div class="auth-card">
+        <h3 style="color: #fff; font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0; font-weight: 900;">CHOOSE IDENTITY</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">This name will be your permanent identity across live streams, chats, and reactions.</p>
+        <input type="text" id="chosenIdentityInput" class="identity-input-field" placeholder="Enter Your Real Name..." autocomplete="off">
+        <button class="login-btn" style="margin: 0 auto; padding: 0.8rem 2.5rem;" onclick="submitCustomIdentity()">Confirm Identity</button>
+    </div>
+</div>
 
 <div id="course-auth-overlay">
     <div class="auth-card">
@@ -506,7 +535,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { getDatabase, ref, set, onValue, onDisconnect, remove, push, onChildAdded, off } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  import { getDatabase, ref, set, onValue, onDisconnect, remove, push, onChildAdded, onChildRemoved, off } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
   // Master system access email control
   window.allowedEmails = [
@@ -527,8 +556,6 @@
     storageBucket: "deblevate.firebasestorage.app",
     messagingSenderId: "475175725126",
     appId: "1:475175725126:web:387a318d4cccaf74ef4247",
-    
-    // Configured safe fallback URL to stop platform crashes
     databaseURL: "https://deblevate-default-rtdb.firebaseio.com" 
   };
 
@@ -540,7 +567,8 @@
   window.currentUserRef = null;
   window.currentCourseKey = null;
   window.currentVideoId = null;
-  window.currentReaction = null; // Track local user reaction state to allow toggling off
+  window.currentReaction = null; 
+  window.globalIdentityName = ""; // Explicit customized handle token storage
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(window.auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(window.auth, provider);
@@ -553,21 +581,52 @@
 
   onAuthStateChanged(window.auth, (user) => {
       if (user && window.allowedEmails.includes(user.email.toLowerCase())) {
-          document.getElementById('loginBtnUI').style.display = 'none';
-          document.getElementById('userInfo').style.display = 'flex';
-          document.getElementById('userName').textContent = user.displayName;
-          document.getElementById('userPic').src = user.photoURL;
-          document.getElementById('login-screen').style.display = 'none';
-          document.getElementById('main-app').style.display = 'block';
-          renderAllCourses();
+          // Check database to see if they already picked a real name
+          const userMetaRef = ref(window.db, `users_metadata/${user.uid}/custom_name`);
+          onValue(userMetaRef, (snapshot) => {
+              const nameValue = snapshot.val();
+              if (nameValue && nameValue.trim() !== "") {
+                  window.globalIdentityName = nameValue;
+                  completeSystemInitialization(user);
+              } else {
+                  // Intercept workflow and demand workspace identity naming initialization
+                  document.getElementById('identity-setup-overlay').style.display = 'flex';
+              }
+          }, { onlyOnce: true });
       } else {
           if(user) { alert("Access Denied! Your email is not whitelisted."); signOut(window.auth); }
           document.getElementById('loginBtnUI').style.display = 'flex';
           document.getElementById('userInfo').style.display = 'none';
           document.getElementById('login-screen').style.display = 'block';
           document.getElementById('main-app').style.display = 'none';
+          document.getElementById('identity-setup-overlay').style.display = 'none';
       }
   });
+
+  window.submitCustomIdentity = function() {
+      const inputEl = document.getElementById('chosenIdentityInput');
+      const nameText = inputEl.value.trim();
+      if(nameText === "") { alert("Please type an identity handle before continuing."); return; }
+      
+      const user = window.auth.currentUser;
+      if(!user) return;
+
+      set(ref(window.db, `users_metadata/${user.uid}/custom_name`), nameText).then(() => {
+          window.globalIdentityName = nameText;
+          document.getElementById('identity-setup-overlay').style.display = 'none';
+          completeSystemInitialization(user);
+      }).catch(err => alert("Initialization Error: " + err.message));
+  };
+
+  function completeSystemInitialization(user) {
+      document.getElementById('loginBtnUI').style.display = 'none';
+      document.getElementById('userInfo').style.display = 'flex';
+      document.getElementById('userName').textContent = window.globalIdentityName; // Apply everywhere
+      document.getElementById('userPic').src = user.photoURL;
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('main-app').style.display = 'block';
+      renderAllCourses();
+  }
 
   // REALTIME REAL WORKSPACE VIEWER TRACKER
   window.trackRealViewers = function(courseKey) {
@@ -593,7 +652,7 @@
   };
 
   // ==========================================
-  // REAL-TIME COMMENTS AND ANTI-SPAM REACTIONS (WITH NAMES)
+  // LIVE CHAT WITH DELETION & ANTI-SPAM REACTIONS
   // ==========================================
   
   window.handleChatSubmit = function() {
@@ -605,28 +664,34 @@
 
       const chatRef = ref(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
       push(chatRef, {
-          author: window.auth.currentUser.displayName,
+          uid: window.auth.currentUser.uid,
+          author: window.globalIdentityName, // Injects chosen custom identity name
           text: text,
           timestamp: Date.now()
       });
       input.value = "";
   };
 
+  window.requestCommentDeletion = function(commentId) {
+      if(!window.currentCourseKey || !window.currentVideoId) return;
+      if(confirm("Are you sure you want to permanently delete this comment?")) {
+          const commentTargetRef = ref(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}/${commentId}`);
+          remove(commentTargetRef).catch(err => alert("Permissions error: " + err.message));
+      }
+  };
+
   window.triggerReaction = function(type) {
       if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
       
       const userId = window.auth.currentUser.uid;
-      const userName = window.auth.currentUser.displayName;
       const userReactionRef = ref(window.db, `reactions/${window.currentCourseKey}/${window.currentVideoId}/${userId}`);
 
-      // If they click the exact same reaction they already have, we remove it (toggle off)
       if (window.currentReaction === type) {
           remove(userReactionRef);
       } else {
-          // Set new reaction with both type and name
           set(userReactionRef, {
               type: type,
-              name: userName
+              name: window.globalIdentityName // Saves custom name inside stream database metrics
           });
       }
   };
@@ -637,15 +702,12 @@
   window.setupLiveFeatures = function(courseKey, videoId) {
       if (!window.auth.currentUser) return;
 
-      // 1. Cleanup previous listeners if a user switches videos
       if (activeChatListenerRef) off(activeChatListenerRef);
       if (activeReactionListenerRef) off(activeReactionListenerRef);
 
-      // 2. Clear out the chat box for the new video
       const chatBox = document.getElementById('chatMessagesBox');
-      chatBox.innerHTML = `<div class="chat-msg"><span class="chat-author">System</span>Welcome to the Live Chat! Messages are loaded in real-time.</div>`;
+      chatBox.innerHTML = ""; // Complete wipe slate
 
-      // 3. Reset Reaction UI
       document.getElementById('like-count').innerText = "0";
       document.getElementById('love-count').innerText = "0";
       document.getElementById('wow-count').innerText = "0";
@@ -653,48 +715,49 @@
       document.getElementById('reaction-names-display').innerText = "";
       document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.4)');
 
-      // 4. Attach new chat listener
+      // 4. Attach synchronized child tracking handlers
       activeChatListenerRef = ref(window.db, `comments/${courseKey}/${videoId}`);
+      
       onChildAdded(activeChatListenerRef, (snapshot) => {
           const data = snapshot.val();
-          addChatMessage(data.author, data.text, data.author === window.auth.currentUser.displayName);
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid);
       });
 
-      // 5. Attach new reaction listener (Counting unique users AND showing names)
+      onChildRemoved(activeChatListenerRef, (snapshot) => {
+          const domEl = document.getElementById(`msg-${snapshot.key}`);
+          if(domEl) domEl.remove();
+      });
+
+      // 5. Reactions counting engine
       activeReactionListenerRef = ref(window.db, `reactions/${courseKey}/${videoId}`);
       onValue(activeReactionListenerRef, (snapshot) => {
           const reactionsData = snapshot.val() || {};
           
           let counts = { like: 0, love: 0, wow: 0, sad: 0 };
-          let recentReactors = []; // Array to store names
+          let recentReactors = []; 
           const myUid = window.auth.currentUser.uid;
           window.currentReaction = null;
 
-          // Tally up reactions and collect names
           for (const [uid, reactData] of Object.entries(reactionsData)) {
-              // Support both old string format and new object format gracefully
               let reactType = typeof reactData === 'object' ? reactData.type : reactData;
               let reactorName = typeof reactData === 'object' ? reactData.name : "Someone";
 
               if (counts[reactType] !== undefined) {
                   counts[reactType]++;
                   if (!recentReactors.includes(reactorName) && reactorName !== "Someone") {
-                      recentReactors.push(reactorName); // Add name to our list
+                      recentReactors.push(reactorName); 
                   }
               }
-              if (uid === myUid) window.currentReaction = reactType; // Track my own reaction
+              if (uid === myUid) window.currentReaction = reactType; 
           }
 
-          // Update UI numbers
           document.getElementById('like-count').innerText = counts.like;
           document.getElementById('love-count').innerText = counts.love;
           document.getElementById('wow-count').innerText = counts.wow;
           document.getElementById('sad-count').innerText = counts.sad;
 
-          // Update the names text below the buttons
           const namesDisplay = document.getElementById('reaction-names-display');
           if (recentReactors.length > 0) {
-              // Show up to 3 names, then "+X others" to keep it clean
               let displayString = recentReactors.slice(0, 3).join(", ");
               if (recentReactors.length > 3) {
                   displayString += ` and ${recentReactors.length - 3} others`;
@@ -704,7 +767,6 @@
               namesDisplay.innerText = "";
           }
 
-          // Highlight the button the user currently clicked
           document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.4)');
           if (window.currentReaction) {
               const activeBtn = document.getElementById(`btn-${window.currentReaction}`);
@@ -903,7 +965,6 @@ function openCourse(key) {
     const overlay = document.getElementById('course-auth-overlay');
     const statusText = document.getElementById('course-auth-status');
     
-    // Set current course globally
     window.currentCourseKey = key;
     
     overlay.style.display = 'flex';
@@ -956,7 +1017,6 @@ function openCourse(key) {
 window.plyrPlayer = null;
 
 function setVideo(id, title, sheetLink) {
-    // Set current video globally for Firebase referencing
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
     
@@ -988,7 +1048,6 @@ function setVideo(id, title, sheetLink) {
         slideSegment.style.display = "none";
     }
 
-    // Trigger Real-time database listeners for this specific video
     if(window.setupLiveFeatures && window.currentCourseKey) {
         window.setupLiveFeatures(window.currentCourseKey, id);
     }
@@ -1018,12 +1077,24 @@ function switchSidebarTab(tabName) {
     }
 }
 
-// Render DOM message triggered by Firebase listener
-function addChatMessage(author, text, isSelf) {
+// Render DOM message triggered by Firebase listener with smart deletion options
+function addChatMessage(msgId, senderUid, author, text, isSelf) {
     const chatBox = document.getElementById('chatMessagesBox');
+    
+    // Check if current authenticated user has administrative overwrite override permissions
+    const currentAdminEmail = window.auth.currentUser ? window.auth.currentUser.email.toLowerCase() : "";
+    const isSystemAdmin = (currentAdminEmail === "debrajbarua8@gmail.com");
+
     const div = document.createElement('div');
+    div.id = `msg-${msgId}`;
     div.className = isSelf ? 'chat-msg self' : 'chat-msg';
-    div.innerHTML = `<span class="chat-author">${author}</span>${text}`;
+    
+    let deleteBtnMarkup = "";
+    if (isSelf || isSystemAdmin) {
+        deleteBtnMarkup = `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}')">🗑️</button>`;
+    }
+
+    div.innerHTML = `<span class="chat-author">${author}</span>${text} ${deleteBtnMarkup}`;
     chatBox.appendChild(div);
     scrollToBottomChat();
 }
