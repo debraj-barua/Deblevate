@@ -106,41 +106,38 @@
             70% { box-shadow: 0 0 0 18px rgba(147, 51, 234, 0); }
             100% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0); }
         }
-        .login-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); animation: pulseGlow 2s infinite; text-transform: uppercase; letter-spacing: 1px;}
+        .login-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); animation: pulseGlow 2s infinite; text-transform: uppercase; letter-spacing: 1px;}
         .login-btn:hover { transform: translateY(-3px) scale(1.05); background: linear-gradient(135deg, var(--accent-purple-light), var(--accent-cyan)); color: #000; box-shadow: 0 0 25px var(--accent-cyan); }
         
         .user-profile { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.05); padding: 6px 18px 6px 6px; border-radius: 50px; border: 1px solid rgba(147,51,234,0.5); box-shadow: inset 0 0 12px rgba(147,51,234,0.2); backdrop-filter: blur(10px); }
-        .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-cyan); box-shadow: 0 0 12px var(--accent-cyan); }
+        .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-cyan); box-shadow: 0 0 12px var(--accent-cyan); object-fit: cover; }
         .logout-btn { background: transparent; color: #f87171; border: none; padding: 0; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
         .logout-btn:hover { color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink); }
         
         #login-screen { text-align: center; padding: 12rem 2rem; position: relative; z-index: 10; }
         #login-screen h2 { color: var(--accent-purple-light); font-size: 3.5rem; margin-bottom: 15px; text-shadow: 0 0 25px rgba(192,132,252,0.5); font-weight: 900; }
 
-        /* IDENTITY CHOOSE MODAL INTERCEPTOR OVERLAY */
-        #identity-setup-overlay {
+        /* PROFILE MODAL & COURSE AUTH OVERLAYS */
+        .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(10, 5, 20, 0.98); z-index: 10000; flex-direction: column;
-            justify-content: center; align-items: center; backdrop-filter: blur(15px);
-        }
-        .identity-input-field {
-            width: 100%; background: rgba(0,0,0,0.5); border: 2px solid var(--accent-purple);
-            color: #fff; padding: 12px 20px; border-radius: 12px; outline: none; font-size: 1.1rem;
-            text-align: center; font-family: inherit; margin: 20px 0; transition: 0.3s;
-        }
-        .identity-input-field:focus { border-color: var(--accent-cyan); box-shadow: 0 0 15px rgba(6,182,212,0.3); }
-
-        /* FORMALITY COURSE INTERCEPTOR OVERLAY */
-        #course-auth-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(10, 5, 20, 0.96); z-index: 9999; flex-direction: column;
-            justify-content: center; align-items: center; backdrop-filter: blur(12px);
+            justify-content: center; align-items: center; backdrop-filter: blur(15px); overflow-y: auto; padding: 2rem 0;
         }
         .auth-card {
             background: rgba(25, 10, 40, 0.6); border: 2px solid var(--accent-purple);
-            padding: 3rem; border-radius: 24px; text-align: center; max-width: 450px; width: 90%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(147,51,234,0.3);
+            padding: 2.5rem; border-radius: 24px; max-width: 450px; width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(147,51,234,0.3); position: relative;
         }
+        .profile-form-group { text-align: left; margin-bottom: 15px; }
+        .profile-form-group label { display: block; color: var(--accent-purple-light); font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
+        .profile-input-field {
+            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--accent-purple);
+            color: #fff; padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem;
+            font-family: inherit; transition: 0.3s;
+        }
+        .profile-input-field:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6,182,212,0.3); }
+        .profile-input-field option { background: #1a0b2e; color: #fff; }
+
         .auth-spinner {
             width: 50px; height: 50px; border: 4px solid rgba(6, 182, 212, 0.1);
             border-top: 4px solid var(--accent-cyan); border-radius: 50%;
@@ -299,7 +296,7 @@
         .sidebar-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
         .sidebar-content::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
 
-        /* Playlist Styles with Thumbnails */
+        /* Playlist Styles */
         #playlistView { display: flex; flex-direction: column; padding: 1rem; }
         .video-item { display: flex; gap: 15px; padding: 0.8rem; margin-bottom: 0.8rem; border-radius: 12px; cursor: pointer; background: rgba(255,255,255,0.02); color: var(--text-muted); align-items: center; transition: all 0.3s ease; border: 1px solid transparent; font-weight: 600;}
         .video-item:hover { background: rgba(147,51,234,0.1); border-color: rgba(147,51,234,0.3); color: #fff; transform: translateX(4px); }
@@ -316,19 +313,10 @@
         }
         
         .vid-thumb { width: 100px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; background: #000; }
-        .video-item.active .vid-thumb { 
-            border-color: var(--accent-purple-light); 
-            box-shadow: 0 0 10px rgba(192, 132, 252, 0.4); 
-        }
+        .video-item.active .vid-thumb { border-color: var(--accent-purple-light); box-shadow: 0 0 10px rgba(192, 132, 252, 0.4); }
         .vid-details { display: flex; flex-direction: column; gap: 4px; }
         .vid-title-text { font-size: 0.95rem; line-height: 1.3; }
-        .vid-status { 
-            font-size: 0.75rem; 
-            color: var(--accent-purple-light); 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            display: none; 
-        }
+        .vid-status { font-size: 0.75rem; color: var(--accent-purple-light); font-weight: bold; text-transform: uppercase; display: none; }
         .video-item.active .vid-status { display: block; }
 
         /* Comments/Chat Styles */
@@ -391,17 +379,53 @@
 </head>
 <body oncontextmenu="return false;">
 
-<div id="identity-setup-overlay">
-    <div class="auth-card">
-        <h3 style="color: #fff; font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0; font-weight: 900;">CHOOSE IDENTITY</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">This name will be your permanent identity across live streams, chats, and reactions.</p>
-        <input type="text" id="chosenIdentityInput" class="identity-input-field" placeholder="Enter Your Real Name..." autocomplete="off">
-        <button class="login-btn" style="margin: 0 auto; padding: 0.8rem 2.5rem;" onclick="submitCustomIdentity()">Confirm Identity</button>
+<!-- NEW PROFILE SETTINGS MODAL OVERLAY -->
+<div id="profile-settings-overlay" class="modal-overlay">
+    <div class="auth-card" style="text-align: left;">
+        <h3 style="color: #fff; font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0 0 20px; text-align: center; font-weight: 900;">YOUR PROFILE</h3>
+        
+        <div class="profile-form-group">
+            <label>Full Name *</label>
+            <input type="text" id="profName" class="profile-input-field" placeholder="Enter Your Real Name">
+        </div>
+        
+        <div class="profile-form-group">
+            <label>Profile Picture URL (Optional)</label>
+            <input type="text" id="profPic" class="profile-input-field" placeholder="https://image-link.jpg">
+        </div>
+
+        <div class="profile-form-group">
+            <label>Class *</label>
+            <select id="profClass" class="profile-input-field">
+                <option value="HSC 1st Year">HSC 1st Year</option>
+                <option value="HSC 2nd Year">HSC 2nd Year</option>
+            </select>
+        </div>
+
+        <div class="profile-form-group">
+            <label>Personal Mobile *</label>
+            <input type="tel" id="profMobile1" class="profile-input-field" placeholder="01XXXXXXXXX">
+        </div>
+
+        <div class="profile-form-group">
+            <label>Secondary Mobile (Optional)</label>
+            <input type="tel" id="profMobile2" class="profile-input-field" placeholder="01XXXXXXXXX">
+        </div>
+
+        <div class="profile-form-group">
+            <label>Institution *</label>
+            <input type="text" id="profInst" class="profile-input-field" placeholder="College Name">
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 25px;">
+            <button class="login-btn" style="flex: 1;" onclick="saveProfileData()">Save Details</button>
+            <button id="closeProfileBtn" class="login-btn" style="flex: 1; background: #333; display: none;" onclick="closeProfileModal()">Cancel</button>
+        </div>
     </div>
 </div>
 
-<div id="course-auth-overlay">
-    <div class="auth-card">
+<div id="course-auth-overlay" class="modal-overlay">
+    <div class="auth-card" style="text-align: center;">
         <div class="auth-spinner"></div>
         <h3 style="color: #fff; font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0 0 10px; font-weight: 900;">SECURE GATEWAY</h3>
         <p id="course-auth-status" style="color: var(--accent-purple-light); font-weight: bold; font-size: 0.95rem; margin: 0;">Verifying Google token credentials...</p>
@@ -427,9 +451,12 @@
         <button id="loginBtnUI" class="login-btn">Google Login</button>
         <div id="userInfo" class="user-profile" style="display: none;">
             <img id="userPic" src="" alt="User">
-            <div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start;">
                 <div id="userName" style="color: var(--accent-cyan); font-size: 0.9rem; font-weight: 900; margin-bottom: 3px; letter-spacing: 0.5px;"></div>
-                <button id="logoutBtnUI" class="logout-btn">Logout</button>
+                <div style="display: flex; gap: 10px;">
+                    <button id="profileBtnUI" class="logout-btn" style="color: var(--accent-purple-light);" onclick="openProfileModal()">⚙️ Profile</button>
+                    <button id="logoutBtnUI" class="logout-btn">Logout</button>
+                </div>
             </div>
         </div>
     </div>
@@ -484,12 +511,14 @@
                         </div>
                     </div>
                     
+                    <!-- NEW ANTI-SPAM REACTION CENTER WITH NAMES -->
                     <div class="reaction-center">
                         <button id="btn-like" class="reaction-btn" onclick="triggerReaction('like')">👍 <span id="like-count">0</span></button>
                         <button id="btn-love" class="reaction-btn" onclick="triggerReaction('love')">❤️ <span id="love-count">0</span></button>
                         <button id="btn-wow" class="reaction-btn" onclick="triggerReaction('wow')">😲 <span id="wow-count">0</span></button>
                         <button id="btn-sad" class="reaction-btn" onclick="triggerReaction('sad')">😢 <span id="sad-count">0</span></button>
                     </div>
+                    <!-- DISPLAY NAMES OF WHO REACTED -->
                     <div id="reaction-names-display" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; min-height: 20px;"></div>
                 </div>
 
@@ -516,7 +545,8 @@
                     
                     <div id="commentsView">
                         <div class="chat-messages" id="chatMessagesBox">
-                            </div>
+                            <!-- Messages will be injected here via Firebase -->
+                        </div>
                         <div class="chat-input-container">
                             <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
                             <button class="send-btn" onclick="handleChatSubmit()">
@@ -568,7 +598,9 @@
   window.currentCourseKey = null;
   window.currentVideoId = null;
   window.currentReaction = null; 
-  window.globalIdentityName = ""; // Explicit customized handle token storage
+  window.globalIdentityName = ""; 
+  window.userProfileData = null; 
+  window.systemInitialized = false;
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(window.auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(window.auth, provider);
@@ -577,20 +609,34 @@
       if(window.currentUserRef) { remove(window.currentUserRef); }
       signOut(window.auth); 
       if(window.plyrPlayer) window.plyrPlayer.stop(); 
+      window.systemInitialized = false;
   };
 
   onAuthStateChanged(window.auth, (user) => {
       if (user && window.allowedEmails.includes(user.email.toLowerCase())) {
-          // Check database to see if they already picked a real name
-          const userMetaRef = ref(window.db, `users_metadata/${user.uid}/custom_name`);
+          // Check database to see if they have completed their profile setup
+          const userMetaRef = ref(window.db, `users_metadata/${user.uid}/profile`);
           onValue(userMetaRef, (snapshot) => {
-              const nameValue = snapshot.val();
-              if (nameValue && nameValue.trim() !== "") {
-                  window.globalIdentityName = nameValue;
-                  completeSystemInitialization(user);
+              const profile = snapshot.val();
+              if (profile && profile.name) {
+                  window.userProfileData = profile;
+                  window.globalIdentityName = profile.name;
+                  
+                  // Setup Navbar Top-Right
+                  document.getElementById('userPic').src = profile.photoUrl ? profile.photoUrl : user.photoURL;
+                  
+                  if (!window.systemInitialized) {
+                      completeSystemInitialization(user);
+                  } else {
+                      // Just update UI if they edited their profile during session
+                      document.getElementById('userName').textContent = window.globalIdentityName;
+                  }
               } else {
-                  // Intercept workflow and demand workspace identity naming initialization
-                  document.getElementById('identity-setup-overlay').style.display = 'flex';
+                  // Intercept workflow and demand workspace profile initialization
+                  window.systemInitialized = false;
+                  document.getElementById('profName').value = user.displayName || "";
+                  document.getElementById('closeProfileBtn').style.display = 'none'; // Force setup
+                  document.getElementById('profile-settings-overlay').style.display = 'flex';
               }
           }, { onlyOnce: true });
       } else {
@@ -599,30 +645,65 @@
           document.getElementById('userInfo').style.display = 'none';
           document.getElementById('login-screen').style.display = 'block';
           document.getElementById('main-app').style.display = 'none';
-          document.getElementById('identity-setup-overlay').style.display = 'none';
+          document.getElementById('profile-settings-overlay').style.display = 'none';
       }
   });
 
-  window.submitCustomIdentity = function() {
-      const inputEl = document.getElementById('chosenIdentityInput');
-      const nameText = inputEl.value.trim();
-      if(nameText === "") { alert("Please type an identity handle before continuing."); return; }
+  // Profile Management Logic
+  window.openProfileModal = function() {
+      // Pre-fill existing data
+      document.getElementById('profName').value = window.userProfileData?.name || window.auth.currentUser.displayName || "";
+      document.getElementById('profPic').value = window.userProfileData?.photoUrl || "";
+      document.getElementById('profClass').value = window.userProfileData?.classLevel || "HSC 1st Year";
+      document.getElementById('profMobile1').value = window.userProfileData?.phonePersonal || "";
+      document.getElementById('profMobile2').value = window.userProfileData?.phoneSecondary || "";
+      document.getElementById('profInst').value = window.userProfileData?.institution || "";
+
+      document.getElementById('closeProfileBtn').style.display = 'block'; // Allow closing since it's an edit
+      document.getElementById('profile-settings-overlay').style.display = 'flex';
+  };
+
+  window.closeProfileModal = function() {
+      document.getElementById('profile-settings-overlay').style.display = 'none';
+  };
+
+  window.saveProfileData = function() {
+      const name = document.getElementById('profName').value.trim();
+      const photoUrl = document.getElementById('profPic').value.trim();
+      const classLevel = document.getElementById('profClass').value;
+      const phone1 = document.getElementById('profMobile1').value.trim();
+      const phone2 = document.getElementById('profMobile2').value.trim();
+      const inst = document.getElementById('profInst').value.trim();
+
+      if(!name || !phone1 || !inst) {
+          alert("Name, Personal Mobile, and Institution are required!");
+          return;
+      }
       
       const user = window.auth.currentUser;
       if(!user) return;
 
-      set(ref(window.db, `users_metadata/${user.uid}/custom_name`), nameText).then(() => {
-          window.globalIdentityName = nameText;
-          document.getElementById('identity-setup-overlay').style.display = 'none';
-          completeSystemInitialization(user);
-      }).catch(err => alert("Initialization Error: " + err.message));
+      const profileData = { name, photoUrl, classLevel, phonePersonal: phone1, phoneSecondary: phone2, institution: inst };
+
+      set(ref(window.db, `users_metadata/${user.uid}/profile`), profileData).then(() => {
+          window.userProfileData = profileData;
+          window.globalIdentityName = name;
+          document.getElementById('profile-settings-overlay').style.display = 'none';
+          
+          document.getElementById('userName').textContent = name;
+          document.getElementById('userPic').src = photoUrl ? photoUrl : user.photoURL;
+
+          if (!window.systemInitialized) {
+              completeSystemInitialization(user);
+          }
+      }).catch(err => alert("Error saving profile: " + err.message));
   };
 
   function completeSystemInitialization(user) {
+      window.systemInitialized = true;
       document.getElementById('loginBtnUI').style.display = 'none';
       document.getElementById('userInfo').style.display = 'flex';
-      document.getElementById('userName').textContent = window.globalIdentityName; // Apply everywhere
-      document.getElementById('userPic').src = user.photoURL;
+      document.getElementById('userName').textContent = window.globalIdentityName; 
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('main-app').style.display = 'block';
       renderAllCourses();
@@ -1030,7 +1111,11 @@ function setVideo(id, title, sheetLink) {
         window.plyrPlayer = new Plyr('#studioPlayer', {
             youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
             controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
-            settings: ['quality', 'speed']
+            settings: ['quality', 'speed'],
+            speed: { 
+                selected: 1, 
+                options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4] 
+            }
         });
     }
 
