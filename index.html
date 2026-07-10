@@ -114,9 +114,127 @@
         .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-cyan); box-shadow: 0 0 12px var(--accent-cyan); object-fit: cover; }
         .logout-btn { background: transparent; color: #f87171; border: none; padding: 0; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
         .logout-btn:hover { color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink); }
-        
-        #login-screen { text-align: center; padding: 12rem 2rem; position: relative; z-index: 10; }
-        #login-screen h2 { color: var(--accent-purple-light); font-size: 3.5rem; margin-bottom: 15px; text-shadow: 0 0 25px rgba(192,132,252,0.5); font-weight: 900; }
+
+        /* --- ENHANCED CYBERPUNK LOGIN SCREEN --- */
+        #login-screen { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 85vh; 
+            padding: 2rem; 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .login-glass-panel {
+            background: rgba(20, 10, 35, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(6, 182, 212, 0.15);
+            position: relative;
+            overflow: hidden;
+            animation: floatPanel 8s ease-in-out infinite;
+        }
+
+        /* Floating effect for the panel */
+        @keyframes floatPanel {
+            0%, 100% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-15px) rotateX(2deg); }
+        }
+
+        /* Spinning neon border effect behind the glass */
+        .login-glass-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 0deg, transparent 70%, var(--accent-cyan) 85%, var(--accent-purple) 100%);
+            animation: spinGlow 4s linear infinite;
+            z-index: -1;
+            opacity: 0.25;
+        }
+        @keyframes spinGlow { 100% { transform: rotate(360deg); } }
+
+        /* Inner dark mask to hollow out the spinning gradient */
+        .login-glass-panel::after {
+            content: '';
+            position: absolute;
+            inset: 2px; /* Controls border thickness */
+            background: rgba(15, 5, 25, 0.85);
+            border-radius: 22px;
+            z-index: -1;
+        }
+
+        .welcome-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+            margin: 0 0 15px;
+            background: linear-gradient(to right, #fff, var(--accent-cyan), var(--accent-purple-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.5));
+        }
+
+        .welcome-subtext {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        /* Custom Futuristic Button */
+        .cyber-btn {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent-cyan);
+            border: 2px solid var(--accent-cyan);
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .cyber-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 40px var(--accent-cyan);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .login-glass-panel { padding: 3rem 1.5rem; }
+            .welcome-text { font-size: 2.2rem; }
+        }
 
         /* PROFILE MODAL & OVERLAYS */
         .modal-overlay {
@@ -397,9 +515,12 @@
 </header>
 
 <div id="login-screen">
-    <h2>Access Restricted</h2>
-    <p style="color: var(--text-muted); margin-bottom: 3rem; font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Please login with an authorized Google account to access premium HSC materials and live classes.</p>
-    <button id="loginBtnCenter" class="login-btn" style="margin: 0 auto; font-size: 1.2rem; padding: 1rem 2.5rem; border-radius: 50px;">Authenticate Now</button>
+    <div class="login-glass-panel">
+        <h1 class="welcome-text">WELCOME</h1>
+        <p class="welcome-subtext">Initialize your connection to the grid. Authenticate your credentials to unlock premium HSC materials and live interactive sessions.</p>
+        
+        <button id="loginBtnCenter" class="cyber-btn">Authenticate</button>
+    </div>
 </div>
 
 <div id="main-app">
@@ -1108,7 +1229,7 @@ const courseData = {
     course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", videos: [
         { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
     ]},
-    course17: { sub: "ict", title: "ICT CQ Complete Preparation By Sheroare Hossain", img: "hOoUDyqzHiI", videos: [
+    course17: { sub: "ict", title: "ict cq complete preparation nby sheroare hossain", img: "hOoUDyqzHiI", videos: [
         { title: "Programming Language", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
         { title: "Web Design & HTML", id: "jflnzv-Obag", sheet: ictCqSheetFolder },
         { title: "Number System & Digital Device", id: "JnVGOM1-alE", sheet: ictCqSheetFolder },
