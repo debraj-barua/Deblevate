@@ -578,7 +578,7 @@
                 <div class="slide-segment" id="slideSegment">
                     <div class="slide-header">
                         <h3>📄 Class Lecture Slide</h3>
-                        <a id="sheetDownloadBtn" href="#" target="_blank" class="download-btn">⬇ Download PDF</a>
+                        <a id="sheetDownloadBtn" href="#" class="download-btn">⬇ Download PDF</a>
                     </div>
                     <div class="slide-frame-container">
                         <iframe id="slideIframe" src="" allowfullscreen="true"></iframe>
@@ -1327,6 +1327,18 @@ function openCourse(key) {
     }, 900);
 }
 
+// Function to convert Google Drive URL to a direct download URL
+function getDirectDownloadLink(url) {
+    if (!url) return "#";
+    // Look for standard /file/d/ID/view links
+    const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/uc?export=download&id=${fileMatch[1]}`;
+    }
+    // Return original url if it's a folder or doesn't match the pattern
+    return url;
+}
+
 window.plyrPlayer = null;
 
 function setVideo(id, title, sheetLink) {
@@ -1367,7 +1379,16 @@ function setVideo(id, title, sheetLink) {
     const dlBtn = document.getElementById("sheetDownloadBtn");
 
     if(sheetLink && sheetLink.trim() !== "") {
-        dlBtn.href = sheetLink;
+        // SET DIRECT DOWNLOAD LINK
+        dlBtn.href = getDirectDownloadLink(sheetLink);
+        
+        // Remove target blank if it's a direct download to prevent flash of blank tab
+        if (dlBtn.href.includes('uc?export=download')) {
+            dlBtn.removeAttribute('target');
+        } else {
+            dlBtn.setAttribute('target', '_blank');
+        }
+
         let embedLink = sheetLink.includes('/view') ? sheetLink.replace('/view', '/preview') : sheetLink;
         slideIframe.src = embedLink;
         slideSegment.style.display = "block";
