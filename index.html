@@ -611,13 +611,29 @@
     </div>
 </div>
 
+<!-- EmailJS Library -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { getDatabase, ref as dbRef, set, onValue, onDisconnect, remove, push, onChildAdded, onChildRemoved, off } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  import { getDatabase, ref as dbRef, set, onValue, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
+
+  // EmailJS Initialization with Public Key
+  emailjs.init("5lxeGsSKHJNwQzRuV");
+
+  function sendWelcomeInvoiceEmail(userEmail, userName, phone, uid) {
+      emailjs.send("service_6qgwfiw", "template_r3p57kd", {
+          to_name: userName || "Student",
+          to_email: userEmail,
+          phone: phone || "Not Provided"
+      }).then(() => {
+          console.log("Welcome & Invoice email sent successfully!");
+          update(dbRef(window.db, `users_metadata/${uid}/profile`), { welcomeEmailSent: true });
+      }).catch(err => console.error("EmailJS sending error:", err));
+  }
 
   // Master system access email control
   window.allowedEmails = [
@@ -719,6 +735,12 @@
                   } else {
                       document.getElementById('userName').textContent = window.globalIdentityName;
                   }
+
+                  // TRIGGER EMAIL IF NOT SENT YET
+                  if (!profile.welcomeEmailSent) {
+                      sendWelcomeInvoiceEmail(user.email, profile.name, profile.phonePersonal, user.uid);
+                  }
+
               } else {
                   window.systemInitialized = false;
                   document.getElementById('profName').value = user.displayName || "";
@@ -845,6 +867,11 @@
           
           document.getElementById('userName').textContent = name;
           document.getElementById('userPic').src = photoUrl;
+
+          // Send Email immediately after completing profile if not sent yet
+          if (!window.userProfileData.welcomeEmailSent) {
+              sendWelcomeInvoiceEmail(user.email, name, phone1, user.uid);
+          }
 
           if (!window.systemInitialized) {
               completeSystemInitialization(user);
@@ -1183,7 +1210,7 @@ const courseData = {
         { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
         { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
         { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
-        { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
+        { title: "৮. গতিবিদ্যা", id: "5CIUlfU688s", sheet: mathSheet }
     ]},
     course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
         { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
