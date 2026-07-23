@@ -635,6 +635,7 @@
   window.allowedEmails = [
     "debrajbarua8@gmail.com"
   ];
+  window.dbLoaded = false;
 
   const firebaseConfig = {
     apiKey: "AIzaSyCH1Vf9rxaMwCJZFBcSzKPP12EBbXGCbIU",
@@ -657,13 +658,10 @@
   onValue(allowedEmailsDbRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-          // _at_ কে ডট (.) বানিয়ে আসল ইমেইল রিকভার করা
           const dynamicEmails = Object.keys(data).map(key => key.replace(/_at_/g, '.').toLowerCase());
-          
-          // ম্যানুয়াল লিস্ট এবং ফায়ারবেসের লাইভ লিস্ট একত্রিত করা
           window.allowedEmails = Array.from(new Set([...window.allowedEmails.map(e => e.toLowerCase()), ...dynamicEmails]));
-          console.log("Live Whitelisted Emails Updated:", window.allowedEmails);
       }
+      window.dbLoaded = true;
   });
 
   window.currentUserRef = null;
@@ -722,11 +720,18 @@
       "Rangunia Government College", "Satkania Government College", "Sir Ashutosh Government College", "Uttar Kattoli Alhaz Mostafa Hakim University College"
   ];
 
-  onAuthStateChanged(window.auth, (user) => {
+  // 🔥 ASYNC WAIT FIX FOR RELOAD ISSUES 🔥
+  onAuthStateChanged(window.auth, async (user) => {
       if (user) {
           const userEmailLower = user.email.toLowerCase();
 
-          // ফায়ারবেসের লাইভ হোয়াইটলিস্ট চেক করা
+          // ফায়ারবেস থেকে লাইভ হোয়াইটলিস্ট লোড হওয়ার জন্য ১.৫ সেকেন্ড পর্যন্ত ওয়েট করবে
+          let attempts = 0;
+          while (!window.dbLoaded && attempts < 15) {
+              await new Promise(r => setTimeout(r, 100));
+              attempts++;
+          }
+
           if (window.allowedEmails.includes(userEmailLower)) {
               const userMetaRef = dbRef(window.db, `users_metadata/${user.uid}/profile`);
               onValue(userMetaRef, (snapshot) => {
@@ -743,7 +748,6 @@
                           document.getElementById('userName').textContent = window.globalIdentityName;
                       }
 
-                      // TRIGGER EMAIL IF NOT SENT YET
                       if (!profile.welcomeEmailSent) {
                           sendWelcomeInvoiceEmail(user.email, profile.name, profile.phonePersonal, user.uid);
                       }
@@ -752,7 +756,7 @@
                       window.systemInitialized = false;
                       document.getElementById('profName').value = user.displayName || "";
                       document.getElementById('profPicPreview').src = user.photoURL || "https://via.placeholder.com/50x50.png?text=Avatar";
-                      document.getElementById('closeProfileBtn').style.display = 'none'; // Force setup
+                      document.getElementById('closeProfileBtn').style.display = 'none';
                       document.getElementById('profile-settings-overlay').style.display = 'flex';
                   }
               }, { onlyOnce: true });
@@ -915,7 +919,6 @@
   window.openAdminDashboard = function() {
       const currentUser = window.auth.currentUser;
       
-      // Strict Security Verification Check
       if (!currentUser || currentUser.email.toLowerCase() !== "debrajbarua8@gmail.com") {
           alert("Unauthorized Access! Only Admin can view system logs.");
           document.getElementById('admin-dashboard-overlay').style.display = 'none';
@@ -1483,7 +1486,7 @@ function addChatMessage(msgId, senderUid, author, text, isSelf) {
 }
 
 function scrollToBottomChat() {
-    chatBox = document.getElementById('chatMessagesBox');
+    const chatBox = document.getElementById('chatMessagesBox');
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 </script>
