@@ -631,16 +631,9 @@
       }).catch(err => console.error("EmailJS sending error:", err));
   }
 
-  // Master system access email control (ডিফল্ট ম্যানুয়াল লিস্ট)
+  // Master system access email control (শুধুমাত্র এডমিনের ইমেইল রাখা হলো)
   window.allowedEmails = [
-    "debrajbarua8@gmail.com", 
-    "debrajbarua08@gmail.com", 
-    "prithabarua08@gmail.com", 
-    "pritha.khuki@gmail.com", 
-    "ayondasgupta77@gmail.com", 
-    "ariyanz10858@gmail.com", 
-    "rmty5506@gmail.com", 
-    "sudiptobhattacharjee516@gmail.com"
+    "debrajbarua8@gmail.com"
   ];
 
   const firebaseConfig = {
@@ -664,10 +657,10 @@
   onValue(allowedEmailsDbRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-          // _at_ কে ডট (.) বানিয়ে আসল ইমেইল রিকভার করা
+          // _at_ কে ডট (.) বানিয়ে আসল ইমেইল রিকভার করা
           const dynamicEmails = Object.keys(data).map(key => key.replace(/_at_/g, '.').toLowerCase());
           
-          // ম্যানুয়াল লিস্ট এবং ফায়ারবেসের লাইভ লিস্ট একত্রিত করা
+          // ম্যানুয়াল লিস্ট এবং ফায়ারবেসের লাইভ লিস্ট একত্রিত করা
           window.allowedEmails = Array.from(new Set([...window.allowedEmails.map(e => e.toLowerCase()), ...dynamicEmails]));
           console.log("Live Whitelisted Emails Updated:", window.allowedEmails);
       }
