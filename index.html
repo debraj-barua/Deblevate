@@ -142,13 +142,11 @@
             animation: floatPanel 8s ease-in-out infinite;
         }
 
-        /* Floating effect for the panel */
         @keyframes floatPanel {
             0%, 100% { transform: translateY(0px) rotateX(0deg); }
             50% { transform: translateY(-15px) rotateX(2deg); }
         }
 
-        /* Spinning neon border effect behind the glass */
         .login-glass-panel::before {
             content: '';
             position: absolute;
@@ -161,11 +159,10 @@
         }
         @keyframes spinGlow { 100% { transform: rotate(360deg); } }
 
-        /* Inner dark mask to hollow out the spinning gradient */
         .login-glass-panel::after {
             content: '';
             position: absolute;
-            inset: 2px; /* Controls border thickness */
+            inset: 2px;
             background: rgba(15, 5, 25, 0.85);
             border-radius: 22px;
             z-index: -1;
@@ -193,7 +190,6 @@
             opacity: 0.9;
         }
 
-        /* Custom Futuristic Button */
         .cyber-btn {
             background: rgba(6, 182, 212, 0.1);
             color: var(--accent-cyan);
@@ -417,7 +413,7 @@
         <div class="profile-form-group">
             <label>HSC Batch *</label>
             <select id="profBatch" class="profile-input-field">
-                </select>
+            </select>
         </div>
 
         <div class="profile-form-group">
@@ -468,7 +464,7 @@
                     </tr>
                 </thead>
                 <tbody id="adminProfileTableBody">
-                    </tbody>
+                </tbody>
             </table>
         </div>
         <button class="login-btn" style="margin: 20px auto 0; background: #333;" onclick="document.getElementById('admin-dashboard-overlay').style.display='none'">Close Dashboard</button>
@@ -635,7 +631,7 @@
       }).catch(err => console.error("EmailJS sending error:", err));
   }
 
-  // Master system access email control
+  // Master system access email control (ডিফল্ট ম্যানুয়াল লিস্ট)
   window.allowedEmails = [
     "debrajbarua8@gmail.com", 
     "debrajbarua08@gmail.com", 
@@ -662,6 +658,20 @@
   window.db = getDatabase(app);
   window.storage = getStorage(app); 
   const provider = new GoogleAuthProvider();
+
+  // 🔥 FIREBASE REALTIME DATABASE থেকে বটের অ্যাড করা ইমেইল লাইভ সিঙ্ক লজিক 🔥
+  const allowedEmailsDbRef = dbRef(window.db, 'whitelisted_emails');
+  onValue(allowedEmailsDbRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+          // _at_ কে ডট (.) বানিয়ে আসল ইমেইল রিকভার করা
+          const dynamicEmails = Object.keys(data).map(key => key.replace(/_at_/g, '.').toLowerCase());
+          
+          // ম্যানুয়াল লিস্ট এবং ফায়ারবেসের লাইভ লিস্ট একত্রিত করা
+          window.allowedEmails = Array.from(new Set([...window.allowedEmails.map(e => e.toLowerCase()), ...dynamicEmails]));
+          console.log("Live Whitelisted Emails Updated:", window.allowedEmails);
+      }
+  });
 
   window.currentUserRef = null;
   window.currentCourseKey = null;
@@ -720,40 +730,47 @@
   ];
 
   onAuthStateChanged(window.auth, (user) => {
-      if (user && window.allowedEmails.includes(user.email.toLowerCase())) {
-          const userMetaRef = dbRef(window.db, `users_metadata/${user.uid}/profile`);
-          onValue(userMetaRef, (snapshot) => {
-              const profile = snapshot.val();
-              if (profile && profile.name) {
-                  window.userProfileData = profile;
-                  window.globalIdentityName = profile.name;
-                  
-                  document.getElementById('userPic').src = profile.photoUrl ? profile.photoUrl : user.photoURL;
-                  
-                  if (!window.systemInitialized) {
-                      completeSystemInitialization(user);
+      if (user) {
+          const userEmailLower = user.email.toLowerCase();
+
+          // ফায়ারবেসের লাইভ হোয়াইটলিস্ট চেক করা
+          if (window.allowedEmails.includes(userEmailLower)) {
+              const userMetaRef = dbRef(window.db, `users_metadata/${user.uid}/profile`);
+              onValue(userMetaRef, (snapshot) => {
+                  const profile = snapshot.val();
+                  if (profile && profile.name) {
+                      window.userProfileData = profile;
+                      window.globalIdentityName = profile.name;
+                      
+                      document.getElementById('userPic').src = profile.photoUrl ? profile.photoUrl : user.photoURL;
+                      
+                      if (!window.systemInitialized) {
+                          completeSystemInitialization(user);
+                      } else {
+                          document.getElementById('userName').textContent = window.globalIdentityName;
+                      }
+
+                      // TRIGGER EMAIL IF NOT SENT YET
+                      if (!profile.welcomeEmailSent) {
+                          sendWelcomeInvoiceEmail(user.email, profile.name, profile.phonePersonal, user.uid);
+                      }
+
                   } else {
-                      document.getElementById('userName').textContent = window.globalIdentityName;
+                      window.systemInitialized = false;
+                      document.getElementById('profName').value = user.displayName || "";
+                      document.getElementById('profPicPreview').src = user.photoURL || "https://via.placeholder.com/50x50.png?text=Avatar";
+                      document.getElementById('closeProfileBtn').style.display = 'none'; // Force setup
+                      document.getElementById('profile-settings-overlay').style.display = 'flex';
                   }
-
-                  // TRIGGER EMAIL IF NOT SENT YET
-                  if (!profile.welcomeEmailSent) {
-                      sendWelcomeInvoiceEmail(user.email, profile.name, profile.phonePersonal, user.uid);
-                  }
-
-              } else {
-                  window.systemInitialized = false;
-                  document.getElementById('profName').value = user.displayName || "";
-                  document.getElementById('profPicPreview').src = user.photoURL || "https://via.placeholder.com/50x50.png?text=Avatar";
-                  document.getElementById('closeProfileBtn').style.display = 'none'; // Force setup
-                  document.getElementById('profile-settings-overlay').style.display = 'flex';
-              }
-          }, { onlyOnce: true });
+              }, { onlyOnce: true });
+          } else {
+              alert("Access Denied! Your email is not whitelisted."); 
+              signOut(window.auth);
+          }
       } else {
-          if(user) { alert("Access Denied! Your email is not whitelisted."); signOut(window.auth); }
           document.getElementById('loginBtnUI').style.display = 'flex';
           document.getElementById('userInfo').style.display = 'none';
-          document.getElementById('login-screen').style.display = 'block';
+          document.getElementById('login-screen').style.display = 'flex';
           document.getElementById('main-app').style.display = 'none';
           document.getElementById('profile-settings-overlay').style.display = 'none';
       }
@@ -849,7 +866,6 @@
       try {
           let photoUrl = window.userProfileData?.photoUrl || user.photoURL || "";
 
-          // Safe File Upload Mechanism handling File selection logic
           if (file) {
               const ext = file.name.split('.').pop();
               const sRef = storageRef(window.storage, `profile_pictures/${user.uid}_${Date.now()}.${ext}`);
@@ -868,7 +884,6 @@
           document.getElementById('userName').textContent = name;
           document.getElementById('userPic').src = photoUrl;
 
-          // Send Email immediately after completing profile if not sent yet
           if (!window.userProfileData.welcomeEmailSent) {
               sendWelcomeInvoiceEmail(user.email, name, phone1, user.uid);
           }
@@ -1354,15 +1369,12 @@ function openCourse(key) {
     }, 900);
 }
 
-// Function to convert Google Drive URL to a direct download URL
 function getDirectDownloadLink(url) {
     if (!url) return "#";
-    // Look for standard /file/d/ID/view links
     const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
     if (fileMatch && fileMatch[1]) {
         return `https://drive.google.com/uc?export=download&id=${fileMatch[1]}`;
     }
-    // Return original url if it's a folder or doesn't match the pattern
     return url;
 }
 
@@ -1383,7 +1395,6 @@ function setVideo(id, title, sheetLink) {
     } else {
         document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
         
-        // UPGRADED PLYR INIT WITH FORCED 4X OPTIONS
         window.plyrPlayer = new Plyr('#studioPlayer', {
             youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
             controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
@@ -1394,7 +1405,6 @@ function setVideo(id, title, sheetLink) {
             }
         });
 
-        // FORCE PLYR TO RETAIN 4X OPTIONS AFTER YOUTUBE API OVERRIDES IT
         window.plyrPlayer.on('ready', event => {
             const player = event.detail.plyr;
             player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
@@ -1406,10 +1416,8 @@ function setVideo(id, title, sheetLink) {
     const dlBtn = document.getElementById("sheetDownloadBtn");
 
     if(sheetLink && sheetLink.trim() !== "") {
-        // SET DIRECT DOWNLOAD LINK
         dlBtn.href = getDirectDownloadLink(sheetLink);
         
-        // Remove target blank if it's a direct download to prevent flash of blank tab
         if (dlBtn.href.includes('uc?export=download')) {
             dlBtn.removeAttribute('target');
         } else {
