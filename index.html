@@ -766,6 +766,7 @@
           document.getElementById('login-screen').style.display = 'flex';
           document.getElementById('main-app').style.display = 'none';
           document.getElementById('profile-settings-overlay').style.display = 'none';
+          document.getElementById('admin-dashboard-overlay').style.display = 'none';
       }
   });
 
@@ -903,13 +904,24 @@
       // EXCLUSIVE ADMIN ACCESS
       if(user.email.toLowerCase() === "debrajbarua8@gmail.com") {
           document.getElementById('adminBtnUI').style.display = "inline-block";
+      } else {
+          document.getElementById('adminBtnUI').style.display = "none";
       }
 
       renderAllCourses();
   }
 
-  // --- ADMIN DASHBOARD VIEWER MATRIX ---
+  // --- STRICT ADMIN DASHBOARD ACCESS LOCK ---
   window.openAdminDashboard = function() {
+      const currentUser = window.auth.currentUser;
+      
+      // Strict Security Verification Check
+      if (!currentUser || currentUser.email.toLowerCase() !== "debrajbarua8@gmail.com") {
+          alert("Unauthorized Access! Only Admin can view system logs.");
+          document.getElementById('admin-dashboard-overlay').style.display = 'none';
+          return;
+      }
+
       const tableBody = document.getElementById('adminProfileTableBody');
       tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:20px; color:var(--text-muted);">Fetching profiles mapping matrices...</td></tr>`;
       document.getElementById('admin-dashboard-overlay').style.display = 'flex';
@@ -1471,7 +1483,7 @@ function addChatMessage(msgId, senderUid, author, text, isSelf) {
 }
 
 function scrollToBottomChat() {
-    const chatBox = document.getElementById('chatMessagesBox');
+    chatBox = document.getElementById('chatMessagesBox');
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 </script>
