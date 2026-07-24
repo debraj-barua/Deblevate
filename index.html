@@ -617,7 +617,6 @@
   import { getDatabase, ref as dbRef, set, onValue, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
 
-  // EmailJS Initialization with Public Key
   emailjs.init("5lxeGsSKHJNwQzRuV");
 
   function sendWelcomeInvoiceEmail(userEmail, userName, phone, uid) {
@@ -631,7 +630,6 @@
       }).catch(err => console.error("EmailJS sending error:", err));
   }
 
-  // Master system access email control (শুধুমাত্র এডমিনের ইমেইল রাখা হলো)
   window.allowedEmails = [
     "debrajbarua8@gmail.com"
   ];
@@ -653,7 +651,6 @@
   window.storage = getStorage(app); 
   const provider = new GoogleAuthProvider();
 
-  // 🔥 FIREBASE REALTIME DATABASE থেকে বটের অ্যাড করা ইমেইল লাইভ সিঙ্ক লজিক 🔥
   const allowedEmailsDbRef = dbRef(window.db, 'whitelisted_emails');
   onValue(allowedEmailsDbRef, (snapshot) => {
       const data = snapshot.val();
@@ -682,7 +679,6 @@
       window.systemInitialized = false;
   };
 
-  // --- DYNAMIC HSC BATCH INJECTION (2000-2050) ---
   const batchSelect = document.getElementById('profBatch');
   batchSelect.innerHTML = "";
   for (let year = 2000; year <= 2050; year++) {
@@ -692,7 +688,6 @@
       batchSelect.appendChild(opt);
   }
 
-  // --- COMPREHENSIVE CHITTAGONG COLLEGES ARRAY ---
   const bdColleges = [
       "Agrabad Mohila College", "Anowara Govt. College", "BAF Shaheen College Chattogram", "Bakalia Government College",
       "Bangladeseh Mohila Samity Girls' High School & College", "Begum Gul Chemonara Academy (School And College)",
@@ -708,24 +703,22 @@
       "Chittagong Metropolitan Commerce College", "Chittagong Model School & College", "Chittagong Oxford Modern Commerce College",
       "Chittagong Pali College", "Chittagong Sun Sunshine College", "Chittagong University School & College", "Chittagong Urea Fertilizer College",
       "Dr. Khastagir Govt. Girls' High School & College", "Fateyabad City Corporation Girls School And College", "Faujdarhat Cadet College",
-      "Gachhbaria Govt College", "Goshaildanga Barik Mia High School & College", "Government Art College, Chittagong",
+      "Gachhbaria Govt College", "Goshaildanga Barik Mia High School & College", "Government Art College, Chattogram",
       "Government College of Commerce, Chittagong", "Government Teachers' Training College, Chittagong", "Govt. Alaol College",
-      "Govt. Chittagong College", "Govt. City College, Chittagong", "Govt. Hazi Muhammad Mohsin College, Chittagong", 
+      "Govt. Chittagong College", "Govt. City College, Chittagong", "Govt. Hazi Muhammad Mohsin College, Chattogram", 
       "Govt. Muslim High School & College", "Halishahar Cantonment Public School & College", "Hazera Taju Degree College",
       "Institute of Applied Health Sciences", "Islamia Degree College", "Ispahani Public School & College, Chittagong",
       "Kafco School And College", "Kapasgola City Corparation Mohila College", "Mahajanhat Fazlur Rahman School And College",
-      "Mern Sun College", "Mirza Ahmed Ispahani Smriti Bidyalay & College", "Nasirabad Govt. High School, Chittagong",
+      "Mern Sun College", "Mirza Ahmed Ispahani Smriti Bidyalay & College", "Nasirabad Govt. High School, Chattogram",
       "Nizampur Government College", "Nou-bahini School And College", "Omargani M. E. S. College", "Pahartali Degree College",
       "Patanga City Corporation Girls High School And College", "Patiya Govt College", "Professor Kamal Uddin Chowdhury College",
       "Rangunia Government College", "Satkania Government College", "Sir Ashutosh Government College", "Uttar Kattoli Alhaz Mostafa Hakim University College"
   ];
 
-  // 🔥 ASYNC WAIT FIX FOR RELOAD ISSUES 🔥
   onAuthStateChanged(window.auth, async (user) => {
       if (user) {
           const userEmailLower = user.email.toLowerCase();
 
-          // ফায়ারবেস থেকে লাইভ হোয়াইটলিস্ট লোড হওয়ার জন্য ১.৫ সেকেন্ড পর্যন্ত ওয়েট করবে
           let attempts = 0;
           while (!window.dbLoaded && attempts < 15) {
               await new Promise(r => setTimeout(r, 100));
@@ -774,7 +767,6 @@
       }
   });
 
-  // --- AUTOCOMPLETE ENGINE ---
   const instInput = document.getElementById('profInst');
   const suggestionsBox = document.getElementById('collegeSuggestions');
 
@@ -808,7 +800,6 @@
       if (e.target !== instInput) suggestionsBox.style.display = "none";
   });
 
-  // Render Image Preview before saving
   document.getElementById('profPicFile').addEventListener('change', function(e) {
       const file = e.target.files[0];
       if (file) {
@@ -820,7 +811,6 @@
       }
   });
 
-  // Profile Management Logic
   window.openProfileModal = function() {
       document.getElementById('profName').value = window.userProfileData?.name || window.auth.currentUser.displayName || "";
       document.getElementById('profBatch').value = window.userProfileData?.batch || "HSC 2026";
@@ -905,7 +895,6 @@
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('main-app').style.display = 'block';
       
-      // EXCLUSIVE ADMIN ACCESS
       if(user.email.toLowerCase() === "debrajbarua8@gmail.com") {
           document.getElementById('adminBtnUI').style.display = "inline-block";
       } else {
@@ -915,7 +904,6 @@
       renderAllCourses();
   }
 
-  // --- STRICT ADMIN DASHBOARD ACCESS LOCK ---
   window.openAdminDashboard = function() {
       const currentUser = window.auth.currentUser;
       
@@ -962,7 +950,6 @@
       }, { onlyOnce: true });
   };
 
-  // REALTIME REAL WORKSPACE VIEWER TRACKER
   window.trackRealViewers = function(courseKey) {
       if (!window.auth.currentUser) return;
       if (window.currentUserRef) { remove(window.currentUserRef); }
@@ -985,10 +972,6 @@
       });
   };
 
-  // ==========================================
-  // LIVE CHAT WITH DELETION & ANTI-SPAM REACTIONS
-  // ==========================================
-  
   window.handleChatSubmit = function() {
       if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
       
@@ -1110,9 +1093,6 @@
 </script>
 
 <script>
-// ==========================================
-// MAXIMUM SECURITY ANTI-COPY JAVASCRIPT
-// ==========================================
 document.addEventListener('copy', (e) => e.preventDefault());
 document.addEventListener('cut', (e) => e.preventDefault());
 document.addEventListener('paste', (e) => e.preventDefault());
@@ -1127,9 +1107,6 @@ document.onkeydown = function(e) {
     }
 };
 
-// ==========================================
-// FULL COURSE DATA & PLAYER LOGIC
-// ==========================================
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
 
@@ -1167,55 +1144,83 @@ const courseData = {
         { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
         { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
     ]},
+
     course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
         { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
-        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
-        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
-        { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
+        { title: "২. গুণগত রসায়ন (MCQ Boost)", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
+        { title: "🧪 গুণগত রসায়ন (AR Bhai) - Part 1", id: "7Y-HJhO3kU0", sheet: "" },
+        { title: "🧪 গুণগত রসায়ন (AR Bhai) - Part 2", id: "GHUweO9UzFM", sheet: "" },
+        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম (MCQ Boost)", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
+        { title: "🧪 মৌলের পর্যায়বৃত্ত ধর্ম (AR Bhai) - Part 1", id: "uU5-5P24hYM", sheet: "" },
+        { title: "🧪 মৌলের পর্যায়বৃত্ত ধর্ম (AR Bhai) - Part 2", id: "gNDfRTTU034", sheet: "" },
+        { title: "৪. রাসায়নিক পরিবর্তন (MCQ Boost)", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
+        { title: "🧪 রাসায়নিক পরিবর্তন (AR Bhai) - Part 1", id: "7MNsw-0cdrI", sheet: "" },
+        { title: "🧪 রাসায়নিক পরিবর্তন (AR Bhai) - Part 2", id: "tbDXYvjogdk", sheet: "" },
         { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
         { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
     ]},
+
     course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
-        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
-        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
-        { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
-        { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
+        { title: "১. পরিবেশ রসায়ন (MCQ Boost)", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
+        { title: "🧪 পরিবেশ রসায়ন (AR Bhai)", id: "Up_chQ6uSsM", sheet: "" },
+        { title: "২. জৈব রসায়ন (MCQ Boost)", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
+        { title: "🧪 জৈব রসায়ন (AR Bhai) - Part 1", id: "m-wxYAm7Wh0", sheet: "" },
+        { title: "🧪 জৈব রসায়ন (AR Bhai) - Part 2", id: "Hu1Uej1kcVg", sheet: "" },
+        { title: "🧪 জৈব রসায়ন (AR Bhai) - Part 3", id: "ugzFHuEQHEw", sheet: "" },
+        { title: "🧪 জৈব রসায়ন (AR Bhai) - Part 4", id: "Fl7dxkdet70", sheet: "" },
+        { title: "৩. পরিমাণগত রসায়ন (MCQ Boost)", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
+        { title: "🧪 পরিমাণগত রসায়ন (AR Bhai) - Part 1", id: "158RXVE-MJo", sheet: "" },
+        { title: "🧪 পরিমাণগত রসায়ন (AR Bhai) - Part 2", id: "xNMDGbeuxmk", sheet: "" },
+        { title: "৪. তড়িৎ রসায়ন (MCQ Boost)", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
+        { title: "🧪 তড়িৎ রসায়ন (AR Bhai) - Part 1", id: "CHJYjLUc9Sc", sheet: "" },
+        { title: "🧪 তড়িৎ রসায়ন (AR Bhai) - Part 2", id: "DtH9GHvQaCY", sheet: "" },
         { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
         { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
     ]},
-    course6: { sub: "biology", title: "Biology 1st Paper", img: "VIAOG6TPE4U", videos: [
-        { title: "১. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
-        { title: "২. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
-        { title: "৩. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
-        { title: "৪. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
-        { title: "৫. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
-        { title: "৬. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRchQnAJfr/view" },
-        { title: "৭. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
-        { title: "৮. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
-        { title: "৯. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
-        { title: "১০. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
-        { title: "১১. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
-        { title: "১২. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
-        { title: "১৩. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
-        { title: "১৪. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
-        { title: "১৫. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
-        { title: "১৬. জীবের পরিবেশ ও বিস্তার", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
+    
+    course6: { sub: "biology", title: "🌿 ১ম পত্র: উদ্ভিদবিজ্ঞান (Botany)", img: "TZTzracJUb4", videos: [
+        { title: "🔹 Chapter 01: কোষ ও এর গঠন (CQ Class)", id: "TZTzracJUb4", sheet: "" },
+        { title: "🔹 Chapter 01: কোষ ও এর গঠন (MCQ Class)", id: "rK25BTW72Lk", sheet: "" },
+        { title: "🔹 Chapter 02: কোষ বিভাজন (CQ Class)", id: "0FmnnibILno", sheet: "" },
+        { title: "🔹 Chapter 02: কোষ বিভাজন (MCQ Class)", id: "ibTniWbGCQU", sheet: "" },
+        { title: "🔹 Chapter 04: অণুজীব (CQ Class)", id: "onWu2kujIR8", sheet: "" },
+        { title: "🔹 Chapter 04: অণুজীব (MCQ Class)", id: "Jqfhj2funDA", sheet: "" },
+        { title: "🔹 Chapter 06: ব্রায়োফাইটা ও টেরিডোফাইটা (CQ Class)", id: "PWagkOyd5EY", sheet: "" },
+        { title: "🔹 Chapter 06: ব্রায়োফাইটা ও টেরিডোফাইটা (MCQ Class)", id: "ehVq1GMktXY", sheet: "" },
+        { title: "🔹 Chapter 07: নগ্নবীজী ও আবৃতবীজী উদ্ভিদ (CQ Class)", id: "ifk31j2d3cI", sheet: "" },
+        { title: "🔹 Chapter 07: নগ্নবীজী ও আবৃতবীজী উদ্ভিদ (MCQ Class)", id: "2B3HhQORN9o", sheet: "" },
+        { title: "🔹 Chapter 08: টিস্যু ও টিস্যুতন্ত্র (CQ Class)", id: "8cbCHHdF_rs", sheet: "" },
+        { title: "🔹 Chapter 08: টিস্যু ও টিস্যুতন্ত্র (MCQ Class)", id: "eAnYsKNp-qE", sheet: "" },
+        { title: "🔹 Chapter 09: উদ্ভিদ শারীরতত্ত্ব (CQ Class)", id: "obqMOUUh1GU", sheet: "" },
+        { title: "🔹 Chapter 09: উদ্ভিদ শারীরতত্ত্ব (MCQ Class)", id: "Rl1UOJvsTbM", sheet: "" },
+        { title: "🔹 Chapter 10: উদ্ভিদ প্রজনন (CQ Class)", id: "zWclGo7cXic", sheet: "" },
+        { title: "🔹 Chapter 10: উদ্ভিদ প্রজনন (MCQ Class)", id: "z16ybpT8vLo", sheet: "" },
+        { title: "🔹 Chapter 11: জীবপ্রযুক্তি (CQ Class)", id: "9Oo4qZ-uSZU", sheet: "" },
+        { title: "🔹 Chapter 11: জীবপ্রযুক্তি (MCQ Class)", id: "eH3Y2KnN-aw", sheet: "" }
     ]},
-    course7: { sub: "biology", title: "Biology 2nd Paper", img: "BN4-Nmz3qxM", videos: [
-        { title: "১৭. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
-        { title: "১৮. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
-        { title: "১৯. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
-        { title: "২০. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
-        { title: "২১. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
-        { title: "২২. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
-        { title: "২৩. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
-        { title: "২৪. সমন্বয় ও নিয়ন্ত্রন", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
-        { title: "২৫. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
-        { title: "২৬. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
-        { title: "২৭. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
-        { title: "২৮. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
-        { title: "২৯. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
+
+    course7: { sub: "biology", title: "🐾 ২য় পত্র: প্রাণিবিজ্ঞান (Zoology)", img: "LrklqNYuQc4", videos: [
+        { title: "🔹 Chapter 01: প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস (CQ Class)", id: "LrklqNYuQc4", sheet: "" },
+        { title: "🔹 Chapter 01: প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস (MCQ Class)", id: "WQ-f52E61i0", sheet: "" },
+        { title: "🔹 Chapter 02: প্রাণীর পরিচিতি - হাইড্রা, ঘাসফড়িং, রুই মাছ (CQ Class)", id: "wjnPT32kocI", sheet: "" },
+        { title: "🔹 Chapter 02: প্রাণীর পরিচিতি - হাইড্রা, ঘাসফড়িং, রুই মাছ (MCQ Class)", id: "OdK9vF8pd5E", sheet: "" },
+        { title: "🔹 Chapter 03: পরিপাক ও শোষণ (CQ Class)", id: "CNA2Wui5NKE", sheet: "" },
+        { title: "🔹 Chapter 03: পরিপাক ও শোষণ (MCQ Class)", id: "iEirASma5kQ", sheet: "" },
+        { title: "🔹 Chapter 04: রক্ত ও সংবহন (CQ Class)", id: "MiWb7xid8To", sheet: "" },
+        { title: "🔹 Chapter 04: রক্ত ও সংবহন (MCQ Class)", id: "VXR1lsheFQc", sheet: "" },
+        { title: "🔹 Chapter 05: শ্বসন ও শ্বাসক্রিয়া (CQ Class)", id: "u4fOPHw9jHk", sheet: "" },
+        { title: "🔹 Chapter 05: শ্বসন ও শ্বাসক্রিয়া (MCQ Class)", id: "OGSPQveZmhE", sheet: "" },
+        { title: "🔹 Chapter 06: বর্জ্য ও নিষ্কাশন (CQ Class)", id: "OekZQy8Ejus", sheet: "" },
+        { title: "🔹 Chapter 06: বর্জ্য ও নিষ্কাশন (MCQ Class)", id: "x2378jhkkpE", sheet: "" },
+        { title: "🔥 Chapter 06: Full One-Shot", id: "u-YGWIXuzDo", sheet: "" },
+        { title: "🔹 Chapter 07: চলন ও অঙ্গচালনা (CQ Class)", id: "pqk8WJOGfC8", sheet: "" },
+        { title: "🔹 Chapter 07: চলন ও অঙ্গচালনা (MCQ Class)", id: "YkAgS9vXlqE", sheet: "" },
+        { title: "🔹 Chapter 10: মানবদেহের প্রতিরক্ষা - Immunity (CQ Class)", id: "O_JSyI0eRzM", sheet: "" },
+        { title: "🔹 Chapter 10: মানবদেহের প্রতিরক্ষা - Immunity (MCQ Class)", id: "l7eH61SkqSI", sheet: "" },
+        { title: "🔹 Chapter 11: জিনতত্ত্ব ও বিবর্তন (CQ Class)", id: "Mtia3cpqwRI", sheet: "" },
+        { title: "🔹 Chapter 11: জিনতত্ত্ব ও বিবর্তন (MCQ Class)", id: "K-dERoYfVOw", sheet: "" }
     ]},
+
     course8: { sub: "math", title: "Higher Math 1st Paper", img: "nE4kCCRdUTA", videos: [
         { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
         { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
@@ -1279,15 +1284,73 @@ const courseData = {
     course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", videos: [
         { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
     ]},
-    course17: { sub: "ict", title: " ICT CQ Complete Preparation by Sheroare Hossain Emon", img: "hOoUDyqzHiI", videos: [
-        { title: "Programming Language", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
-        { title: "Web Design & HTML", id: "jflnzv-Obag", sheet: ictCqSheetFolder },
-        { title: "Number System & Digital Device", id: "JnVGOM1-alE", sheet: ictCqSheetFolder },
-        { title: "Communication System and Networking", id: "Mjhru0bPqiE", sheet: ictCqSheetFolder },
-        { title: "Database & Management System", id: "b1uoOcSHaPM", sheet: ictCqSheetFolder }
+    
+    /* 💻 Sheroare Hossain Emon - ICT CQ Complete Preparation */
+    course17: { sub: "ict", title: "ICT CQ Complete Preparation by Sheroare Hossain Emon", img: "hOoUDyqzHiI", videos: [
+        { title: "💻 Programming Language", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
+        { title: "💻 Web Design & HTML", id: "jflnzv-Obag", sheet: ictCqSheetFolder },
+        { title: "💻 Number System & Digital Device", id: "JnVGOM1-alE", sheet: ictCqSheetFolder },
+        { title: "💻 Communication System and Networking", id: "Mjhru0bPqiE", sheet: ictCqSheetFolder },
+        { title: "💻 Database & Management System", id: "b1uoOcSHaPM", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 1 One Shot", id: "-B3gJpv5N0U", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 2 One Shot", id: "TE59c6zxGV8", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 3 (Part 1) One Shot", id: "N6Atpx5N0v0", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 3 (Part 2) One Shot", id: "g6cnTvpktCo", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 4 One Shot", id: "n8LwkB9Xk5I", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 5 One Shot", id: "mQycPAFmE2A", sheet: ictCqSheetFolder }
     ]},
+
     course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
         { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+    ]},
+
+    /* 📐 Abhi Dada - Higher Math Masterclasses */
+    course19: { sub: "math", title: "Higher Math Masterclass by Abhi Dada", img: "67B9P3TgKa8", videos: [
+        { title: "📐 Math Class - 01", id: "67B9P3TgKa8", sheet: mathSheet },
+        { title: "📐 Math Class - 02", id: "uFGOaRvfFZA", sheet: mathSheet },
+        { title: "📐 Math Class - 03", id: "P2aww5m6Dys", sheet: mathSheet },
+        { title: "📐 Math Class - 04", id: "JOYyLwUc8L8", sheet: mathSheet },
+        { title: "📐 Math Class - 05", id: "LiojRZ99COw", sheet: mathSheet },
+        { title: "📐 Math Class - 06", id: "-dw3s6D1G8U", sheet: mathSheet },
+        { title: "📐 Math Class - 07", id: "B-3OK_kMMG8", sheet: mathSheet },
+        { title: "📐 Math Class - 08", id: "-jrU6XcZDaw", sheet: mathSheet },
+        { title: "📐 Math Class - 09", id: "du_ieKRj9jo", sheet: mathSheet },
+        { title: "📐 Math Class - 10", id: "vPXNfbsM7sY", sheet: mathSheet },
+        { title: "📐 Math Class - 11", id: "ZN0Qt0Pr1VE", sheet: mathSheet },
+        { title: "📐 Math Class - 12", id: "Y9_5c54IsXM", sheet: mathSheet },
+        { title: "📐 Math Class - 13", id: "gF-xD2nXZRk", sheet: mathSheet },
+        { title: "📐 Math Class - 14", id: "sw5OdmDCuUs", sheet: mathSheet },
+        { title: "📐 Math Class - 15", id: "nvbo0UTxW9E", sheet: mathSheet },
+        { title: "📐 Math Class - 16", id: "e5UjvcHh87E", sheet: mathSheet },
+        { title: "📐 Math Class - 17", id: "Jz3izwfa8Kw", sheet: mathSheet },
+        { title: "📐 Math Class - 18", id: "4r-XUo8S8pg", sheet: mathSheet },
+        { title: "📐 Math Class - 19", id: "Tvti76PQ3iQ", sheet: mathSheet },
+        { title: "📐 Math Class - 20", id: "ioJGYawWJE0", sheet: mathSheet }
+    ]},
+
+    /* 📐 Rakib Bhai - Higher Math Masterclass */
+    course20: { sub: "math", title: "Higher Math Masterclass by Rakib Bhai", img: "KtqyZ-ANMUk", videos: [
+        { title: "📐 Higher Math Class - 01", id: "KtqyZ-ANMUk", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 02", id: "JLuKC_yxoWs", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 03", id: "-WP3xRkTuaM", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 04", id: "1jjTSSpq2pQ", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 05", id: "pU_iwduItHs", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 06", id: "9pwpsJD0tL8", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 07", id: "piZLlyz3wbs", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 08", id: "oYeRl4OQo0Y", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 09", id: "DKSpBV109fE", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 10", id: "WXMaW-VdpzA", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 11", id: "6hhbuYeI1cU", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 12", id: "C1OAPt1Q26U", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 13", id: "yO-qpIO6rQU", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 14", id: "KBrLO601OVU", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 15", id: "g4dmJ7vVY5U", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 16", id: "-G8AOnuWUII", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 17", id: "e5UjvcHh87E", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 18", id: "dxU1TOy9jvM", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 19", id: "n9kLnm_Tqg8", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 20", id: "K5ddkgvdVvM", sheet: mathSheet },
+        { title: "📐 Higher Math Class - 21", id: "9wdcmsJcHXI", sheet: mathSheet }
     ]}
 };
 
