@@ -606,7 +606,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { getDatabase, ref as dbRef, set, onValue, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  import { getDatabase, ref as dbRef, set, onValue, get, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
 
   emailjs.init("5lxeGsSKHJNwQzRuV");
@@ -643,14 +643,17 @@
   window.storage = getStorage(app); 
   const provider = new GoogleAuthProvider();
 
+  // ইনস্ট্যান্ট ক্যাশ ও ডেটা লোড করার জন্য দ্রুত গেট রিড মেথড
   const allowedEmailsDbRef = dbRef(window.db, 'whitelisted_emails');
-  onValue(allowedEmailsDbRef, (snapshot) => {
+  get(allowedEmailsDbRef).then((snapshot) => {
       const data = snapshot.val();
       if (data) {
           const dynamicEmails = Object.keys(data).map(key => key.replace(/_at_/g, '.').toLowerCase());
           window.allowedEmails = Array.from(new Set([...window.allowedEmails.map(e => e.toLowerCase()), ...dynamicEmails]));
       }
       window.dbLoaded = true;
+  }).catch(() => {
+      window.dbLoaded = true; // ফেইল করলেও যেন আটকে না থাকে
   });
 
   window.currentUserRef = null;
@@ -699,7 +702,7 @@
       "Government College of Commerce, Chittagong", "Government Teachers' Training College, Chittagong", "Govt. Alaol College",
       "Govt. Chittagong College", "Govt. City College, Chittagong", "Govt. Hazi Muhammad Mohsin College, Chattogram", 
       "Govt. Muslim High School & College", "Halishahar Cantonment Public School & College", "Hazera Taju Degree College",
-      "Institute of Applied Health Sciences", "Islamia Degree College", "Ispahani Public School & College, Chittagong",
+      "Institute of Applied Health Sciences", "Islamia Degree College", "Ispahani Public School & College, Chattogram",
       "Kafco School And College", "Kapasgola City Corparation Mohila College", "Mahajanhat Fazlur Rahman School And College",
       "Mern Sun College", "Mirza Ahmed Ispahani Smriti Bidyalay & College", "Nasirabad Govt. High School, Chattogram",
       "Nizampur Government College", "Nou-bahini School And College", "Omargani M. E. S. College", "Pahartali Degree College",
@@ -711,15 +714,18 @@
       if (user) {
           const userEmailLower = user.email.toLowerCase();
 
+          // চোখের পলকে ডেটা চেক করার জন্য ইনস্ট্যান্ট চেক লুপ (Milliseconds)
           let attempts = 0;
-          while (!window.dbLoaded && attempts < 5) {
-              await new Promise(r => setTimeout(r, 20));
+          while (!window.dbLoaded && attempts < 1) {
+              await new Promise(r => setTimeout(r, 2));
               attempts++;
           }
 
           if (window.allowedEmails.includes(userEmailLower)) {
               const userMetaRef = dbRef(window.db, `users_metadata/${user.uid}/profile`);
-              onValue(userMetaRef, (snapshot) => {
+              
+              // onValue এর পরিবর্তে সরাসরি get ব্যবহার করে ইনস্ট্যান্ট ডাটা ফেচ করা
+              get(userMetaRef).then((snapshot) => {
                   const profile = snapshot.val();
                   if (profile && profile.name) {
                       window.userProfileData = profile;
@@ -744,7 +750,11 @@
                       document.getElementById('closeProfileBtn').style.display = 'none';
                       document.getElementById('profile-settings-overlay').style.display = 'flex';
                   }
-              }, { onlyOnce: true });
+              }).catch(() => {
+                  window.systemInitialized = false;
+                  document.getElementById('profile-settings-overlay').style.display = 'flex';
+              });
+
           } else {
               alert("Access Denied! Your email is not whitelisted."); 
               signOut(window.auth);
@@ -910,7 +920,7 @@
       document.getElementById('admin-dashboard-overlay').style.display = 'flex';
 
       const metadataNodeRef = dbRef(window.db, 'users_metadata');
-      onValue(metadataNodeRef, (snapshot) => {
+      get(metadataNodeRef).then((snapshot) => {
           tableBody.innerHTML = "";
           const records = snapshot.val();
           if(!records) {
@@ -939,7 +949,9 @@
                   tableBody.appendChild(tr);
               }
           });
-      }, { onlyOnce: true });
+      }).catch(() => {
+          tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:20px; color:red;">Error loading logs.</td></tr>`;
+      });
   };
 
   window.trackRealViewers = function(courseKey) {
@@ -1314,7 +1326,7 @@ const courseData = {
     ]},
 
     course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
-        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/สง নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
     ]},
 
     /* 📐 Abhi Dada - Higher Math */
