@@ -503,7 +503,7 @@
 <div class="bg-grid"></div>
 
 <header>
-    <a href="#" class="header-logo" onclick="if(document.getElementById('main-app').style.display==='block') showHome()">
+    <a href="#" class="header-logo" onclick="showHome()">
         <img src="channels4_profile.jpg" alt="Logo" onerror="this.style.display='none'">
         <div class="brand-text-container">
             <span class="brand-name">DEBLEVATE</span>
@@ -692,6 +692,7 @@
   
   document.getElementById('logoutBtnUI').onclick = () => { 
       if(window.currentUserRef) { remove(window.currentUserRef); }
+      localStorage.removeItem('deblevate_state');
       signOut(window.auth); 
       if(window.plyrPlayer) window.plyrPlayer.stop(); 
       window.systemInitialized = false;
@@ -935,6 +936,15 @@
       }
 
       renderAllCourses();
+
+      // রিলোড স্টেট রিস্টোর করা (Reload Fix)
+      const savedState = JSON.parse(localStorage.getItem('deblevate_state'));
+      if (savedState) {
+          if (savedState.view === 'player' && savedState.courseKey) {
+              openCourse(savedState.courseKey, savedState.videoIndex || 0);
+          }
+          localStorage.removeItem('deblevate_state'); // এক্টিভ করার পর ক্লিয়ার করে দেওয়া
+      }
   }
 
   window.openAdminDashboard = function() {
@@ -1548,6 +1558,7 @@ function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
     if(window.plyrPlayer) { window.plyrPlayer.stop(); }
+    localStorage.removeItem('deblevate_state');
     window.scrollTo(0,0);
 }
 
@@ -1560,7 +1571,7 @@ function filterSubject(sub, btn) {
 }
 
 /* ⚡ INSTANT OPEN COURSE FUNCTION ⚡ */
-function openCourse(key) {
+function openCourse(key, targetVidIndex = 0) {
     window.currentCourseKey = key;
     
     document.getElementById('home-view').style.display = 'none';
@@ -1572,11 +1583,11 @@ function openCourse(key) {
     
     data.videos.forEach((vid, i) => {
         let div = document.createElement("div");
-        div.className = "video-item" + (i===0 ? " active" : "");
+        div.className = "video-item" + (i === targetVidIndex ? " active" : "");
         div.onclick = () => {
             document.querySelectorAll('.video-item').forEach(e=>e.classList.remove('active'));
             div.classList.add('active');
-            setVideo(vid.id, vid.title, vid.sheet);
+            setVideo(vid.id, vid.title, vid.sheet, i);
         };
         div.innerHTML = `
             <img class="vid-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/default.jpg" alt="thumbnail" onerror="this.src='channels4_profile.jpg'">
@@ -1588,13 +1599,19 @@ function openCourse(key) {
         container.appendChild(div);
     });
     
-    if(data.videos.length > 0) setVideo(data.videos[0].id, data.videos[0].title, data.videos[0].sheet);
+    if(data.videos.length > 0) {
+        let targetVid = data.videos[targetVidIndex] || data.videos[0];
+        setVideo(targetVid.id, targetVid.title, targetVid.sheet, targetVidIndex);
+    }
     switchSidebarTab('playlist');
     window.scrollTo(0,0);
 
     if(window.trackRealViewers) {
         window.trackRealViewers(key);
     }
+
+    // বর্তমান স্টেট লোকাল স্টোরেজে সেভ করে রাখা (Reload Fix)
+    localStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: key, videoIndex: targetVidIndex }));
 }
 
 function getDirectDownloadLink(url) {
@@ -1609,7 +1626,7 @@ function getDirectDownloadLink(url) {
 window.plyrPlayer = null;
 let timeSaveInterval = null;
 
-function setVideo(id, title, sheetLink) {
+function setVideo(id, title, sheetLink, vidIndex = 0) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
     
@@ -1628,8 +1645,10 @@ function setVideo(id, title, sheetLink) {
             };
             
             setTimeout(() => {
-                if(savedTime > 0 && window.plyrPlayer) {
-                    window.plyrPlayer.currentTime = parseFloat(savedTime);
+                if(savedTime > 2 && window.plyrPlayer) {
+                    if(confirm("Do you want to resume from your last watched position?")) {
+                        window.plyrPlayer.currentTime = parseFloat(savedTime);
+                    }
                 }
             }, 1000);
 
@@ -1650,8 +1669,10 @@ function setVideo(id, title, sheetLink) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
                 
-                if(savedTime > 0) {
-                    player.currentTime = parseFloat(savedTime);
+                if(savedTime > 2) {
+                    if(confirm("Do you want to resume from your last watched position?")) {
+                        player.currentTime = parseFloat(savedTime);
+                    }
                 }
             });
         }
@@ -1668,6 +1689,10 @@ function setVideo(id, title, sheetLink) {
         window.addEventListener('beforeunload', () => {
             if(window.plyrPlayer && window.currentVideoId) {
                 localStorage.setItem(`video_time_${window.currentVideoId}`, window.plyrPlayer.currentTime);
+            }
+            // রিলোড স্টেট আপডেট রাখা
+            if(window.currentCourseKey) {
+                localStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: window.currentCourseKey, videoIndex: vidIndex }));
             }
         });
     }
