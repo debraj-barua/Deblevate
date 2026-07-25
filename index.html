@@ -664,17 +664,6 @@
 
   emailjs.init("5lxeGsSKHJNwQzRuV");
 
-  function sendWelcomeInvoiceEmail(userEmail, userName, phone, uid) {
-      emailjs.send("service_6qgwfiw", "template_r3p57kd", {
-          to_name: userName || "Student",
-          to_email: userEmail,
-          phone: phone || "Not Provided"
-      }).then(() => {
-          console.log("Welcome & Invoice email sent successfully!");
-          update(dbRef(window.db, `users_metadata/${uid}/profile`), { welcomeEmailSent: true });
-      }).catch(err => console.error("EmailJS sending error:", err));
-  }
-
   window.allowedEmails = [
     "debrajbarua8@gmail.com"
   ];
@@ -788,9 +777,7 @@
                           document.getElementById('userName').textContent = window.globalIdentityName;
                       }
 
-                      if (!profile.welcomeEmailSent) {
-                          sendWelcomeInvoiceEmail(user.email, profile.name, profile.phonePersonal, user.uid);
-                      }
+                      // লগইনে অটো-মেইল সেন্ড সম্পূর্ণ রিমুভ করা হয়েছে
 
                   } else {
                       window.systemInitialized = false;
@@ -935,10 +922,6 @@
           document.getElementById('userName').textContent = name;
           document.getElementById('userPic').src = photoUrl;
 
-          if (!window.userProfileData.welcomeEmailSent) {
-              sendWelcomeInvoiceEmail(user.email, name, phone1, user.uid);
-          }
-
           if (!window.systemInitialized) {
               completeSystemInitialization(user);
           }
@@ -966,7 +949,6 @@
 
       renderAllCourses();
 
-      // sessionStorage ব্যবহার করায় ট্যাব বা ব্রাউজার সম্পূর্ণ বন্ধ করে ঢুকলে হোমপেজেই আসবে (Reload Fix)
       const savedState = JSON.parse(sessionStorage.getItem('deblevate_state'));
       if (savedState) {
           if (savedState.view === 'player' && savedState.courseKey) {
@@ -1396,7 +1378,7 @@ const courseData = {
     ]},
 
     course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
-        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/สง নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
     ]},
 
     /* 📐 Abhi Dada - Higher Math */
