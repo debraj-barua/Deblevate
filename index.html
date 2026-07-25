@@ -1648,7 +1648,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     document.getElementById('resume-banner').style.display = 'none';
     pendingResumeTime = 0;
     
-    // চেক করুন আইডিটি ইউটিউব নাকি Bunny.net / Custom Iframe Link (http দিয়ে শুরু হলে আইফ্রেম হিসেবে রান করবে)
     if (id && id.startsWith('http')) {
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
         plyrElement.style.display = 'none';
