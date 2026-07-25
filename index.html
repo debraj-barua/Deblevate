@@ -77,7 +77,25 @@
             text-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
         }
 
-        /* DYNAMIC ANIMATED BACKGROUND SHAPES (Darker & Richer Glow) */
+        /* RESUME PROMPT NOTIFICATION BAR */
+        #resume-banner {
+            display: none; background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(6, 182, 212, 0.25));
+            border: 1px solid var(--accent-cyan); padding: 12px 20px; border-radius: 12px; margin-bottom: 20px;
+            align-items: center; justify-content: space-between; backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.2); animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .resume-text { font-size: 0.95rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .resume-actions { display: flex; gap: 10px; }
+        .resume-btn-yes { background: var(--accent-cyan); color: #000; border: none; padding: 6px 16px; border-radius: 6px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .resume-btn-yes:hover { background: #fff; box-shadow: 0 0 10px var(--accent-cyan); }
+        .resume-btn-no { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .resume-btn-no:hover { background: rgba(255,255,255,0.2); }
+
+        /* DYNAMIC ANIMATED BACKGROUND SHAPES */
         .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); }
         .shape { position: absolute; border-radius: 50%; filter: blur(160px); opacity: 0.18; animation: float 18s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
         .shape1 { width: 50vw; height: 50vw; background: var(--accent-purple); top: -20%; left: -10%; animation-duration: 22s; }
@@ -565,6 +583,17 @@
         <div class="studio-container">
             <div class="main-content">
                 
+                <!-- RESUME BANNER NOTIFICATION (CUSTOM UI) -->
+                <div id="resume-banner">
+                    <div class="resume-text">
+                        <span>⚡</span> Resume playback from where you left off?
+                    </div>
+                    <div class="resume-actions">
+                        <button class="resume-btn-yes" onclick="applyResumeTime(true)">Resume</button>
+                        <button class="resume-btn-no" onclick="applyResumeTime(false)">Start Over</button>
+                    </div>
+                </div>
+
                 <div class="protected-video-wrapper">
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
@@ -937,7 +966,6 @@
 
       renderAllCourses();
 
-      // রিলোড স্টেট রিস্টোর করা (Reload Fix)
       const savedState = JSON.parse(localStorage.getItem('deblevate_state'));
       if (savedState) {
           if (savedState.view === 'player' && savedState.courseKey) {
@@ -1624,12 +1652,15 @@ function getDirectDownloadLink(url) {
 
 window.plyrPlayer = null;
 let timeSaveInterval = null;
+let pendingResumeTime = 0;
 
 function setVideo(id, title, sheetLink, vidIndex = 0) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
     
     if (timeSaveInterval) clearInterval(timeSaveInterval);
+    document.getElementById('resume-banner').style.display = 'none';
+    pendingResumeTime = 0;
     
     if(!id || id.trim() === "") {
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
@@ -1637,20 +1668,16 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     } else {
         let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
 
+        if (savedTime > 5) {
+            pendingResumeTime = parseFloat(savedTime);
+            document.getElementById('resume-banner').style.display = 'flex';
+        }
+
         if(window.plyrPlayer) {
             window.plyrPlayer.source = {
                 type: 'video',
                 sources: [{ src: id, provider: 'youtube' }]
             };
-            
-            setTimeout(() => {
-                if(savedTime > 2 && window.plyrPlayer) {
-                    if(confirm("Do you want to resume from your last watched position?")) {
-                        window.plyrPlayer.currentTime = parseFloat(savedTime);
-                    }
-                }
-            }, 1000);
-
         } else {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
             
@@ -1667,12 +1694,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             window.plyrPlayer.on('ready', event => {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
-                
-                if(savedTime > 2) {
-                    if(confirm("Do you want to resume from your last watched position?")) {
-                        player.currentTime = parseFloat(savedTime);
-                    }
-                }
             });
         }
 
@@ -1720,6 +1741,19 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
         window.setupLiveFeatures(window.currentCourseKey, id);
     }
 }
+
+window.applyResumeTime = function(shouldResume) {
+    document.getElementById('resume-banner').style.display = 'none';
+    if (shouldResume && pendingResumeTime > 0 && window.plyrPlayer) {
+        window.plyrPlayer.currentTime = pendingResumeTime;
+        window.plyrPlayer.play();
+    } else {
+        if(window.currentVideoId) {
+            localStorage.removeItem(`video_time_${window.currentVideoId}`);
+        }
+    }
+    pendingResumeTime = 0;
+};
 
 function switchSidebarTab(tabName) {
     const tabPlaylist = document.getElementById('tabPlaylist');
