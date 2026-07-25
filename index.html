@@ -583,7 +583,7 @@
         <div class="studio-container">
             <div class="main-content">
                 
-                <!-- RESUME BANNER NOTIFICATION (CUSTOM UI) -->
+                <!-- RESUME PROMPT NOTIFICATION BAR (ABOVE VIDEO) -->
                 <div id="resume-banner">
                     <div class="resume-text">
                         <span>⚡</span> Resume playback from where you left off?
@@ -721,7 +721,7 @@
   
   document.getElementById('logoutBtnUI').onclick = () => { 
       if(window.currentUserRef) { remove(window.currentUserRef); }
-      localStorage.removeItem('deblevate_state');
+      sessionStorage.removeItem('deblevate_state');
       signOut(window.auth); 
       if(window.plyrPlayer) window.plyrPlayer.stop(); 
       window.systemInitialized = false;
@@ -966,12 +966,13 @@
 
       renderAllCourses();
 
-      const savedState = JSON.parse(localStorage.getItem('deblevate_state'));
+      // sessionStorage ব্যবহার করায় ট্যাব বা ব্রাউজার সম্পূর্ণ বন্ধ করে ঢুকলে হোমপেজেই আসবে (Reload Fix)
+      const savedState = JSON.parse(sessionStorage.getItem('deblevate_state'));
       if (savedState) {
           if (savedState.view === 'player' && savedState.courseKey) {
               openCourse(savedState.courseKey, savedState.videoIndex || 0);
           }
-          localStorage.removeItem('deblevate_state');
+          sessionStorage.removeItem('deblevate_state');
       }
   }
 
@@ -1586,7 +1587,7 @@ function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
     if(window.plyrPlayer) { window.plyrPlayer.stop(); }
-    localStorage.removeItem('deblevate_state');
+    sessionStorage.removeItem('deblevate_state');
     window.scrollTo(0,0);
 }
 
@@ -1638,7 +1639,7 @@ function openCourse(key, targetVidIndex = 0) {
         window.trackRealViewers(key);
     }
 
-    localStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: key, videoIndex: targetVidIndex }));
+    sessionStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: key, videoIndex: targetVidIndex }));
 }
 
 function getDirectDownloadLink(url) {
@@ -1711,7 +1712,7 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 localStorage.setItem(`video_time_${window.currentVideoId}`, window.plyrPlayer.currentTime);
             }
             if(window.currentCourseKey) {
-                localStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: window.currentCourseKey, videoIndex: vidIndex }));
+                sessionStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: window.currentCourseKey, videoIndex: vidIndex }));
             }
         });
     }
