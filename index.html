@@ -334,7 +334,7 @@
         .studio-container { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
         .main-content { flex: 2.4; display: flex; flex-direction: column; }
         
-        .protected-video-wrapper { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); }
+        .protected-video-wrapper { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); background: #000; min-height: 480px; }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
         .plyr__video-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: transparent; }
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
@@ -583,7 +583,7 @@
         <div class="studio-container">
             <div class="main-content">
                 
-                <!-- RESUME PROMPT NOTIFICATION BAR (ABOVE VIDEO) -->
+                <!-- RESUME PROMPT NOTIFICATION BAR -->
                 <div id="resume-banner">
                     <div class="resume-text">
                         <span>⚡</span> Resume playback from where you left off?
@@ -595,7 +595,10 @@
                 </div>
 
                 <div class="protected-video-wrapper">
+                    <!-- ইউটিউব/Plyr এর জন্য -->
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
+                    <!-- কাস্টম আইফ্রেম প্লেয়ারের জন্য (যেমন Bunny.net / iframe.mediadelivery.net) -->
+                    <iframe id="customVideoIframe" src="" style="width:100%; height:100%; position:absolute; top:0; left:0; border:none; display:none;" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen="true"></iframe>
                 </div>
 
                 <div class="video-info">
@@ -776,9 +779,6 @@
                       } else {
                           document.getElementById('userName').textContent = window.globalIdentityName;
                       }
-
-                      // লগইনে অটো-মেইল সেন্ড সম্পূর্ণ রিমুভ করা হয়েছে
-
                   } else {
                       window.systemInitialized = false;
                       document.getElementById('profName').value = user.displayName || "";
@@ -1378,7 +1378,7 @@ const courseData = {
     ]},
 
     course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
-        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/สง নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের চুলচেরা CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
     ]},
 
     /* 📐 Abhi Dada - Higher Math */
@@ -1601,7 +1601,7 @@ function openCourse(key, targetVidIndex = 0) {
             setVideo(vid.id, vid.title, vid.sheet, i);
         };
         div.innerHTML = `
-            <img class="vid-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/default.jpg" alt="thumbnail" onerror="this.src='channels4_profile.jpg'">
+            <img class="vid-thumb" src="https://img.youtube.com/vi/${vid.id && !vid.id.includes('http') ? vid.id : 'placeholder'}/default.jpg" alt="thumbnail" onerror="this.src='channels4_profile.jpg'">
             <div class="vid-details">
                 <span class="vid-title-text">${vid.title}</span>
                 <span class="vid-status">▶ Playing Now</span>
@@ -1641,63 +1641,77 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
     
+    const plyrElement = document.getElementById('studioPlayer');
+    const iframeElement = document.getElementById('customVideoIframe');
+
     if (timeSaveInterval) clearInterval(timeSaveInterval);
     document.getElementById('resume-banner').style.display = 'none';
     pendingResumeTime = 0;
     
-    if(!id || id.trim() === "") {
+    // চেক করুন আইডিটি ইউটিউব নাকি Bunny.net / Custom Iframe Link (http দিয়ে শুরু হলে আইফ্রেম হিসেবে রান করবে)
+    if (id && id.startsWith('http')) {
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
-        document.getElementById('studioPlayer').innerHTML = `<div style="padding:4rem; text-align:center; color:var(--text-muted); font-weight:bold;">No video asset linked yet for this topic. Accessing interactive lecture sheets below.</div>`;
+        plyrElement.style.display = 'none';
+        iframeElement.style.display = 'block';
+        iframeElement.src = id;
     } else {
-        let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
+        iframeElement.style.display = 'none';
+        plyrElement.style.display = 'block';
 
-        if (savedTime > 5) {
-            pendingResumeTime = parseFloat(savedTime);
-            document.getElementById('resume-banner').style.display = 'flex';
-        }
-
-        if(window.plyrPlayer) {
-            window.plyrPlayer.source = {
-                type: 'video',
-                sources: [{ src: id, provider: 'youtube' }]
-            };
+        if(!id || id.trim() === "") {
+            if(window.plyrPlayer) { window.plyrPlayer.stop(); }
+            plyrElement.innerHTML = `<div style="padding:4rem; text-align:center; color:var(--text-muted); font-weight:bold;">No video asset linked yet for this topic. Accessing interactive lecture sheets below.</div>`;
         } else {
-            document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
-            
-            window.plyrPlayer = new Plyr('#studioPlayer', {
-                youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
-                controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
-                settings: ['quality', 'speed'],
-                speed: { 
-                    selected: 1, 
-                    options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4] 
-                }
-            });
+            let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
 
-            window.plyrPlayer.on('ready', event => {
-                const player = event.detail.plyr;
-                player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
-            });
+            if (savedTime > 5) {
+                pendingResumeTime = parseFloat(savedTime);
+                document.getElementById('resume-banner').style.display = 'flex';
+            }
+
+            if(window.plyrPlayer) {
+                window.plyrPlayer.source = {
+                    type: 'video',
+                    sources: [{ src: id, provider: 'youtube' }]
+                };
+            } else {
+                plyrElement.setAttribute('data-plyr-embed-id', id);
+                
+                window.plyrPlayer = new Plyr('#studioPlayer', {
+                    youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
+                    controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
+                    settings: ['quality', 'speed'],
+                    speed: { 
+                        selected: 1, 
+                        options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4] 
+                    }
+                });
+
+                window.plyrPlayer.on('ready', event => {
+                    const player = event.detail.plyr;
+                    player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
+                });
+            }
+
+            timeSaveInterval = setInterval(() => {
+                if(window.plyrPlayer && window.plyrPlayer.playing) {
+                    let currentTime = window.plyrPlayer.currentTime;
+                    if(currentTime > 0) {
+                        localStorage.setItem(`video_time_${id}`, currentTime);
+                    }
+                }
+            }, 3000);
         }
-
-        timeSaveInterval = setInterval(() => {
-            if(window.plyrPlayer && window.plyrPlayer.playing) {
-                let currentTime = window.plyrPlayer.currentTime;
-                if(currentTime > 0) {
-                    localStorage.setItem(`video_time_${id}`, currentTime);
-                }
-            }
-        }, 3000);
-
-        window.addEventListener('beforeunload', () => {
-            if(window.plyrPlayer && window.currentVideoId) {
-                localStorage.setItem(`video_time_${window.currentVideoId}`, window.plyrPlayer.currentTime);
-            }
-            if(window.currentCourseKey) {
-                sessionStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: window.currentCourseKey, videoIndex: vidIndex }));
-            }
-        });
     }
+
+    window.addEventListener('beforeunload', () => {
+        if(window.plyrPlayer && window.currentVideoId && !window.currentVideoId.startsWith('http')) {
+            localStorage.setItem(`video_time_${window.currentVideoId}`, window.plyrPlayer.currentTime);
+        }
+        if(window.currentCourseKey) {
+            sessionStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: window.currentCourseKey, videoIndex: vidIndex }));
+        }
+    });
 
     const slideSegment = document.getElementById("slideSegment");
     const slideIframe = document.getElementById("slideIframe");
