@@ -667,7 +667,6 @@
   window.storage = getStorage(app); 
   const provider = new GoogleAuthProvider();
 
-  // ইনস্ট্যান্ট হোয়াইটলিস্ট গেট
   const allowedEmailsDbRef = dbRef(window.db, 'whitelisted_emails');
   get(allowedEmailsDbRef).then((snapshot) => {
       const data = snapshot.val();
@@ -1608,35 +1607,68 @@ function getDirectDownloadLink(url) {
 }
 
 window.plyrPlayer = null;
+let timeSaveInterval = null;
 
 function setVideo(id, title, sheetLink) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
     
+    if (timeSaveInterval) clearInterval(timeSaveInterval);
+    
     if(!id || id.trim() === "") {
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
         document.getElementById('studioPlayer').innerHTML = `<div style="padding:4rem; text-align:center; color:var(--text-muted); font-weight:bold;">No video asset linked yet for this topic. Accessing interactive lecture sheets below.</div>`;
-    } else if(window.plyrPlayer) {
-        window.plyrPlayer.source = {
-            type: 'video',
-            sources: [{ src: id, provider: 'youtube' }]
-        };
     } else {
-        document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
-        
-        window.plyrPlayer = new Plyr('#studioPlayer', {
-            youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
-            controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
-            settings: ['quality', 'speed'],
-            speed: { 
-                selected: 1, 
-                options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4] 
-            }
-        });
+        let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
 
-        window.plyrPlayer.on('ready', event => {
-            const player = event.detail.plyr;
-            player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
+        if(window.plyrPlayer) {
+            window.plyrPlayer.source = {
+                type: 'video',
+                sources: [{ src: id, provider: 'youtube' }]
+            };
+            
+            setTimeout(() => {
+                if(savedTime > 0 && window.plyrPlayer) {
+                    window.plyrPlayer.currentTime = parseFloat(savedTime);
+                }
+            }, 1000);
+
+        } else {
+            document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
+            
+            window.plyrPlayer = new Plyr('#studioPlayer', {
+                youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
+                controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
+                settings: ['quality', 'speed'],
+                speed: { 
+                    selected: 1, 
+                    options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4] 
+                }
+            });
+
+            window.plyrPlayer.on('ready', event => {
+                const player = event.detail.plyr;
+                player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
+                
+                if(savedTime > 0) {
+                    player.currentTime = parseFloat(savedTime);
+                }
+            });
+        }
+
+        timeSaveInterval = setInterval(() => {
+            if(window.plyrPlayer && window.plyrPlayer.playing) {
+                let currentTime = window.plyrPlayer.currentTime;
+                if(currentTime > 0) {
+                    localStorage.setItem(`video_time_${id}`, currentTime);
+                }
+            }
+        }, 3000);
+
+        window.addEventListener('beforeunload', () => {
+            if(window.plyrPlayer && window.currentVideoId) {
+                localStorage.setItem(`video_time_${window.currentVideoId}`, window.plyrPlayer.currentTime);
+            }
         });
     }
 
