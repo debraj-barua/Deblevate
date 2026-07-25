@@ -59,6 +59,24 @@
             overflow-x: hidden;
         }
 
+        /* INSTANT LOADER SCREEN */
+        #global-loader {
+            position: fixed; inset: 0; background: var(--bg-main); z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .loader-spinner {
+            width: 60px; height: 60px; border: 4px solid rgba(147, 51, 234, 0.2);
+            border-top: 4px solid var(--accent-cyan); border-radius: 50%;
+            animation: spin 0.8s linear infinite; box-shadow: 0 0 25px var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+        .loader-text {
+            font-family: 'Poppins', sans-serif; color: var(--accent-purple-light); font-weight: 900;
+            letter-spacing: 3px; font-size: 1.1rem; text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+        }
+
         /* DYNAMIC ANIMATED BACKGROUND SHAPES */
         .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); }
         .shape { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.25; animation: float 18s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
@@ -393,6 +411,12 @@
 </head>
 <body oncontextmenu="return false;">
 
+<!-- INSTANT LOADER OVERLAY -->
+<div id="global-loader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">INITIALIZING DEBLEVATE GRID...</div>
+</div>
+
 <div id="profile-settings-overlay" class="modal-overlay">
     <div class="auth-card" style="text-align: left;">
         <h3 style="color: #fff; font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0 0 20px; text-align: center; font-weight: 900;">YOUR PROFILE</h3>
@@ -643,7 +667,7 @@
   window.storage = getStorage(app); 
   const provider = new GoogleAuthProvider();
 
-  // ইনস্ট্যান্ট ক্যাশ ও ডেটা লোড করার জন্য দ্রুত গেট রিড মেথড
+  // ইনস্ট্যান্ট হোয়াইটলিস্ট গেট
   const allowedEmailsDbRef = dbRef(window.db, 'whitelisted_emails');
   get(allowedEmailsDbRef).then((snapshot) => {
       const data = snapshot.val();
@@ -653,7 +677,7 @@
       }
       window.dbLoaded = true;
   }).catch(() => {
-      window.dbLoaded = true; // ফেইল করলেও যেন আটকে না থাকে
+      window.dbLoaded = true;
   });
 
   window.currentUserRef = null;
@@ -714,17 +738,13 @@
       if (user) {
           const userEmailLower = user.email.toLowerCase();
 
-          // চোখের পলকে ডেটা চেক করার জন্য ইনস্ট্যান্ট চেক লুপ (Milliseconds)
-          let attempts = 0;
-          while (!window.dbLoaded && attempts < 1) {
+          while (!window.dbLoaded) {
               await new Promise(r => setTimeout(r, 2));
-              attempts++;
           }
 
           if (window.allowedEmails.includes(userEmailLower)) {
               const userMetaRef = dbRef(window.db, `users_metadata/${user.uid}/profile`);
               
-              // onValue এর পরিবর্তে সরাসরি get ব্যবহার করে ইনস্ট্যান্ট ডাটা ফেচ করা
               get(userMetaRef).then((snapshot) => {
                   const profile = snapshot.val();
                   if (profile && profile.name) {
@@ -750,16 +770,20 @@
                       document.getElementById('closeProfileBtn').style.display = 'none';
                       document.getElementById('profile-settings-overlay').style.display = 'flex';
                   }
+                  hideGlobalLoader();
               }).catch(() => {
                   window.systemInitialized = false;
                   document.getElementById('profile-settings-overlay').style.display = 'flex';
+                  hideGlobalLoader();
               });
 
           } else {
+              hideGlobalLoader();
               alert("Access Denied! Your email is not whitelisted."); 
               signOut(window.auth);
           }
       } else {
+          hideGlobalLoader();
           document.getElementById('loginBtnUI').style.display = 'flex';
           document.getElementById('userInfo').style.display = 'none';
           document.getElementById('login-screen').style.display = 'flex';
@@ -768,6 +792,14 @@
           document.getElementById('admin-dashboard-overlay').style.display = 'none';
       }
   });
+
+  function hideGlobalLoader() {
+      const loader = document.getElementById('global-loader');
+      if (loader) {
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+      }
+  }
 
   const instInput = document.getElementById('profInst');
   const suggestionsBox = document.getElementById('collegeSuggestions');
