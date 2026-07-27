@@ -59,22 +59,24 @@
             overflow-x: hidden;
         }
 
-        /* INSTANT LOADER SCREEN */
+        /* UPDATED PREMIUM SPINNER LOADER SCREEN */
         #global-loader {
             position: fixed; inset: 0; background: var(--bg-main); z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .loader-spinner {
-            width: 60px; height: 60px; border: 4px solid rgba(147, 51, 234, 0.2);
-            border-top: 4px solid var(--accent-cyan); border-radius: 50%;
-            animation: spin 0.8s linear infinite; box-shadow: 0 0 25px var(--accent-cyan);
-            margin-bottom: 20px;
+            width: 70px; height: 70px; border: 5px solid rgba(147, 51, 234, 0.2);
+            border-top: 5px solid var(--accent-purple-light); border-right: 5px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; 
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.4);
+            margin-bottom: 22px;
         }
         .loader-text {
-            font-family: 'Poppins', sans-serif; color: var(--accent-purple-light); font-weight: 900;
-            letter-spacing: 3px; font-size: 1.1rem; text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(192, 132, 252, 0.4);
+            font-family: 'Poppins', sans-serif; color: #fff; font-weight: 800;
+            letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
         }
 
         /* RESUME PROMPT NOTIFICATION BAR */
@@ -429,10 +431,10 @@
 </head>
 <body oncontextmenu="return false;">
 
-<!-- INSTANT LOADER OVERLAY -->
+<!-- NEW PREMIUM LOADER SCREEN -->
 <div id="global-loader">
     <div class="loader-spinner"></div>
-    <div class="loader-text">INITIALIZING DEBLEVATE GRID...</div>
+    <div class="loader-text">Deblevate is Preparing...</div>
 </div>
 
 <div id="profile-settings-overlay" class="modal-overlay">
@@ -1231,8 +1233,8 @@ const courseData = {
         { title: "৫. টিস্যু ও টিস্যুতন্ত্র - MCQ", id: "u-YGWIXuzDo", sheet: "" },
         { title: "৬. নগ্নবীজী ও আবৃতবীজী (Gymnosperms & Angiosperms) - CQ", id: "ifk31j2d3cI", sheet: "" },
         { title: "৬. নগ্নবীজী ও আবৃতবীজী - MCQ", id: "2B3HhQORN9o", sheet: "" },
-        { title: "৭. উদ্ভিদ শারীরতত্ত্ব - CQ", id: "Rl1UOJvsTbM", sheet: "" },
-        { title: "৭. উদ্ভিদ শারীরতত্ত্ব (Plant Physiology) - MCQ", id: "obqMOUUh1GU", sheet: "" },
+        { title: "৭. উদ্ভিদ শারীরতত্ত্ব (Plant Physiology) - CQ", id: "obqMOUUh1GU", sheet: "" },
+        { title: "৭. উদ্ভিদ শারীরতত্ত্ব - MCQ", id: "Rl1UOJvsTbM", sheet: "" },
         { title: "৮. উদ্ভিদ প্রজনন (Plant Reproduction) - CQ", id: "zWclGo7cXic", sheet: "" },
         { title: "৮. উদ্ভিদ প্রজনন - MCQ", id: "z16ybpT8vLo", sheet: "" },
         { title: "৯. জীবপ্রযুক্তি (Biotechnology) - CQ", id: "9Oo4qZ-uSZU", sheet: "" },
@@ -1247,7 +1249,7 @@ const courseData = {
         { title: "২. প্রাণীর পরিচিতি - MCQ", id: "OdK9vF8pd5E", sheet: "" },
         { title: "৩. পরিপাক ও শোষণ (Digestion & Absorption) - CQ", id: "CNA2Wui5NKE", sheet: "" },
         { title: "৩. পরিপাক ও শোষণ - MCQ", id: "iEirASma5kQ", sheet: "" },
-        { title: "৪.  রক্ত ও সংবহন  - CQ", id: "MiWb7xid8To", sheet: "" },
+        { title: "৪. রক্ত ও সংবহন - CQ", id: "MiWb7xid8To", sheet: "" },
         { title: "৪. রক্ত ও সংবহন - MCQ", id: "OGSPQveZmhE", sheet: "" },
         { title: "৫. শ্বসন ও শ্বাসক্রিয়া (Breathing & Respiration) - CQ", id: "VXR1lsheFQc", sheet: "" },
         { title: "৫. শ্বসন ও শ্বাসক্রিয়া - MCQ", id: "eAnYsKNp-qE", sheet: "" },
@@ -1267,7 +1269,7 @@ const courseData = {
         { title: "2. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
         { title: "3. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
         { title: "4. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
-        { title: "5. ম্যალেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
+        { title: "5. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
         { title: "6. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRqchQnAJfr/view" },
         { title: "7. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
         { title: "8. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
@@ -1535,7 +1537,7 @@ const courseData = {
         { title: "জৈব রসায়ন (এলিফেটিক)| MCQ Boost", id: "ZQT6obCMGNE", sheet: "" }
     ]},
 
-    /* SAKIB BHAI FULL MCQ ONE SHOTS */
+    /* SAKIB BHAI FULL MCQ ONE SOTS */
     course30: { sub: "chemistry", title: "🧪 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ 🔥 (Sakib Bhai)", img: "vPhcbeaYhlA", videos: [
         { title: "🔥 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ - Md Nazmus Sakib", id: "vPhcbeaYhlA", sheet: "" }
     ]},
@@ -1669,7 +1671,8 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 speed: { 
                     selected: 1, 
                     options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4] 
-                }
+                },
+                tooltips: { controls: true, seek: true }
             });
 
             window.plyrPlayer.on('ready', event => {
