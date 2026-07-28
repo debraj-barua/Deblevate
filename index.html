@@ -33,8 +33,8 @@
             --color-english: #06b6d4;
             
             /* Plyr Custom Theme Overrides */
-            --plyr-color-main: var(--accent-purple-light);
-            --plyr-video-control-background-hover: rgba(147, 51, 234, 0.4);
+            --plyr-color-main: var(--accent-cyan);
+            --plyr-video-control-background-hover: rgba(6, 182, 212, 0.4);
             --plyr-menu-background: rgba(15, 8, 25, 0.95);
             --plyr-menu-color: #fff;
         }
@@ -265,11 +265,6 @@
             left: 100%;
         }
 
-        @media (max-width: 768px) {
-            .login-glass-panel { padding: 3rem 1.5rem; }
-            .welcome-text { font-size: 2.2rem; }
-        }
-
         /* PROFILE MODAL & OVERLAYS */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -329,14 +324,14 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
-        /* PLAYROOM WORKSPACE (Cinematic Large Video Frame) */
-        #player-view { display: none; max-width: 1650px; margin: 0 auto; padding: 2rem 5%; }
-        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 2.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
+        /* PLAYROOM WORKSPACE (Cinematic Large Video Frame & Merged Layout) */
+        #player-view { display: none; max-width: 1500px; margin: 0 auto; padding: 2rem 5%; }
+        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 2rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
         .back-btn:hover { background: var(--accent-purple); color: #fff; box-shadow: 0 0 25px var(--accent-purple); transform: translateX(-4px); }
-        .studio-container { display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; }
-        .main-content { flex: 3.2; display: flex; flex-direction: column; }
+        .studio-container { display: flex; flex-direction: column; width: 100%; } /* Column Layout */
+        .main-content { width: 100%; display: flex; flex-direction: column; }
         
-        .protected-video-wrapper { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); }
+        .protected-video-wrapper { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
         .plyr__video-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: transparent; }
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
@@ -344,67 +339,91 @@
         .plyr__control--overlaid svg { width: 35px !important; height: 35px !important; fill: #fff !important; }
 
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .video-info { background: rgba(18, 9, 30, 0.8); backdrop-filter: blur(16px); padding: 2rem; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.7); }
+        .video-info { background: rgba(18, 9, 30, 0.8); backdrop-filter: blur(16px); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.7); margin-bottom: 2rem;}
         .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .live-viewer-badge { display: flex; align-items: center; gap: 10px; background: rgba(236,72,153,0.12); border: 1px solid rgba(236,72,153,0.35); padding: 8px 16px; border-radius: 50px; color: #fff; font-weight: bold; font-size: 0.95rem; box-shadow: 0 0 15px rgba(236,72,153,0.15); }
         .pulse-dot { width: 10px; height: 10px; background-color: var(--accent-pink); border-radius: 50%; display: inline-block; animation: pulseDotAnim 1.5s infinite; }
+        .pulse-dot-small { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulseDotGreen 1.5s infinite; }
         @keyframes pulseDotAnim { 0% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { box-shadow: 0 0 0 10px rgba(236,72,153,0); } 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
+        @keyframes pulseDotGreen { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
 
         .reaction-center { display: flex; gap: 12px; margin-top: 15px; flex-wrap: wrap; }
         .reaction-btn { background: rgba(147, 51, 234, 0.12); border: 2px solid rgba(147, 51, 234, 0.35); padding: 8px 16px; border-radius: 20px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); }
         .reaction-btn:hover { background: rgba(147, 51, 234, 0.35); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(147, 51, 234, 0.25); }
         .reaction-btn span { color: var(--accent-cyan); }
 
-        .slide-segment { margin-top: 3rem; background: rgba(15, 8, 25, 0.75); backdrop-filter: blur(16px); border-radius: 20px; border: 1px solid rgba(147,51,234,0.25); overflow: hidden; display: none; box-shadow: 0 15px 40px rgba(0,0,0,0.7); }
-        .slide-header { background: rgba(147,51,234,0.08); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(147,51,234,0.25); }
-        .slide-header h3 { margin: 0; color: var(--accent-purple-light); font-size: 1.3rem; display: flex; align-items: center; gap: 10px; font-weight: 800;}
-        .download-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color: #fff; padding: 0.8rem 1.6rem; border-radius: 10px; font-size: 1rem; font-weight: 900; text-decoration: none; transition: 0.3s; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(147,51,234,0.3); }
-        .download-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(6,182,212,0.5); }
-        .slide-frame-container { width: 100%; height: 700px; background: #000; }
+        /* TOGGLEABLE CLASS MATERIALS SECTION */
+        .materials-section { margin-bottom: 2.5rem; display: none;}
+        .section-heading { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 600; color: #e2e8f0; margin-bottom: 1rem; letter-spacing: 1px; }
+        .material-buttons { display: flex; gap: 15px; margin-bottom: 1rem;}
+        .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 10px 20px; border-radius: 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
+        .material-btn:hover, .material-btn.active { border-color: var(--accent-cyan); color: #fff; background: rgba(6, 182, 212, 0.1); box-shadow: 0 0 15px rgba(6, 182, 212, 0.2); }
+        
+        .slide-frame-container { width: 100%; height: 700px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(147,51,234,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: none; animation: popIn 0.3s ease-out;}
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
 
-        .sidebar { flex: 1; background: rgba(15, 8, 25, 0.8); backdrop-filter: blur(16px); border-radius: 20px; display: flex; flex-direction: column; height: 740px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 15px 40px rgba(0,0,0,0.8); overflow: hidden; }
-        .sidebar-tabs { display: flex; background: rgba(5, 2, 10, 0.85); border-bottom: 2px solid rgba(147,51,234,0.25); }
-        .tab-btn { flex: 1; background: transparent; color: var(--text-muted); border: none; padding: 1.2rem; font-size: 1.1rem; cursor: pointer; font-weight: 800; transition: 0.3s; outline: none; }
-        .tab-btn:hover { color: var(--accent-purple-light); background: rgba(147,51,234,0.08); }
-        .tab-btn.active { color: #fff; background: linear-gradient(to top, rgba(147,51,234,0.15), transparent); border-bottom: 3px solid var(--accent-cyan); text-shadow: 0 0 10px rgba(6,182,212,0.5); }
-        .sidebar-content { flex-grow: 1; overflow-y: auto; position: relative; }
-        .sidebar-content::-webkit-scrollbar { width: 6px; }
-        .sidebar-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.4); }
-        .sidebar-content::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+        /* HORIZONTAL PLAYLIST (অধ্যায়ের ক্লাস) */
+        .playlist-section { margin-bottom: 3rem; }
+        .horizontal-playlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem; }
+        .playlist-item { display: flex; align-items: center; gap: 12px; padding: 10px; background: rgba(25, 30, 45, 0.8); border: 1px solid rgba(147,51,234,0.15); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+        .playlist-item:hover { background: rgba(35, 40, 60, 0.9); border-color: rgba(147,51,234,0.4); transform: translateY(-3px); }
+        .playlist-item.active { background: rgba(20, 25, 40, 0.95); border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
+        .pl-thumb { width: 120px; height: 68px; border-radius: 8px; object-fit: cover; background: #000; flex-shrink: 0; }
+        .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 4px; overflow: hidden;}
+        .pl-title { font-size: 1rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;}
+        .pl-author { font-size: 0.8rem; color: #94a3b8; }
 
-        #playlistView { display: flex; flex-direction: column; padding: 1rem; }
-        .video-item { display: flex; gap: 15px; padding: 0.8rem; margin-bottom: 0.8rem; border-radius: 12px; cursor: pointer; background: rgba(255,255,255,0.015); color: var(--text-muted); align-items: center; transition: all 0.3s ease; border: 1px solid transparent; font-weight: 600;}
-        .video-item:hover { background: rgba(147,51,234,0.08); border-color: rgba(147,51,234,0.25); color: #fff; transform: translateX(4px); }
-        .video-item.active { background: linear-gradient(135deg, rgba(147,51,234,0.2), rgba(192,132,252,0.04)); border-left: 5px solid var(--accent-purple-light); border-right: 1px solid rgba(192,132,252,0.25); border-top: 1px solid rgba(192,132,252,0.25); border-bottom: 1px solid rgba(192,132,252,0.25); color: #fff; box-shadow: 0 5px 20px rgba(192,132,252,0.12); transform: translateX(4px); font-weight: 800; }
-        .vid-thumb { width: 100px; height: 56px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0; background: #000; }
-        .video-item.active .vid-thumb { border-color: var(--accent-purple-light); box-shadow: 0 0 10px rgba(192, 132, 252, 0.4); }
-        .vid-details { display: flex; flex-direction: column; gap: 4px; }
-        .vid-title-text { font-size: 0.95rem; line-height: 1.3; }
-        .vid-status { font-size: 0.75rem; color: var(--accent-purple-light); font-weight: bold; text-transform: uppercase; display: none; }
-        .video-item.active .vid-status { display: block; }
-
-        #commentsView { display: none; flex-direction: column; height: 100%; }
-        .chat-messages { flex-grow: 1; padding: 1.5rem; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; }
-        .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 10px 14px; padding-right: 35px; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.95rem; color: #e2e8f0; line-height: 1.4; animation: popIn 0.3s ease-out; word-break: break-word; }
-        .chat-msg.self { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); border-top-left-radius: 12px; border-top-right-radius: 2px; align-self: flex-end; }
-        .chat-author { font-size: 0.8rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 4px; display: block; }
-        .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
-        .comment-delete-btn { position: absolute; right: 10px; top: 10px; background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.85rem; opacity: 0.4; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
-        .comment-delete-btn:hover { opacity: 1; text-shadow: 0 0 8px #f87171; }
-        @keyframes popIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
-        .chat-input-container { padding: 1rem; background: rgba(5, 2, 10, 0.92); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 10px; }
-        .chat-input-container input { flex-grow: 1; background: rgba(0,0,0,0.6); border: 1px solid rgba(147,51,234,0.4); color: white; padding: 10px 15px; border-radius: 20px; outline: none; font-family: inherit; transition: 0.3s; }
-        .chat-input-container input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6,182,212,0.2); }
-        .send-btn { background: var(--accent-purple); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; }
-        .send-btn:hover { background: var(--accent-cyan); transform: scale(1.1); box-shadow: 0 0 15px var(--accent-cyan); }
-        .send-btn svg { width: 18px; height: 18px; fill: white; margin-left: 2px; }
-
-        @media (max-width: 1024px) { 
-            .studio-container { flex-direction: column; } 
-            .slide-frame-container { height: 500px; } 
-            .sidebar { height: 550px; width: 100%; }
+        /* FLOATING CHAT BUTTON & PANEL */
+        .floating-chat-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            border-radius: 50%; border: none; color: #fff; font-size: 1.8rem;
+            cursor: pointer; z-index: 1000; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.4); transition: transform 0.3s;
         }
+        .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 10px 35px rgba(147, 51, 234, 0.6); }
+
+        .floating-chat-panel {
+            position: fixed; bottom: 105px; right: 30px; width: 360px; height: 550px;
+            background: rgba(15, 18, 25, 0.95); border: 1px solid rgba(147,51,234,0.4);
+            border-radius: 16px; backdrop-filter: blur(20px); z-index: 1000;
+            display: none; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            overflow: hidden; animation: slideUpChat 0.3s ease-out;
+        }
+        @keyframes slideUpChat { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .chat-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 15px; background: rgba(5, 5, 10, 0.9); border-bottom: 1px solid rgba(147,51,234,0.2);
+        }
+        .chat-header span { font-weight: bold; color: #fff; font-size: 1rem; }
+        .chat-online-badge { background: rgba(16, 185, 129, 0.15); color: #10b981 !important; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem !important; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(16, 185, 129, 0.3);}
+        .close-chat-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer; }
+        .close-chat-btn:hover { color: #f87171; }
+        
+        .chat-warning {
+            background: rgba(245, 158, 11, 0.1); color: #fbbf24; font-size: 0.75rem;
+            text-align: center; padding: 6px; border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .chat-messages { flex-grow: 1; padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; scroll-behavior: smooth;}
+        .chat-messages::-webkit-scrollbar { width: 5px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: rgba(147,51,234,0.5); border-radius: 10px; }
+
+        .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 10px 14px; padding-right: 30px; border-radius: 12px; border-top-left-radius: 2px; font-size: 0.9rem; color: #e2e8f0; line-height: 1.4; animation: popIn 0.3s ease-out; word-break: break-word; }
+        .chat-msg.self { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); border-top-left-radius: 12px; border-top-right-radius: 2px; align-self: flex-end; }
+        .chat-author { font-size: 0.75rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 4px; display: block; }
+        .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
+        .comment-delete-btn { position: absolute; right: 8px; top: 8px; background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.8rem; opacity: 0.4; transition: 0.2s; }
+        .comment-delete-btn:hover { opacity: 1; text-shadow: 0 0 8px #f87171; }
+        
+        .chat-input-container { padding: 12px; background: rgba(10, 12, 18, 0.95); border-top: 1px solid rgba(147,51,234,0.2); display: flex; gap: 8px; align-items: center;}
+        .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 15px; border-radius: 20px; outline: none; font-size: 0.9rem; transition: 0.3s; }
+        .chat-input-container input:focus { border-color: var(--accent-cyan); }
+        .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; flex-shrink: 0;}
+        .send-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 0 10px var(--accent-cyan); }
+        .send-btn svg { width: 18px; height: 18px; fill: #000; margin-left: 2px; }
+
         @media (max-width: 768px) {
             header { padding: 0.8rem 4%; }
             .header-logo img { width: 42px; height: 42px; }
@@ -412,20 +431,19 @@
             .brand-sub { font-size: 0.65rem; }
             .nav-links { gap: 1rem; }
             .login-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
-            .user-profile { padding: 4px 12px 4px 4px; }
-            .user-profile img { width: 32px; height: 32px; }
-            #login-screen h2 { font-size: 2.2rem; }
             #home-view { padding: 2rem 4%; }
             .motivation-container { padding: 1.2rem; margin: -1rem auto 2.5rem; max-width: 100%; }
             .course-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+            
+            #player-view { padding: 1.5rem 4%; }
             .video-info { padding: 1.2rem; border-radius: 12px; }
             .video-header-panel { flex-direction: column; align-items: flex-start; }
             .video-title { font-size: 1.3rem; }
-            .slide-header { flex-direction: column; gap: 12px; align-items: flex-start; padding: 1rem; }
-            .download-btn { width: 100%; justify-content: center; }
             .slide-frame-container { height: 350px; }
-            .sidebar { height: 500px; }
-            .vid-thumb { width: 80px; height: 45px; }
+            .horizontal-playlist { grid-template-columns: 1fr; }
+            
+            .floating-chat-panel { width: calc(100% - 40px); right: 20px; bottom: 90px; height: 450px;}
+            .floating-chat-btn { width: 55px; height: 55px; bottom: 20px; right: 20px; font-size: 1.5rem;}
         }
     </style>
 </head>
@@ -550,7 +568,6 @@
     <div class="login-glass-panel">
         <h1 class="welcome-text">WELCOME</h1>
         <p class="welcome-subtext">Initialize your connection to the grid. Authenticate your credentials to unlock premium HSC materials and live interactive sessions.</p>
-        
         <button id="loginBtnCenter" class="cyber-btn">Authenticate</button>
     </div>
 </div>
@@ -618,39 +635,53 @@
                     <div id="reaction-names-display" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; min-height: 20px;"></div>
                 </div>
 
-                <div class="slide-segment" id="slideSegment">
-                    <div class="slide-header">
-                        <h3>📄 Class Lecture Slide</h3>
-                        <a id="sheetDownloadBtn" href="#" class="download-btn">⬇ Download PDF</a>
+                <!-- TOGGLEABLE CLASS MATERIALS SECTION -->
+                <div class="materials-section" id="materialsSection">
+                    <h3 class="section-heading">📄 CLASS MATERIALS</h3>
+                    <div class="material-buttons">
+                        <button class="material-btn" id="toggleSlideBtn" onclick="toggleSlide()">
+                            📖 Lecture Slide
+                        </button>
+                        <a id="sheetDownloadBtn" href="#" class="material-btn" target="_blank" style="color:#10b981; border-color: rgba(16, 185, 129, 0.4);">
+                            ⬇ Download PDF
+                        </a>
                     </div>
-                    <div class="slide-frame-container">
+                    <div class="slide-frame-container" id="slideFrameContainer">
                         <iframe id="slideIframe" src="" allowfullscreen="true"></iframe>
                     </div>
                 </div>
 
-            </div>
-
-            <div class="sidebar">
-                <div class="sidebar-tabs">
-                    <button class="tab-btn active" id="tabPlaylist" onclick="switchSidebarTab('playlist')">Course Playlist</button>
-                    <button class="tab-btn" id="tabComments" onclick="switchSidebarTab('comments')">Live Chat</button>
-                </div>
-                
-                <div class="sidebar-content">
-                    <div id="playlistView"></div>
-                    
-                    <div id="commentsView">
-                        <div class="chat-messages" id="chatMessagesBox"></div>
-                        <div class="chat-input-container">
-                            <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
-                            <button class="send-btn" onclick="handleChatSubmit()">
-                                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                            </button>
-                        </div>
+                <!-- HORIZONTAL PLAYLIST SECTION -->
+                <div class="playlist-section">
+                    <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
+                    <div class="horizontal-playlist" id="playlistView">
+                        <!-- Horizontal Playlist Cards will render here -->
                     </div>
                 </div>
+
             </div>
         </div>
+
+        <!-- FLOATING CHAT BUTTON & PANEL -->
+        <button class="floating-chat-btn" onclick="toggleChat()">💬</button>
+        <div class="floating-chat-panel" id="floatingChatPanel">
+            <div class="chat-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span>লাইভ চ্যাট</span>
+                    <span class="chat-online-badge"><span class="pulse-dot-small"></span><span id="chatOnlineCount">1</span> জন এক্টিভ</span>
+                </div>
+                <button class="close-chat-btn" onclick="toggleChat()">✕</button>
+            </div>
+            <div class="chat-warning">⚠️ যোগাযোগের তথ্য, অশালীন ভাষা ও স্প্যাম করলে ব্লক হতে পারে</div>
+            <div class="chat-messages" id="chatMessagesBox"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chatInput" placeholder="Message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
+                <button class="send-btn" onclick="handleChatSubmit()">
+                    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -754,6 +785,17 @@
       "Rangunia Government College", "Satkania Government College", "Sir Ashutosh Government College", "Uttar Kattoli Alhaz Mostafa Hakim University College"
   ];
 
+  // চেক করা হচ্ছে ব্যবহারকারী নতুন করে ট্যাব বা ব্রাউজারে প্রবেশ করেছে কিনা (Spinner control)
+  if (!sessionStorage.getItem('deblevate_visited')) {
+      sessionStorage.setItem('deblevate_visited', 'true');
+      const loader = document.getElementById('global-loader');
+      if (loader) {
+          loader.style.display = 'flex';
+          loader.style.opacity = '1';
+          loader.style.visibility = 'visible';
+      }
+  }
+
   onAuthStateChanged(window.auth, async (user) => {
       if (user) {
           const userEmailLower = user.email.toLowerCase();
@@ -813,7 +855,7 @@
       const loader = document.getElementById('global-loader');
       if (loader) {
           loader.style.opacity = '0';
-          loader.style.visibility = 'hidden';
+          setTimeout(() => { loader.style.display = 'none'; }, 400);
       }
   }
 
@@ -1022,9 +1064,13 @@
           const realCount = viewersData ? Object.keys(viewersData).length : 1;
           const counterEl = document.getElementById('liveViewerCount');
           if(counterEl) counterEl.innerText = realCount;
+          
+          const chatCounterEl = document.getElementById('chatOnlineCount');
+          if(chatCounterEl) chatCounterEl.innerText = realCount;
       }, (error) => {
           console.log("Realtime Database restricted/error: Displaying local fallback tracking.", error);
           document.getElementById('liveViewerCount').innerText = "1";
+          document.getElementById('chatOnlineCount').innerText = "1";
       });
   };
 
@@ -1450,7 +1496,8 @@ const courseData = {
         { title: "পরিবেশ রসায়ন CQ", id: "Fl7dxkdet70", sheet: "" },
         { title: "পরিবেশ রসায়ন MCQ", id: "158RXVE-MJo", sheet: "" },
         { title: "রাসায়নিক পরিবর্তন CQ", id: "CHJYjLUc9Sc", sheet: "" },
-        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" }
+        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" },
+        
     ]},
 
     /* 🧮 Calculator Hacks Masterclass (Rakib Bhai) */
@@ -1488,7 +1535,7 @@ const courseData = {
         { title: "ওয়ান শট রিভিশন | আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব", id: "1IVhi8tDoJw", sheet: "" },
         { title: "ওয়ান শট রিভিশন | মহাকর্ষ ও অভিকর্ষ", id: "2tpVLOX3Ep8", sheet: "" },
         { title: "ওয়ান শট রিভিশন | পদার্থের গাঠনিক ধর্ম", id: "4pfOjfZtGRU", sheet: "" },
-        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" }
+        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" },
     ]},
 
     /* 🎯 Physics CQ One Shot (Apurbo & Mashrur Series) */
@@ -1519,7 +1566,7 @@ const courseData = {
         { title: "ONE SHOT | জৈব রসায়ন", id: "_hZdz20OSno", sheet: "" },
         { title: "ONE SHOT | পরিবেশ রসায়নজৈব রসায়ন - Part 01", id: "cnEPq4_J38Q", sheet: "" },
         { title: "ONE SHOT | কর্মমুখী রসায়ন - Part 02", id: "OSki_6tSg1s", sheet: "" },
-        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" }
+        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" },
     ]},
 
     /* 🧪 Chemistry CQ One Shot (Sanjay Sir) */
@@ -1597,17 +1644,17 @@ function openCourse(key, targetVidIndex = 0) {
     
     data.videos.forEach((vid, i) => {
         let div = document.createElement("div");
-        div.className = "video-item" + (i === targetVidIndex ? " active" : "");
+        div.className = "playlist-item" + (i === targetVidIndex ? " active" : "");
         div.onclick = () => {
-            document.querySelectorAll('.video-item').forEach(e=>e.classList.remove('active'));
+            document.querySelectorAll('.playlist-item').forEach(e=>e.classList.remove('active'));
             div.classList.add('active');
             setVideo(vid.id, vid.title, vid.sheet, i);
         };
         div.innerHTML = `
-            <img class="vid-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/default.jpg" alt="thumbnail" onerror="this.src='channels4_profile.jpg'">
-            <div class="vid-details">
-                <span class="vid-title-text">${vid.title}</span>
-                <span class="vid-status">▶ Playing Now</span>
+            <img class="pl-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/mqdefault.jpg" alt="thumbnail" onerror="this.src='channels4_profile.jpg'">
+            <div class="pl-details">
+                <span class="pl-title">${vid.title}</span>
+                <span class="pl-author">▶ Click to Watch</span>
             </div>
         `;
         container.appendChild(div);
@@ -1617,7 +1664,6 @@ function openCourse(key, targetVidIndex = 0) {
         let targetVid = data.videos[targetVidIndex] || data.videos[0];
         setVideo(targetVid.id, targetVid.title, targetVid.sheet, targetVidIndex);
     }
-    switchSidebarTab('playlist');
     window.scrollTo(0,0);
 
     if(window.trackRealViewers) {
@@ -1703,11 +1749,18 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
         });
     }
 
-    const slideSegment = document.getElementById("slideSegment");
+    /* SLIDE / MATERIAL TOGGLE SETUP */
+    const materialsSection = document.getElementById("materialsSection");
+    const slideFrameContainer = document.getElementById("slideFrameContainer");
     const slideIframe = document.getElementById("slideIframe");
     const dlBtn = document.getElementById("sheetDownloadBtn");
+    const toggleSlideBtn = document.getElementById("toggleSlideBtn");
 
     if(sheetLink && sheetLink.trim() !== "") {
+        materialsSection.style.display = "block";
+        slideFrameContainer.style.display = "none";
+        toggleSlideBtn.classList.remove('active');
+
         dlBtn.href = getDirectDownloadLink(sheetLink);
         
         if (dlBtn.href.includes('uc?export=download')) {
@@ -1718,14 +1771,35 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
 
         let embedLink = sheetLink.includes('/view') ? sheetLink.replace('/view', '/preview') : sheetLink;
         slideIframe.src = embedLink;
-        slideSegment.style.display = "block";
     } else {
+        materialsSection.style.display = "none";
         slideIframe.src = "";
-        slideSegment.style.display = "none";
     }
 
     if(window.setupLiveFeatures && window.currentCourseKey && id) {
         window.setupLiveFeatures(window.currentCourseKey, id);
+    }
+}
+
+function toggleSlide() {
+    const container = document.getElementById("slideFrameContainer");
+    const btn = document.getElementById("toggleSlideBtn");
+    if(container.style.display === "none") {
+        container.style.display = "block";
+        btn.classList.add('active');
+    } else {
+        container.style.display = "none";
+        btn.classList.remove('active');
+    }
+}
+
+function toggleChat() {
+    const panel = document.getElementById("floatingChatPanel");
+    if(panel.style.display === "none" || panel.style.display === "") {
+        panel.style.display = "flex";
+        scrollToBottomChat();
+    } else {
+        panel.style.display = "none";
     }
 }
 
@@ -1742,26 +1816,6 @@ window.applyResumeTime = function(shouldResume) {
     pendingResumeTime = 0;
 };
 
-function switchSidebarTab(tabName) {
-    const tabPlaylist = document.getElementById('tabPlaylist');
-    const tabComments = document.getElementById('tabComments');
-    const viewPlaylist = document.getElementById('playlistView');
-    const viewComments = document.getElementById('commentsView');
-
-    if(tabName === 'playlist') {
-        tabPlaylist.classList.add('active');
-        tabComments.classList.remove('active');
-        viewPlaylist.style.display = 'flex';
-        viewComments.style.display = 'none';
-    } else {
-        tabComments.classList.add('active');
-        tabPlaylist.classList.remove('active');
-        viewComments.style.display = 'flex';
-        viewPlaylist.style.display = 'none';
-        scrollToBottomChat();
-    }
-}
-
 function addChatMessage(msgId, senderUid, author, text, isSelf) {
     const chatBox = document.getElementById('chatMessagesBox');
     
@@ -1774,7 +1828,7 @@ function addChatMessage(msgId, senderUid, author, text, isSelf) {
     
     let deleteBtnMarkup = "";
     if (isSelf || isSystemAdmin) {
-        deleteBtnMarkup = `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}')">🗑️</button>`;
+        deleteBtnMarkup = `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}')">✕</button>`;
     }
 
     div.innerHTML = `<span class="chat-author">${author}</span>${text} ${deleteBtnMarkup}`;
@@ -1784,7 +1838,9 @@ function addChatMessage(msgId, senderUid, author, text, isSelf) {
 
 function scrollToBottomChat() {
     const chatBox = document.getElementById('chatMessagesBox');
-    chatBox.scrollTop = chatBox.scrollHeight;
+    if(chatBox) {
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
 }
 </script>
 </body>
