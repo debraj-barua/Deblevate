@@ -116,7 +116,7 @@
             100% { transform: translate(-20px, 30px) scale(0.95); }
         }
 
-        /* PREMIUM NAVBAR (Fixed z-index to prevent overlapping) */
+        /* PREMIUM NAVBAR */
         header { 
             background-color: var(--bg-nav); 
             padding: 1rem 5%; 
@@ -281,8 +281,8 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
-        /* PLAYROOM WORKSPACE (Fixed top spacing so header doesn't cover video) */
-        #player-view { display: none; max-width: 1500px; margin: 1.5rem auto 0; padding: 1rem 5% 3rem; }
+        /* PLAYROOM WORKSPACE (Fixed top spacing & z-index to solve video overlapping issue) */
+        #player-view { display: none; max-width: 1500px; margin: 0 auto; padding: 4rem 5% 2rem; }
         .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 1.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
         .back-btn:hover { background: var(--accent-purple); color: #fff; box-shadow: 0 0 25px var(--accent-purple); transform: translateX(-4px); }
         .studio-container { display: flex; flex-direction: column; width: 100%; } 
@@ -300,6 +300,7 @@
         .pulse-dot { width: 10px; height: 10px; background-color: var(--accent-pink); border-radius: 50%; display: inline-block; animation: pulseDotAnim 1.5s infinite; }
         .pulse-dot-small { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulseDotGreen 1.5s infinite; }
         @keyframes pulseDotAnim { 0% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { box-shadow: 0 0 0 10px rgba(236,72,153,0); } 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
+        @keyframes pulseDotGreen { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
 
         .reaction-center { display: flex; gap: 12px; margin-top: 15px; flex-wrap: wrap; }
         .reaction-btn { background: rgba(147, 51, 234, 0.12); border: 2px solid rgba(147, 51, 234, 0.35); padding: 8px 16px; border-radius: 20px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); }
@@ -317,11 +318,11 @@
         .slide-frame-container { width: 100%; height: 750px; background: #000; border-radius: 16px; overflow: hidden; border: 2px solid rgba(147,51,234,0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.8); display: none; margin-top: 1rem; animation: popIn 0.3s ease-out;}
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; pointer-events: auto !important; }
 
-        /* HORIZONTAL SCROLLABLE PLAYLIST (Like Image 1) */
+        /* UPDATED HORIZONTAL SCROLLABLE PLAYLIST (Smaller & Compact) */
         .playlist-section { margin-bottom: 3rem; }
         .horizontal-playlist { 
             display: flex; 
-            gap: 1.5rem; 
+            gap: 1rem; 
             overflow-x: auto; 
             padding: 10px 5px 20px; 
             scroll-behavior: smooth;
@@ -331,24 +332,24 @@
         .horizontal-playlist::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
 
         .playlist-item { 
-            flex: 0 0 340px; 
+            flex: 0 0 260px; /* Reduced Width for compactness */
             display: flex; 
             align-items: center; 
-            gap: 14px; 
-            padding: 12px; 
+            gap: 12px; 
+            padding: 10px; 
             background: rgba(20, 12, 35, 0.85); 
             border: 1px solid rgba(147,51,234,0.25); 
-            border-radius: 16px; 
+            border-radius: 12px; 
             cursor: pointer; 
             transition: all 0.3s ease; 
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
         }
-        .playlist-item:hover { background: rgba(35, 18, 60, 0.95); border-color: var(--accent-purple-light); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(192, 132, 252, 0.2); }
-        .playlist-item.active { background: rgba(12, 25, 45, 0.95); border: 2px solid var(--accent-cyan); box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
-        .pl-thumb { width: 125px; height: 72px; border-radius: 10px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
-        .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 5px; overflow: hidden; }
-        .pl-title { font-size: 0.95rem; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
-        .pl-author { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; }
+        .playlist-item:hover { background: rgba(35, 18, 60, 0.95); border-color: var(--accent-purple-light); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(192, 132, 252, 0.2); }
+        .playlist-item.active { background: rgba(12, 25, 45, 0.95); border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
+        .pl-thumb { width: 90px; height: 50px; border-radius: 6px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
+        .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 4px; overflow: hidden; }
+        .pl-title { font-size: 0.85rem; font-weight: 700; color: #fff; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3; }
+        .pl-author { font-size: 0.75rem; color: var(--accent-cyan); font-weight: 600; }
 
         /* FLOATING CHAT BUTTON & PANEL */
         .floating-chat-btn {
@@ -401,7 +402,7 @@
         .send-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 0 10px var(--accent-cyan); }
         .send-btn svg { width: 18px; height: 18px; fill: #000; margin-left: 2px; }
 
-        /* PREMIUM FOOTER SECTION (Like Images 1 & 2) */
+        /* PREMIUM FOOTER SECTION */
         footer {
             background: linear-gradient(to top, rgba(5, 2, 10, 0.98), rgba(15, 8, 28, 0.95));
             border-top: 2px solid rgba(147, 51, 234, 0.3);
@@ -431,6 +432,7 @@
 
         .footer-contact { display: flex; flex-direction: column; gap: 12px; }
         .contact-item { display: flex; align-items: center; gap: 12px; color: #94a3b8; font-size: 0.95rem; font-weight: 600; }
+        .contact-item svg { width: 18px; height: 18px; fill: var(--accent-cyan); vertical-align: middle; }
         .contact-item span { color: var(--accent-cyan); font-size: 1.1rem; }
 
         .footer-bottom {
@@ -461,11 +463,10 @@
             .login-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
             #home-view { padding: 2rem 4%; }
             
-            #player-view { padding: 1.5rem 4%; margin-top: 1rem; }
+            #player-view { padding: 2rem 4% 1.5rem; }
             .video-info { padding: 1.2rem; border-radius: 12px; }
             .video-title { font-size: 1.3rem; }
             .slide-frame-container { height: 450px; }
-            .playlist-item { flex: 0 0 280px; }
             
             .floating-chat-panel { width: calc(100% - 40px); right: 20px; bottom: 90px; height: 450px;}
             .floating-chat-btn { width: 55px; height: 55px; bottom: 20px; right: 20px; font-size: 1.5rem;}
@@ -678,7 +679,7 @@
 
                 <!-- HORIZONTAL PLAYLIST SECTION (Like Image 1) -->
                 <div class="playlist-section">
-                    <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
+                    <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
                     <div class="horizontal-playlist" id="playlistView">
                         <!-- Horizontal Playlist Cards will render here -->
                     </div>
@@ -709,7 +710,7 @@
 
     </div>
 
-    <!-- PREMIUM FOOTER SECTION (Like Image 2) -->
+    <!-- PREMIUM FOOTER SECTION -->
     <footer>
         <div class="footer-container">
             <div class="footer-brand">
@@ -742,17 +743,26 @@
                         <span>🌐</span> Deblevate Edtech Platform
                     </div>
                     <div class="contact-item">
-                        <span>✉️</span> debrajbarua8@gmail.com
+                        <span>
+                            <svg style="width:18px;height:18px;fill:var(--accent-cyan);vertical-align:middle;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.21 3.45-.49.33-.94.5-1.34.49-.44-.01-1.28-.24-1.9-.44-.76-.24-1.36-.37-1.31-.78.02-.21.32-.42.89-.63 3.5-1.52 5.84-2.53 7.01-3.02 3.33-1.39 4.02-1.63 4.47-1.64.1 0 .32.02.46.14.12.09.15.22.16.33.02.1.02.21.01.31z"/></svg>
+                        </span>
+                        <a href="https://t.me/deblevate_admin_bot" target="_blank" style="color: #94a3b8; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent-cyan)'" onmouseout="this.style.color='#94a3b8'">Telegram: @deblevate_admin_bot</a>
                     </div>
                     <div class="contact-item">
-                        <span>📞</span> Support Line: +8801700000000
+                        <span>
+                            <svg style="width:18px;height:18px;fill:var(--accent-cyan);vertical-align:middle;" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        </span>
+                        <a href="https://www.youtube.com/@debraj_barua-2006" target="_blank" style="color: #94a3b8; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent-cyan)'" onmouseout="this.style.color='#94a3b8'">YouTube: Deblevate</a>
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span> Support Line: 01985334948
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <div>Copyright © 2018–2026 <strong>Deblevate Dream Edtech</strong>. All Rights Reserved.</div>
+            <div>Copyright © 2026 <strong>Deblevate Dream Edtech</strong>. All Rights Reserved.</div>
             <div>Engineered by <strong>Deblevate Lab™</strong></div>
         </div>
     </footer>
@@ -1502,7 +1512,7 @@ const courseData = {
     ]},
 
     course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
-        { title: "এক ক্লাসেই पदार्थবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
     ]},
 
     /* 📐 Abhi Dada - Higher Math */
@@ -1570,7 +1580,8 @@ const courseData = {
         { title: "পরিবেশ রসায়ন CQ", id: "Fl7dxkdet70", sheet: "" },
         { title: "পরিবেশ রসায়ন MCQ", id: "158RXVE-MJo", sheet: "" },
         { title: "রাসায়নিক পরিবর্তন CQ", id: "CHJYjLUc9Sc", sheet: "" },
-        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" }
+        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" },
+        
     ]},
 
     /* 🧮 Calculator Hacks Masterclass (Rakib Bhai) */
@@ -1608,7 +1619,7 @@ const courseData = {
         { title: "ওয়ান শট রিভিশন | আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব", id: "1IVhi8tDoJw", sheet: "" },
         { title: "ওয়ান শট রিভিশন | মহাকর্ষ ও অভিকর্ষ", id: "2tpVLOX3Ep8", sheet: "" },
         { title: "ওয়ান শট রিভিশন | পদার্থের গাঠনিক ধর্ম", id: "4pfOjfZtGRU", sheet: "" },
-        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" }
+        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" },
     ]},
 
     /* 🎯 Physics CQ One Shot (Apurbo & Mashrur Series) */
@@ -1639,7 +1650,7 @@ const courseData = {
         { title: "ONE SHOT | জৈব রসায়ন", id: "_hZdz20OSno", sheet: "" },
         { title: "ONE SHOT | পরিবেশ রসায়নজৈব রসায়ন - Part 01", id: "cnEPq4_J38Q", sheet: "" },
         { title: "ONE SHOT | কর্মমুখী রসায়ন - Part 02", id: "OSki_6tSg1s", sheet: "" },
-        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" }
+        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" },
     ]},
 
     /* 🧪 Chemistry CQ One Shot (Sanjay Sir) */
@@ -1917,4 +1928,4 @@ function scrollToBottomChat() {
 }
 </script>
 </body>
-</html>
+</html> ekhane shob update korbe thikmoto class er design change korte bolsi upore dekho ager msgs e je chobi disi course title o onno rokom dao etaw uporer images e ase dekho
