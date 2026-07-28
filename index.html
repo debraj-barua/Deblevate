@@ -59,7 +59,7 @@
             overflow-x: hidden;
         }
 
-        /* UPDATED PREMIUM SPINNER LOADER SCREEN */
+        /* PREMIUM SPINNER LOADER SCREEN */
         #global-loader {
             position: fixed; inset: 0; background: var(--bg-main); z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -116,7 +116,7 @@
             100% { transform: translate(-20px, 30px) scale(0.95); }
         }
 
-        /* PREMIUM NAVBAR */
+        /* PREMIUM NAVBAR (Fixed z-index to prevent overlapping) */
         header { 
             background-color: var(--bg-nav); 
             padding: 1rem 5%; 
@@ -126,7 +126,7 @@
             border-bottom: 2px solid rgba(147, 51, 234, 0.3); 
             position: sticky; 
             top: 0; 
-            z-index: 100; 
+            z-index: 90; 
             backdrop-filter: blur(25px); 
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
         }
@@ -153,7 +153,7 @@
         .logout-btn { background: transparent; color: #f87171; border: none; padding: 0; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
         .logout-btn:hover { color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink); }
 
-        /* --- ENHANCED CYBERPUNK LOGIN SCREEN --- */
+        /* LOGIN SCREEN */
         #login-screen { 
             display: flex; 
             justify-content: center; 
@@ -183,27 +183,6 @@
         @keyframes floatPanel {
             0%, 100% { transform: translateY(0px) rotateX(0deg); }
             50% { transform: translateY(-15px) rotateX(2deg); }
-        }
-
-        .login-glass-panel::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: conic-gradient(from 0deg, transparent 70%, var(--accent-cyan) 85%, var(--accent-purple) 100%);
-            animation: spinGlow 4s linear infinite;
-            z-index: -1;
-            opacity: 0.2;
-        }
-        @keyframes spinGlow { 100% { transform: rotate(360deg); } }
-
-        .login-glass-panel::after {
-            content: '';
-            position: absolute;
-            inset: 2px;
-            background: rgba(8, 4, 15, 0.92);
-            border-radius: 22px;
-            z-index: -1;
         }
 
         .welcome-text {
@@ -245,24 +224,11 @@
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
         }
 
-        .cyber-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: 0.5s;
-        }
-
         .cyber-btn:hover {
             background: var(--accent-cyan);
             color: #000;
             box-shadow: 0 0 40px var(--accent-cyan);
             transform: translateY(-3px) scale(1.05);
-        }
-
-        .cyber-btn:hover::before {
-            left: 100%;
         }
 
         /* PROFILE MODAL & OVERLAYS */
@@ -283,15 +249,6 @@
             color: #fff; padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem;
             font-family: inherit; transition: 0.3s;
         }
-        .profile-input-field:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6,182,212,0.3); }
-        .profile-input-field option { background: #0c0515; color: #fff; }
-
-        .auth-spinner {
-            width: 50px; height: 50px; border: 4px solid rgba(6, 182, 212, 0.1);
-            border-top: 4px solid var(--accent-cyan); border-radius: 50%;
-            margin: 0 auto 25px; animation: spin 1s linear infinite;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* DASHBOARD & CONTENT STYLES */
         #main-app { display: none; position: relative; z-index: 10; } 
@@ -324,19 +281,17 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
-        /* PLAYROOM WORKSPACE (Cinematic Large Video Frame & Merged Layout) */
-        #player-view { display: none; max-width: 1500px; margin: 0 auto; padding: 2rem 5%; }
-        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 2rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
+        /* PLAYROOM WORKSPACE (Fixed top spacing so header doesn't cover video) */
+        #player-view { display: none; max-width: 1500px; margin: 1.5rem auto 0; padding: 1rem 5% 3rem; }
+        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 1.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
         .back-btn:hover { background: var(--accent-purple); color: #fff; box-shadow: 0 0 25px var(--accent-purple); transform: translateX(-4px); }
-        .studio-container { display: flex; flex-direction: column; width: 100%; } /* Column Layout */
+        .studio-container { display: flex; flex-direction: column; width: 100%; } 
         .main-content { width: 100%; display: flex; flex-direction: column; }
         
         .protected-video-wrapper { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
-        .plyr__video-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: transparent; }
+        .plyr__video-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
-        .plyr__control--overlaid { background: rgba(147, 51, 234, 0.8) !important; padding: 25px !important; }
-        .plyr__control--overlaid svg { width: 35px !important; height: 35px !important; fill: #fff !important; }
 
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .video-info { background: rgba(18, 9, 30, 0.8); backdrop-filter: blur(16px); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.7); margin-bottom: 2rem;}
@@ -345,7 +300,6 @@
         .pulse-dot { width: 10px; height: 10px; background-color: var(--accent-pink); border-radius: 50%; display: inline-block; animation: pulseDotAnim 1.5s infinite; }
         .pulse-dot-small { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulseDotGreen 1.5s infinite; }
         @keyframes pulseDotAnim { 0% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { box-shadow: 0 0 0 10px rgba(236,72,153,0); } 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
-        @keyframes pulseDotGreen { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
 
         .reaction-center { display: flex; gap: 12px; margin-top: 15px; flex-wrap: wrap; }
         .reaction-btn { background: rgba(147, 51, 234, 0.12); border: 2px solid rgba(147, 51, 234, 0.35); padding: 8px 16px; border-radius: 20px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); }
@@ -354,24 +308,47 @@
 
         /* TOGGLEABLE CLASS MATERIALS SECTION */
         .materials-section { margin-bottom: 2.5rem; display: none;}
-        .section-heading { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 600; color: #e2e8f0; margin-bottom: 1rem; letter-spacing: 1px; }
+        .section-heading { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; font-weight: 800; color: #e2e8f0; margin-bottom: 1.2rem; letter-spacing: 1px; }
         .material-buttons { display: flex; gap: 15px; margin-bottom: 1rem;}
-        .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 10px 20px; border-radius: 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
-        .material-btn:hover, .material-btn.active { border-color: var(--accent-cyan); color: #fff; background: rgba(6, 182, 212, 0.1); box-shadow: 0 0 15px rgba(6, 182, 212, 0.2); }
+        .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 10px 20px; border-radius: 20px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
+        .material-btn:hover, .material-btn.active { border-color: var(--accent-cyan); color: #fff; background: rgba(6, 182, 212, 0.15); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
         
-        .slide-frame-container { width: 100%; height: 700px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid rgba(147,51,234,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.6); display: none; animation: popIn 0.3s ease-out;}
-        .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
+        /* SLIDE IFRAME FIX (Smooth Scrolling inside Preview) */
+        .slide-frame-container { width: 100%; height: 750px; background: #000; border-radius: 16px; overflow: hidden; border: 2px solid rgba(147,51,234,0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.8); display: none; margin-top: 1rem; animation: popIn 0.3s ease-out;}
+        .slide-frame-container iframe { width: 100%; height: 100%; border: none; pointer-events: auto !important; }
 
-        /* HORIZONTAL PLAYLIST (অধ্যায়ের ক্লাস) */
+        /* HORIZONTAL SCROLLABLE PLAYLIST (Like Image 1) */
         .playlist-section { margin-bottom: 3rem; }
-        .horizontal-playlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem; }
-        .playlist-item { display: flex; align-items: center; gap: 12px; padding: 10px; background: rgba(25, 30, 45, 0.8); border: 1px solid rgba(147,51,234,0.15); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
-        .playlist-item:hover { background: rgba(35, 40, 60, 0.9); border-color: rgba(147,51,234,0.4); transform: translateY(-3px); }
-        .playlist-item.active { background: rgba(20, 25, 40, 0.95); border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
-        .pl-thumb { width: 120px; height: 68px; border-radius: 8px; object-fit: cover; background: #000; flex-shrink: 0; }
-        .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 4px; overflow: hidden;}
-        .pl-title { font-size: 1rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;}
-        .pl-author { font-size: 0.8rem; color: #94a3b8; }
+        .horizontal-playlist { 
+            display: flex; 
+            gap: 1.5rem; 
+            overflow-x: auto; 
+            padding: 10px 5px 20px; 
+            scroll-behavior: smooth;
+        }
+        .horizontal-playlist::-webkit-scrollbar { height: 8px; }
+        .horizontal-playlist::-webkit-scrollbar-track { background: rgba(0,0,0,0.4); border-radius: 10px; }
+        .horizontal-playlist::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
+
+        .playlist-item { 
+            flex: 0 0 340px; 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            padding: 12px; 
+            background: rgba(20, 12, 35, 0.85); 
+            border: 1px solid rgba(147,51,234,0.25); 
+            border-radius: 16px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5); 
+        }
+        .playlist-item:hover { background: rgba(35, 18, 60, 0.95); border-color: var(--accent-purple-light); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(192, 132, 252, 0.2); }
+        .playlist-item.active { background: rgba(12, 25, 45, 0.95); border: 2px solid var(--accent-cyan); box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+        .pl-thumb { width: 125px; height: 72px; border-radius: 10px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
+        .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 5px; overflow: hidden; }
+        .pl-title { font-size: 0.95rem; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.3; }
+        .pl-author { font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; }
 
         /* FLOATING CHAT BUTTON & PANEL */
         .floating-chat-btn {
@@ -385,25 +362,25 @@
 
         .floating-chat-panel {
             position: fixed; bottom: 105px; right: 30px; width: 360px; height: 550px;
-            background: rgba(15, 18, 25, 0.95); border: 1px solid rgba(147,51,234,0.4);
-            border-radius: 16px; backdrop-filter: blur(20px); z-index: 1000;
-            display: none; flex-direction: column; box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            background: rgba(15, 8, 25, 0.96); border: 1px solid rgba(147,51,234,0.4);
+            border-radius: 20px; backdrop-filter: blur(25px); z-index: 1000;
+            display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             overflow: hidden; animation: slideUpChat 0.3s ease-out;
         }
         @keyframes slideUpChat { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
         .chat-header {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 15px; background: rgba(5, 5, 10, 0.9); border-bottom: 1px solid rgba(147,51,234,0.2);
+            padding: 14px 18px; background: rgba(5, 2, 10, 0.9); border-bottom: 1px solid rgba(147,51,234,0.25);
         }
-        .chat-header span { font-weight: bold; color: #fff; font-size: 1rem; }
+        .chat-header span { font-weight: 800; color: #fff; font-size: 1.05rem; }
         .chat-online-badge { background: rgba(16, 185, 129, 0.15); color: #10b981 !important; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem !important; display: flex; align-items: center; gap: 6px; border: 1px solid rgba(16, 185, 129, 0.3);}
         .close-chat-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.2rem; cursor: pointer; }
         .close-chat-btn:hover { color: #f87171; }
         
         .chat-warning {
-            background: rgba(245, 158, 11, 0.1); color: #fbbf24; font-size: 0.75rem;
-            text-align: center; padding: 6px; border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            background: rgba(245, 158, 11, 0.12); color: #fbbf24; font-size: 0.75rem;
+            text-align: center; padding: 8px; border-bottom: 1px solid rgba(245, 158, 11, 0.2); font-weight: 600;
         }
 
         .chat-messages { flex-grow: 1; padding: 15px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; scroll-behavior: smooth;}
@@ -417,13 +394,64 @@
         .comment-delete-btn { position: absolute; right: 8px; top: 8px; background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.8rem; opacity: 0.4; transition: 0.2s; }
         .comment-delete-btn:hover { opacity: 1; text-shadow: 0 0 8px #f87171; }
         
-        .chat-input-container { padding: 12px; background: rgba(10, 12, 18, 0.95); border-top: 1px solid rgba(147,51,234,0.2); display: flex; gap: 8px; align-items: center;}
-        .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px 15px; border-radius: 20px; outline: none; font-size: 0.9rem; transition: 0.3s; }
-        .chat-input-container input:focus { border-color: var(--accent-cyan); }
+        .chat-input-container { padding: 12px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 8px; align-items: center;}
+        .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 10px 15px; border-radius: 20px; outline: none; font-size: 0.9rem; transition: 0.3s; }
+        .chat-input-container input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); }
         .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; flex-shrink: 0;}
         .send-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 0 10px var(--accent-cyan); }
         .send-btn svg { width: 18px; height: 18px; fill: #000; margin-left: 2px; }
 
+        /* PREMIUM FOOTER SECTION (Like Images 1 & 2) */
+        footer {
+            background: linear-gradient(to top, rgba(5, 2, 10, 0.98), rgba(15, 8, 28, 0.95));
+            border-top: 2px solid rgba(147, 51, 234, 0.3);
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+            position: relative;
+            z-index: 20;
+        }
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+        .footer-logo-title { display: flex; align-items: center; gap: 12px; }
+        .footer-logo-title img { width: 45px; height: 45px; border-radius: 12px; border: 2px solid var(--accent-purple-light); }
+        .footer-brand-name { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .footer-desc { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; max-width: 420px; margin: 0; }
+        
+        .footer-col-title { color: #fff; font-size: 1.2rem; font-weight: 800; margin-bottom: 1.2rem; letter-spacing: 0.5px; }
+        .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: 0.3s; }
+        .footer-links a:hover { color: var(--accent-cyan); transform: translateX(5px); display: inline-block; }
+
+        .footer-contact { display: flex; flex-direction: column; gap: 12px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; color: #94a3b8; font-size: 0.95rem; font-weight: 600; }
+        .contact-item span { color: var(--accent-cyan); font-size: 1.1rem; }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(147, 51, 234, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .footer-container { grid-template-columns: 1fr; gap: 2.5rem; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
         @media (max-width: 768px) {
             header { padding: 0.8rem 4%; }
             .header-logo img { width: 42px; height: 42px; }
@@ -432,15 +460,12 @@
             .nav-links { gap: 1rem; }
             .login-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
             #home-view { padding: 2rem 4%; }
-            .motivation-container { padding: 1.2rem; margin: -1rem auto 2.5rem; max-width: 100%; }
-            .course-grid { grid-template-columns: 1fr; gap: 1.8rem; }
             
-            #player-view { padding: 1.5rem 4%; }
+            #player-view { padding: 1.5rem 4%; margin-top: 1rem; }
             .video-info { padding: 1.2rem; border-radius: 12px; }
-            .video-header-panel { flex-direction: column; align-items: flex-start; }
             .video-title { font-size: 1.3rem; }
-            .slide-frame-container { height: 350px; }
-            .horizontal-playlist { grid-template-columns: 1fr; }
+            .slide-frame-container { height: 450px; }
+            .playlist-item { flex: 0 0 280px; }
             
             .floating-chat-panel { width: calc(100% - 40px); right: 20px; bottom: 90px; height: 450px;}
             .floating-chat-btn { width: 55px; height: 55px; bottom: 20px; right: 20px; font-size: 1.5rem;}
@@ -449,7 +474,7 @@
 </head>
 <body oncontextmenu="return false;">
 
-<!-- NEW PREMIUM LOADER SCREEN -->
+<!-- PREMIUM LOADER SCREEN -->
 <div id="global-loader">
     <div class="loader-spinner"></div>
     <div class="loader-text">Deblevate is Preparing...</div>
@@ -637,7 +662,7 @@
 
                 <!-- TOGGLEABLE CLASS MATERIALS SECTION -->
                 <div class="materials-section" id="materialsSection">
-                    <h3 class="section-heading">📄 CLASS MATERIALS</h3>
+                    <h3 class="section-heading">📑 CLASS MATERIALS</h3>
                     <div class="material-buttons">
                         <button class="material-btn" id="toggleSlideBtn" onclick="toggleSlide()">
                             📖 Lecture Slide
@@ -651,7 +676,7 @@
                     </div>
                 </div>
 
-                <!-- HORIZONTAL PLAYLIST SECTION -->
+                <!-- HORIZONTAL PLAYLIST SECTION (Like Image 1) -->
                 <div class="playlist-section">
                     <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
                     <div class="horizontal-playlist" id="playlistView">
@@ -683,6 +708,55 @@
         </div>
 
     </div>
+
+    <!-- PREMIUM FOOTER SECTION (Like Image 2) -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo-title">
+                    <img src="channels4_profile.jpg" alt="Logo" onerror="this.style.display='none'">
+                    <span class="footer-brand-name">DEBLEVATE</span>
+                </div>
+                <p class="footer-desc">
+                    Deblevate's Dream Edtech is committed to revolutionizing education through innovative learning solutions, premium HSC materials, and expert guidance.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="alert('Deblevate Edtech Platform')">About Us</a></li>
+                    <li><a href="#" onclick="alert('Privacy Policy: All data secured with Firebase SSL.')">Privacy & Policy</a></li>
+                    <li><a href="#" onclick="alert('Terms & Conditions applied.')">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">Contact Us</h4>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <span>📍</span> Dhaka, Bangladesh
+                    </div>
+                    <div class="contact-item">
+                        <span>🌐</span> Deblevate Edtech Platform
+                    </div>
+                    <div class="contact-item">
+                        <span>✉️</span> debrajbarua8@gmail.com
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span> Support Line: +8801700000000
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>Copyright © 2018–2026 <strong>Deblevate Dream Edtech</strong>. All Rights Reserved.</div>
+            <div>Engineered by <strong>Deblevate Lab™</strong></div>
+        </div>
+    </footer>
+
 </div>
 
 <!-- EmailJS Library -->
@@ -785,7 +859,7 @@
       "Rangunia Government College", "Satkania Government College", "Sir Ashutosh Government College", "Uttar Kattoli Alhaz Mostafa Hakim University College"
   ];
 
-  // চেক করা হচ্ছে ব্যবহারকারী নতুন করে ট্যাব বা ব্রাউজারে প্রবেশ করেছে কিনা (Spinner control)
+  // Loader display check
   if (!sessionStorage.getItem('deblevate_visited')) {
       sessionStorage.setItem('deblevate_visited', 'true');
       const loader = document.getElementById('global-loader');
@@ -1207,7 +1281,7 @@ document.onkeydown = function(e) {
     if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
         return false;
     }
-    // F key shortcut for Plyr Fullscreen toggle
+    // F key shortcut for Fullscreen
     if ((e.key === 'f' || e.key === 'F') && window.plyrPlayer && document.activeElement.tagName !== 'INPUT') {
         window.plyrPlayer.fullscreen.toggle();
     }
@@ -1428,7 +1502,7 @@ const courseData = {
     ]},
 
     course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
-        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+        { title: "এক ক্লাসেই पदार्थবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
     ]},
 
     /* 📐 Abhi Dada - Higher Math */
@@ -1496,8 +1570,7 @@ const courseData = {
         { title: "পরিবেশ রসায়ন CQ", id: "Fl7dxkdet70", sheet: "" },
         { title: "পরিবেশ রসায়ন MCQ", id: "158RXVE-MJo", sheet: "" },
         { title: "রাসায়নিক পরিবর্তন CQ", id: "CHJYjLUc9Sc", sheet: "" },
-        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" },
-        
+        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" }
     ]},
 
     /* 🧮 Calculator Hacks Masterclass (Rakib Bhai) */
@@ -1535,7 +1608,7 @@ const courseData = {
         { title: "ওয়ান শট রিভিশন | আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব", id: "1IVhi8tDoJw", sheet: "" },
         { title: "ওয়ান শট রিভিশন | মহাকর্ষ ও অভিকর্ষ", id: "2tpVLOX3Ep8", sheet: "" },
         { title: "ওয়ান শট রিভিশন | পদার্থের গাঠনিক ধর্ম", id: "4pfOjfZtGRU", sheet: "" },
-        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" }
     ]},
 
     /* 🎯 Physics CQ One Shot (Apurbo & Mashrur Series) */
@@ -1566,7 +1639,7 @@ const courseData = {
         { title: "ONE SHOT | জৈব রসায়ন", id: "_hZdz20OSno", sheet: "" },
         { title: "ONE SHOT | পরিবেশ রসায়নজৈব রসায়ন - Part 01", id: "cnEPq4_J38Q", sheet: "" },
         { title: "ONE SHOT | কর্মমুখী রসায়ন - Part 02", id: "OSki_6tSg1s", sheet: "" },
-        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" },
+        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" }
     ]},
 
     /* 🧪 Chemistry CQ One Shot (Sanjay Sir) */
