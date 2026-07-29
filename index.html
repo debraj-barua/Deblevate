@@ -137,16 +137,16 @@
         .brand-name { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to right, #ffffff, var(--accent-purple-light), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1; filter: drop-shadow(0 0 10px rgba(192,132,252,0.4)); }
         .brand-sub { font-size: 0.8rem; color: var(--accent-cyan); letter-spacing: 4px; margin-top: 4px; font-weight: 800; text-transform: uppercase; text-shadow: 0 0 8px rgba(6,182,212,0.5); }
         
-        /* HEADER SOCIAL ICONS */
+        /* HEADER SOCIAL ICONS - PERFECTLY CENTERED */
         .nav-right { display: flex; align-items: center; gap: 1rem; }
-        .header-social { display: flex; gap: 10px; margin-right: 10px;}
+        .header-social { display: flex; gap: 10px; margin-right: 10px; align-items: center; }
         .header-social a {
             display: flex; align-items: center; justify-content: center;
             width: 38px; height: 38px; border-radius: 50%;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3);
             transition: all 0.3s ease; text-decoration: none;
         }
-        .header-social a svg { width: 18px; height: 18px; fill: #fff; transition: 0.3s; }
+        .header-social a svg { width: 18px; height: 18px; fill: #fff; display: block; margin: auto; transition: 0.3s; }
         .header-social a:hover.tg-icon { background: #0ea5e9; border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.6); }
         .header-social a:hover.yt-icon { background: #ef4444; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); }
 
@@ -293,50 +293,50 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.4; }
 
-        /* PLAYROOM WORKSPACE (Fixed top spacing & z-index to solve video overlapping issue) */
-        #player-view { display: none; max-width: 1500px; margin: 0 auto; padding: 2rem 5% 2rem; } /* Adjusted padding */
-        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.8rem 1.8rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 1.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 1rem; backdrop-filter: blur(10px); }
+        /* PLAYROOM WORKSPACE - PADDING REDUCED TO MAXIMUM */
+        #player-view { display: none; max-width: 1550px; margin: 0 auto; padding: 0.8rem 2% 1.5rem; }
+        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.6rem 1.4rem; border-radius: 12px; cursor: pointer; font-weight: bold; margin-bottom: 0.8rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; font-size: 0.95rem; backdrop-filter: blur(10px); }
         .back-btn:hover { background: var(--accent-purple); color: #fff; box-shadow: 0 0 25px var(--accent-purple); transform: translateX(-4px); }
         .studio-container { display: flex; flex-direction: column; width: 100%; } 
         .main-content { width: 100%; display: flex; flex-direction: column; }
         
-        .protected-video-wrapper { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 1.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); }
+        .protected-video-wrapper { position: relative; border-radius: 16px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); margin-bottom: 1rem; box-shadow: 0 20px 50px rgba(0,0,0,0.95), 0 0 35px rgba(147, 51, 234, 0.2); }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
         .plyr__video-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .video-info { background: rgba(18, 9, 30, 0.8); backdrop-filter: blur(16px); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.7); margin-bottom: 2rem;}
-        .video-title { margin: 0; font-size: 1.8rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .live-viewer-badge { display: flex; align-items: center; gap: 10px; background: rgba(236,72,153,0.12); border: 1px solid rgba(236,72,153,0.35); padding: 8px 16px; border-radius: 50px; color: #fff; font-weight: bold; font-size: 0.95rem; box-shadow: 0 0 15px rgba(236,72,153,0.15); }
+        .video-info { background: rgba(18, 9, 30, 0.8); backdrop-filter: blur(16px); padding: 1.2rem; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.7); margin-bottom: 1.5rem;}
+        .video-title { margin: 0; font-size: 1.5rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .live-viewer-badge { display: flex; align-items: center; gap: 10px; background: rgba(236,72,153,0.12); border: 1px solid rgba(236,72,153,0.35); padding: 6px 14px; border-radius: 50px; color: #fff; font-weight: bold; font-size: 0.9rem; box-shadow: 0 0 15px rgba(236,72,153,0.15); }
         .pulse-dot { width: 10px; height: 10px; background-color: var(--accent-pink); border-radius: 50%; display: inline-block; animation: pulseDotAnim 1.5s infinite; }
         .pulse-dot-small { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulseDotGreen 1.5s infinite; }
         @keyframes pulseDotAnim { 0% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { box-shadow: 0 0 0 10px rgba(236,72,153,0); } 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
         @keyframes pulseDotGreen { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); } 70% { box-shadow: 0 0 0 8px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
 
-        .reaction-center { display: flex; gap: 12px; margin-top: 15px; flex-wrap: wrap; }
-        .reaction-btn { background: rgba(147, 51, 234, 0.12); border: 2px solid rgba(147, 51, 234, 0.35); padding: 8px 16px; border-radius: 20px; color: #fff; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); }
+        .reaction-center { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+        .reaction-btn { background: rgba(147, 51, 234, 0.12); border: 2px solid rgba(147, 51, 234, 0.35); padding: 6px 14px; border-radius: 20px; color: #fff; font-weight: bold; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(5px); }
         .reaction-btn:hover { background: rgba(147, 51, 234, 0.35); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(147, 51, 234, 0.25); }
         .reaction-btn span { color: var(--accent-cyan); }
 
         /* TOGGLEABLE CLASS MATERIALS SECTION */
-        .materials-section { margin-bottom: 2.5rem; display: none;}
-        .section-heading { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; font-weight: 800; color: #e2e8f0; margin-bottom: 1.2rem; letter-spacing: 1px; }
+        .materials-section { margin-bottom: 2rem; display: none;}
+        .section-heading { display: flex; align-items: center; gap: 10px; font-size: 1.15rem; font-weight: 800; color: #e2e8f0; margin-bottom: 1rem; letter-spacing: 1px; }
         .material-buttons { display: flex; gap: 15px; margin-bottom: 1rem;}
-        .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 10px 20px; border-radius: 20px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
+        .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;}
         .material-btn:hover, .material-btn.active { border-color: var(--accent-cyan); color: #fff; background: rgba(6, 182, 212, 0.15); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
         
-        /* SLIDE IFRAME FIX (Smooth Scrolling inside Preview) */
+        /* SLIDE IFRAME FIX */
         .slide-frame-container { width: 100%; height: 750px; background: #000; border-radius: 16px; overflow: hidden; border: 2px solid rgba(147,51,234,0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.8); display: none; margin-top: 1rem; animation: popIn 0.3s ease-out;}
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; pointer-events: auto !important; }
 
-        /* UPDATED HORIZONTAL SCROLLABLE PLAYLIST (Smaller & Compact) */
-        .playlist-section { margin-bottom: 3rem; }
+        /* UPDATED HORIZONTAL SCROLLABLE PLAYLIST */
+        .playlist-section { margin-bottom: 2rem; }
         .horizontal-playlist { 
             display: flex; 
             gap: 1rem; 
             overflow-x: auto; 
-            padding: 10px 5px 20px; 
+            padding: 10px 5px 15px; 
             scroll-behavior: smooth;
         }
         .horizontal-playlist::-webkit-scrollbar { height: 8px; }
@@ -344,7 +344,7 @@
         .horizontal-playlist::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
 
         .playlist-item { 
-            flex: 0 0 260px; /* Reduced Width for compactness */
+            flex: 0 0 260px;
             display: flex; 
             align-items: center; 
             gap: 12px; 
@@ -475,17 +475,17 @@
             .login-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
             #home-view { padding: 2rem 4%; }
             
-            #player-view { padding: 1.5rem 4% 1.5rem; } /* Adjusted padding for mobile */
-            .video-info { padding: 1.2rem; border-radius: 12px; }
-            .video-title { font-size: 1.3rem; }
+            #player-view { padding: 0.5rem 3% 1rem; } /* Extremely compact padding for mobile */
+            .video-info { padding: 1rem; border-radius: 12px; }
+            .video-title { font-size: 1.2rem; }
             .slide-frame-container { height: 450px; }
             
             .floating-chat-panel { width: calc(100% - 40px); right: 20px; bottom: 90px; height: 450px;}
             .floating-chat-btn { width: 55px; height: 55px; bottom: 20px; right: 20px; font-size: 1.5rem;}
             
-            .header-social a { width: 32px; height: 32px; }
+            .header-social a { width: 34px; height: 34px; }
             .header-social a svg { width: 16px; height: 16px; }
-            .header-social { margin-right: 5px; gap: 8px; }
+            .header-social { margin-right: 4px; gap: 6px; }
         }
     </style>
 </head>
@@ -591,7 +591,7 @@
         </div>
     </a>
     <div class="nav-right">
-        <!-- ADDED SOCIAL ICONS -->
+        <!-- PERFECTLY CENTERED SOCIAL ICONS -->
         <div class="header-social">
             <a href="https://t.me/deblevate_admin_bot" target="_blank" class="tg-icon" title="Telegram">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.21 3.45-.49.33-.94.5-1.34.49-.44-.01-1.28-.24-1.9-.44-.76-.24-1.36-.37-1.31-.78.02-.21.32-.42.89-.63 3.5-1.52 5.84-2.53 7.01-3.02 3.33-1.39 4.02-1.63 4.47-1.64.1 0 .32.02.46.14.12.09.15.22.16.33.02.1.02.21.01.31z"/></svg>
@@ -656,7 +656,7 @@
         <div class="studio-container">
             <div class="main-content">
                 
-                <!-- RESUME PROMPT NOTIFICATION BAR (ABOVE VIDEO) -->
+                <!-- RESUME PROMPT NOTIFICATION BAR -->
                 <div id="resume-banner">
                     <div class="resume-text">
                         <span>⚡</span> Resume playback from where you left off?
@@ -686,7 +686,7 @@
                         <button id="btn-wow" class="reaction-btn" onclick="triggerReaction('wow')">😲 <span id="wow-count">0</span></button>
                         <button id="btn-sad" class="reaction-btn" onclick="triggerReaction('sad')">😢 <span id="sad-count">0</span></button>
                     </div>
-                    <div id="reaction-names-display" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; min-height: 20px;"></div>
+                    <div id="reaction-names-display" style="margin-top: 8px; font-size: 0.85rem; color: var(--accent-cyan); font-weight: 600; min-height: 20px;"></div>
                 </div>
 
                 <!-- TOGGLEABLE CLASS MATERIALS SECTION -->
@@ -705,7 +705,7 @@
                     </div>
                 </div>
 
-                <!-- HORIZONTAL PLAYLIST SECTION (Like Image 1) -->
+                <!-- HORIZONTAL PLAYLIST SECTION -->
                 <div class="playlist-section">
                     <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
                     <div class="horizontal-playlist" id="playlistView">
@@ -897,7 +897,6 @@
       "Rangunia Government College", "Satkania Government College", "Sir Ashutosh Government College", "Uttar Kattoli Alhaz Mostafa Hakim University College"
   ];
 
-  // Loader display check
   if (!sessionStorage.getItem('deblevate_visited')) {
       sessionStorage.setItem('deblevate_visited', 'true');
       const loader = document.getElementById('global-loader');
@@ -1319,7 +1318,6 @@ document.onkeydown = function(e) {
     if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
         return false;
     }
-    // F key shortcut for Fullscreen
     if ((e.key === 'f' || e.key === 'F') && window.plyrPlayer && document.activeElement.tagName !== 'INPUT') {
         window.plyrPlayer.fullscreen.toggle();
     }
@@ -1381,7 +1379,6 @@ const courseData = {
         { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
     ]},
     
-    /* 🌿 Botany - Rajib Sir */
     course6: { sub: "biology", title: "🌿 ১ম পত্র: উদ্ভিদবিজ্ঞান (Rajib Sir)", img: "WQ-f52E61i0", videos: [
         { title: "১. কোষ ও এর গঠন (Cell & Its Structure) - CQ", id: "WQ-f52E61i0", sheet: "" },
         { title: "১. কোষ ও এর গঠন - MCQ", id: "rK25BTW72Lk", sheet: "" },
@@ -1403,7 +1400,6 @@ const courseData = {
         { title: "৯. জীবপ্রযুক্তি - MCQ", id: "eH3Y2KnN-aw", sheet: "" }
     ]},
 
-    /* 🐾 Zoology - Rajib Sir */
     course7: { sub: "biology", title: "🐾 ২য় পত্র: প্রাণিবিজ্ঞান (Rajib Sir)", img: "LrklqNYuQc4", videos: [
         { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস (Animal Diversity & Classification) - CQ", id: "LrklqNYuQc4", sheet: "" },
         { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস - MCQ", id: "onWu2kujIR8", sheet: "" },
@@ -1425,7 +1421,6 @@ const courseData = {
         { title: "৯. জিনতত্ত্ব ও বিবর্তন (Genetics & Evolution) - MCQ", id: "Mtia3cpqwRI", sheet: "" }
     ]},
 
-    /* 🌿 Botany - Fahad's Biology Mcq Hacks */
     course22: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান মাস্টারক্লাস (Fahad's Biology Mcq Hacks)", img: "VuDg0aOIbgs", videos: [
         { title: "1. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
         { title: "2. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
@@ -1445,7 +1440,6 @@ const courseData = {
         { title: "16. জীবের পরিবেশ, বিস্তার ও সংরক্ষণ", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
     ]},
 
-    /* 🐾 Zoology - Fahad's Biology Mcq Hacks */
     course32: { sub: "biology", title: "🐾 প্রাণিবিজ্ঞান মাস্টারক্লাস (Fahad's Biology Mcq Hacks)", img: "huWPpDlRzGs", videos: [
         { title: "1. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
         { title: "2. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
@@ -1526,7 +1520,6 @@ const courseData = {
         { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
     ]},
     
-    /* 💻 Sheroare Hossain Emon - ICT CQ */
     course17: { sub: "ict", title: "ICT CQ Complete Preparation by Sheroare Hossain Emon", img: "hOoUDyqzHiI", videos: [
         { title: "প্রোগ্রামিং ভাষা - Programing One Shot Revision Class ! 🚀", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
         { title: "ওয়েব ডিজাইন ও HTML - Web Design One Shot 🔥", id: "jflnzv-Obag", sheet: ictCqSheetFolder },
@@ -1543,7 +1536,6 @@ const courseData = {
         { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
     ]},
 
-    /* 📐 Abhi Dada - Higher Math */
     course19: { sub: "math", title: "Higher Math Masterclass by Abhi Dada", img: "67B9P3TgKa8", videos: [
         { title: "১ ক্লাসে ম্যাট্রিক্স ও নির্ণায়ক ১০০% কমপ্লিট 🔥", id: "67B9P3TgKa8", sheet: mathSheet },
         { title: "১ ক্লাসে ভেক্টর ১০০% কমপ্লিট 🔥", id: "uFGOaRvfFZA", sheet: mathSheet },
@@ -1567,7 +1559,6 @@ const courseData = {
         { title: "১ ক্লাসে সম্ভাবনা ১০০% কমপ্লিট 🔥", id: "ioJGYawWJE0", sheet: mathSheet }
     ]},
 
-    /* 📐 Rakib Bhai - Higher Math */
     course20: { sub: "math", title: "Higher Math Masterclass by Rakib Bhai", img: "KtqyZ-ANMUk", videos: [
         { title: "ম্যাট্রিক্স ও নির্ণায়ক ক্যালকুলেটর শর্টকাট", id: "KtqyZ-ANMUk", sheet: mathSheet },
         { title: "ভেক্টর ওয়ান শট", id: "JLuKC_yxoWs", sheet: mathSheet },
@@ -1592,7 +1583,6 @@ const courseData = {
         { title: "সম্ভাবনা", id: "9wdcmsJcHXI", sheet: mathSheet }
     ]},
 
-    /* 🧪 AR BHAI - CHEMISTRY MASTERCLASS */
     course21: { sub: "chemistry", title: "🧪 Chemistry Masterclass (AR Bhai)", img: "7Y-HJhO3kU0", videos: [
         { title: "গুণগত রসায়ন -CQ", id: "7Y-HJhO3kU0", sheet: "" },
         { title: "গুণগত রসায়ন -MCQ", id: "GHUweO9UzFM", sheet: "" },
@@ -1609,10 +1599,8 @@ const courseData = {
         { title: "পরিবেশ রসায়ন MCQ", id: "158RXVE-MJo", sheet: "" },
         { title: "রাসায়নিক পরিবর্তন CQ", id: "CHJYjLUc9Sc", sheet: "" },
         { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" },
-        
     ]},
 
-    /* 🧮 Calculator Hacks Masterclass (Rakib Bhai) */
     course23: { sub: "math", title: "🧮 Calculator Hacks Masterclass (Rakib Bhai)", img: "vqUuah_v9w0", videos: [
         { title: "ম্যাট্রিক্স ও নির্ণায়ক ক্যালকুলেটর শর্টকাট", id: "vqUuah_v9w0", sheet: "" },
         { title: "ত্রিকোণমিতি ক্যালকুলেটর শর্টকাট", id: "ZiquEjEEidY", sheet: "" },
@@ -1625,7 +1613,6 @@ const courseData = {
         { title: "আইসিটি (ICT) ক্যালকুলেটর শর্টকাট", id: "Rbsj9_40-bA", sheet: "" }
     ]},
 
-    /* ⚡ Physics 2nd Paper One Shot (Sheroare Emon Bhai) */
     course24: { sub: "physics", title: "⚡ Physics 2nd Paper One Shot (Sheroare Emon Bhai)", img: "syrne0alvLA", videos: [
         { title: "ওয়ান শট রিভিশন | তাপগতিবিদ্যা", id: "syrne0alvLA", sheet: "" },
         { title: "ওয়ান শট রিভিশন | স্থির তড়িৎ", id: "J3-2FuXBygs", sheet: "" },
@@ -1641,7 +1628,6 @@ const courseData = {
         { title: "পদার্থবিজ্ঞান ২য় পত্র বোর্ড CQ সলভ", id: "tQHSM5LaONc", sheet: "" }
     ]},
 
-    /* ⚡ Physics 1st Paper One Shot (Sheroare Emon Bhai) */
     course25: { sub: "physics", title: "⚡ Physics 1st Paper One Shot (Sheroare Emon Bhai)", img: "n8b09hq7qQM", videos: [
         { title: "ওয়ান শট রিভিশন | পর্যাবৃত্ত গতি", id: "n8b09hq7qQM", sheet: "" },
         { title: "ওয়ান শট রিভিশন | আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব", id: "1IVhi8tDoJw", sheet: "" },
@@ -1650,7 +1636,6 @@ const courseData = {
         { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" },
     ]},
 
-    /* 🎯 Physics CQ One Shot (Apurbo & Mashrur Series) */
     course26: { sub: "physics", title: "🎯 Physics CQ One Shot (Apurbo & Mashrur Series)", img: "pc42PaR2OE8", videos: [
         { title: "HSC ONESHOT | ভেক্টর CQ SOLVING", id: "pc42PaR2OE8", sheet: "" },
         { title: "HSC ONESHOT | গতিবিদ্যা CQ SOLVING", id: "9oxhLHSATYM", sheet: "" },
@@ -1669,7 +1654,6 @@ const courseData = {
         { title: "HSC ONESHOT | সেমিকন্ডাক্টর CQ SOLVING", id: "wCBMLjQ_2BM", sheet: "" }
     ]},
 
-    /* 🧪 Chemistry One Shot Masterclass (Pahlovi Bhai) */
     course27: { sub: "chemistry", title: "🧪 Chemistry One Shot Masterclass (Pahlovi Bhai)", img: "y7NJqUQ5F9o", videos: [
         { title: "ONE SHOT | গুণগত রসায়ন", id: "y7NJqUQ5F9o", sheet: "" },
         { title: "ONE SHOT | পরিমাণগত রসায়ন", id: "zl96gik6QxQ", sheet: "" },
@@ -1681,7 +1665,6 @@ const courseData = {
         { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" },
     ]},
 
-    /* 🧪 Chemistry CQ One Shot (Sanjay Sir) */
     course28: { sub: "chemistry", title: "🧪 Chemistry CQ One Shot (Sanjay Sir)", img: "9a9s24DBBi0", videos: [
         { title: "গুণগত রসায়ন | বোর্ড CQ সলভ", id: "9a9s24DBBi0", sheet: "" },
         { title: "মৌলের পর্যায়বৃত্ত ধর্ম | বোর্ড CQ সলভ", id: "FGG7Jbb-wwA", sheet: "" },
@@ -1690,7 +1673,6 @@ const courseData = {
         { title: "জৈব রসায়ন | বোর্ড CQ সলভ", id: "AK30NGQSQhQ", sheet: "" }
     ]},
 
-    /* 🧪 Chemistry MCQ One Shot (Sanjay Sir) */
     course29: { sub: "chemistry", title: "🧪 Chemistry MCQ One Shot (Sanjay Sir)", img: "_5TLvMuGsRI", videos: [
         { title: "গুণগত রসায়ন | MCQ Boost", id: "_5TLvMuGsRI", sheet: "" },
         { title: "মৌলের পর্যায়বৃত্ত ধর্ম | MCQ Boost", id: "EKRKRMISk08", sheet: "" },
@@ -1699,7 +1681,6 @@ const courseData = {
         { title: "জৈব রসায়ন (এলিফেটিক)| MCQ Boost", id: "ZQT6obCMGNE", sheet: "" }
     ]},
 
-    /* SAKIB BHAI FULL MCQ ONE SOTS */
     course30: { sub: "chemistry", title: "🧪 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ 🔥 (Sakib Bhai)", img: "vPhcbeaYhlA", videos: [
         { title: "🔥 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ - Md Nazmus Sakib", id: "vPhcbeaYhlA", sheet: "" }
     ]},
@@ -1730,8 +1711,6 @@ function renderAllCourses() {
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('player-view').style.display = 'none';
-    
-    // ড্যাশবোর্ডে ফিরলে হেডার আবার শো করবে
     document.querySelector('header').style.display = 'flex';
     
     if(window.plyrPlayer) { window.plyrPlayer.stop(); }
@@ -1747,14 +1726,11 @@ function filterSubject(sub, btn) {
     });
 }
 
-/* ⚡ INSTANT OPEN COURSE FUNCTION ⚡ */
 function openCourse(key, targetVidIndex = 0) {
     window.currentCourseKey = key;
     
     document.getElementById('home-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
-    
-    // ভিডিও প্লেয়ারে ঢুকলে হেডার হাইড করে দিবে (নতুন পেজের মত ভিউ)
     document.querySelector('header').style.display = 'none';
     
     const data = courseData[key];
@@ -1868,7 +1844,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
         });
     }
 
-    /* SLIDE / MATERIAL TOGGLE SETUP */
     const materialsSection = document.getElementById("materialsSection");
     const slideFrameContainer = document.getElementById("slideFrameContainer");
     const slideIframe = document.getElementById("slideIframe");
