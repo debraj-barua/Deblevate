@@ -324,7 +324,7 @@
         .floating-chat-btn svg { width: 24px; height: 24px; fill: var(--accent-cyan); }
 
         .floating-chat-panel {
-            position: fixed; bottom: 95px; right: 25px; width: 340px; height: 460px;
+            position: fixed; bottom: 95px; right: 25px; width: 340px; height: 480px;
             background: rgba(15, 8, 25, 0.96); border: 1px solid rgba(147,51,234,0.4);
             border-radius: 16px; backdrop-filter: blur(25px); z-index: 1000;
             display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
@@ -351,7 +351,20 @@
         .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
         
         .chat-reply-preview { font-size: 0.75rem; background: rgba(0,0,0,0.3); border-left: 2px solid var(--accent-cyan); padding: 3px 6px; margin-bottom: 4px; border-radius: 4px; color: #cbd5e1; }
+        
+        /* Message Reactions Display */
+        .msg-reactions-container { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+        .msg-reaction-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(147,51,234,0.3); border-radius: 12px; padding: 2px 6px; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 3px; color: #fff; }
+        .msg-reaction-badge:hover { background: rgba(147,51,234,0.3); }
+
+        /* Reaction Popup Box */
+        .msg-reaction-picker { position: absolute; bottom: 100%; right: 10px; background: rgba(15, 8, 25, 0.95); border: 1px solid var(--accent-purple); border-radius: 20px; padding: 4px 10px; display: none; gap: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.8); z-index: 20; }
+        .msg-reaction-picker span { font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; }
+        .msg-reaction-picker span:hover { transform: scale(1.3); }
+
         .comment-actions { position: absolute; right: 6px; top: 6px; display: flex; gap: 4px; align-items: center; }
+        .comment-react-btn { background: transparent; border: none; color: var(--accent-gold); cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: 0.2s; }
+        .comment-react-btn:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-gold); }
         .comment-reply-btn { background: transparent; border: none; color: var(--accent-purple-light); cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: 0.2s; }
         .comment-reply-btn:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-purple-light); }
         .comment-delete-btn { background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.75rem; opacity: 0.4; transition: 0.2s; }
@@ -359,6 +372,13 @@
         
         .replying-banner { display: none; padding: 6px 12px; background: rgba(147,51,234,0.15); border-top: 1px solid rgba(147,51,234,0.3); font-size: 0.75rem; align-items: center; justify-content: space-between; color: var(--accent-purple-light); }
         .replying-banner button { background: transparent; border: none; color: #f87171; cursor: pointer; font-weight: bold; }
+
+        /* Typing indicator styling */
+        .typing-indicator-box { padding: 4px 12px; font-size: 0.75rem; color: var(--accent-cyan); font-style: italic; min-height: 20px; background: rgba(10,5,20,0.9); border-top: 1px solid rgba(147,51,234,0.1); display: none; align-items: center; gap: 5px; }
+        .typing-dots span { height: 5px; width: 5px; background: var(--accent-cyan); border-radius: 50%; display: inline-block; animation: typingBounce 1.4s infinite ease-in-out both; }
+        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
 
         .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 8px; align-items: center; position: relative;}
         .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 8px 12px; border-radius: 18px; outline: none; font-size: 0.85rem; transition: 0.3s; }
@@ -374,6 +394,10 @@
         .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; flex-shrink: 0;}
         .send-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 0 10px var(--accent-cyan); }
         .send-btn svg { width: 16px; height: 16px; fill: #000; margin-left: 2px; }
+
+        /* Seen status ticks styling */
+        .msg-seen-status { font-size: 0.65rem; color: #94a3b8; float: right; margin-left: 5px; font-weight: bold; }
+        .msg-seen-status.seen { color: var(--accent-cyan); }
 
         footer {
             background: linear-gradient(to top, rgba(5, 2, 10, 0.98), rgba(15, 8, 28, 0.95));
@@ -440,7 +464,7 @@
             .video-title { font-size: 1.1rem; }
             .slide-frame-container { height: 400px; }
             
-            .floating-chat-panel { width: calc(100% - 30px); right: 15px; bottom: 85px; height: 380px;}
+            .floating-chat-panel { width: calc(100% - 30px); right: 15px; bottom: 85px; height: 400px;}
             .floating-chat-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 1.3rem;}
             
             .header-social a { width: 34px; height: 34px; }
@@ -687,6 +711,11 @@
                 <button onclick="cancelReply()">✕</button>
             </div>
 
+            <div id="typingIndicatorBox" class="typing-indicator-box">
+                <span id="typingNamesText">Someone is typing</span>
+                <div class="typing-dots"><span></span><span></span><span></span></div>
+            </div>
+
             <div class="emoji-dropdown" id="emojiDropdown">
                 <span onclick="insertEmoji('😀')">😀</span>
                 <span onclick="insertEmoji('😂')">😂</span>
@@ -704,7 +733,7 @@
 
             <div class="chat-input-container">
                 <button class="emoji-picker-btn" onclick="toggleEmojiDropdown()" title="Add Emoji">😊</button>
-                <input type="text" id="chatInput" placeholder="Message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
+                <input type="text" id="chatInput" placeholder="Message..." oninput="handleTypingInput()" onkeypress="if(event.key === 'Enter') handleChatSubmit()">
                 <button class="send-btn" onclick="handleChatSubmit()">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                 </button>
@@ -821,6 +850,7 @@
   
   document.getElementById('logoutBtnUI').onclick = () => { 
       if(window.currentUserRef) { remove(window.currentUserRef); }
+      if(window.typingRef) { remove(window.typingRef); }
       sessionStorage.removeItem('deblevate_state');
       signOut(window.auth); 
       if(window.plyrPlayer) window.plyrPlayer.stop(); 
@@ -1168,6 +1198,7 @@
       if (isBadWord || isPhoneSpam) {
           alert("⚠️ আপনার মেসেজে অশালীন শব্দ বা যোগাযোগের তথ্য থাকার কারণে এটি ব্লক করা হয়েছে!");
           input.value = "";
+          window.stopTypingIndicator();
           return;
       }
 
@@ -1177,7 +1208,8 @@
           uid: window.auth.currentUser.uid,
           author: window.globalIdentityName,
           text: text,
-          timestamp: Date.now()
+          timestamp: Date.now(),
+          seen: false
       };
 
       if (window.replyingToMessage) {
@@ -1190,6 +1222,34 @@
       input.value = "";
       window.cancelReply();
       document.getElementById('emojiDropdown').style.display = 'none';
+      window.stopTypingIndicator();
+  };
+
+  let typingTimer = null;
+  window.windowTypingRef = null;
+
+  window.handleTypingInput = function() {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      
+      const uid = window.auth.currentUser.uid;
+      const typingRefPath = dbRef(window.db, `typing_status/${window.currentCourseKey}/${window.currentVideoId}/${uid}`);
+
+      set(typingRefPath, {
+          name: window.globalIdentityName,
+          timestamp: Date.now()
+      });
+
+      if (typingTimer) clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => {
+          remove(typingRefPath).catch(()=>{});
+      }, 2500);
+  };
+
+  window.stopTypingIndicator = function() {
+      if (window.auth.currentUser && window.currentCourseKey && window.currentVideoId) {
+          const uid = window.auth.currentUser.uid;
+          remove(dbRef(window.db, `typing_status/${window.currentCourseKey}/${window.currentVideoId}/${uid}`)).catch(()=>{});
+      }
   };
 
   window.setReplyTo = function(id, author, text) {
@@ -1213,6 +1273,28 @@
       const input = document.getElementById('chatInput');
       input.value += emoji;
       input.focus();
+      window.handleTypingInput();
+  };
+
+  window.toggleMessageReactionPicker = function(msgId) {
+      const picker = document.getElementById(`picker-${msgId}`);
+      if (picker) {
+          picker.style.display = (picker.style.display === 'flex') ? 'none' : 'flex';
+      }
+  };
+
+  window.reactToMessage = function(msgId, emoji) {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      const uid = window.auth.currentUser.uid;
+      const reactionPath = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}/${msgId}/message_reactions/${uid}`);
+      
+      set(reactionPath, {
+          emoji: emoji,
+          name: window.globalIdentityName
+      });
+      
+      const picker = document.getElementById(`picker-${msgId}`);
+      if(picker) picker.style.display = 'none';
   };
 
   window.requestCommentDeletion = function(commentId, authorUid) {
@@ -1250,12 +1332,14 @@
 
   let activeChatListenerRef = null;
   let activeReactionListenerRef = null;
+  let activeTypingListenerRef = null;
 
   window.setupLiveFeatures = function(courseKey, videoId) {
       if (!window.auth.currentUser) return;
 
       if (activeChatListenerRef) off(activeChatListenerRef);
       if (activeReactionListenerRef) off(activeReactionListenerRef);
+      if (activeTypingListenerRef) off(activeTypingListenerRef);
 
       const chatBox = document.getElementById('chatMessagesBox');
       chatBox.innerHTML = ""; 
@@ -1274,18 +1358,86 @@
           const now = Date.now();
           const twentyFourHours = 24 * 60 * 60 * 1000;
 
-          // Disappearing message check (24 hours expiry)
           if (now - data.timestamp > twentyFourHours) {
-              remove(snapshot.ref); // Auto-delete expired msg from DB
+              remove(snapshot.ref); 
               return;
           }
 
-          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText);
+          // Mark message as seen if it belongs to someone else and not yet seen
+          if (data.uid !== window.auth.currentUser.uid && !data.seen) {
+              update(snapshot.ref, { seen: true });
+          }
+
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions);
+      });
+
+      onValue(activeChatListenerRef, (snapshot) => {
+          // Listen for seen or reactions updates on existing items
+          const allMsgs = snapshot.val() || {};
+          Object.keys(allMsgs).forEach(msgKey => {
+              const msgData = allMsgs[msgKey];
+              const domEl = document.getElementById(`msg-${msgKey}`);
+              if (domEl) {
+                  // Update seen status visual
+                  const seenSpan = domEl.querySelector('.msg-seen-status');
+                  if (seenSpan && msgData.uid === window.auth.currentUser.uid) {
+                      if (msgData.seen) {
+                          seenSpan.innerText = "✓✓ Seen";
+                          seenSpan.className = "msg-seen-status seen";
+                      }
+                  }
+
+                  // Update individual reactions badges container
+                  const reactionsBox = domEl.querySelector('.msg-reactions-container');
+                  if (reactionsBox) {
+                      let reactionsHtml = "";
+                      if (msgData.message_reactions) {
+                          let countsMap = {};
+                          Object.values(msgData.message_reactions).forEach(r => {
+                              countsMap[r.emoji] = (countsMap[r.emoji] || 0) + 1;
+                          });
+                          for (const [em, count] of Object.entries(countsMap)) {
+                              reactionsHtml += `<span class="msg-reaction-badge">${em} ${count}</span>`;
+                          }
+                      }
+                      reactionsBox.innerHTML = reactionsHtml;
+                  }
+              }
+          });
       });
 
       onChildRemoved(activeChatListenerRef, (snapshot) => {
           const domEl = document.getElementById(`msg-${snapshot.key}`);
           if(domEl) domEl.remove();
+      });
+
+      // Typing status listener
+      const typingNodeRef = dbRef(window.db, `typing_status/${courseKey}/${videoId}`);
+      activeTypingListenerRef = typingNodeRef;
+      
+      onValue(typingNodeRef, (snapshot) => {
+          const typingData = snapshot.val() || {};
+          const myUid = window.auth.currentUser.uid;
+          let activeTypers = [];
+
+          const now = Date.now();
+          for (const [tUid, tVal] of Object.entries(typingData)) {
+              if (tUid !== myUid && (now - tVal.timestamp < 3000)) {
+                  activeTypers.push(tVal.name);
+              }
+          }
+
+          const typingBox = document.getElementById('typingIndicatorBox');
+          const typingText = document.getElementById('typingNamesText');
+
+          if (activeTypers.length > 0) {
+              let nameStr = activeTypers.slice(0, 2).join(", ");
+              if (activeTypers.length > 2) nameStr += " and others";
+              typingText.innerText = `${nameStr} typing...`;
+              typingBox.style.display = "flex";
+          } else {
+              typingBox.style.display = "none";
+          }
       });
 
       activeReactionListenerRef = dbRef(window.db, `reactions/${courseKey}/${videoId}`);
@@ -1334,7 +1486,7 @@
       });
   };
 
-  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText) {
+  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions) {
       const chatBox = document.getElementById('chatMessagesBox');
       
       const currentAdminEmail = window.auth.currentUser ? window.auth.currentUser.email.toLowerCase() : "";
@@ -1349,7 +1501,28 @@
           replyPreviewHtml = `<div class="chat-reply-preview">↳ <b>${replyAuthor}</b>: ${replyText}</div>`;
       }
 
+      let seenHtml = "";
+      if (isSelf) {
+          if (seen) {
+              seenHtml = `<span class="msg-seen-status seen">✓✓ Seen</span>`;
+          } else {
+              seenHtml = `<span class="msg-seen-status">✓ Delivered</span>`;
+          }
+      }
+
+      let reactionsHtml = "";
+      if (messageReactions) {
+          let countsMap = {};
+          Object.values(messageReactions).forEach(r => {
+              countsMap[r.emoji] = (countsMap[r.emoji] || 0) + 1;
+          });
+          for (const [em, count] of Object.entries(countsMap)) {
+              reactionsHtml += `<span class="msg-reaction-badge">${em} ${count}</span>`;
+          }
+      }
+
       let actionsMarkup = `<div class="comment-actions">
+          <button class="comment-react-btn" onclick="toggleMessageReactionPicker('${msgId}')" title="React">😊</button>
           <button class="comment-reply-btn" onclick="setReplyTo('${msgId}', '${author}', \`${text.replace(/`/g, '')}\`)" title="Reply">↩</button>`;
       
       if (isSelf || isSystemAdmin) {
@@ -1357,7 +1530,16 @@
       }
       actionsMarkup += `</div>`;
 
-      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${text} ${actionsMarkup}`;
+      // Picker popup for message reactions
+      let pickerMarkup = `<div id="picker-${msgId}" class="msg-reaction-picker">
+          <span onclick="reactToMessage('${msgId}', '👍')">👍</span>
+          <span onclick="reactToMessage('${msgId}', '❤️')">❤️</span>
+          <span onclick="reactToMessage('${msgId}', '🔥')">🔥</span>
+          <span onclick="reactToMessage('${msgId}', '😂')">😂</span>
+          <span onclick="reactToMessage('${msgId}', '😮')">😮</span>
+      </div>`;
+
+      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${text} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
       chatBox.appendChild(div);
       scrollToBottomChat();
   }
