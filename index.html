@@ -327,6 +327,10 @@
             border-radius: 16px; backdrop-filter: blur(25px); z-index: 1000;
             display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             overflow: hidden; animation: slideUpChat 0.3s ease-out;
+            transition: width 0.3s ease, height 0.3s ease, bottom 0.3s ease, right 0.3s ease;
+        }
+        .floating-chat-panel.expanded {
+            width: 100vw !important; height: 100vh !important; bottom: 0 !important; right: 0 !important; border-radius: 0 !important;
         }
         @keyframes slideUpChat { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -334,16 +338,19 @@
             display: flex; justify-content: space-between; align-items: center;
             padding: 10px 15px; background: rgba(5, 2, 10, 0.9); border-bottom: 1px solid rgba(147,51,234,0.25);
         }
+        .chat-header div { display: flex; align-items: center; gap: 8px; }
         .chat-header span { font-weight: 800; color: #fff; font-size: 0.95rem; }
         .chat-online-badge { background: rgba(16, 185, 129, 0.15); color: #10b981 !important; padding: 3px 8px; border-radius: 20px; font-size: 0.7rem !important; display: flex; align-items: center; gap: 5px; border: 1px solid rgba(16, 185, 129, 0.3);}
-        .close-chat-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer; }
-        .close-chat-btn:hover { color: #f87171; }
+        
+        .chat-header-actions { display: flex; gap: 8px; align-items: center; }
+        .chat-expand-btn, .close-chat-btn { background: transparent; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer; transition: 0.2s; }
+        .chat-expand-btn:hover, .close-chat-btn:hover { color: var(--accent-cyan); }
 
         .chat-messages { flex-grow: 1; padding: 12px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; scroll-behavior: smooth;}
         .chat-messages::-webkit-scrollbar { width: 4px; }
         .chat-messages::-webkit-scrollbar-thumb { background: rgba(147,51,234,0.5); border-radius: 10px; }
 
-        .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 8px 12px; padding-right: 45px; border-radius: 10px; border-top-left-radius: 2px; font-size: 0.85rem; color: #e2e8f0; line-height: 1.3; word-break: break-word; }
+        .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 8px 12px; padding-right: 55px; border-radius: 10px; border-top-left-radius: 2px; font-size: 0.85rem; color: #e2e8f0; line-height: 1.3; word-break: break-word; }
         .chat-msg.self { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); border-top-left-radius: 10px; border-top-right-radius: 2px; align-self: flex-end; }
         .chat-author { font-size: 0.7rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 3px; display: block; }
         .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
@@ -358,12 +365,14 @@
         .msg-reaction-picker span { font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; }
         .msg-reaction-picker span:hover { transform: scale(1.3); }
 
-        .comment-actions { position: absolute; right: 6px; top: 6px; display: flex; gap: 4px; align-items: center; }
-        .comment-react-btn { background: transparent; border: none; color: var(--accent-gold); cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: 0.2s; }
+        .comment-actions { position: absolute; right: 6px; top: 6px; display: flex; gap: 3px; align-items: center; }
+        .comment-react-btn { background: transparent; border: none; color: var(--accent-gold); cursor: pointer; font-size: 0.7rem; opacity: 0.6; transition: 0.2s; }
         .comment-react-btn:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-gold); }
-        .comment-reply-btn { background: transparent; border: none; color: var(--accent-purple-light); cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: 0.2s; }
+        .comment-edit-btn { background: transparent; border: none; color: var(--accent-cyan); cursor: pointer; font-size: 0.7rem; opacity: 0.6; transition: 0.2s; }
+        .comment-edit-btn:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-cyan); }
+        .comment-reply-btn { background: transparent; border: none; color: var(--accent-purple-light); cursor: pointer; font-size: 0.7rem; opacity: 0.6; transition: 0.2s; }
         .comment-reply-btn:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-purple-light); }
-        .comment-delete-btn { background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.75rem; opacity: 0.4; transition: 0.2s; }
+        .comment-delete-btn { background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.7rem; opacity: 0.4; transition: 0.2s; }
         .comment-delete-btn:hover { opacity: 1; text-shadow: 0 0 8px #f87171; }
         
         .replying-banner { display: none; padding: 6px 12px; background: rgba(147,51,234,0.15); border-top: 1px solid rgba(147,51,234,0.3); font-size: 0.75rem; align-items: center; justify-content: space-between; color: var(--accent-purple-light); }
@@ -375,13 +384,11 @@
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
 
-        /* Fullscreen Image Modal Viewer */
-        #imageViewerModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 99999; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        #imageViewerModal img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; border: 2px solid var(--accent-cyan); box-shadow: 0 0 30px rgba(6,182,212,0.4); }
-        #imageViewerClose { position: absolute; top: 20px; right: 30px; background: transparent; border: none; color: #fff; font-size: 2rem; cursor: pointer; font-weight: bold; }
-
         .chat-media-content { margin-top: 6px; margin-bottom: 4px; border-radius: 8px; overflow: hidden; max-width: 220px; background: #000; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .chat-media-content img, .chat-media-content video { width: 100%; display: block; max-height: 160px; object-fit: cover; }
+        
+        .chat-audio-content { margin-top: 6px; margin-bottom: 4px; }
+        .chat-audio-content audio { width: 220px; height: 35px; }
 
         .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 6px; align-items: center; position: relative;}
         .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 8px 10px; border-radius: 18px; outline: none; font-size: 0.85rem; transition: 0.3s; }
@@ -408,6 +415,10 @@
 
         .msg-seen-status { font-size: 0.65rem; color: #94a3b8; float: right; margin-left: 5px; font-weight: bold; }
         .msg-seen-status.seen { color: var(--accent-cyan); }
+
+        #imageViewerModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 99999; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        #imageViewerModal img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; border: 2px solid var(--accent-cyan); box-shadow: 0 0 30px rgba(6,182,212,0.4); }
+        #imageViewerClose { position: absolute; top: 20px; right: 30px; background: transparent; border: none; color: #fff; font-size: 2rem; cursor: pointer; font-weight: bold; }
 
         footer {
             background: linear-gradient(to top, rgba(5, 2, 10, 0.98), rgba(15, 8, 28, 0.95));
@@ -490,7 +501,6 @@
     <div class="loader-text">Deblevate is Preparing...</div>
 </div>
 
-<!-- Fullscreen Image Modal Viewer -->
 <div id="imageViewerModal">
     <button id="imageViewerClose" onclick="closeImageViewer()">✕</button>
     <img id="fullScreenImageElement" src="" alt="Full Screen Preview">
@@ -713,11 +723,14 @@
 
         <div class="floating-chat-panel" id="floatingChatPanel">
             <div class="chat-header">
-                <div style="display:flex; align-items:center; gap:8px;">
+                <div>
                     <span>লাইভ চ্যাট</span>
                     <span class="chat-online-badge"><span class="pulse-dot-small"></span><span id="chatOnlineCount">1</span> জন</span>
                 </div>
-                <button class="close-chat-btn" onclick="toggleChat()">✕</button>
+                <div class="chat-header-actions">
+                    <button class="chat-expand-btn" id="chatExpandBtn" onclick="toggleChatExpand()" title="Expand Fullscreen">⛶</button>
+                    <button class="close-chat-btn" onclick="toggleChat()">✕</button>
+                </div>
             </div>
             
             <div class="chat-messages" id="chatMessagesBox"></div>
@@ -746,6 +759,8 @@
                 <button class="chat-action-icon-btn" onclick="document.getElementById('chatImageUpload').click()" title="Send Photo/Video">📷</button>
                 <input type="file" id="chatImageUpload" accept="image/*,video/*" style="display:none" onchange="handleMediaUpload(event)">
                 
+                <button id="vmRecordBtn" class="chat-action-icon-btn" onclick="toggleVoiceRecording()" title="Voice Message">🎤</button>
+
                 <input type="text" id="chatInput" placeholder="Type a message or paste screenshot (Ctrl+V)..." oninput="handleTypingInput()" onkeypress="if(event.key === 'Enter') handleChatSubmit()">
                 
                 <button class="send-btn" onclick="handleChatSubmit()">
@@ -858,6 +873,7 @@
   window.userProfileData = null; 
   window.systemInitialized = false;
   window.replyingToMessage = null;
+  window.editingMessageId = null;
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(window.auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(window.auth, provider);
@@ -1068,10 +1084,11 @@
           let photoUrl = window.userProfileData?.photoUrl || user.photoURL || "";
 
           if (file) {
-              const ext = file.name.split('.').pop();
-              const sRef = storageRef(window.storage, `profile_pictures/${user.uid}_${Date.now()}.${ext}`);
-              await uploadBytes(sRef, file);
-              photoUrl = await getDownloadURL(sRef);
+              const reader = new FileReader();
+              photoUrl = await new Promise((resolve) => {
+                  reader.onload = (e) => resolve(e.target.result);
+                  reader.readAsDataURL(file);
+              });
           }
 
           const profileData = { name, photoUrl, batch, classLevel, phonePersonal: phone1, phoneSecondary: phone2, institution: inst, email: user.email };
@@ -1218,25 +1235,47 @@
 
       const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
       
-      let newMsgPayload = {
-          uid: window.auth.currentUser.uid,
-          author: window.globalIdentityName,
-          text: text,
-          timestamp: Date.now(),
-          seen: false
-      };
+      if (window.editingMessageId) {
+          // Update existing message text
+          const targetMsgRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}/${window.editingMessageId}`);
+          update(targetMsgRef, { text: text, edited: true });
+          window.cancelEdit();
+      } else {
+          let newMsgPayload = {
+              uid: window.auth.currentUser.uid,
+              author: window.globalIdentityName,
+              text: text,
+              timestamp: Date.now(),
+              seen: false
+          };
 
-      if (window.replyingToMessage) {
-          newMsgPayload.replyToId = window.replyingToMessage.id;
-          newMsgPayload.replyToAuthor = window.replyingToMessage.author;
-          newMsgPayload.replyToText = window.replyingToMessage.text;
+          if (window.replyingToMessage) {
+              newMsgPayload.replyToId = window.replyingToMessage.id;
+              newMsgPayload.replyToAuthor = window.replyingToMessage.author;
+              newMsgPayload.replyToText = window.replyingToMessage.text;
+          }
+
+          push(chatRef, newMsgPayload);
       }
 
-      push(chatRef, newMsgPayload);
       input.value = "";
       window.cancelReply();
       document.getElementById('whatsappEmojiPanel').style.display = 'none';
       window.stopTypingIndicator();
+  };
+
+  window.editMessage = function(msgId, currentText) {
+      window.editingMessageId = msgId;
+      document.getElementById('chatInput').value = currentText;
+      document.getElementById('replyBannerText').innerText = `Editing message: "${currentText.substring(0, 30)}..."`;
+      document.getElementById('replyingBanner').style.display = 'flex';
+      document.getElementById('chatInput').focus();
+  };
+
+  window.cancelEdit = function() {
+      window.editingMessageId = null;
+      document.getElementById('chatInput').value = "";
+      window.cancelReply();
   };
 
   // Robust Media (Image/Video/Screenshot) Upload Handler using Base64
@@ -1276,6 +1315,61 @@
           }
       };
       reader.readAsDataURL(file);
+  };
+
+  // Voice Message Recording Handler via MediaRecorder & Web Audio API
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let isRecording = false;
+
+  window.toggleVoiceRecording = async function() {
+      const btn = document.getElementById('vmRecordBtn');
+      if (!isRecording) {
+          try {
+              const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+              mediaRecorder = new MediaRecorder(stream);
+              audioChunks = [];
+
+              mediaRecorder.ondataavailable = event => {
+                  audioChunks.push(event.data);
+              };
+
+              mediaRecorder.onstop = async () => {
+                  const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                  const reader = new FileReader();
+                  reader.onload = async function(e) {
+                      const base64Audio = e.target.result;
+                      const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
+                      await push(chatRef, {
+                          uid: window.auth.currentUser.uid,
+                          author: window.globalIdentityName,
+                          text: "[Voice Message]",
+                          audioUrl: base64Audio,
+                          timestamp: Date.now(),
+                          seen: false
+                      });
+                  };
+                  reader.readAsDataURL(audioBlob);
+                  stream.getTracks().forEach(track => track.stop());
+              };
+
+              mediaRecorder.start();
+              isRecording = true;
+              btn.style.color = '#ef4444';
+              btn.style.transform = 'scale(1.2)';
+              document.getElementById('chatInput').placeholder = "Recording voice message... Click mic to stop";
+          } catch (err) {
+              alert("Microphone permission denied or unavailable.");
+          }
+      } else {
+          if (mediaRecorder) {
+              mediaRecorder.stop();
+          }
+          isRecording = false;
+          btn.style.color = 'var(--accent-purple-light)';
+          btn.style.transform = 'scale(1)';
+          document.getElementById('chatInput').placeholder = "Type a message or paste screenshot (Ctrl+V)...";
+      }
   };
 
   // Clipboard Paste listener for PrintScreen / Screenshot
@@ -1337,7 +1431,6 @@
       window.handleTypingInput();
   };
 
-  // Fullscreen Image Viewer Utilities
   window.openImageViewer = function(url) {
       document.getElementById('fullScreenImageElement').src = url;
       document.getElementById('imageViewerModal').style.display = 'flex';
@@ -1345,6 +1438,20 @@
 
   window.closeImageViewer = function() {
       document.getElementById('imageViewerModal').style.display = 'none';
+  };
+
+  window.toggleChatExpand = function() {
+      const panel = document.getElementById('floatingChatPanel');
+      const btn = document.getElementById('chatExpandBtn');
+      panel.classList.toggle('expanded');
+      if (panel.classList.contains('expanded')) {
+          btn.innerText = "🗗";
+          btn.title = "Restore Size";
+      } else {
+          btn.innerText = "⛶";
+          btn.title = "Expand Fullscreen";
+      }
+      scrollToBottomChat();
   };
 
   let typingTimer = null;
@@ -1383,7 +1490,9 @@
 
   window.cancelReply = function() {
       window.replyingToMessage = null;
+      window.editingMessageId = null;
       document.getElementById('replyingBanner').style.display = 'none';
+      document.getElementById('chatInput').value = "";
   };
 
   window.toggleMessageReactionPicker = function(msgId) {
@@ -1477,7 +1586,7 @@
               update(snapshot.ref, { seen: true });
           }
 
-          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions, data.mediaUrl, data.mediaType);
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions, data.mediaUrl, data.mediaType, data.audioUrl, data.edited);
       });
 
       onValue(activeChatListenerRef, (snapshot) => {
@@ -1486,6 +1595,12 @@
               const msgData = allMsgs[msgKey];
               const domEl = document.getElementById(`msg-${msgKey}`);
               if (domEl) {
+                  // Update text content in case it was edited
+                  const textNode = domEl.querySelector('.msg-text-content');
+                  if (textNode && msgData.text && !msgData.mediaUrl && !msgData.audioUrl) {
+                      textNode.innerText = msgData.text + (msgData.edited ? " (edited)" : "");
+                  }
+
                   const seenSpan = domEl.querySelector('.msg-seen-status');
                   if (seenSpan && msgData.uid === window.auth.currentUser.uid) {
                       if (msgData.seen) {
@@ -1591,7 +1706,7 @@
       });
   };
 
-  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions, mediaUrl, mediaType) {
+  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions, mediaUrl, mediaType, audioUrl, edited) {
       const chatBox = document.getElementById('chatMessagesBox');
       
       if (document.getElementById(`msg-${msgId}`)) return;
@@ -1615,6 +1730,8 @@
           } else {
               mediaHtml = `<div class="chat-media-content" onclick="openImageViewer('${mediaUrl}')"><img src="${mediaUrl}" alt="screenshot"></div>`;
           }
+      } else if (audioUrl) {
+          mediaHtml = `<div class="chat-audio-content"><audio src="${audioUrl}" controls></audio></div>`;
       }
 
       let seenHtml = "";
@@ -1638,8 +1755,13 @@
       }
 
       let actionsMarkup = `<div class="comment-actions">
-          <button class="comment-react-btn" onclick="toggleMessageReactionPicker('${msgId}')" title="React">😊</button>
-          <button class="comment-reply-btn" onclick="setReplyTo('${msgId}', '${author}', \`${text.replace(/`/g, '')}\`)" title="Reply">↩</button>`;
+          <button class="comment-react-btn" onclick="toggleMessageReactionPicker('${msgId}')" title="React">😊</button>`;
+      
+      if (isSelf) {
+          actionsMarkup += `<button class="comment-edit-btn" onclick="editMessage('${msgId}', \`${text.replace(/`/g, '')}\`)" title="Edit">✏️</button>`;
+      }
+
+      actionsMarkup += `<button class="comment-reply-btn" onclick="setReplyTo('${msgId}', '${author}', \`${text.replace(/`/g, '')}\`)" title="Reply">↩</button>`;
       
       if (isSelf || isSystemAdmin) {
           actionsMarkup += `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}', '${senderUid}')" title="Delete">✕</button>`;
@@ -1654,9 +1776,9 @@
           <span onclick="reactToMessage('${msgId}', '😮')">😮</span>
       </div>`;
 
-      let displayBodyText = mediaUrl ? "" : text;
+      let displayBodyText = (mediaUrl || audioUrl) ? "" : (text + (edited ? " <span style='font-size:0.65rem; color:#a78bfa;'>(edited)</span>" : ""));
 
-      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${displayBodyText}${mediaHtml} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
+      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}<span class="msg-text-content">${displayBodyText}</span>${mediaHtml} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
       chatBox.appendChild(div);
       scrollToBottomChat();
   }
