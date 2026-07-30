@@ -375,11 +375,8 @@
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
 
-        /* Media file preview in chat */
         .chat-media-content { margin-top: 6px; margin-bottom: 4px; border-radius: 8px; overflow: hidden; max-width: 220px; background: #000; border: 1px solid rgba(255,255,255,0.1); }
         .chat-media-content img, .chat-media-content video { width: 100%; display: block; max-height: 160px; object-fit: cover; }
-        .chat-audio-content { margin-top: 6px; margin-bottom: 4px; }
-        .chat-audio-content audio { width: 220px; height: 35px; }
 
         .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 6px; align-items: center; position: relative;}
         .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 8px 10px; border-radius: 18px; outline: none; font-size: 0.85rem; transition: 0.3s; }
@@ -388,7 +385,6 @@
         .chat-action-icon-btn { background: transparent; border: none; cursor: pointer; font-size: 1.1rem; padding: 0 2px; transition: transform 0.2s; color: var(--accent-purple-light); }
         .chat-action-icon-btn:hover { transform: scale(1.2); color: var(--accent-cyan); }
 
-        /* WhatsApp Emoji Picker Modal Box */
         .whatsapp-emoji-panel {
             position: absolute; bottom: 65px; left: 10px; width: 320px; background: rgba(12, 6, 22, 0.98);
             border: 1px solid rgba(147,51,234,0.4); border-radius: 14px; padding: 10px; display: none;
@@ -725,16 +721,13 @@
                 <div class="typing-dots"><span></span><span></span><span></span></div>
             </div>
 
-            <!-- WhatsApp Style Emoji Picker Drawer -->
             <div class="whatsapp-emoji-panel" id="whatsappEmojiPanel">
                 <div class="whatsapp-emoji-tabs">
                     <button class="whatsapp-emoji-tab active" onclick="switchEmojiTab('smileys')">😀</button>
                     <button class="whatsapp-emoji-tab" onclick="switchEmojiTab('gestures')">👍</button>
                     <button class="whatsapp-emoji-tab" onclick="switchEmojiTab('symbols')">❤️</button>
                 </div>
-                <div class="whatsapp-emoji-grid" id="whatsappEmojiGrid">
-                    <!-- Loaded dynamically -->
-                </div>
+                <div class="whatsapp-emoji-grid" id="whatsappEmojiGrid"></div>
             </div>
 
             <div class="chat-input-container">
@@ -742,9 +735,7 @@
                 <button class="chat-action-icon-btn" onclick="document.getElementById('chatImageUpload').click()" title="Send Photo/Video">📷</button>
                 <input type="file" id="chatImageUpload" accept="image/*,video/*" style="display:none" onchange="handleMediaUpload(event)">
                 
-                <button id="vmRecordBtn" class="chat-action-icon-btn" onclick="toggleVoiceRecording()" title="Voice Message">🎤</button>
-                
-                <input type="text" id="chatInput" placeholder="Message..." oninput="handleTypingInput()" onkeypress="if(event.key === 'Enter') handleChatSubmit()">
+                <input type="text" id="chatInput" placeholder="Type a message or paste screenshot (Ctrl+V)..." oninput="handleTypingInput()" onkeypress="if(event.key === 'Enter') handleChatSubmit()">
                 
                 <button class="send-btn" onclick="handleChatSubmit()">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -1237,9 +1228,9 @@
       window.stopTypingIndicator();
   };
 
-  // Media (Image/Video) Upload
-  window.handleMediaUpload = async function(event) {
-      const file = event.target.files[0];
+  // Robust Media (Image/Video/Screenshot) Upload Handler using Base64 encoding fallback for maximum reliability
+  window.handleMediaUpload = async function(fileOrEvent) {
+      const file = fileOrEvent.target ? fileOrEvent.target.files[0] : fileOrEvent;
       if (!file || !window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
 
       const isVideo = file.type.startsWith('video');
@@ -1250,105 +1241,53 @@
       }
 
       const chatInput = document.getElementById('chatInput');
-      chatInput.placeholder = "Uploading media file...";
+      chatInput.placeholder = "Processing file upload...";
 
-      try {
-          const ext = file.name.split('.').pop();
-          const sRef = storageRef(window.storage, `chat_media/${window.currentCourseKey}/${window.currentVideoId}_${Date.now()}.${ext}`);
-          await uploadBytes(sRef, file);
-          const downloadUrl = await getDownloadURL(sRef);
-
-          const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
-          push(chatRef, {
-              uid: window.auth.currentUser.uid,
-              author: window.globalIdentityName,
-              text: isVideo ? "[Video Media]" : "[Photo Media]",
-              mediaUrl: downloadUrl,
-              mediaType: isVideo ? "video" : "image",
-              timestamp: Date.now(),
-              seen: false
-          });
-      } catch (err) {
-          alert("Failed to upload media: " + err.message);
-      } finally {
-          chatInput.placeholder = "Message...";
-          event.target.value = "";
-      }
-  };
-
-  // Voice Message (VM) Recording
-  let mediaRecorder = null;
-  let audioChunks = [];
-  let isRecording = false;
-
-  window.toggleVoiceRecording = async function() {
-      const btn = document.getElementById('vmRecordBtn');
-      if (!isRecording) {
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+          const base64Data = e.target.result;
           try {
-              const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-              mediaRecorder = new MediaRecorder(stream);
-              audioChunks = [];
-
-              mediaRecorder.ondataavailable = event => {
-                  audioChunks.push(event.data);
-              };
-
-              mediaRecorder.onstop = async () => {
-                  const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-                  await uploadVoiceMessage(audioBlob);
-                  stream.getTracks().forEach(track => track.stop());
-              };
-
-              mediaRecorder.start();
-              isRecording = true;
-              btn.style.color = '#ef4444';
-              btn.style.transform = 'scale(1.2)';
-              document.getElementById('chatInput').placeholder = "Recording voice message... Click mic to stop";
+              const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
+              await push(chatRef, {
+                  uid: window.auth.currentUser.uid,
+                  author: window.globalIdentityName,
+                  text: isVideo ? "[Video Media]" : "[Screenshot / Photo]",
+                  mediaUrl: base64Data,
+                  mediaType: isVideo ? "video" : "image",
+                  timestamp: Date.now(),
+                  seen: false
+              });
           } catch (err) {
-              alert("Microphone permission denied or unavailable.");
+              alert("Failed to send image: " + err.message);
+          } finally {
+              chatInput.placeholder = "Type a message or paste screenshot (Ctrl+V)...";
+              if (fileOrEvent.target) fileOrEvent.target.value = "";
           }
-      } else {
-          if (mediaRecorder) {
-              mediaRecorder.stop();
-          }
-          isRecording = false;
-          btn.style.color = 'var(--accent-purple-light)';
-          btn.style.transform = 'scale(1)';
-          document.getElementById('chatInput').placeholder = "Message...";
-      }
+      };
+      reader.readAsDataURL(file);
   };
 
-  async function uploadVoiceMessage(blob) {
-      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
-      const chatInput = document.getElementById('chatInput');
-      chatInput.placeholder = "Sending voice message...";
+  // Clipboard Paste listener for PrintScreen / Screenshot
+  document.addEventListener('paste', (e) => {
+      const activePanel = document.getElementById('floatingChatPanel');
+      if (!activePanel || activePanel.style.display !== 'flex') return;
 
-      try {
-          const sRef = storageRef(window.storage, `chat_audio/${window.currentCourseKey}/${window.currentVideoId}_${Date.now()}.webm`);
-          await uploadBytes(sRef, blob);
-          const downloadUrl = await getDownloadURL(sRef);
-
-          const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
-          push(chatRef, {
-              uid: window.auth.currentUser.uid,
-              author: window.globalIdentityName,
-              text: "[Voice Message]",
-              audioUrl: downloadUrl,
-              timestamp: Date.now(),
-              seen: false
-          });
-      } catch (err) {
-          alert("Failed to send voice message: " + err.message);
-      } finally {
-          chatInput.placeholder = "Message...";
+      const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+      for (let i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf('image') !== -1) {
+              const blob = items[i].getAsFile();
+              if (blob) {
+                  window.handleMediaUpload(blob);
+                  e.preventDefault();
+              }
+          }
       }
-  }
+  });
 
-  // WhatsApp Style Emojis Dataset
   const whatsappEmojis = {
-      smileys: ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😌", "😔", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕", "😟", "🙁", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "💩", "🤡", "👹", "👺", "👻", "👽", "👾", "ロボット"],
-      gestures: ["👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞", "🫰", "🤟", "🤘", "🤙", "👈", "👉", "👆", "🖕", "👇", "☝️", "👍", "👎", "✊", "👊", "🤛", "🤜", "👏", "🙌", "👐", "🤲", "🤝", "🙏", "✍️", "💅", "🤳", "💪", "🦾", "🦿", "🦵", "🦶", "👂", "🦻", "👃", "🧠", " анатомия", "🦷", "🦴", "👀", "👁️", "👅", "👄", "💋", "🩸"],
-      symbols: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "🔥", "✨", "🌟", "💫", "💥", "💢", "💦", "💨", "🕳️", "💬", "👁️‍🗨️", "🗨️", "🗯️", "💭", "💤", "💯", "💢", "💬", "💎", "🏆", "🎯", "🚀", "💡", "📢", "🔔", "⭐", "⚡"]
+      smileys: ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😌", "😔", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕", "😟", "🙁", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "💩", "🤡", "👹", "👺", "👻", "👽", "👾"],
+      gestures: ["👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞", "🫰", "🤟", "🤘", "🤙", "👈", "👉", "👆", "🖕", "👇", "☝️", "👍", "👎", "✊", "👊", "🤛", "🤜", "👏", "🙌", "👐", "🤲", "🤝", "🙏", "✍️", "💅", "🤳", "💪", "🦾", "🦿", "🦵", "🦶", "👂", "🦻", "👃", "🧠", "🦷", "🦴", "👀", "👁️", "👅", "👄", "💋", "🩸"],
+      symbols: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "🔥", "✨", "🌟", "💫", "💥", "💢", "💦", "💨", "🕳️", "💬", "👁️‍🗨️", "🗨️", "🗯️", "💭", "💤", "💯", "💎", "🏆", "🎯", "🚀", "💡", "📢", "🔔", "⭐", "⚡"]
   };
 
   window.toggleWhatsappEmoji = function() {
@@ -1517,7 +1456,7 @@
               update(snapshot.ref, { seen: true });
           }
 
-          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions, data.mediaUrl, data.mediaType, data.audioUrl);
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions, data.mediaUrl, data.mediaType);
       });
 
       onValue(activeChatListenerRef, (snapshot) => {
@@ -1631,7 +1570,7 @@
       });
   };
 
-  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions, mediaUrl, mediaType, audioUrl) {
+  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions, mediaUrl, mediaType) {
       const chatBox = document.getElementById('chatMessagesBox');
       
       if (document.getElementById(`msg-${msgId}`)) return;
@@ -1653,10 +1592,8 @@
           if (mediaType === 'video') {
               mediaHtml = `<div class="chat-media-content"><video src="${mediaUrl}" controls></video></div>`;
           } else {
-              mediaHtml = `<div class="chat-media-content"><img src="${mediaUrl}" alt="media"></div>`;
+              mediaHtml = `<div class="chat-media-content"><img src="${mediaUrl}" alt="screenshot"></div>`;
           }
-      } else if (audioUrl) {
-          mediaHtml = `<div class="chat-audio-content"><audio src="${audioUrl}" controls></audio></div>`;
       }
 
       let seenHtml = "";
@@ -1696,7 +1633,7 @@
           <span onclick="reactToMessage('${msgId}', '😮')">😮</span>
       </div>`;
 
-      let displayBodyText = (mediaUrl || audioUrl) ? "" : text;
+      let displayBodyText = mediaUrl ? "" : text;
 
       div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${displayBodyText}${mediaHtml} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
       chatBox.appendChild(div);
@@ -1714,11 +1651,15 @@
 <script>
 document.addEventListener('copy', (e) => e.preventDefault());
 document.addEventListener('cut', (e) => e.preventDefault());
-document.addEventListener('paste', (e) => e.preventDefault());
+document.addEventListener('paste', (e) => {
+    if (document.activeElement.id === 'chatInput') return;
+    e.preventDefault();
+});
 
 document.onkeydown = function(e) {
     if (e.keyCode === 123) return false;
     if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 86 || e.keyCode === 85 || e.keyCode === 83)) {
+        if (e.keyCode === 86 && document.activeElement.id === 'chatInput') return true;
         return false;
     }
     if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
