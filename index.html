@@ -324,7 +324,7 @@
         .floating-chat-btn svg { width: 24px; height: 24px; fill: var(--accent-cyan); }
 
         .floating-chat-panel {
-            position: fixed; bottom: 95px; right: 25px; width: 320px; height: 400px;
+            position: fixed; bottom: 95px; right: 25px; width: 340px; height: 460px;
             background: rgba(15, 8, 25, 0.96); border: 1px solid rgba(147,51,234,0.4);
             border-radius: 16px; backdrop-filter: blur(25px); z-index: 1000;
             display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
@@ -345,16 +345,32 @@
         .chat-messages::-webkit-scrollbar { width: 4px; }
         .chat-messages::-webkit-scrollbar-thumb { background: rgba(147,51,234,0.5); border-radius: 10px; }
 
-        .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 8px 12px; padding-right: 25px; border-radius: 10px; border-top-left-radius: 2px; font-size: 0.85rem; color: #e2e8f0; line-height: 1.3; word-break: break-word; }
+        .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 8px 12px; padding-right: 45px; border-radius: 10px; border-top-left-radius: 2px; font-size: 0.85rem; color: #e2e8f0; line-height: 1.3; word-break: break-word; }
         .chat-msg.self { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); border-top-left-radius: 10px; border-top-right-radius: 2px; align-self: flex-end; }
         .chat-author { font-size: 0.7rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 3px; display: block; }
         .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
-        .comment-delete-btn { position: absolute; right: 6px; top: 6px; background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.75rem; opacity: 0.4; transition: 0.2s; }
+        
+        .chat-reply-preview { font-size: 0.75rem; background: rgba(0,0,0,0.3); border-left: 2px solid var(--accent-cyan); padding: 3px 6px; margin-bottom: 4px; border-radius: 4px; color: #cbd5e1; }
+        .comment-actions { position: absolute; right: 6px; top: 6px; display: flex; gap: 4px; align-items: center; }
+        .comment-reply-btn { background: transparent; border: none; color: var(--accent-purple-light); cursor: pointer; font-size: 0.75rem; opacity: 0.6; transition: 0.2s; }
+        .comment-reply-btn:hover { opacity: 1; text-shadow: 0 0 8px var(--accent-purple-light); }
+        .comment-delete-btn { background: transparent; border: none; color: #f87171; cursor: pointer; font-size: 0.75rem; opacity: 0.4; transition: 0.2s; }
         .comment-delete-btn:hover { opacity: 1; text-shadow: 0 0 8px #f87171; }
         
-        .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 8px; align-items: center;}
+        .replying-banner { display: none; padding: 6px 12px; background: rgba(147,51,234,0.15); border-top: 1px solid rgba(147,51,234,0.3); font-size: 0.75rem; align-items: center; justify-content: space-between; color: var(--accent-purple-light); }
+        .replying-banner button { background: transparent; border: none; color: #f87171; cursor: pointer; font-weight: bold; }
+
+        .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 8px; align-items: center; position: relative;}
         .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 8px 12px; border-radius: 18px; outline: none; font-size: 0.85rem; transition: 0.3s; }
         .chat-input-container input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); }
+        
+        .emoji-picker-btn { background: transparent; border: none; cursor: pointer; font-size: 1.2rem; padding: 0 4px; transition: transform 0.2s; }
+        .emoji-picker-btn:hover { transform: scale(1.2); }
+        
+        .emoji-dropdown { position: absolute; bottom: 65px; left: 10px; background: rgba(15, 8, 25, 0.98); border: 1px solid rgba(147,51,234,0.4); border-radius: 12px; padding: 10px; display: none; grid-template-columns: repeat(6, 1fr); gap: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.9); z-index: 100; }
+        .emoji-dropdown span { font-size: 1.3rem; cursor: pointer; text-align: center; transition: transform 0.2s; }
+        .emoji-dropdown span:hover { transform: scale(1.3); }
+
         .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; flex-shrink: 0;}
         .send-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 0 10px var(--accent-cyan); }
         .send-btn svg { width: 16px; height: 16px; fill: #000; margin-left: 2px; }
@@ -424,7 +440,7 @@
             .video-title { font-size: 1.1rem; }
             .slide-frame-container { height: 400px; }
             
-            .floating-chat-panel { width: calc(100% - 30px); right: 15px; bottom: 85px; height: 360px;}
+            .floating-chat-panel { width: calc(100% - 30px); right: 15px; bottom: 85px; height: 380px;}
             .floating-chat-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 1.3rem;}
             
             .header-social a { width: 34px; height: 34px; }
@@ -665,7 +681,29 @@
             </div>
             
             <div class="chat-messages" id="chatMessagesBox"></div>
+            
+            <div id="replyingBanner" class="replying-banner">
+                <span id="replyBannerText">Replying to message...</span>
+                <button onclick="cancelReply()">✕</button>
+            </div>
+
+            <div class="emoji-dropdown" id="emojiDropdown">
+                <span onclick="insertEmoji('😀')">😀</span>
+                <span onclick="insertEmoji('😂')">😂</span>
+                <span onclick="insertEmoji('🔥')">🔥</span>
+                <span onclick="insertEmoji('👍')">👍</span>
+                <span onclick="insertEmoji('❤️')">❤️</span>
+                <span onclick="insertEmoji('🎉')">🎉</span>
+                <span onclick="insertEmoji('😎')">😎</span>
+                <span onclick="insertEmoji('🚀')">🚀</span>
+                <span onclick="insertEmoji('💡')">💡</span>
+                <span onclick="insertEmoji('✨')">✨</span>
+                <span onclick="insertEmoji('💯')">💯</span>
+                <span onclick="insertEmoji('👏')">👏</span>
+            </div>
+
             <div class="chat-input-container">
+                <button class="emoji-picker-btn" onclick="toggleEmojiDropdown()" title="Add Emoji">😊</button>
                 <input type="text" id="chatInput" placeholder="Message..." onkeypress="if(event.key === 'Enter') handleChatSubmit()">
                 <button class="send-btn" onclick="handleChatSubmit()">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -776,6 +814,7 @@
   window.globalIdentityName = ""; 
   window.userProfileData = null; 
   window.systemInitialized = false;
+  window.replyingToMessage = null;
 
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(window.auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(window.auth, provider);
@@ -1122,29 +1161,71 @@
       let text = input.value.trim();
       if (text === "") return;
 
-      // Check for bad words or phone numbers (spam)
       const lowerText = text.toLowerCase();
       const isBadWord = bannedWords.some(word => lowerText.includes(word));
-      const isPhoneSpam = /\d{11}/.test(text); // Checks for 11 digit numbers
+      const isPhoneSpam = /\d{11}/.test(text);
 
       if (isBadWord || isPhoneSpam) {
-          alert("⚠️ আপনার মেসেজে অশালীন শব্দ বা যোগাযোগের তথ্য থাকার কারণে এটি ব্লক করা হয়েছে!");
+          alert("⚠️ আপনার মেসেজে অশালীন শব্দ বা যোগাযোগের তথ্য থাকার কারণে এটি ব্লক করা হয়েছে!");
           input.value = "";
           return;
       }
 
       const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
-      push(chatRef, {
+      
+      let newMsgPayload = {
           uid: window.auth.currentUser.uid,
           author: window.globalIdentityName,
           text: text,
           timestamp: Date.now()
-      });
+      };
+
+      if (window.replyingToMessage) {
+          newMsgPayload.replyToId = window.replyingToMessage.id;
+          newMsgPayload.replyToAuthor = window.replyingToMessage.author;
+          newMsgPayload.replyToText = window.replyingToMessage.text;
+      }
+
+      push(chatRef, newMsgPayload);
       input.value = "";
+      window.cancelReply();
+      document.getElementById('emojiDropdown').style.display = 'none';
   };
 
-  window.requestCommentDeletion = function(commentId) {
-      if(!window.currentCourseKey || !window.currentVideoId) return;
+  window.setReplyTo = function(id, author, text) {
+      window.replyingToMessage = { id, author, text };
+      document.getElementById('replyBannerText').innerText = `Replying to ${author}: "${text.substring(0, 30)}..."`;
+      document.getElementById('replyingBanner').style.display = 'flex';
+      document.getElementById('chatInput').focus();
+  };
+
+  window.cancelReply = function() {
+      window.replyingToMessage = null;
+      document.getElementById('replyingBanner').style.display = 'none';
+  };
+
+  window.toggleEmojiDropdown = function() {
+      const drop = document.getElementById('emojiDropdown');
+      drop.style.display = (drop.style.display === 'grid') ? 'none' : 'grid';
+  };
+
+  window.insertEmoji = function(emoji) {
+      const input = document.getElementById('chatInput');
+      input.value += emoji;
+      input.focus();
+  };
+
+  window.requestCommentDeletion = function(commentId, authorUid) {
+      if(!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      const currentUid = window.auth.currentUser.uid;
+      const currentEmail = window.auth.currentUser.email.toLowerCase();
+      const isSystemAdmin = (currentEmail === "debrajbarua8@gmail.com");
+
+      if (authorUid !== currentUid && !isSystemAdmin) {
+          alert("❌ আপনি অন্য কারও মেসেজ ডিলিট করতে পারবেন না!");
+          return;
+      }
+
       if(confirm("Are you sure you want to permanently delete this comment?")) {
           const commentTargetRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}/${commentId}`);
           remove(commentTargetRef).catch(err => alert("Permissions error: " + err.message));
@@ -1190,7 +1271,16 @@
       
       onChildAdded(activeChatListenerRef, (snapshot) => {
           const data = snapshot.val();
-          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid);
+          const now = Date.now();
+          const twentyFourHours = 24 * 60 * 60 * 1000;
+
+          // Disappearing message check (24 hours expiry)
+          if (now - data.timestamp > twentyFourHours) {
+              remove(snapshot.ref); // Auto-delete expired msg from DB
+              return;
+          }
+
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText);
       });
 
       onChildRemoved(activeChatListenerRef, (snapshot) => {
@@ -1244,6 +1334,40 @@
       });
   };
 
+  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText) {
+      const chatBox = document.getElementById('chatMessagesBox');
+      
+      const currentAdminEmail = window.auth.currentUser ? window.auth.currentUser.email.toLowerCase() : "";
+      const isSystemAdmin = (currentAdminEmail === "debrajbarua8@gmail.com");
+
+      const div = document.createElement('div');
+      div.id = `msg-${msgId}`;
+      div.className = isSelf ? 'chat-msg self' : 'chat-msg';
+      
+      let replyPreviewHtml = "";
+      if (replyAuthor && replyText) {
+          replyPreviewHtml = `<div class="chat-reply-preview">↳ <b>${replyAuthor}</b>: ${replyText}</div>`;
+      }
+
+      let actionsMarkup = `<div class="comment-actions">
+          <button class="comment-reply-btn" onclick="setReplyTo('${msgId}', '${author}', \`${text.replace(/`/g, '')}\`)" title="Reply">↩</button>`;
+      
+      if (isSelf || isSystemAdmin) {
+          actionsMarkup += `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}', '${senderUid}')" title="Delete">✕</button>`;
+      }
+      actionsMarkup += `</div>`;
+
+      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${text} ${actionsMarkup}`;
+      chatBox.appendChild(div);
+      scrollToBottomChat();
+  }
+
+  function scrollToBottomChat() {
+      const chatBox = document.getElementById('chatMessagesBox');
+      if(chatBox) {
+          chatBox.scrollTop = chatBox.scrollHeight;
+      }
+  }
 </script>
 
 <script>
@@ -1850,33 +1974,6 @@ window.applyResumeTime = function(shouldResume) {
     }
     pendingResumeTime = 0;
 };
-
-function addChatMessage(msgId, senderUid, author, text, isSelf) {
-    const chatBox = document.getElementById('chatMessagesBox');
-    
-    const currentAdminEmail = window.auth.currentUser ? window.auth.currentUser.email.toLowerCase() : "";
-    const isSystemAdmin = (currentAdminEmail === "debrajbarua8@gmail.com");
-
-    const div = document.createElement('div');
-    div.id = `msg-${msgId}`;
-    div.className = isSelf ? 'chat-msg self' : 'chat-msg';
-    
-    let deleteBtnMarkup = "";
-    if (isSelf || isSystemAdmin) {
-        deleteBtnMarkup = `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}')">✕</button>`;
-    }
-
-    div.innerHTML = `<span class="chat-author">${author}</span>${text} ${deleteBtnMarkup}`;
-    chatBox.appendChild(div);
-    scrollToBottomChat();
-}
-
-function scrollToBottomChat() {
-    const chatBox = document.getElementById('chatMessagesBox');
-    if(chatBox) {
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-}
 </script>
 </body>
 </html>
