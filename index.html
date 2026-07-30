@@ -286,24 +286,22 @@
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; pointer-events: auto !important; }
 
         .playlist-section { margin-bottom: 1.5rem; max-width: 950px; margin-left: auto; margin-right: auto; width: 100%; }
-        .horizontal-playlist { 
-            display: flex; gap: 1rem; overflow-x: auto; padding: 10px 5px 15px; scroll-behavior: smooth;
+        
+        .vertical-playlist { 
+            display: flex; flex-direction: column; gap: 10px; max-height: none; overflow-y: visible; padding-right: 0;
         }
-        .horizontal-playlist::-webkit-scrollbar { height: 8px; }
-        .horizontal-playlist::-webkit-scrollbar-track { background: rgba(0,0,0,0.4); border-radius: 10px; }
-        .horizontal-playlist::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 10px; }
 
         .playlist-item { 
-            flex: 0 0 240px; display: flex; align-items: center; gap: 10px; padding: 8px; 
+            display: flex; align-items: center; gap: 12px; padding: 10px 12px; 
             background: rgba(20, 12, 35, 0.85); border: 1px solid rgba(147,51,234,0.25); 
             border-radius: 12px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
         }
-        .playlist-item:hover { background: rgba(35, 18, 60, 0.95); border-color: var(--accent-purple-light); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(192, 132, 252, 0.2); }
+        .playlist-item:hover { background: rgba(35, 18, 60, 0.95); border-color: var(--accent-purple-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(192, 132, 252, 0.2); }
         .playlist-item.active { background: rgba(12, 25, 45, 0.95); border: 2px solid var(--accent-cyan); box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
-        .pl-thumb { width: 80px; height: 45px; border-radius: 6px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
+        .pl-thumb { width: 90px; height: 50px; border-radius: 6px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
         .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 3px; overflow: hidden; }
-        .pl-title { font-size: 0.8rem; font-weight: 700; color: #fff; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.2; }
-        .pl-author { font-size: 0.7rem; color: var(--accent-cyan); font-weight: 600; }
+        .pl-title { font-size: 0.9rem; font-weight: 700; color: #fff; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.3; }
+        .pl-author { font-size: 0.75rem; color: var(--accent-cyan); font-weight: 600; }
 
         @keyframes chatPulse {
             0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.6); }
@@ -324,7 +322,7 @@
         .floating-chat-btn svg { width: 24px; height: 24px; fill: var(--accent-cyan); }
 
         .floating-chat-panel {
-            position: fixed; bottom: 95px; right: 25px; width: 340px; height: 480px;
+            position: fixed; bottom: 95px; right: 25px; width: 360px; height: 520px;
             background: rgba(15, 8, 25, 0.96); border: 1px solid rgba(147,51,234,0.4);
             border-radius: 16px; backdrop-filter: blur(25px); z-index: 1000;
             display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9);
@@ -352,12 +350,10 @@
         
         .chat-reply-preview { font-size: 0.75rem; background: rgba(0,0,0,0.3); border-left: 2px solid var(--accent-cyan); padding: 3px 6px; margin-bottom: 4px; border-radius: 4px; color: #cbd5e1; }
         
-        /* Message Reactions Display */
         .msg-reactions-container { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
         .msg-reaction-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(147,51,234,0.3); border-radius: 12px; padding: 2px 6px; font-size: 0.75rem; cursor: pointer; display: inline-flex; align-items: center; gap: 3px; color: #fff; }
         .msg-reaction-badge:hover { background: rgba(147,51,234,0.3); }
 
-        /* Reaction Popup Box */
         .msg-reaction-picker { position: absolute; bottom: 100%; right: 10px; background: rgba(15, 8, 25, 0.95); border: 1px solid var(--accent-purple); border-radius: 20px; padding: 4px 10px; display: none; gap: 6px; box-shadow: 0 5px 15px rgba(0,0,0,0.8); z-index: 20; }
         .msg-reaction-picker span { font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; }
         .msg-reaction-picker span:hover { transform: scale(1.3); }
@@ -373,29 +369,42 @@
         .replying-banner { display: none; padding: 6px 12px; background: rgba(147,51,234,0.15); border-top: 1px solid rgba(147,51,234,0.3); font-size: 0.75rem; align-items: center; justify-content: space-between; color: var(--accent-purple-light); }
         .replying-banner button { background: transparent; border: none; color: #f87171; cursor: pointer; font-weight: bold; }
 
-        /* Typing indicator styling */
         .typing-indicator-box { padding: 4px 12px; font-size: 0.75rem; color: var(--accent-cyan); font-style: italic; min-height: 20px; background: rgba(10,5,20,0.9); border-top: 1px solid rgba(147,51,234,0.1); display: none; align-items: center; gap: 5px; }
         .typing-dots span { height: 5px; width: 5px; background: var(--accent-cyan); border-radius: 50%; display: inline-block; animation: typingBounce 1.4s infinite ease-in-out both; }
         .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
 
-        .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 8px; align-items: center; position: relative;}
-        .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 8px 12px; border-radius: 18px; outline: none; font-size: 0.85rem; transition: 0.3s; }
+        /* Media file preview in chat */
+        .chat-media-content { margin-top: 6px; margin-bottom: 4px; border-radius: 8px; overflow: hidden; max-width: 220px; background: #000; border: 1px solid rgba(255,255,255,0.1); }
+        .chat-media-content img, .chat-media-content video { width: 100%; display: block; max-height: 160px; object-fit: cover; }
+        .chat-audio-content { margin-top: 6px; margin-bottom: 4px; }
+        .chat-audio-content audio { width: 220px; height: 35px; }
+
+        .chat-input-container { padding: 10px; background: rgba(10, 5, 20, 0.98); border-top: 1px solid rgba(147,51,234,0.25); display: flex; gap: 6px; align-items: center; position: relative;}
+        .chat-input-container input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); color: white; padding: 8px 10px; border-radius: 18px; outline: none; font-size: 0.85rem; transition: 0.3s; }
         .chat-input-container input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.2); }
         
-        .emoji-picker-btn { background: transparent; border: none; cursor: pointer; font-size: 1.2rem; padding: 0 4px; transition: transform 0.2s; }
-        .emoji-picker-btn:hover { transform: scale(1.2); }
-        
-        .emoji-dropdown { position: absolute; bottom: 65px; left: 10px; background: rgba(15, 8, 25, 0.98); border: 1px solid rgba(147,51,234,0.4); border-radius: 12px; padding: 10px; display: none; grid-template-columns: repeat(6, 1fr); gap: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.9); z-index: 100; }
-        .emoji-dropdown span { font-size: 1.3rem; cursor: pointer; text-align: center; transition: transform 0.2s; }
-        .emoji-dropdown span:hover { transform: scale(1.3); }
+        .chat-action-icon-btn { background: transparent; border: none; cursor: pointer; font-size: 1.1rem; padding: 0 2px; transition: transform 0.2s; color: var(--accent-purple-light); }
+        .chat-action-icon-btn:hover { transform: scale(1.2); color: var(--accent-cyan); }
 
-        .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; flex-shrink: 0;}
+        /* WhatsApp Emoji Picker Modal Box */
+        .whatsapp-emoji-panel {
+            position: absolute; bottom: 65px; left: 10px; width: 320px; background: rgba(12, 6, 22, 0.98);
+            border: 1px solid rgba(147,51,234,0.4); border-radius: 14px; padding: 10px; display: none;
+            flex-direction: column; gap: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.9); z-index: 120;
+        }
+        .whatsapp-emoji-tabs { display: flex; gap: 5px; border-bottom: 1px solid rgba(147,51,234,0.2); padding-bottom: 5px; }
+        .whatsapp-emoji-tab { background: transparent; border: none; cursor: pointer; font-size: 1.1rem; opacity: 0.6; padding: 2px 6px; border-radius: 6px; }
+        .whatsapp-emoji-tab.active { opacity: 1; background: rgba(147,51,234,0.3); }
+        .whatsapp-emoji-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; max-height: 140px; overflow-y: auto; }
+        .whatsapp-emoji-grid span { font-size: 1.2rem; cursor: pointer; text-align: center; padding: 2px; border-radius: 4px; transition: background 0.2s; }
+        .whatsapp-emoji-grid span:hover { background: rgba(255,255,255,0.1); transform: scale(1.2); }
+
+        .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: 0.3s; flex-shrink: 0;}
         .send-btn:hover { background: #fff; transform: scale(1.05); box-shadow: 0 0 10px var(--accent-cyan); }
-        .send-btn svg { width: 16px; height: 16px; fill: #000; margin-left: 2px; }
+        .send-btn svg { width: 15px; height: 15px; fill: #000; margin-left: 2px; }
 
-        /* Seen status ticks styling */
         .msg-seen-status { font-size: 0.65rem; color: #94a3b8; float: right; margin-left: 5px; font-weight: bold; }
         .msg-seen-status.seen { color: var(--accent-cyan); }
 
@@ -464,7 +473,7 @@
             .video-title { font-size: 1.1rem; }
             .slide-frame-container { height: 400px; }
             
-            .floating-chat-panel { width: calc(100% - 30px); right: 15px; bottom: 85px; height: 400px;}
+            .floating-chat-panel { width: calc(100% - 30px); right: 15px; bottom: 85px; height: 420px;}
             .floating-chat-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 1.3rem;}
             
             .header-social a { width: 34px; height: 34px; }
@@ -685,7 +694,7 @@
 
                 <div class="playlist-section">
                     <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
-                    <div class="horizontal-playlist" id="playlistView"></div>
+                    <div class="vertical-playlist" id="playlistView"></div>
                 </div>
 
             </div>
@@ -716,24 +725,27 @@
                 <div class="typing-dots"><span></span><span></span><span></span></div>
             </div>
 
-            <div class="emoji-dropdown" id="emojiDropdown">
-                <span onclick="insertEmoji('😀')">😀</span>
-                <span onclick="insertEmoji('😂')">😂</span>
-                <span onclick="insertEmoji('🔥')">🔥</span>
-                <span onclick="insertEmoji('👍')">👍</span>
-                <span onclick="insertEmoji('❤️')">❤️</span>
-                <span onclick="insertEmoji('🎉')">🎉</span>
-                <span onclick="insertEmoji('😎')">😎</span>
-                <span onclick="insertEmoji('🚀')">🚀</span>
-                <span onclick="insertEmoji('💡')">💡</span>
-                <span onclick="insertEmoji('✨')">✨</span>
-                <span onclick="insertEmoji('💯')">💯</span>
-                <span onclick="insertEmoji('👏')">👏</span>
+            <!-- WhatsApp Style Emoji Picker Drawer -->
+            <div class="whatsapp-emoji-panel" id="whatsappEmojiPanel">
+                <div class="whatsapp-emoji-tabs">
+                    <button class="whatsapp-emoji-tab active" onclick="switchEmojiTab('smileys')">😀</button>
+                    <button class="whatsapp-emoji-tab" onclick="switchEmojiTab('gestures')">👍</button>
+                    <button class="whatsapp-emoji-tab" onclick="switchEmojiTab('symbols')">❤️</button>
+                </div>
+                <div class="whatsapp-emoji-grid" id="whatsappEmojiGrid">
+                    <!-- Loaded dynamically -->
+                </div>
             </div>
 
             <div class="chat-input-container">
-                <button class="emoji-picker-btn" onclick="toggleEmojiDropdown()" title="Add Emoji">😊</button>
+                <button class="chat-action-icon-btn" onclick="toggleWhatsappEmoji()" title="Emojis">😊</button>
+                <button class="chat-action-icon-btn" onclick="document.getElementById('chatImageUpload').click()" title="Send Photo/Video">📷</button>
+                <input type="file" id="chatImageUpload" accept="image/*,video/*" style="display:none" onchange="handleMediaUpload(event)">
+                
+                <button id="vmRecordBtn" class="chat-action-icon-btn" onclick="toggleVoiceRecording()" title="Voice Message">🎤</button>
+                
                 <input type="text" id="chatInput" placeholder="Message..." oninput="handleTypingInput()" onkeypress="if(event.key === 'Enter') handleChatSubmit()">
+                
                 <button class="send-btn" onclick="handleChatSubmit()">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                 </button>
@@ -800,7 +812,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { getDatabase, ref as dbRef, set, onValue, get, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  import { getDatabase, ref as dbRef, set, onValue, get, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update, query, orderByKey } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
   import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
 
   emailjs.init("5lxeGsSKHJNwQzRuV");
@@ -1221,8 +1233,158 @@
       push(chatRef, newMsgPayload);
       input.value = "";
       window.cancelReply();
-      document.getElementById('emojiDropdown').style.display = 'none';
+      document.getElementById('whatsappEmojiPanel').style.display = 'none';
       window.stopTypingIndicator();
+  };
+
+  // Media (Image/Video) Upload
+  window.handleMediaUpload = async function(event) {
+      const file = event.target.files[0];
+      if (!file || !window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+
+      const isVideo = file.type.startsWith('video');
+      const isImage = file.type.startsWith('image');
+      if (!isVideo && !isImage) {
+          alert("Only image or video files are supported.");
+          return;
+      }
+
+      const chatInput = document.getElementById('chatInput');
+      chatInput.placeholder = "Uploading media file...";
+
+      try {
+          const ext = file.name.split('.').pop();
+          const sRef = storageRef(window.storage, `chat_media/${window.currentCourseKey}/${window.currentVideoId}_${Date.now()}.${ext}`);
+          await uploadBytes(sRef, file);
+          const downloadUrl = await getDownloadURL(sRef);
+
+          const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
+          push(chatRef, {
+              uid: window.auth.currentUser.uid,
+              author: window.globalIdentityName,
+              text: isVideo ? "[Video Media]" : "[Photo Media]",
+              mediaUrl: downloadUrl,
+              mediaType: isVideo ? "video" : "image",
+              timestamp: Date.now(),
+              seen: false
+          });
+      } catch (err) {
+          alert("Failed to upload media: " + err.message);
+      } finally {
+          chatInput.placeholder = "Message...";
+          event.target.value = "";
+      }
+  };
+
+  // Voice Message (VM) Recording
+  let mediaRecorder = null;
+  let audioChunks = [];
+  let isRecording = false;
+
+  window.toggleVoiceRecording = async function() {
+      const btn = document.getElementById('vmRecordBtn');
+      if (!isRecording) {
+          try {
+              const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+              mediaRecorder = new MediaRecorder(stream);
+              audioChunks = [];
+
+              mediaRecorder.ondataavailable = event => {
+                  audioChunks.push(event.data);
+              };
+
+              mediaRecorder.onstop = async () => {
+                  const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                  await uploadVoiceMessage(audioBlob);
+                  stream.getTracks().forEach(track => track.stop());
+              };
+
+              mediaRecorder.start();
+              isRecording = true;
+              btn.style.color = '#ef4444';
+              btn.style.transform = 'scale(1.2)';
+              document.getElementById('chatInput').placeholder = "Recording voice message... Click mic to stop";
+          } catch (err) {
+              alert("Microphone permission denied or unavailable.");
+          }
+      } else {
+          if (mediaRecorder) {
+              mediaRecorder.stop();
+          }
+          isRecording = false;
+          btn.style.color = 'var(--accent-purple-light)';
+          btn.style.transform = 'scale(1)';
+          document.getElementById('chatInput').placeholder = "Message...";
+      }
+  };
+
+  async function uploadVoiceMessage(blob) {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      const chatInput = document.getElementById('chatInput');
+      chatInput.placeholder = "Sending voice message...";
+
+      try {
+          const sRef = storageRef(window.storage, `chat_audio/${window.currentCourseKey}/${window.currentVideoId}_${Date.now()}.webm`);
+          await uploadBytes(sRef, blob);
+          const downloadUrl = await getDownloadURL(sRef);
+
+          const chatRef = dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}`);
+          push(chatRef, {
+              uid: window.auth.currentUser.uid,
+              author: window.globalIdentityName,
+              text: "[Voice Message]",
+              audioUrl: downloadUrl,
+              timestamp: Date.now(),
+              seen: false
+          });
+      } catch (err) {
+          alert("Failed to send voice message: " + err.message);
+      } finally {
+          chatInput.placeholder = "Message...";
+      }
+  }
+
+  // WhatsApp Style Emojis Dataset
+  const whatsappEmojis = {
+      smileys: ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😌", "😔", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕", "😟", "🙁", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "💩", "🤡", "👹", "👺", "👻", "👽", "👾", "ロボット"],
+      gestures: ["👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞", "🫰", "🤟", "🤘", "🤙", "👈", "👉", "👆", "🖕", "👇", "☝️", "👍", "👎", "✊", "👊", "🤛", "🤜", "👏", "🙌", "👐", "🤲", "🤝", "🙏", "✍️", "💅", "🤳", "💪", "🦾", "🦿", "🦵", "🦶", "👂", "🦻", "👃", "🧠", " анатомия", "🦷", "🦴", "👀", "👁️", "👅", "👄", "💋", "🩸"],
+      symbols: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "🔥", "✨", "🌟", "💫", "💥", "💢", "💦", "💨", "🕳️", "💬", "👁️‍🗨️", "🗨️", "🗯️", "💭", "💤", "💯", "💢", "💬", "💎", "🏆", "🎯", "🚀", "💡", "📢", "🔔", "⭐", "⚡"]
+  };
+
+  window.toggleWhatsappEmoji = function() {
+      const panel = document.getElementById('whatsappEmojiPanel');
+      if (panel.style.display === 'flex') {
+          panel.style.display = 'none';
+      } else {
+          panel.style.display = 'flex';
+          switchEmojiTab('smileys');
+      }
+  };
+
+  window.switchEmojiTab = function(category) {
+      document.querySelectorAll('.whatsapp-emoji-tab').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const grid = document.getElementById('whatsappEmojiGrid');
+      grid.innerHTML = "";
+      whatsappEmojis[category].forEach(em => {
+          const span = document.createElement('span');
+          span.innerText = em;
+          span.onclick = () => {
+              const input = document.getElementById('chatInput');
+              input.value += em;
+              input.focus();
+              window.handleTypingInput();
+          };
+          grid.appendChild(span);
+      });
+  };
+
+  window.insertEmoji = function(emoji) {
+      const input = document.getElementById('chatInput');
+      input.value += emoji;
+      input.focus();
+      window.handleTypingInput();
   };
 
   let typingTimer = null;
@@ -1262,18 +1424,6 @@
   window.cancelReply = function() {
       window.replyingToMessage = null;
       document.getElementById('replyingBanner').style.display = 'none';
-  };
-
-  window.toggleEmojiDropdown = function() {
-      const drop = document.getElementById('emojiDropdown');
-      drop.style.display = (drop.style.display === 'grid') ? 'none' : 'grid';
-  };
-
-  window.insertEmoji = function(emoji) {
-      const input = document.getElementById('chatInput');
-      input.value += emoji;
-      input.focus();
-      window.handleTypingInput();
   };
 
   window.toggleMessageReactionPicker = function(msgId) {
@@ -1351,7 +1501,7 @@
       document.getElementById('reaction-names-display').innerText = "";
       document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.35)');
 
-      activeChatListenerRef = dbRef(window.db, `comments/${courseKey}/${videoId}`);
+      activeChatListenerRef = query(dbRef(window.db, `comments/${courseKey}/${videoId}`), orderByKey());
       
       onChildAdded(activeChatListenerRef, (snapshot) => {
           const data = snapshot.val();
@@ -1363,22 +1513,19 @@
               return;
           }
 
-          // Mark message as seen if it belongs to someone else and not yet seen
           if (data.uid !== window.auth.currentUser.uid && !data.seen) {
               update(snapshot.ref, { seen: true });
           }
 
-          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions);
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions, data.mediaUrl, data.mediaType, data.audioUrl);
       });
 
       onValue(activeChatListenerRef, (snapshot) => {
-          // Listen for seen or reactions updates on existing items
           const allMsgs = snapshot.val() || {};
           Object.keys(allMsgs).forEach(msgKey => {
               const msgData = allMsgs[msgKey];
               const domEl = document.getElementById(`msg-${msgKey}`);
               if (domEl) {
-                  // Update seen status visual
                   const seenSpan = domEl.querySelector('.msg-seen-status');
                   if (seenSpan && msgData.uid === window.auth.currentUser.uid) {
                       if (msgData.seen) {
@@ -1387,7 +1534,6 @@
                       }
                   }
 
-                  // Update individual reactions badges container
                   const reactionsBox = domEl.querySelector('.msg-reactions-container');
                   if (reactionsBox) {
                       let reactionsHtml = "";
@@ -1411,7 +1557,6 @@
           if(domEl) domEl.remove();
       });
 
-      // Typing status listener
       const typingNodeRef = dbRef(window.db, `typing_status/${courseKey}/${videoId}`);
       activeTypingListenerRef = typingNodeRef;
       
@@ -1486,9 +1631,11 @@
       });
   };
 
-  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions) {
+  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions, mediaUrl, mediaType, audioUrl) {
       const chatBox = document.getElementById('chatMessagesBox');
       
+      if (document.getElementById(`msg-${msgId}`)) return;
+
       const currentAdminEmail = window.auth.currentUser ? window.auth.currentUser.email.toLowerCase() : "";
       const isSystemAdmin = (currentAdminEmail === "debrajbarua8@gmail.com");
 
@@ -1499,6 +1646,17 @@
       let replyPreviewHtml = "";
       if (replyAuthor && replyText) {
           replyPreviewHtml = `<div class="chat-reply-preview">↳ <b>${replyAuthor}</b>: ${replyText}</div>`;
+      }
+
+      let mediaHtml = "";
+      if (mediaUrl) {
+          if (mediaType === 'video') {
+              mediaHtml = `<div class="chat-media-content"><video src="${mediaUrl}" controls></video></div>`;
+          } else {
+              mediaHtml = `<div class="chat-media-content"><img src="${mediaUrl}" alt="media"></div>`;
+          }
+      } else if (audioUrl) {
+          mediaHtml = `<div class="chat-audio-content"><audio src="${audioUrl}" controls></audio></div>`;
       }
 
       let seenHtml = "";
@@ -1530,7 +1688,6 @@
       }
       actionsMarkup += `</div>`;
 
-      // Picker popup for message reactions
       let pickerMarkup = `<div id="picker-${msgId}" class="msg-reaction-picker">
           <span onclick="reactToMessage('${msgId}', '👍')">👍</span>
           <span onclick="reactToMessage('${msgId}', '❤️')">❤️</span>
@@ -1539,7 +1696,9 @@
           <span onclick="reactToMessage('${msgId}', '😮')">😮</span>
       </div>`;
 
-      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${text} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
+      let displayBodyText = (mediaUrl || audioUrl) ? "" : text;
+
+      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}${displayBodyText}${mediaHtml} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
       chatBox.appendChild(div);
       scrollToBottomChat();
   }
