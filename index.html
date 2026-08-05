@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate's Dream Edtech | Premium Study Tracker</title>
+    <title>Deblevate's Dream Edtech | Premium Complete</title>
     
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
@@ -46,12 +46,8 @@
         html { scroll-behavior: smooth; }
         body { 
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: var(--bg-main); 
-            color: var(--text-light); 
-            position: relative;
-            overflow-x: hidden;
+            margin: 0; padding: 0; background-color: var(--bg-main); color: var(--text-light); 
+            position: relative; overflow-x: hidden;
         }
 
         #global-loader {
@@ -62,17 +58,14 @@
         .loader-spinner {
             width: 70px; height: 70px; border: 5px solid rgba(147, 51, 234, 0.2);
             border-top: 5px solid var(--accent-purple-light); border-right: 5px solid var(--accent-cyan);
-            border-radius: 50%;
-            animation: spin 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; 
-            box-shadow: 0 0 30px rgba(192, 132, 252, 0.4);
-            margin-bottom: 22px;
+            border-radius: 50%; animation: spin 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; 
+            box-shadow: 0 0 30px rgba(192, 132, 252, 0.4); margin-bottom: 22px;
         }
         .loader-text {
             font-family: 'Poppins', sans-serif; color: #fff; font-weight: 800;
             letter-spacing: 2px; font-size: 1.2rem; text-transform: uppercase;
             text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
         }
-
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); }
@@ -85,7 +78,6 @@
             background-image: linear-gradient(rgba(147, 51, 234, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(236, 72, 153, 0.025) 1px, transparent 1px);
             background-size: 45px 45px;
         }
-
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
             50% { transform: translate(40px, 60px) scale(1.08); }
@@ -93,17 +85,9 @@
         }
 
         header { 
-            background-color: var(--bg-nav); 
-            padding: 1rem 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 2px solid rgba(147, 51, 234, 0.3); 
-            position: sticky; 
-            top: 0; 
-            z-index: 90; 
-            backdrop-filter: blur(25px); 
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
+            background-color: var(--bg-nav); padding: 1rem 5%; display: flex; justify-content: space-between; 
+            align-items: center; border-bottom: 2px solid rgba(147, 51, 234, 0.3); position: sticky; top: 0; z-index: 90; 
+            backdrop-filter: blur(25px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
         }
         .header-logo { display: flex; align-items: center; gap: 15px; text-decoration: none; transition: transform 0.3s; }
         .header-logo img { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; box-shadow: 0 0 20px var(--accent-purple); border: 2px solid var(--accent-purple-light); }
@@ -114,14 +98,10 @@
         .nav-right { display: flex; align-items: center; gap: 1rem; }
         .header-social { display: flex; gap: 10px; margin-right: 10px; align-items: center; }
         .header-social a {
-            display: flex; align-items: center; justify-content: center;
-            width: 38px; height: 38px; border-radius: 50%;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3);
-            transition: all 0.3s ease; text-decoration: none;
+            display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); transition: all 0.3s ease; text-decoration: none;
         }
         .header-social a svg { width: 18px; height: 18px; fill: #fff; display: block; margin: auto; }
-        .header-social a:hover.tg-icon { background: #0ea5e9; border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.6); }
-        .header-social a:hover.yt-icon { background: #ef4444; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); }
 
         .login-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;}
         .login-btn:hover { transform: translateY(-3px) scale(1.05); background: linear-gradient(135deg, var(--accent-purple-light), var(--accent-cyan)); color: #000; box-shadow: 0 0 25px var(--accent-cyan); }
@@ -133,10 +113,8 @@
 
         #login-screen { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 2rem; position: relative; z-index: 10; }
         .login-glass-panel {
-            background: rgba(12, 6, 22, 0.80); backdrop-filter: blur(25px);
-            border: 1px solid rgba(147, 51, 234, 0.35); border-radius: 24px;
-            padding: 4rem 3rem; text-align: center; max-width: 550px; width: 100%;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+            background: rgba(12, 6, 22, 0.80); backdrop-filter: blur(25px); border: 1px solid rgba(147, 51, 234, 0.35);
+            border-radius: 24px; padding: 4rem 3rem; text-align: center; max-width: 550px; width: 100%; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
         }
         .welcome-text { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 900; letter-spacing: 6px; margin: 0 0 15px; background: linear-gradient(to right, #fff, var(--accent-cyan), var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         .welcome-subtext { color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; margin-bottom: 3rem; font-weight: 500; }
@@ -153,15 +131,14 @@
             justify-content: center; align-items: center; backdrop-filter: blur(15px); overflow-y: auto; padding: 2rem 0;
         }
         .auth-card {
-            background: rgba(15, 8, 25, 0.85); border: 2px solid var(--accent-purple);
-            padding: 2.5rem; border-radius: 24px; max-width: 500px; width: 95%;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.9); position: relative; margin: auto;
+            background: rgba(15, 8, 25, 0.85); border: 2px solid var(--accent-purple); padding: 2.5rem;
+            border-radius: 24px; max-width: 500px; width: 95%; box-shadow: 0 25px 60px rgba(0,0,0,0.9); position: relative; margin: auto;
         }
         .profile-form-group { text-align: left; margin-bottom: 15px; }
         .profile-form-group label { display: block; color: var(--accent-purple-light); font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
         .profile-input-field {
-            width: 100%; background: rgba(0,0,0,0.6); border: 1px solid var(--accent-purple);
-            color: #fff; padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem; font-family: inherit;
+            width: 100%; background: rgba(0,0,0,0.6); border: 1px solid var(--accent-purple); color: #fff;
+            padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem; font-family: inherit;
         }
 
         #main-app { display: none; position: relative; z-index: 10; } 
@@ -189,7 +166,7 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; }
 
-        /* --- Study Tracker / Chapter Progress UI --- */
+        /* --- Complete Science Study Tracker UI --- */
         #tracker-view { display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 5%; }
         .tracker-header-box { background: rgba(15, 8, 25, 0.85); border: 2px solid var(--accent-purple); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; backdrop-filter: blur(15px); }
         .tracker-overall-bar { width: 100%; height: 14px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; margin-top: 15px; border: 1px solid rgba(147,51,234,0.3); }
@@ -249,12 +226,9 @@
         </div>
         
         <div class="profile-form-group">
-            <label>Profile Picture (Upload JPG/PNG)</label>
+            <label>Profile Picture</label>
             <div style="display: flex; gap: 15px; align-items: center; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; border: 1px solid var(--accent-purple);">
                 <img id="profPicPreview" src="" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-cyan);">
-                <div style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
-                    <input type="file" id="profPicFile" accept="image/*" style="color: #fff; font-size: 0.9rem;">
-                </div>
             </div>
         </div>
 
@@ -316,7 +290,7 @@
 <div id="login-screen">
     <div class="login-glass-panel">
         <h1 class="welcome-text">WELCOME</h1>
-        <p class="welcome-subtext">Initialize your connection to the grid. Authenticate your credentials to unlock PCMB Study Trackers & Premium HSC courses.</p>
+        <p class="welcome-subtext">Initialize your connection to the grid. Authenticate your credentials to unlock all Science Study Trackers & Premium HSC courses.</p>
         <button id="loginBtnCenter" class="cyber-btn">Authenticate</button>
     </div>
 </div>
@@ -332,10 +306,10 @@
             <span class="motivation-badge">Best of Luck for HSC!</span>
         </div>
 
-        <!-- Navigation / Mode switchers -->
+        <!-- Mode switchers -->
         <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem;">
             <button class="filter-btn active" onclick="switchMainTab('courses', this)">📚 Course Vault</button>
-            <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">📊 PCMB Study Tracker</button>
+            <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">📊 Complete Science Study Tracker</button>
         </div>
 
         <div id="courses-section">
@@ -352,13 +326,13 @@
         </div>
     </div>
 
-    <!-- PCMB Study Tracker View -->
+    <!-- Complete Science Study Tracker View -->
     <div id="tracker-view">
         <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
         
         <div class="tracker-header-box">
-            <h2 style="margin: 0; font-family: 'Poppins', sans-serif; font-size: 1.8rem; background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">PCMB Master Study Tracker</h2>
-            <p style="color: #a78bfa; margin: 5px 0 15px; font-weight: 600;">আপনার সম্পূর্ণ সিলেবাসের অগ্রগতি ট্র্যাক করুন এবং রিয়েলটাইমে আপডেট রাখুন।</p>
+            <h2 style="margin: 0; font-family: 'Poppins', sans-serif; font-size: 1.8rem; background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Complete Science Study Tracker</h2>
+            <p style="color: #a78bfa; margin: 5px 0 15px; font-weight: 600;">বিজ্ঞান বিভাগের সকল সাবজেক্টের চ্যাপ্টারভিত্তিক অগ্রগতি ট্র্যাক করুন এবং রিয়েলটাইমে আপডেট রাখুন।</p>
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem;">
                 <span>Total Completion Progress</span>
                 <span id="overallProgressPercentage">0% Completed</span>
@@ -392,7 +366,7 @@
         <div class="footer-container">
             <div>
                 <span style="font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; color:#fff;">DEBLEVATE</span>
-                <p style="color: #94a3b8; font-size: 0.95ln; margin-top: 10px;">Revolutionizing education through innovative learning solutions & chapter tracking.</p>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">Revolutionizing education through innovative learning solutions & complete tracking.</p>
             </div>
             <div>
                 <h4 style="color:#fff;">Quick Links</h4>
@@ -418,7 +392,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { getDatabase, ref as dbRef, set, get, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+  import { getDatabase, ref as dbRef, set, get } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
 
   window.allowedEmails = ["debrajbarua8@gmail.com"];
   window.dbLoaded = false;
@@ -438,7 +412,6 @@
   window.db = getDatabase(app);
   const provider = new GoogleAuthProvider();
 
-  // Whitelist fetch
   get(dbRef(window.db, 'whitelisted_emails')).then((snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -455,7 +428,6 @@
   document.getElementById('loginBtnUI').onclick = () => signInWithPopup(window.auth, provider);
   document.getElementById('loginBtnCenter').onclick = () => signInWithPopup(window.auth, provider);
 
-  // Batch dropdown filler
   const batchSelect = document.getElementById('profBatch');
   batchSelect.innerHTML = "";
   for (let year = 2024; year <= 2030; year++) {
@@ -549,8 +521,8 @@
       window.systemInitialized = false;
   };
 
-  // PCMB Syllabus & Chapters Data Definition
-  window.pcmbSyllabus = {
+  // Comprehensive Science Syllabus & Chapters Data Definition
+  window.scienceSyllabus = {
       physics1: {
           title: "Physics 1st Paper",
           chapters: [
@@ -564,7 +536,7 @@
           chapters: [
               "১. তাপগতিবিদ্যা", "২. স্থির তড়িৎ", "৩. চল তড়িৎ", "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব",
               "৫. তাড়িতচৌম্বক আবেশ", "৬. জ্যামিতিক আলোকবিজ্ঞান", "৭. ভৌত আলোকবিজ্ঞান",
-              "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", "৯. পরমাণুর মডেল ও নিউক্লিয়ার", "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স"
+              "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", "৯. পরমাণুর মডেল ও নিউক্লিয়ার", "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "১১. জ্যোতির্বিজ্ঞান"
           ]
       },
       chem1: {
@@ -607,6 +579,47 @@
               "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", "২. প্রাণীর পরিচিতি", "৩. পরিপাক ও শোষণ",
               "৪. রক্ত ও সংবহন", "৫. শ্বসন ও শ্বাসক্রিয়া", "৬. বর্জ্য ও নিষ্কাশন", "৭. চলন ও অঙ্গচালনা", "৮. প্রতিরক্ষা", "৯. জিনতত্ত্ব"
           ]
+      },
+      ict: {
+          title: "ICT (Information & Communication Tech)",
+          chapters: [
+              "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", "২. কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং",
+              "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", "৪. ওয়েব ডিজাইন পরিচিতি ও HTML",
+              "৫. প্রোগ্রামিং ভাষা (C Programming)", "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম"
+          ]
+      },
+      bangla1: {
+          title: "Bangla 1st Paper",
+          chapters: [
+              "গদ্য: অপরিচিতা, আমার পথ, বায়ান্নর দিনগুলি, বিদ্রোহী ইত্যাদি",
+              "পদ্য: ঐকতান, বিদ্রোহী, প্রতিদান, তাহারেই মনে পড়ে ইত্যাদি",
+              "সহপাঠ: লালসালু ও সিরাজউদ্দৌলা"
+          ]
+      },
+      bangla2: {
+          title: "Bangla 2nd Paper",
+          chapters: [
+              "উচ্চারণের নিয়ম", "বানানের নিয়ম", "ব্যাকরণিক শব্দশ্রেণি", "বাক্য ও বাক্য রূপান্তর",
+              "সরাসরি শুদ্ধপ্রয়োগ", "সারমর্ম, সারসংক্ষেপ ও ভাবসম্প্রসারণ", "চিঠি ও আবেদনপত্র", "প্রতিবেদন ও প্রবন্ধ রচনা"
+          ]
+      },
+      english1: {
+          title: "English 1st Paper",
+          chapters: [
+              "Seen Passages (Multiple Choice & Short Answer)",
+              "Unseen Passage (Information Transfer & Summarizing)",
+              "Cloze Test with & without Clues",
+              "Rearranging Sentences",
+              "Paragraph & Composition Writing"
+          ]
+      },
+      english2: {
+          title: "English 2nd Paper",
+          chapters: [
+              "1. Right Forms of Verbs", "2. Use of Special Words & Phrases", "3. Completing Sentences",
+              "4. Use of Suffixes & Prefixes", "5. Tag Questions", "6. Connectors", "7. Narration",
+              "8. Pronoun Reference", "9. Modifiers", "10. Synonym & Antonym", "11. Composition & Application"
+          ]
       }
   };
 
@@ -624,7 +637,7 @@
       let totalChaptersCount = 0;
       let completedChaptersCount = 0;
 
-      for (const [subKey, subData] of Object.entries(window.pcmbSyllabus)) {
+      for (const [subKey, subData] of Object.entries(window.scienceSyllabus)) {
           let subCompleted = 0;
           let subTotal = subData.chapters.length;
           totalChaptersCount += subTotal;
@@ -673,11 +686,9 @@
       if(isChecked) labelEl.classList.add('completed');
       else labelEl.classList.remove('completed');
 
-      // Update Firebase
       const path = `users_metadata/${uid}/study_progress/${subKey}/${index}`;
       await set(dbRef(window.db, path), isChecked);
 
-      // Recalculate percentages
       recalculateTrackerUIs();
   };
 
@@ -685,7 +696,7 @@
       let totalChaptersCount = 0;
       let completedChaptersCount = 0;
 
-      for (const [subKey, subData] of Object.entries(window.pcmbSyllabus)) {
+      for (const [subKey, subData] of Object.entries(window.scienceSyllabus)) {
           let subTotal = subData.chapters.length;
           totalChaptersCount += subTotal;
           let subCompleted = 0;
@@ -730,7 +741,6 @@
 </script>
 
 <script>
-// Course Data & Player Logic
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
@@ -745,6 +755,9 @@ const courseData = {
     ]},
     course6: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান (Botany)", img: "WQ-f52E61i0", videos: [
         { title: "১. কোষ ও এর গঠন", id: "WQ-f52E61i0", sheet: "" }
+    ]},
+    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
+        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "" }
     ]}
 };
 
