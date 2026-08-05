@@ -238,9 +238,6 @@
         .slide-frame-container { width: 100%; height: 650px; background: #000; border-radius: 14px; overflow: hidden; border: 2px solid rgba(147,51,234,0.35); display: none; margin-top: 1rem; }
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
 
-        .floating-chat-btn { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background: rgba(20, 15, 30, 0.85); border: 2px solid var(--accent-cyan); border-radius: 50%; color: #fff; font-size: 1.5rem; cursor: pointer; z-index: 1000; display: flex; justify-content: center; align-items: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7); }
-        .floating-chat-panel { position: fixed; bottom: 95px; right: 25px; width: 360px; height: 520px; background: rgba(15, 8, 25, 0.96); border: 1px solid rgba(147,51,234,0.4); border-radius: 16px; backdrop-filter: blur(25px); z-index: 1000; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); overflow: hidden; }
-        
         footer { background: linear-gradient(to top, rgba(5, 2, 10, 0.98), rgba(15, 8, 28, 0.95)); border-top: 2px solid rgba(147, 51, 234, 0.3); padding: 4rem 5% 2rem; margin-top: 5rem; }
         .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 3rem; margin-bottom: 3rem; }
         .footer-bottom { max-width: 1400px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid rgba(147, 51, 234, 0.2); display: flex; justify-content: space-between; color: #64748b; font-size: 0.9rem; font-weight: 600; }
@@ -266,34 +263,28 @@
 <div id="profile-settings-overlay" class="modal-overlay">
     <div class="auth-card" style="text-align: left;">
         <h3 style="color: #fff; font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0 0 20px; text-align: center; font-weight: 900;">YOUR PROFILE</h3>
-        
         <div class="profile-form-group">
             <label>Full Name *</label>
             <input type="text" id="profName" class="profile-input-field" placeholder="Enter Your Real Name">
         </div>
-        
         <div class="profile-form-group">
             <label>Profile Picture</label>
             <div style="display: flex; gap: 15px; align-items: center; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; border: 1px solid var(--accent-purple);">
                 <img id="profPicPreview" src="" alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-cyan);">
             </div>
         </div>
-
         <div class="profile-form-group">
             <label>HSC Batch *</label>
             <select id="profBatch" class="profile-input-field"></select>
         </div>
-
         <div class="profile-form-group">
             <label>Personal Mobile *</label>
             <input type="tel" id="profMobile1" class="profile-input-field" placeholder="01XXXXXXXXX">
         </div>
-
         <div class="profile-form-group">
             <label>Institution *</label>
             <input type="text" id="profInst" class="profile-input-field" placeholder="College Name">
         </div>
-
         <div style="display: flex; gap: 10px; margin-top: 25px;">
             <button id="saveProfileBtn" class="login-btn" style="flex: 1;" onclick="saveProfileData()">Save Details</button>
         </div>
@@ -638,7 +629,6 @@
       });
   };
 
-  // Comprehensive Science Syllabus Definition
   window.scienceSyllabus = {
       physics1: {
           title: "Physics 1st Paper",
@@ -788,7 +778,7 @@
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
 
-// All Original 32 Courses Completely Restored
+// Restored All 32 Original Courses Completely
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
@@ -846,13 +836,71 @@ const courseData = {
         { title: "২. কোষ বিভাজন - MCQ", id: "ibTniWbGCQU", sheet: "" },
         { title: "৩. অণুজীব (Microbiology) - CQ", id: "u4fOPHw9jHk", sheet: "" },
         { title: "৩. অণুজীব - MCQ", id: "Jqfhj2funDA", sheet: "" },
-        { title: "৪. ব্রায়োফাইটা ও টেরিডোফাইটা - CQ", id: "PWagkOyd5EY", sheet: "" },
-        { title: "৫. টিস্যু ও টিস্যুতন্ত্র - CQ", id: "8cbCHHdF_rs", sheet: "" }
+        { title: "৪. ব্রায়োফাইটা ও টেরিডোফাইটা (Bryophyta & Pteridophyta) - CQ", id: "PWagkOyd5EY", sheet: "" },
+        { title: "৪. ব্রায়োফাইটা ও টেরিডোফাইটা - MCQ", id: "ehVq1GMktXY", sheet: "" },
+        { title: "৫. টিস্যু ও টিস্যুতন্ত্র (Tissue & Tissue System) - CQ", id: "8cbCHHdF_rs", sheet: "" },
+        { title: "৫. টিস্যু ও টিস্যুতন্ত্র - MCQ", id: "u-YGWIXuzDo", sheet: "" },
+        { title: "৬. নগ্নবীজী ও আবৃতবীজী (Gymnosperms & Angiosperms) - CQ", id: "ifk31j2d3cI", sheet: "" },
+        { title: "৬. নগ্নবীজী ও আবৃতবীজী - MCQ", id: "2B3HhQORN9o", sheet: "" },
+        { title: "৭. উদ্ভিদ শারীরতত্ত্ব (Plant Physiology) - CQ", id: "obqMOUUh1GU", sheet: "" },
+        { title: "৭. উদ্ভিদ শারীরতত্ত্ব - MCQ", id: "Rl1UOJvsTbM", sheet: "" },
+        { title: "৮. উদ্ভিদ প্রজনন (Plant Reproduction) - CQ", id: "zWclGo7cXic", sheet: "" },
+        { title: "৮. উদ্ভিদ প্রজনন - MCQ", id: "z16ybpT8vLo", sheet: "" },
+        { title: "৯. জীবপ্রযুক্তি (Biotechnology) - CQ", id: "9Oo4qZ-uSZU", sheet: "" },
+        { title: "৯. জীবপ্রযুক্তি - MCQ", id: "eH3Y2KnN-aw", sheet: "" }
     ]},
     course7: { sub: "biology", title: "🐾 ২য় পত্র: প্রাণিবিজ্ঞান (Rajib Sir)", img: "LrklqNYuQc4", videos: [
-        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস - CQ", id: "LrklqNYuQc4", sheet: "" },
-        { title: "২. প্রাণীর পরিচিতি - CQ", id: "wjnPT32kocI", sheet: "" },
-        { title: "৩. পরিপাক ও শোষণ - CQ", id: "CNA2Wui5NKE", sheet: "" }
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস (Animal Diversity & Classification) - CQ", id: "LrklqNYuQc4", sheet: "" },
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস - MCQ", id: "onWu2kujIR8", sheet: "" },
+        { title: "২. প্রাণীর পরিচিতি (Hydra, Grasshopper, Ruhi Fish) - CQ", id: "wjnPT32kocI", sheet: "" },
+        { title: "২. প্রাণীর পরিচিতি - MCQ", id: "OdK9vF8pd5E", sheet: "" },
+        { title: "৩. পরিপাক ও শোষণ (Digestion & Absorption) - CQ", id: "CNA2Wui5NKE", sheet: "" },
+        { title: "৩. পরিপাক ও শোষণ - MCQ", id: "iEirASma5kQ", sheet: "" },
+        { title: "৪. রক্ত ও সংবহন - CQ", id: "MiWb7xid8To", sheet: "" },
+        { title: "৪. রক্ত ও সংবহন - MCQ", id: "OGSPQveZmhE", sheet: "" },
+        { title: "৫. শ্বসন ও শ্বাসক্রিয়া (Breathing & Respiration) - CQ", id: "VXR1lsheFQc", sheet: "" },
+        { title: "৫. শ্বসন ও শ্বাসক্রিয়া - MCQ", id: "eAnYsKNp-qE", sheet: "" },
+        { title: "৬. বর্জ্য ও নিষ্কাশন (Excretion & Elimination) - CQ", id: "OekZQy8Ejus", sheet: "" },
+        { title: "৬. বর্জ্য ও নিষ্কাশন - MCQ", id: "x2378jhkkpE", sheet: "" },
+        { title: "৭. চলন ও অঙ্গচালনা (Locomotion & Movement) - CQ", id: "pqk8WJOGfC8", sheet: "" },
+        { title: "৭. চলন ও অঙ্গচালনা - MCQ", id: "YkAgS9vXlqE", sheet: "" },
+        { title: "৮. মানবদেহের প্রতিরক্ষা (Immunity) - CQ", id: "O_JSyI0eRzM", sheet: "" },
+        { title: "৮. মানবদেহের প্রতিরক্ষা - MCQ", id: "l7eH61SkqSI", sheet: "" },
+        { title: "৯. জিনতত্ত্ব ও বিবর্তন - CQ", id: "K-dERoYfVOw", sheet: "" },
+        { title: "৯. জিনতত্ত্ব ও বিবর্তন (Genetics & Evolution) - MCQ", id: "Mtia3cpqwRI", sheet: "" }
+    ]},
+    course22: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান মাস্টারক্লাস (Fahad's Biology Mcq Hacks)", img: "VuDg0aOIbgs", videos: [
+        { title: "1. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
+        { title: "2. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
+        { title: "3. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
+        { title: "4. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
+        { title: "5. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
+        { title: "6. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRqchQnAJfr/view" },
+        { title: "7. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
+        { title: "8. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
+        { title: "9. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
+        { title: "10. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
+        { title: "11. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
+        { title: "12. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
+        { title: "13. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
+        { title: "14. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
+        { title: "15. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
+        { title: "16. জীবের পরিবেশ, বিস্তার ও সংরক্ষণ", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
+    ]},
+    course32: { sub: "biology", title: "🐾 প্রাণিবিজ্ঞান মাস্টারক্লাস (Fahad's Biology Mcq Hacks)", img: "huWPpDlRzGs", videos: [
+        { title: "1. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
+        { title: "2. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
+        { title: "3. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
+        { title: "4. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
+        { title: "5. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
+        { title: "6. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
+        { title: "7. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
+        { title: "8. সমন্বয় ও নিয়ন্ত্রণ - ১", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
+        { title: "9. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
+        { title: "10. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
+        { title: "11. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
+        { title: "12. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
+        { title: "13. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
     ]},
     course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
         { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
@@ -868,22 +916,209 @@ const courseData = {
         { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
         { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
         { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
-        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet }
+        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
+        { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
+        { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
+        { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
     ]},
     course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
         { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
-        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" }
+        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
+        { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" },
+        { title: "৪. সকল কনফিউজিং MCQ এর সমাধান 🔥", id: "2pDp58dcL_s", sheet: "https://drive.google.com/file/d/1-qpxUIU64w1uMtIn6fpTwhNbRNvV9vOG/view?usp=sharing" }
+    ]},
+    course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", videos: [
+        { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
+    ]},
+    course12: { sub: "bangla", title: "Bangla 2nd Paper (Omor Faruq)", img: "sSWsrnn0qa0", videos: [
+        { title: "১. ব্যাকরণ ও নির্মিতি", id: "sSWsrnn0qa0", sheet: "https://drive.google.com/file/d/1BrvqvJnuUceiO_tqoIcZ5wwa78nmxfRd/view" }
+    ]},
+    course13: { sub: "bangla", title: "Bangla 2nd Paper (Sakib Vai)", img: "OJAq_YD8bCc", videos: [
+        { title: "১. ব্যাকরণ ও নির্মিতি (Fahad's Tutorial)", id: "OJAq_YD8bCc", sheet: "https://drive.google.com/drive/u/0/mobile/folders/18Bgh7HvaYAXeJ-vf3eDsqzn_E00lfv2u?usp=drive_link" }
     ]},
     course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
         { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
     ]},
     course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", videos: [
         { title: "1. English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" },
-        { title: "4. Right Forms of Verbs Part - 01", id: "Niz67Fg9BhI", sheet: "https://drive.google.com/file/d/1asiNcLlB6WmlAAGQnwJgPd_fKhW40uSc/view" }
+        { title: "4. Right Forms of Verbs Part - 01", id: "Niz67Fg9BhI", sheet: "https://drive.google.com/file/d/1asiNcLlB6WmlAAGQnwJgPd_fKhW40uSc/view" },
+        { title: "5. Right Forms of Verbs Part - 02", id: "xV7_aRHYH_M", sheet: "https://drive.google.com/file/d/1zdqtIIrPVYzI-NQPGHH_jZsbYZeNPIWV/view" },
+        { title: "6. Right Forms of Verbs Part - 03", id: "eCGp5sAn-HA", sheet: "" },
+        { title: "7. Article Part - 1", id: "Qcbs4rOR2oM", sheet: "https://drive.google.com/file/d/1-axodtGi50Roe67W7ZOvG3kyR1JL9xVk/view" },
+        { title: "8. Article Part - 2", id: "IHQ97n5WYAA", sheet: "" },
+        { title: "9. Preposition Part - 1", id: "DC1chh79JRQ", sheet: "https://drive.google.com/file/d/1Xsa0RIyBNJf-RrjAbcCslPRpAG_wNarH/view" },
+        { title: "10. Preposition Part - 2", id: "pbf076PphSs", sheet: "https://drive.google.com/file/d/1Lf4xV1RZbWHLn-Up3cec4JbR4v1OkMYA/view" },
+        { title: "11. Completing Sentences Part - 1", id: "ELP8M25bfqg", sheet: "https://drive.google.com/file/d/11YHwUA87p4Gqjd0RdvV0_CHeIYuZHrVr/view" },
+        { title: "12. Completing Sentences Part - 2", id: "7-WaxtGA0os", sheet: "https://drive.google.com/file/d/1KKSlJkgT9hYA8_N3NlkUwH-bEXdQwLSz/view" },
+        { title: "13. Writing Part", id: "qxfMqAzCY40", sheet: "" },
+        { title: "14. Narration - 01", id: "p9qNK2oKVxo", sheet: "https://drive.google.com/file/d/1WgpWJfmxXBidRwqenHKXvOX_EqSHwuc7/view" },
+        { title: "15. Narration - 02", id: "jA84rqbfYts", sheet: "https://drive.google.com/file/d/12-DUpEOZY8LWXESWbHwDJM7I4PB4h7U2/view" },
+        { title: "16. Simple - Complex - Compound", id: "QvI4HQRa3n0", sheet: "" },
+        { title: "17. Changing Sentences Part - 1", id: "NJitxRCKIMI", sheet: "https://drive.google.com/file/d/1AyQdnDpGkb3yEuBFfjY83k1wxe8TMG-F/view" },
+        { title: "18. Changing Sentences Part - 2", id: "YbyRydpv2G0", sheet: "https://drive.google.com/file/d/1U_Mmjx1s4KkjXaOecaHRMIMSF_Ym9NOy/view" },
+        { title: "19. Words & Phrases", id: "XVcVJfa6kWU", sheet: "https://drive.google.com/file/d/1VuVsXgy7KWFqzLB8XfGn0wAkiFQB4Lud/view" },
+        { title: "20. Sentence Connectors", id: "T__jyXYs92M", sheet: "https://drive.google.com/file/d/13XQplEk87VcVB29hdEr4Ll-7GQb0yhvK/view" },
+        { title: "21. Pronoun Reference [Slide Only]", id: "", sheet: "https://drive.google.com/file/d/1qG1Xueu-z3HdMbzgnvzfuoxv6UKHTm30/view" },
+        { title: "22. Modifiers [Slide Only]", id: "", sheet: "https://drive.google.com/file/d/12_VkuQXnKsOH90Ug8c9Jt9989Z5ccCmy/view" },
+        { title: "23. Synonym & Antonym [Slide Only]", id: "", sheet: "https://drive.google.com/file/d/19XK65gHoq0ePDjutyfMkkSC8p3ZQUS3y/view" }
+    ]},
+    course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", videos: [
+        { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
     ]},
     course17: { sub: "ict", title: "ICT CQ Complete Preparation by Sheroare Hossain Emon", img: "hOoUDyqzHiI", videos: [
         { title: "প্রোগ্রামিং ভাষা - Programing One Shot Revision Class ! 🚀", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
-        { title: "ওয়েব ডিজাইন ও HTML - Web Design One Shot 🔥", id: "jflnzv-Obag", sheet: ictCqSheetFolder }
+        { title: "ওয়েব ডিজাইন ও HTML - Web Design One Shot 🔥", id: "jflnzv-Obag", sheet: ictCqSheetFolder },
+        { title: "সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস - Number System 💻", id: "JnVGOM1-alE", sheet: ictCqSheetFolder },
+        { title: "কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং - Networking 🌐", id: "Mjhru0bPqiE", sheet: ictCqSheetFolder },
+        { title: "ডেটাবেজ ম্যানেজমেন্ট সিস্টেম - DBMS One Shot 🗄️", id: "b1uoOcSHaPM", sheet: ictCqSheetFolder },
+        { title: "🔥 Programming Language MCQ Oneshot", id: "-B3gJpv5N0U", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Board Question Solve", id: "g6cnTvpktCo", sheet: ictCqSheetFolder },
+        { title: "বিশ্ব ও বাংলাদেশ প্রেক্ষিত Oneshot", id: "n8LwkB9Xk5I", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 5 MCQ One Shot", id: "mQycPAFmE2A", sheet: ictCqSheetFolder }
+    ]},
+    course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
+        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+    ]},
+    course19: { sub: "math", title: "Higher Math Masterclass by Abhi Dada", img: "67B9P3TgKa8", videos: [
+        { title: "১ ক্লাসে ম্যাট্রিক্স ও নির্ণায়ক ১০০% কমপ্লিট 🔥", id: "67B9P3TgKa8", sheet: mathSheet },
+        { title: "১ ক্লাসে ভেক্টর ১০০% কমপ্লিট 🔥", id: "uFGOaRvfFZA", sheet: mathSheet },
+        { title: "১ ক্লাসে সরলরেখা ১০০% কমপ্লিট 🔥", id: "P2aww5m6Dys", sheet: mathSheet },
+        { title: "১ ক্লাসে বৃত্ত ১০০% কমপ্লিট 🔥", id: "JOYyLwUc8L8", sheet: mathSheet },
+        { title: "১ ক্লাসে বিন্যাস ও সমাবেশ ১০০% কমপ্লিট 🔥", id: "LiojRZ99COw", sheet: mathSheet },
+        { title: "১ ক্লাসে ত্রিকোণমিতিক অনুপাত ১০০% কমপ্লিট 🔥", id: "-dw3s6D1G8U", sheet: mathSheet },
+        { title: "১ ক্লাসে সংযুক্ত কোণের ত্রিকোণমিতি ১০০% কমপ্লিট 🔥", id: "B-3OK_kMMG8", sheet: mathSheet },
+        { title: "১ ক্লাসে ফাংশন ও লেখচিত্র ১০০% কমপ্লিট 🔥", id: "-jrU6XcZDaw", sheet: mathSheet },
+        { title: "১ ক্লাসে অন্তরীকরণ ১০০% কমপ্লিট 🔥", id: "du_ieKRj9jo", sheet: mathSheet },
+        { title: "১ ক্লাসে যোগজীকরণ ১০০% কমপ্লিট 🔥", id: "vPXNfbsM7sY", sheet: mathSheet },
+        { title: "১ ক্লাসে বাস্তব সংখ্যা ও অসমতা ১০০% কমপ্লিট 🔥", id: "ZN0Qt0Pr1VE", sheet: mathSheet },
+        { title: "১ ক্লাসে যোগাশ্রয়ী প্রোগ্রাম ১০০% কমপ্লিট 🔥", id: "Y9_5c54IsXM", sheet: mathSheet },
+        { title: "১ ক্লাসে জটিল সংখ্যা ১০০% কমপ্লিট 🔥", id: "gF-xD2nXZRk", sheet: mathSheet },
+        { title: "১ ক্লাসে বহুপদী ও বহুপদী সমীকরণ ১০০% কমপ্লিট 🔥", id: "sw5OdmDCuUs", sheet: mathSheet },
+        { title: "১ ক্লাসে দ্বিপদী বিস্তৃতি ১০০% কমপ্লিট 🔥", id: "nvbo0UTxW9E", sheet: mathSheet },
+        { title: "১ ক্লাসে কণিক ১০০% কমপ্লিট 🔥", id: "e5UjvcHh87E", sheet: mathSheet },
+        { title: "১ ক্লাসে বিপরীত ত্রিকোণমিতি ১০০% কমপ্লিট 🔥", id: "Jz3izwfa8Kw", sheet: mathSheet },
+        { title: "১ ক্লাসে স্থিতিবিদ্যা ১০০% কমপ্লিট 🔥", id: "4r-XUo8S8pg", sheet: mathSheet },
+        { title: "১ ক্লাসে সমতলে বস্তুকণার গতি ১০০% কমপ্লিট 🔥", id: "Tvti76PQ3iQ", sheet: mathSheet },
+        { title: "১ ক্লাসে সম্ভাবনা ১০০% কমপ্লিট 🔥", id: "ioJGYawWJE0", sheet: mathSheet }
+    ]},
+    course20: { sub: "math", title: "Higher Math Masterclass by Rakib Bhai", img: "KtqyZ-ANMUk", videos: [
+        { title: "ম্যাট্রিক্স ও নির্ণায়ক ক্যালকুলেটর শর্টকাট", id: "KtqyZ-ANMUk", sheet: mathSheet },
+        { title: "ভেক্টর ওয়ান শট", id: "JLuKC_yxoWs", sheet: mathSheet },
+        { title: "সরলরেখা মাস্টারক্লাস", id: "-WP3xRkTuaM", sheet: mathSheet },
+        { title: "৩ ঘন্টার ১ ক্লাসেই বৃত্ত ১০০% শেষ! 🔥", id: "1jjTSSpq2pQ", sheet: mathSheet },
+        { title: "বিন্যাস ও সমাবেশ ওয়ান শট", id: "pU_iwduItHs", sheet: mathSheet },
+        { title: "ত্রিকোণমিতিক অনুপাত", id: "9pwpsJD0tL8", sheet: mathSheet },
+        { title: "🔥 ১ ক্লাসেই ত্রিকোণমিতি ১০০% শেষ", id: "piZLlyz3wbs", sheet: mathSheet },
+        { title: "ফাংশন ও লেখচিত্র", id: "oYeRl4OQo0Y", sheet: mathSheet },
+        { title: "অন্তরীকরণ ওয়ান শট", id: "DKSpBV109fE", sheet: mathSheet },
+        { title: "যোগজীকরণ ওয়ান শট - পর্ব ০১", id: "WXMaW-VdpzA", sheet: mathSheet },
+        { title: "যোগজীকরণ ওয়ান শট - পর্ব ০২", id: "6hhbuYeI1cU", sheet: mathSheet },
+        { title: "এক ক্লাসেই বাস্তব সংখ্যা ও অসমতা ১০০% কাভার", id: "C1OAPt1Q26U", sheet: mathSheet },
+        { title: "যোগাশ্রয়ী প্রোগ্রাম ওয়ান শট", id: "yO-qpIO6rQU", sheet: mathSheet },
+        { title: "জটিল সংখ্যা", id: "KBrLO601OVU", sheet: mathSheet },
+        { title: "বহুপদী ও বহুপদী সমীকরণ", id: "g4dmJ7vVY5U", sheet: mathSheet },
+        { title: "দ্বিপদী বিস্তৃতি", id: "-G8AOnuWUII", sheet: mathSheet },
+        { title: "🔥 ১ ক্লাসেই কণিক ১০০% প্রস্তুতি", id: "e5UjvcHh87E", sheet: mathSheet },
+        { title: "🔥 ১ ক্লাসেই কণিক ১০০% প্রস্তুতি", id: "dxU1TOy9jvM", sheet: mathSheet },
+        { title: "বিপরীত ত্রিকোণমিতি ওয়ান শট", id: "n9kLnm_Tqg8", sheet: mathSheet },
+        { title: "গতিবিদ্যা", id: "K5ddkgvdVvM", sheet: mathSheet },
+        { title: "সম্ভাবনা", id: "9wdcmsJcHXI", sheet: mathSheet }
+    ]},
+    course21: { sub: "chemistry", title: "🧪 Chemistry Masterclass (AR Bhai)", img: "7Y-HJhO3kU0", videos: [
+        { title: "গুণগত রসায়ন -CQ", id: "7Y-HJhO3kU0", sheet: "" },
+        { title: "গুণগত রসায়ন -MCQ", id: "GHUweO9UzFM", sheet: "" },
+        { title: " জৈব রসায়ন - part-01 ", id: "uU5-5P24hYM", sheet: "" },
+        { title: "জৈব রসায়ন - Part 02", id: "DtH9GHvQaCY", sheet: "" },
+        { title: " জৈব রসায়ন MCQ", id: "gNDfRTTU034", sheet: "" },
+        { title: " মৌলের পর্যায়বৃত্ত ধর্ম CQ", id: "7MNsw-0cdrI", sheet: "" },
+        { title: "মৌলের পর্যায়বৃত্ত ধর্ম MCQ ", id: "tbDXYvjogdk", sheet: "" },
+        { title: "তড়িৎ রসায়ন CQ", id: "Up_chQ6uSsM", sheet: "" },
+        { title: "তড়িৎ রসায়ন MCQ", id: "m-wxYAm7Wh0", sheet: "" },
+        { title: "পরিমাণগত রসায়ন CQ", id: "Hu1Uej1kcVg", sheet: "" },
+        { title: "পরিমাণগত রসায়ন MCQ", id: "ugzFHuEQHEw", sheet: "" },
+        { title: "পরিবেশ রসায়ন CQ", id: "Fl7dxkdet70", sheet: "" },
+        { title: "পরিবেশ রসায়ন MCQ", id: "158RXVE-MJo", sheet: "" },
+        { title: "রাসায়নিক পরিবর্তন CQ", id: "CHJYjLUc9Sc", sheet: "" },
+        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" },
+    ]},
+    course23: { sub: "math", title: "🧮 Calculator Hacks Masterclass (Rakib Bhai)", img: "vqUuah_v9w0", videos: [
+        { title: "ম্যাট্রিক্স ও নির্ণায়ক ক্যালকুলেটর শর্টকাট", id: "vqUuah_v9w0", sheet: "" },
+        { title: "ত্রিকোণমিতি ক্যালকুলেটর শর্টকাট", id: "ZiquEjEEidY", sheet: "" },
+        { title: "জটিল সংখ্যা ক্যালকুলেটর শর্টকাট", id: "MX1re8Iql0Y", sheet: "" },
+        { title: "বহুপদী সমীকরণ ক্যালকুলেটর শর্টকাট", id: "614V4t76tss", sheet: "" },
+        { title: "বিপরীত ত্রিকোণমিতি ক্যালকুলেটর শর্টকাট", id: "QYIw6Pg_VXE", sheet: "" },
+        { title: "অন্তরীকরণ ক্যালকুলেটর শর্টকাট", id: "ld0g2bj6esQ", sheet: "" },
+        { title: "যোগজীকরণ ক্যালকুলেটর শর্টকাট", id: "k7sgHtBWSEM", sheet: "" },
+        { title: "ভেক্টর ক্যালকুলেটর শর্টকাট", id: "wY9tfRNjzqU", sheet: "" },
+        { title: "আইসিটি (ICT) ক্যালকুলেটর শর্টকাট", id: "Rbsj9_40-bA", sheet: "" }
+    ]},
+    course24: { sub: "physics", title: "⚡ Physics 2nd Paper One Shot (Sheroare Emon Bhai)", img: "syrne0alvLA", videos: [
+        { title: "ওয়ান শট রিভিশন | তাপগতিবিদ্যা", id: "syrne0alvLA", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | স্থির তড়িৎ", id: "J3-2FuXBygs", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | চল তড়িৎ", id: "JwHhWS30GdI", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vEZH4PlOPhY", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | তাড়িতচৌম্বক আবেশ ও পরিবর্তী প্রবাহ", id: "vEZH4PlOPhY", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | জ্যামিতিক আলোকবিজ্ঞান", id: "Rj2XZxqXhsk", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | ভৌত আলোকবিজ্ঞান", id: "rHEKPRvLw0g", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QH_JXl5u7TI", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", id: "rI_tlCVAcR4", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "empCP3CgNf0", sheet: "" },
+        { title: "পদার্থবিজ্ঞান ২য় পত্র বোর্ড MCQ সলভ", id: "I6aq621IvwI", sheet: "" },
+        { title: "পদার্থবিজ্ঞান ২য় পত্র বোর্ড CQ সলভ", id: "tQHSM5LaONc", sheet: "" }
+    ]},
+    course25: { sub: "physics", title: "⚡ Physics 1st Paper One Shot (Sheroare Emon Bhai)", img: "n8b09hq7qQM", videos: [
+        { title: "ওয়ান শট রিভিশন | পর্যাবৃত্ত গতি", id: "n8b09hq7qQM", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব", id: "1IVhi8tDoJw", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | মহাকর্ষ ও অভিকর্ষ", id: "2tpVLOX3Ep8", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পদার্থের গাঠনিক ধর্ম", id: "4pfOjfZtGRU", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" },
+    ]},
+    course26: { sub: "physics", title: "🎯 Physics CQ One Shot (Apurbo & Mashrur Series)", img: "pc42PaR2OE8", videos: [
+        { title: "HSC ONESHOT | ভেক্টর CQ SOLVING", id: "pc42PaR2OE8", sheet: "" },
+        { title: "HSC ONESHOT | গতিবিদ্যা CQ SOLVING", id: "9oxhLHSATYM", sheet: "" },
+        { title: "HSC ONESHOT | নিউটনীয় বলবিদ্যা CQ SOLVING", id: "w6zMqa9d2_0", sheet: "" },
+        { title: "HSC ONESHOT | কাজ,শক্তি ও ক্ষমতা  CQ SOLVING", id: "smEzjF7b-Sc", sheet: "" },
+        { title: "HSC ONESHOT | মহাকর্ষ ও অভিকর্ষ CQ SOLVING", id: "GTbjmYNs9bs", sheet: "" },
+        { title: "HSC ONESHOT |পদার্থের গাঠনিক ধর্ম  CQ SOLVING", id: "fkWjqr4z8SQ", sheet: "" },
+        { title: "HSC ONESHOT | পর্যাবৃত্ত গতি CQ SOLVING", id: "K-OzRLh5700", sheet: "" },
+        { title: "HSC ONESHOT | তরঙ্গ ও শব্দCQ SOLVING", id: "YpuH2KnOYMg", sheet: "" },
+        { title: "HSC ONESHOT | আদর্শ গ্যাস ও গতিতত্ত্ব যা CQ SOLVING", id: "oaisKu1kM2M", sheet: "" },
+        { title: "HSC ONESHOT | তাপগতিবিদ্যা  CQ SOLVING", id: "vJMAqRV-5Co", sheet: "" },
+        { title: "HSC ONESHOT | স্থির তড়িৎ  CQ SOLVING", id: "iRB2m5Q-XlI", sheet: "" },
+        { title: "HSC ONESHOT | চৌম্বক ক্রিয়া CQ SOLVING", id: "RgKwIx7vUNw", sheet: "" },
+        { title: "HSC ONESHOT | জ্যামিতিক আলোকবিজ্ঞান CQ SOLVING", id: "TcVNF7Ep2_c", sheet: "" },
+        { title: "HSC ONESHOT । ভৌত আলোকবিজ্ঞান  CQ SOLVING", id: "3Eg4Yn6HgaI", sheet: "" },
+        { title: "HSC ONESHOT | সেমিকন্ডাক্টর CQ SOLVING", id: "wCBMLjQ_2BM", sheet: "" }
+    ]},
+    course27: { sub: "chemistry", title: "🧪 Chemistry One Shot Masterclass (Pahlovi Bhai)", img: "y7NJqUQ5F9o", videos: [
+        { title: "ONE SHOT | গুণগত রসায়ন", id: "y7NJqUQ5F9o", sheet: "" },
+        { title: "ONE SHOT | পরিমাণগত রসায়ন", id: "zl96gik6QxQ", sheet: "" },
+        { title: "ONE SHOT | রাসায়নিক পরিবর্তন", id: "U8eYlXa4fOo", sheet: "" },
+        { title: "ONE SHOT | মৌলের পর্যায়বৃত্ত ধর্ম", id: "YlIJOJCB0-E", sheet: "" },
+        { title: "ONE SHOT | জৈব রসায়ন", id: "_hZdz20OSno", sheet: "" },
+        { title: "ONE SHOT | পরিবেশ রসায়নজৈব রসায়ন - Part 01", id: "cnEPq4_J38Q", sheet: "" },
+        { title: "ONE SHOT | কর্মমুখী রসায়ন - Part 02", id: "OSki_6tSg1s", sheet: "" },
+        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" },
+    ]},
+    course28: { sub: "chemistry", title: "🧪 Chemistry CQ One Shot (Sanjay Sir)", img: "9a9s24DBBi0", videos: [
+        { title: "গুণগত রসায়ন | বোর্ড CQ সলভ", id: "9a9s24DBBi0", sheet: "" },
+        { title: "মৌলের পর্যায়বৃত্ত ধর্ম | বোর্ড CQ সলভ", id: "FGG7Jbb-wwA", sheet: "" },
+        { title: "কর্মমুখী রসায়ন | বোর্ড CQ ও MCQ সলভ", id: "alnjGSZrCmc", sheet: "" },
+        { title: " রাসায়নিক পরিবর্তন | CQ সলভ", id: "gxCLUsIW2jk", sheet: "" },
+        { title: "জৈব রসায়ন | বোর্ড CQ সলভ", id: "AK30NGQSQhQ", sheet: "" }
+    ]},
+    course29: { sub: "chemistry", title: "🧪 Chemistry MCQ One Shot (Sanjay Sir)", img: "_5TLvMuGsRI", videos: [
+        { title: "গুণগত রসায়ন | MCQ Boost", id: "_5TLvMuGsRI", sheet: "" },
+        { title: "মৌলের পর্যায়বৃত্ত ধর্ম | MCQ Boost", id: "EKRKRMISk08", sheet: "" },
+        { title: "রাসায়নিক পরিবর্তন | MCQ Boost", id: "akUAmr7I3Q8", sheet: "" },
+        { title: "কর্মমুখী রসায়ন রসায়ন | MCQ Boost", id: "alnjGSZrCmc", sheet: "" },
+        { title: "জৈব রসায়ন (এলিফেটিক)| MCQ Boost", id: "ZQT6obCMGNE", sheet: "" }
+    ]},
+    course30: { sub: "chemistry", title: "🧪 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ 🔥 (Sakib Bhai)", img: "vPhcbeaYhlA", videos: [
+        { title: "🔥 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ - Md Nazmus Sakib", id: "vPhcbeaYhlA", sheet: "" }
+    ]},
+    course31: { sub: "chemistry", title: "🧪 এক ক্লাসেই রসায়ন ২য় পত্রের সকল MCQ 🔥 (Sakib Bhai)", img: "Vt09nW8PtPY", videos: [
+        { title: "🔥 এক ক্লাসেই রসায়ন ২য় পত্রের সকল MCQ - Md Nazmus Sakib", id: "Vt09nW8PtPY", sheet: "" }
     ]}
 };
 
