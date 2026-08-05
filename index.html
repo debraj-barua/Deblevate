@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate's Dream Edtech | Premium Complete</title>
+    <title>Deblevate's Dream Edtech | Complete Premium</title>
     
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
@@ -371,7 +371,7 @@
             <div>
                 <h4 style="color:#fff;">Quick Links</h4>
                 <ul style="list-style: none; padding: 0; display:flex; flex-direction:column; gap:8px;">
-                    <li><a href="#" onclick="showHome()" style="color:#94a3b8; text-decoration:none;">Home</a></li>
+                    <li><a href="#" onclick="showHome()" style="color:#a78bfa; text-decoration:none;">Home</a></li>
                     <li><a href="#" onclick="switchMainTab('tracker')" style="color:var(--accent-cyan); text-decoration:none;">Study Tracker</a></li>
                 </ul>
             </div>
@@ -521,7 +521,6 @@
       window.systemInitialized = false;
   };
 
-  // Comprehensive Science Syllabus & Chapters Data Definition
   window.scienceSyllabus = {
       physics1: {
           title: "Physics 1st Paper",
@@ -586,39 +585,6 @@
               "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", "২. কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং",
               "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", "৪. ওয়েব ডিজাইন পরিচিতি ও HTML",
               "৫. প্রোগ্রামিং ভাষা (C Programming)", "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম"
-          ]
-      },
-      bangla1: {
-          title: "Bangla 1st Paper",
-          chapters: [
-              "গদ্য: অপরিচিতা, আমার পথ, বায়ান্নর দিনগুলি, বিদ্রোহী ইত্যাদি",
-              "পদ্য: ঐকতান, বিদ্রোহী, প্রতিদান, তাহারেই মনে পড়ে ইত্যাদি",
-              "সহপাঠ: লালসালু ও সিরাজউদ্দৌলা"
-          ]
-      },
-      bangla2: {
-          title: "Bangla 2nd Paper",
-          chapters: [
-              "উচ্চারণের নিয়ম", "বানানের নিয়ম", "ব্যাকরণিক শব্দশ্রেণি", "বাক্য ও বাক্য রূপান্তর",
-              "সরাসরি শুদ্ধপ্রয়োগ", "সারমর্ম, সারসংক্ষেপ ও ভাবসম্প্রসারণ", "চিঠি ও আবেদনপত্র", "প্রতিবেদন ও প্রবন্ধ রচনা"
-          ]
-      },
-      english1: {
-          title: "English 1st Paper",
-          chapters: [
-              "Seen Passages (Multiple Choice & Short Answer)",
-              "Unseen Passage (Information Transfer & Summarizing)",
-              "Cloze Test with & without Clues",
-              "Rearranging Sentences",
-              "Paragraph & Composition Writing"
-          ]
-      },
-      english2: {
-          title: "English 2nd Paper",
-          chapters: [
-              "1. Right Forms of Verbs", "2. Use of Special Words & Phrases", "3. Completing Sentences",
-              "4. Use of Suffixes & Prefixes", "5. Tag Questions", "6. Connectors", "7. Narration",
-              "8. Pronoun Reference", "9. Modifiers", "10. Synonym & Antonym", "11. Composition & Application"
           ]
       }
   };
@@ -742,22 +708,51 @@
 
 <script>
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
+const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
+
+// Restored All Original Course Vault Data
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "" },
-        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "" }
+        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "" },
+        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "" },
+        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "" }
     ]},
-    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
-        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "" }
-    ]},
-    course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
-        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet }
-    ]},
-    course6: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান (Botany)", img: "WQ-f52E61i0", videos: [
-        { title: "১. কোষ ও এর গঠন", id: "WQ-f52E61i0", sheet: "" }
+    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
+        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "" },
+        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "" }
     ]},
     course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
-        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "" }
+        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "" },
+        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "" }
+    ]},
+    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
+        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "" },
+        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "" }
+    ]},
+    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
+        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "" },
+        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "" }
+    ]},
+    course6: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান (Botany)", img: "WQ-f52E61i0", videos: [
+        { title: "১. কোষ ও এর গঠন", id: "WQ-f52E61i0", sheet: "" },
+        { title: "২. কোষ বিভাজন", id: "0FmnnibILno", sheet: "" }
+    ]},
+    course7: { sub: "biology", title: "🐾 প্রাণিবিজ্ঞান (Zoology)", img: "LrklqNYuQc4", videos: [
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", id: "LrklqNYuQc4", sheet: "" }
+    ]},
+    course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
+        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
+        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet }
+    ]},
+    course9: { sub: "math", title: "Higher Math 2nd Paper MCQ", img: "FxUUvxX9HRw", videos: [
+        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet }
+    ]},
+    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
+        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "" }
+    ]},
+    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
+        { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "" }
     ]}
 };
 
