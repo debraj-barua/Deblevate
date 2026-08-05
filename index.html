@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deblevate's Dream Edtech | Complete Premium</title>
+    <title>Deblevate's Dream Edtech | Premium Complete</title>
     
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
@@ -68,10 +68,25 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        #resume-banner {
+            display: none; background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(6, 182, 212, 0.25));
+            border: 1px solid var(--accent-cyan); padding: 12px 20px; border-radius: 12px; margin-bottom: 20px;
+            align-items: center; justify-content: space-between; backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.2); animation: slideDown 0.3s ease-out;
+        }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .resume-text { font-size: 0.95rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .resume-actions { display: flex; gap: 10px; }
+        .resume-btn-yes { background: var(--accent-cyan); color: #000; border: none; padding: 6px 16px; border-radius: 6px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .resume-btn-yes:hover { background: #fff; box-shadow: 0 0 10px var(--accent-cyan); }
+        .resume-btn-no { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .resume-btn-no:hover { background: rgba(255,255,255,0.2); }
+
         .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); }
         .shape { position: absolute; border-radius: 50%; filter: blur(160px); opacity: 0.18; animation: float 18s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
         .shape1 { width: 50vw; height: 50vw; background: var(--accent-purple); top: -20%; left: -10%; animation-duration: 22s; }
-        .shape2 { width: 45vw; height: 45vw; background: var(--accent-pink); bottom: -15%; right: -10%; animation-duration: 26s; }
+        .shape2 { width: 45vw; height: 45vw; background: var(--accent-pink); bottom: -15%; right: -10%; animation-duration: 26s; animation-direction: alternate-reverse; }
+        .shape3 { width: 40vw; height: 40vw; background: var(--accent-cyan); top: 35%; left: 30%; opacity: 0.1; }
         
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
@@ -90,10 +105,11 @@
             backdrop-filter: blur(25px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6); 
         }
         .header-logo { display: flex; align-items: center; gap: 15px; text-decoration: none; transition: transform 0.3s; }
+        .header-logo:hover { transform: scale(1.03); }
         .header-logo img { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; box-shadow: 0 0 20px var(--accent-purple); border: 2px solid var(--accent-purple-light); }
         .brand-text-container { display: flex; flex-direction: column; }
-        .brand-name { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to right, #ffffff, var(--accent-purple-light), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1; }
-        .brand-sub { font-size: 0.8rem; color: var(--accent-cyan); letter-spacing: 4px; margin-top: 4px; font-weight: 800; text-transform: uppercase; }
+        .brand-name { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(to right, #ffffff, var(--accent-purple-light), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; line-height: 1; filter: drop-shadow(0 0 10px rgba(192,132,252,0.4)); }
+        .brand-sub { font-size: 0.8rem; color: var(--accent-cyan); letter-spacing: 4px; margin-top: 4px; font-weight: 800; text-transform: uppercase; text-shadow: 0 0 8px rgba(6,182,212,0.5); }
         
         .nav-right { display: flex; align-items: center; gap: 1rem; }
         .header-social { display: flex; gap: 10px; margin-right: 10px; align-items: center; }
@@ -101,27 +117,37 @@
             display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 50%;
             background: rgba(255,255,255,0.05); border: 1px solid rgba(147,51,234,0.3); transition: all 0.3s ease; text-decoration: none;
         }
-        .header-social a svg { width: 18px; height: 18px; fill: #fff; display: block; margin: auto; }
+        .header-social a svg { width: 18px; height: 18px; fill: #fff; display: block; margin: auto; transition: 0.3s; }
+        .header-social a:hover.tg-icon { background: #0ea5e9; border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.6); }
+        .header-social a:hover.yt-icon { background: #ef4444; border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); }
 
-        .login-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;}
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.8); }
+            70% { box-shadow: 0 0 0 18px rgba(147, 51, 234, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(147, 51, 234, 0); }
+        }
+        .login-btn { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 10px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); animation: pulseGlow 2s infinite; text-transform: uppercase; letter-spacing: 1px;}
         .login-btn:hover { transform: translateY(-3px) scale(1.05); background: linear-gradient(135deg, var(--accent-purple-light), var(--accent-cyan)); color: #000; box-shadow: 0 0 25px var(--accent-cyan); }
         
-        .user-profile { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 6px 18px 6px 6px; border-radius: 50px; border: 1px solid rgba(147,51,234,0.4); backdrop-filter: blur(10px); }
-        .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-cyan); object-fit: cover; }
-        .logout-btn { background: transparent; color: #f87171; border: none; padding: 0; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
-        .logout-btn:hover { color: var(--accent-pink); }
+        .user-profile { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); padding: 6px 18px 6px 6px; border-radius: 50px; border: 1px solid rgba(147,51,234,0.4); box-shadow: inset 0 0 12px rgba(147,51,234,0.15); backdrop-filter: blur(10px); }
+        .user-profile img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent-cyan); box-shadow: 0 0 12px var(--accent-cyan); object-fit: cover; }
+        .logout-btn { background: transparent; color: #f87171; border: none; padding: 0; cursor: pointer; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
+        .logout-btn:hover { color: var(--accent-pink); text-shadow: 0 0 10px var(--accent-pink); }
 
         #login-screen { display: flex; justify-content: center; align-items: center; min-height: 85vh; padding: 2rem; position: relative; z-index: 10; }
         .login-glass-panel {
             background: rgba(12, 6, 22, 0.80); backdrop-filter: blur(25px); border: 1px solid rgba(147, 51, 234, 0.35);
-            border-radius: 24px; padding: 4rem 3rem; text-align: center; max-width: 550px; width: 100%; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+            border-radius: 24px; padding: 4rem 3rem; text-align: center; max-width: 550px; width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(6, 182, 212, 0.1); position: relative; overflow: hidden;
+            animation: floatPanel 8s ease-in-out infinite;
         }
-        .welcome-text { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 900; letter-spacing: 6px; margin: 0 0 15px; background: linear-gradient(to right, #fff, var(--accent-cyan), var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
-        .welcome-subtext { color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; margin-bottom: 3rem; font-weight: 500; }
+        @keyframes floatPanel { 0%, 100% { transform: translateY(0px) rotateX(0deg); } 50% { transform: translateY(-15px) rotateX(2deg); } }
+        .welcome-text { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 900; letter-spacing: 6px; margin: 0 0 15px; background: linear-gradient(to right, #fff, var(--accent-cyan), var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.5)); }
+        .welcome-subtext { color: #e2e8f0; font-size: 1.1rem; line-height: 1.6; margin-bottom: 3rem; font-weight: 500; opacity: 0.9; }
         .cyber-btn {
             background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); border: 2px solid var(--accent-cyan);
             padding: 1.2rem 3rem; font-size: 1.2rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase;
-            border-radius: 12px; cursor: pointer; transition: all 0.4s;
+            border-radius: 12px; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
         }
         .cyber-btn:hover { background: var(--accent-cyan); color: #000; box-shadow: 0 0 40px var(--accent-cyan); transform: translateY(-3px) scale(1.05); }
 
@@ -134,32 +160,38 @@
             background: rgba(15, 8, 25, 0.85); border: 2px solid var(--accent-purple); padding: 2.5rem;
             border-radius: 24px; max-width: 500px; width: 95%; box-shadow: 0 25px 60px rgba(0,0,0,0.9); position: relative; margin: auto;
         }
-        .profile-form-group { text-align: left; margin-bottom: 15px; }
-        .profile-form-group label { display: block; color: var(--accent-purple-light); font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .profile-form-group { text-align: left; margin-bottom: 15px; position: relative; }
+        .profile-form-group label { display: block; color: var(--accent-purple-light); font-size: 0.85rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
         .profile-input-field {
             width: 100%; background: rgba(0,0,0,0.6); border: 1px solid var(--accent-purple); color: #fff;
-            padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem; font-family: inherit;
+            padding: 10px 15px; border-radius: 8px; outline: none; font-size: 1rem; font-family: inherit; transition: 0.3s;
         }
 
         #main-app { display: none; position: relative; z-index: 10; } 
         #home-view { padding: 3rem 5%; max-width: 1400px; margin: 0 auto; }
-        .hero-banner { border-radius: 24px; text-align: center; border: 2px solid rgba(147, 51, 234, 0.35); background: #000; overflow: hidden; }
+        .hero-banner { border-radius: 24px; text-align: center; border: 2px solid rgba(147, 51, 234, 0.35); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8); background: #000; overflow: hidden; }
         .hero-banner img { width: 100%; height: auto; display: block; }
-        
-        .motivation-container { margin: -1.5rem auto 3rem; max-width: 85%; background: linear-gradient(135deg, rgba(20, 10, 35, 0.92), rgba(10, 4, 20, 0.96)); border-radius: 16px; padding: 1.5rem; text-align: center; border: 2px solid var(--accent-purple-light); backdrop-filter: blur(15px); }
+        .motivation-container { margin: -1.5rem auto 3rem; max-width: 85%; position: relative; z-index: 20; background: linear-gradient(135deg, rgba(20, 10, 35, 0.92), rgba(10, 4, 20, 0.96)); border-radius: 16px; padding: 1.5rem; text-align: center; border: 2px solid var(--accent-purple-light); backdrop-filter: blur(15px); }
         .motivation-text { color: #fff; font-size: 1.15rem; font-weight: 700; line-height: 1.6; margin: 0; }
         .motivation-badge { color: var(--accent-purple-light); font-size: 1.25rem; font-weight: 900; display: inline-block; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase; }
 
         .filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-bottom: 4rem; }
         .filter-btn { background: rgba(20, 10, 35, 0.7); color: var(--text-muted); border: 1px solid rgba(147,51,234,0.25); padding: 0.8rem 1.8rem; border-radius: 14px; font-weight: 800; cursor: pointer; transition: all 0.3s; font-size: 1rem; backdrop-filter: blur(10px); }
         .filter-btn:hover { border-color: var(--accent-purple-light); color: #fff; transform: translateY(-2px); }
-        .filter-btn.active { background: var(--accent-purple); color: #fff; box-shadow: 0 0 25px rgba(147,51,234,0.45); border-color: var(--accent-purple-light); }
+        .filter-btn[data-target="physics"].active { background: var(--color-physics); color: #fff; box-shadow: 0 0 25px rgba(236,72,153,0.45); border-color: var(--color-physics); }
+        .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #000; box-shadow: 0 0 25px rgba(251,191,36,0.45); border-color: var(--color-chemistry); }
+        .filter-btn[data-target="math"].active { background: var(--color-math); color: #fff; box-shadow: 0 0 25px rgba(249,115,22,0.45); border-color: var(--color-math); }
+        .filter-btn[data-target="biology"].active { background: var(--color-biology); color: #000; box-shadow: 0 0 25px rgba(16,185,129,0.45); border-color: var(--color-biology); }
+        .filter-btn[data-target="ict"].active { background: var(--color-ict); color: #fff; box-shadow: 0 0 25px rgba(168,85,247,0.45); border-color: var(--color-ict); }
+        .filter-btn[data-target="bangla"].active { background: var(--color-bangla); color: #000; box-shadow: 0 0 25px rgba(14,165,233,0.45); border-color: var(--color-bangla); }
+        .filter-btn[data-target="english"].active { background: var(--color-english); color: #000; box-shadow: 0 0 25px rgba(6,182,212,0.45); border-color: var(--color-english); }
 
         .course-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 3rem; }
         .course-card { background: rgba(15, 8, 25, 0.65); backdrop-filter: blur(12px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(147,51,234,0.2); transition: all 0.4s; cursor: pointer; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.7); position: relative; }
         .course-card:hover { transform: translateY(-10px); border-color: var(--accent-purple-light); background: rgba(25, 12, 42, 0.85); }
         .card-img-wrapper { position: relative; width: 100%; padding-top: 56.25%; background-color: #000; overflow: hidden; border-bottom: 2px solid var(--accent-purple); }
-        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .course-card:hover .card-img-wrapper img { transform: scale(1.08); }
         .card-tags { position: absolute; bottom: 12px; left: 12px; display: flex; gap: 8px; z-index: 2;}
         .tag { padding: 0.5rem 1.2rem; border-radius: 8px; font-size: 0.75rem; font-weight: 900; color: #fff; text-transform: uppercase; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink)); }
         .enrollment-stat { position: absolute; top: 12px; right: 12px; background: rgba(5, 2, 10, 0.9); border: 1px solid var(--accent-cyan); color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: bold; z-index: 2; }
@@ -199,6 +231,16 @@
         .pl-title { font-size: 0.9rem; font-weight: 700; color: #fff; }
         .pl-author { font-size: 0.75rem; color: var(--accent-cyan); font-weight: 600; }
 
+        .materials-section { margin-bottom: 1.5rem; display: none; max-width: 950px; margin-left: auto; margin-right: auto; width: 100%; }
+        .section-heading { display: flex; align-items: center; gap: 10px; font-size: 1.1rem; font-weight: 800; color: #e2e8f0; margin-bottom: 0.8rem; }
+        .material-buttons { display: flex; gap: 15px; margin-bottom: 0.8rem; }
+        .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 7px 14px; border-radius: 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+        .slide-frame-container { width: 100%; height: 650px; background: #000; border-radius: 14px; overflow: hidden; border: 2px solid rgba(147,51,234,0.35); display: none; margin-top: 1rem; }
+        .slide-frame-container iframe { width: 100%; height: 100%; border: none; }
+
+        .floating-chat-btn { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background: rgba(20, 15, 30, 0.85); border: 2px solid var(--accent-cyan); border-radius: 50%; color: #fff; font-size: 1.5rem; cursor: pointer; z-index: 1000; display: flex; justify-content: center; align-items: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7); }
+        .floating-chat-panel { position: fixed; bottom: 95px; right: 25px; width: 360px; height: 520px; background: rgba(15, 8, 25, 0.96); border: 1px solid rgba(147,51,234,0.4); border-radius: 16px; backdrop-filter: blur(25px); z-index: 1000; display: none; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.9); overflow: hidden; }
+        
         footer { background: linear-gradient(to top, rgba(5, 2, 10, 0.98), rgba(15, 8, 28, 0.95)); border-top: 2px solid rgba(147, 51, 234, 0.3); padding: 4rem 5% 2rem; margin-top: 5rem; }
         .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 3rem; margin-bottom: 3rem; }
         .footer-bottom { max-width: 1400px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid rgba(147, 51, 234, 0.2); display: flex; justify-content: space-between; color: #64748b; font-size: 0.9rem; font-weight: 600; }
@@ -214,6 +256,11 @@
 <div id="global-loader">
     <div class="loader-spinner"></div>
     <div class="loader-text">Deblevate is Preparing...</div>
+</div>
+
+<div id="imageViewerModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:99999; justify-content:center; align-items:center;">
+    <button id="imageViewerClose" onclick="closeImageViewer()" style="position:absolute; top:20px; right:30px; background:transparent; border:none; color:#fff; font-size:2rem; cursor:pointer;">✕</button>
+    <img id="fullScreenImageElement" src="" style="max-width:90%; max-height:90%; object-fit:contain;">
 </div>
 
 <div id="profile-settings-overlay" class="modal-overlay">
@@ -253,6 +300,27 @@
     </div>
 </div>
 
+<div id="admin-dashboard-overlay" class="modal-overlay">
+    <div class="auth-card" style="max-width: 950px; width: 95%; max-height: 85vh; overflow-y: auto;">
+        <h3 style="color: var(--accent-gold); font-family: 'Poppins', sans-serif; letter-spacing: 2px; margin: 0 0 20px; text-align: center; font-weight: 900;">SYSTEM PROFILES LOG</h3>
+        <div style="overflow-x: auto; background: rgba(0,0,0,0.6); border-radius: 12px; border: 1px solid var(--accent-purple);">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; color: #fff;">
+                <thead>
+                    <tr style="border-bottom: 2px solid var(--accent-purple); color: var(--accent-cyan); background: rgba(147, 51, 234, 0.25);">
+                        <th style="padding: 12px;">Name</th>
+                        <th style="padding: 12px;">Batch</th>
+                        <th style="padding: 12px;">Mobile</th>
+                        <th style="padding: 12px;">Institution</th>
+                        <th style="padding: 12px;">Verified Email</th>
+                    </tr>
+                </thead>
+                <tbody id="adminProfileTableBody"></tbody>
+            </table>
+        </div>
+        <button class="login-btn" style="margin: 20px auto 0; background: #333;" onclick="document.getElementById('admin-dashboard-overlay').style.display='none'">Close Dashboard</button>
+    </div>
+</div>
+
 <header>
     <a href="#" class="header-logo" onclick="showHome()">
         <img src="channels4_profile.jpg" alt="Logo" onerror="this.style.display='none'">
@@ -279,6 +347,7 @@
                     <div id="userName" style="color: var(--accent-cyan); font-size: 0.9rem; font-weight: 900; margin-bottom: 3px;"></div>
                     <div style="display: flex; gap: 10px;">
                         <button class="logout-btn" style="color: var(--accent-purple-light);" onclick="openProfileModal()">⚙️ Profile</button>
+                        <button id="adminBtnUI" class="logout-btn" style="color: var(--accent-gold); display: none;" onclick="openAdminDashboard()">👑 Admin</button>
                         <button class="logout-btn" onclick="signOutUser()">Logout</button>
                     </div>
                 </div>
@@ -307,7 +376,7 @@
         </div>
 
         <!-- Mode switchers -->
-        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; flex-wrap: wrap;">
             <button class="filter-btn active" onclick="switchMainTab('courses', this)">📚 Course Vault</button>
             <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">📊 Complete Science Study Tracker</button>
         </div>
@@ -356,6 +425,18 @@
                 <h2 id="mainVideoTitle" class="video-title">Loading...</h2>
             </div>
         </div>
+        
+        <div class="materials-section" id="materialsSection">
+            <h3 class="section-heading">📑 CLASS MATERIALS</h3>
+            <div class="material-buttons">
+                <button class="material-btn" id="toggleSlideBtn" onclick="toggleSlide()">📖 Lecture Slide</button>
+                <a id="sheetDownloadBtn" href="#" class="material-btn" target="_blank" style="color:#10b981; border-color: rgba(16, 185, 129, 0.4);">⬇ Download PDF</a>
+            </div>
+            <div class="slide-frame-container" id="slideFrameContainer">
+                <iframe id="slideIframe" src="" allowfullscreen="true"></iframe>
+            </div>
+        </div>
+
         <div class="playlist-section">
             <h3 style="color:#fff; margin-bottom:1rem;">অধ্যায়ের ক্লাস:</h3>
             <div class="vertical-playlist" id="playlistView"></div>
@@ -364,20 +445,25 @@
 
     <footer>
         <div class="footer-container">
-            <div>
-                <span style="font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 900; color:#fff;">DEBLEVATE</span>
-                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">Revolutionizing education through innovative learning solutions & complete tracking.</p>
+            <div class="footer-brand">
+                <div class="footer-logo-title" style="display:flex; align-items:center; gap:12px;">
+                    <span class="footer-brand-name" style="font-size:1.8rem; font-weight:900; color:#fff;">DEBLEVATE</span>
+                </div>
+                <p class="footer-desc">Deblevate's Dream Edtech is committed to revolutionizing education through innovative learning solutions & complete tracking.</p>
             </div>
             <div>
-                <h4 style="color:#fff;">Quick Links</h4>
-                <ul style="list-style: none; padding: 0; display:flex; flex-direction:column; gap:8px;">
-                    <li><a href="#" onclick="showHome()" style="color:#a78bfa; text-decoration:none;">Home</a></li>
-                    <li><a href="#" onclick="switchMainTab('tracker')" style="color:var(--accent-cyan); text-decoration:none;">Study Tracker</a></li>
+                <h4 class="footer-col-title" style="color:#fff;">Quick Links</h4>
+                <ul class="footer-links" style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+                    <li><a href="#" onclick="showHome()">Home</a></li>
+                    <li><a href="#" onclick="switchMainTab('tracker')">Study Tracker</a></li>
                 </ul>
             </div>
             <div>
-                <h4 style="color:#fff;">Support</h4>
-                <p style="color: #94a3b8; font-size: 0.95rem;">Support Line: 01985334948<br>Chattogram, Bangladesh</p>
+                <h4 class="footer-col-title" style="color:#fff;">Contact Us</h4>
+                <div class="footer-contact">
+                    <div class="contact-item"><span>📍</span> Chattogram, Bangladesh</div>
+                    <div class="contact-item"><span>📞</span> Support Line: 01985334948</div>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
@@ -512,6 +598,10 @@
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('main-app').style.display = 'block';
 
+      if(user.email.toLowerCase() === "debrajbarua8@gmail.com") {
+          document.getElementById('adminBtnUI').style.display = "inline-block";
+      }
+
       renderAllCourses();
       initStudyTracker();
   }
@@ -521,80 +611,77 @@
       window.systemInitialized = false;
   };
 
+  window.openAdminDashboard = function() {
+      const tableBody = document.getElementById('adminProfileTableBody');
+      tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:20px;">Loading...</td></tr>`;
+      document.getElementById('admin-dashboard-overlay').style.display = 'flex';
+
+      get(dbRef(window.db, 'users_metadata')).then((snapshot) => {
+          tableBody.innerHTML = "";
+          const records = snapshot.val();
+          if(!records) { tableBody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No records found.</td></tr>`; return; }
+
+          Object.keys(records).forEach(uid => {
+              const profile = records[uid].profile;
+              if (profile) {
+                  tableBody.innerHTML += `
+                      <tr style="border-bottom: 1px solid rgba(147,51,234,0.15);">
+                          <td style="padding: 12px; font-weight: bold;">${profile.name || 'N/A'}</td>
+                          <td style="padding: 12px;">${profile.batch || 'N/A'}</td>
+                          <td style="padding: 12px;">${profile.phonePersonal || 'N/A'}</td>
+                          <td style="padding: 12px;">${profile.institution || 'N/A'}</td>
+                          <td style="padding: 12px; font-size:0.8rem;">${profile.email || 'N/A'}</td>
+                      </tr>
+                  `;
+              }
+          });
+      });
+  };
+
+  // Comprehensive Science Syllabus Definition
   window.scienceSyllabus = {
       physics1: {
           title: "Physics 1st Paper",
-          chapters: [
-              "১. ভৌত রাশি ও পরিমাপ", "২. ভেক্টর", "৩. গতিবিদ্যা", "৪. নিউটনীয় বলবিদ্যা",
-              "৫. কাজ, শক্তি ও ক্ষমতা", "৬. মহাকর্ষ ও অভিকর্ষ", "৭. পদার্থের গাঠনিক ধর্ম",
-              "৮. পর্যাবৃত্ত গতি", "৯. তরঙ্গ", "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব"
-          ]
+          chapters: ["১. ভৌত রাশি ও পরিমাপ", "২. ভেক্টর", "৩. গতিবিদ্যা", "৪. নিউটনীয় বলবিদ্যা", "৫. কাজ, শক্তি ও ক্ষমতা", "৬. মহাকর্ষ ও অভিকর্ষ", "৭. পদার্থের গাঠনিক ধর্ম", "৮. পর্যাবৃত্ত গতি", "৯. তরঙ্গ", "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব"]
       },
       physics2: {
           title: "Physics 2nd Paper",
-          chapters: [
-              "১. তাপগতিবিদ্যা", "২. স্থির তড়িৎ", "৩. চল তড়িৎ", "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব",
-              "৫. তাড়িতচৌম্বক আবেশ", "৬. জ্যামিতিক আলোকবিজ্ঞান", "৭. ভৌত আলোকবিজ্ঞান",
-              "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", "৯. পরমাণুর মডেল ও নিউক্লিয়ার", "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "১১. জ্যোতির্বিজ্ঞান"
-          ]
+          chapters: ["১. তাপগতিবিদ্যা", "২. স্থির তড়িৎ", "৩. চল তড়িৎ", "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", "৫. তাড়িতচৌম্বক আবেশ", "৬. জ্যামিতিক আলোকবিজ্ঞান", "৭. ভৌত আলোকবিজ্ঞান", "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", "৯. পরমাণুর মডেল ও নিউক্লিয়ার", "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", "১১. জ্যোতির্বিজ্ঞান"]
       },
       chem1: {
           title: "Chemistry 1st Paper",
-          chapters: [
-              "১. ল্যাবরেটরির নিরাপদ ব্যবহার", "২. গুণগত রসায়ন", "৩. মৌলের পর্যায়বৃত্ত ধর্ম",
-              "৪. রাসায়নিক পরিবর্তন", "৫. কর্মমুখী রসায়ন"
-          ]
+          chapters: ["১. ল্যাবরেটরির নিরাপদ ব্যবহার", "২. গুণগত রসায়ন", "৩. মৌলের পর্যায়বৃত্ত ধর্ম", "৪. রাসায়নিক পরিবর্তন", "৫. কর্মমুখী রসায়ন"]
       },
       chem2: {
           title: "Chemistry 2nd Paper",
-          chapters: [
-              "১. পরিবেশ রসায়ন", "২. জৈব রসায়ন", "৩. পরিমাণগত রসায়ন", "৪. তড়িৎ রসায়ন", "৫. অর্থনৈতিক রসায়ন"
-          ]
+          chapters: ["১. পরিবেশ রসায়ন", "২. জৈব রসায়ন", "৩. পরিমাণগত রসায়ন", "৪. তড়িৎ রসায়ন", "৫. অর্থনৈতিক রসায়ন"]
       },
       math1: {
           title: "Higher Math 1st Paper",
-          chapters: [
-              "১. ম্যাট্রিক্স ও নির্ণায়ক", "২. ভেক্টর", "৩. সরলরেখা", "৪. বৃত্ত",
-              "৫. বিন্যাস ও সমাবেশ", "৬. ত্রিকোণমিতি", "৭. অন্তরীকরণ", "৮. যোগজীকরণ"
-          ]
+          chapters: ["১. ম্যাট্রিক্স ও নির্ণায়ক", "২. ভেক্টর", "৩. সরলরেখা", "৪. বৃত্ত", "৫. বিন্যাস ও সমাবেশ", "৬. ত্রিকোণমিতি", "৭. অন্তরীকরণ", "৮. যোগজীকরণ"]
       },
       math2: {
           title: "Higher Math 2nd Paper",
-          chapters: [
-              "১. বাস্তব সংখ্যা ও অসমতা", "২. বহুপদী ও বহুপদী সমীকরণ", "৩. জটিল সংখ্যা",
-              "৪. দ্বিপদী বিস্তৃতি", "৫. কণিক", "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", "৭. স্থিতিবিদ্যা", "৮. গতিবিদ্যা"
-          ]
+          chapters: ["১. বাস্তব সংখ্যা ও অসমতা", "২. বহুপদী ও বহুপদী সমীকরণ", "৩. জটিল সংখ্যা", "৪. দ্বিপদী বিস্তৃতি", "৫. কণিক", "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", "৭. স্থিতিবিদ্যা", "৮. গতিবিদ্যা"]
       },
       bio1: {
           title: "Biology 1st Paper (Botany)",
-          chapters: [
-              "১. কোষ ও এর গঠন", "২. কোষ বিভাজন", "৩. অণুজীব", "৪. ব্রায়োফাইটা ও টেরিডোফাইটা",
-              "৫. টিস্যু ও টিস্যুতন্ত্র", "৬. নগ্নবীজী ও আবৃতবীজী", "৭. উদ্ভিদ শারীরতত্ত্ব", "৮. উদ্ভিদ প্রজনন", "৯. জীবপ্রযুক্তি"
-          ]
+          chapters: ["১. কোষ ও এর গঠন", "২. কোষ বিভাজন", "৩. অণুজীব", "৪. ব্রায়োফাইটা ও টেরিডোফাইটা", "৫. টিস্যু ও টিস্যুতন্ত্র", "৬. নগ্নবীজী ও আবৃতবীজী", "৭. উদ্ভিদ শারীরতত্ত্ব", "৮. উদ্ভিদ প্রজনন", "৯. জীবপ্রযুক্তি"]
       },
       bio2: {
           title: "Biology 2nd Paper (Zoology)",
-          chapters: [
-              "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", "২. প্রাণীর পরিচিতি", "৩. পরিপাক ও শোষণ",
-              "৪. রক্ত ও সংবহন", "৫. শ্বসন ও শ্বাসক্রিয়া", "৬. বর্জ্য ও নিষ্কাশন", "৭. চলন ও অঙ্গচালনা", "৮. প্রতিরক্ষা", "৯. জিনতত্ত্ব"
-          ]
+          chapters: ["১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", "২. প্রাণীর পরিচিতি", "৩. পরিপাক ও শোষণ", "৪. রক্ত ও সংবহন", "৫. শ্বসন ও শ্বাসক্রিয়া", "৬. বর্জ্য ও নিষ্কাশন", "৭. চলন ও অঙ্গচালনা", "৮. প্রতিরক্ষা", "৯. জিনতত্ত্ব"]
       },
       ict: {
           title: "ICT (Information & Communication Tech)",
-          chapters: [
-              "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", "২. কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং",
-              "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", "৪. ওয়েব ডিজাইন পরিচিতি ও HTML",
-              "৫. প্রোগ্রামিং ভাষা (C Programming)", "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম"
-          ]
+          chapters: ["১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", "২. কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং", "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", "৪. ওয়েব ডিজাইন পরিচিতি ও HTML", "৫. প্রোগ্রামিং ভাষা (C Programming)", "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম"]
       }
   };
 
   window.initStudyTracker = async function() {
       if(!window.auth.currentUser) return;
       const uid = window.auth.currentUser.uid;
-      const progressRef = dbRef(window.db, `users_metadata/${uid}/study_progress`);
-      
-      const snapshot = await get(progressRef);
+      const snapshot = await get(dbRef(window.db, `users_metadata/${uid}/study_progress`));
       const userProgress = snapshot.val() || {};
 
       const container = document.getElementById('trackerSubjectsContainer');
@@ -611,10 +698,7 @@
           let chaptersHtml = "";
           subData.chapters.forEach((chap, idx) => {
               const isChecked = userProgress[subKey] && userProgress[subKey][idx] === true;
-              if (isChecked) {
-                  subCompleted++;
-                  completedChaptersCount++;
-              }
+              if (isChecked) { subCompleted++; completedChaptersCount++; }
               chaptersHtml += `
                   <label class="chapter-item ${isChecked ? 'completed' : ''}" id="lbl-${subKey}-${idx}">
                       <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleChapterProgress('${subKey}', ${idx}, this)">
@@ -624,22 +708,19 @@
           });
 
           let subPercent = Math.round((subCompleted / subTotal) * 100);
-
-          const card = document.createElement('div');
-          card.className = "tracker-subject-card";
-          card.innerHTML = `
-              <div class="tracker-sub-title">
-                  <span>${subData.title}</span>
-                  <span id="percent-${subKey}" style="font-size:0.85rem; color:var(--accent-cyan);">${subPercent}% Completed</span>
+          container.innerHTML += `
+              <div class="tracker-subject-card">
+                  <div class="tracker-sub-title">
+                      <span>${subData.title}</span>
+                      <span id="percent-${subKey}" style="font-size:0.85rem; color:var(--accent-cyan);">${subPercent}% Completed</span>
+                  </div>
+                  <div style="width:100%; height:6px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; margin-bottom:12px;">
+                      <div id="fill-${subKey}" style="width:${subPercent}%; height:100%; background:var(--accent-purple-light); transition:0.3s;"></div>
+                  </div>
+                  <div class="chapter-list">${chaptersHtml}</div>
               </div>
-              <div style="width:100%; height:6px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; margin-bottom:12px;">
-                  <div id="fill-${subKey}" style="width:${subPercent}%; height:100%; background:var(--accent-purple-light); transition:0.3s;"></div>
-              </div>
-              <div class="chapter-list">${chaptersHtml}</div>
           `;
-          container.appendChild(card);
       }
-
       updateOverallProgress(completedChaptersCount, totalChaptersCount);
   };
 
@@ -652,9 +733,7 @@
       if(isChecked) labelEl.classList.add('completed');
       else labelEl.classList.remove('completed');
 
-      const path = `users_metadata/${uid}/study_progress/${subKey}/${index}`;
-      await set(dbRef(window.db, path), isChecked);
-
+      await set(dbRef(window.db, `users_metadata/${uid}/study_progress/${subKey}/${index}`), isChecked);
       recalculateTrackerUIs();
   };
 
@@ -680,7 +759,6 @@
           if(fillEl) fillEl.style.width = `${subPercent}%`;
           if(textEl) textEl.innerText = `${subPercent}% Completed`;
       }
-
       updateOverallProgress(completedChaptersCount, totalChaptersCount);
   }
 
@@ -710,49 +788,102 @@
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
 
-// Restored All Original Course Vault Data
+// All Original 32 Courses Completely Restored
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
-        { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "" },
-        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "" },
-        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "" },
-        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "" }
+        { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
+        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
+        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
+        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" },
+        { title: "৫. কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view" },
+        { title: "৬. মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view" },
+        { title: "৭. পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view" },
+        { title: "৮. পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view" },
+        { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
+        { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
     ]},
     course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
-        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "" },
-        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "" }
+        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" }, 
+        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" }, 
+        { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" }, 
+        { title: "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view" }, 
+        { title: "৫. তাড়িতচৌম্বক আবেশ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view" }, 
+        { title: "৬. জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view" }, 
+        { title: "৭. ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view" }, 
+        { title: "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view" }, 
+        { title: "৯. পরমাণুর মডেল ও নিউক্লিয়ার", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view" }, 
+        { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" }, 
+        { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
     ]},
     course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
-        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "" },
-        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "" }
+        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
+        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
+        { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
+        { title: "৪. ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view" },
+        { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
+        { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
     ]},
     course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
-        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "" },
-        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "" }
+        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
+        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
+        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
+        { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
+        { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
+        { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
     ]},
     course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
-        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "" },
-        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "" }
+        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
+        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
+        { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
+        { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
+        { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
+        { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
     ]},
-    course6: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান (Botany)", img: "WQ-f52E61i0", videos: [
-        { title: "১. কোষ ও এর গঠন", id: "WQ-f52E61i0", sheet: "" },
-        { title: "২. কোষ বিভাজন", id: "0FmnnibILno", sheet: "" }
+    course6: { sub: "biology", title: "🌿 ১ম পত্র: উদ্ভিদবিজ্ঞান (Rajib Sir)", img: "WQ-f52E61i0", videos: [
+        { title: "১. কোষ ও এর গঠন (Cell & Its Structure) - CQ", id: "WQ-f52E61i0", sheet: "" },
+        { title: "১. কোষ ও এর গঠন - MCQ", id: "rK25BTW72Lk", sheet: "" },
+        { title: "২. কোষ বিভাজন (Cell Division) - CQ", id: "0FmnnibILno", sheet: "" },
+        { title: "২. কোষ বিভাজন - MCQ", id: "ibTniWbGCQU", sheet: "" },
+        { title: "৩. অণুজীব (Microbiology) - CQ", id: "u4fOPHw9jHk", sheet: "" },
+        { title: "৩. অণুজীব - MCQ", id: "Jqfhj2funDA", sheet: "" },
+        { title: "৪. ব্রায়োফাইটা ও টেরিডোফাইটা - CQ", id: "PWagkOyd5EY", sheet: "" },
+        { title: "৫. টিস্যু ও টিস্যুতন্ত্র - CQ", id: "8cbCHHdF_rs", sheet: "" }
     ]},
-    course7: { sub: "biology", title: "🐾 প্রাণিবিজ্ঞান (Zoology)", img: "LrklqNYuQc4", videos: [
-        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", id: "LrklqNYuQc4", sheet: "" }
+    course7: { sub: "biology", title: "🐾 ২য় পত্র: প্রাণিবিজ্ঞান (Rajib Sir)", img: "LrklqNYuQc4", videos: [
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস - CQ", id: "LrklqNYuQc4", sheet: "" },
+        { title: "২. প্রাণীর পরিচিতি - CQ", id: "wjnPT32kocI", sheet: "" },
+        { title: "৩. পরিপাক ও শোষণ - CQ", id: "CNA2Wui5NKE", sheet: "" }
     ]},
     course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
         { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
-        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet }
+        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
+        { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
+        { title: "৪. বিন্যাস ও সমাবেশ", id: "qyP-bbCSAr4", sheet: mathSheet },
+        { title: "৫. ত্রিকোণমিতি", id: "IvMPzm4Ap3w", sheet: mathSheet },
+        { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
+        { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
     ]},
     course9: { sub: "math", title: "Higher Math 2nd Paper MCQ", img: "FxUUvxX9HRw", videos: [
-        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet }
+        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
+        { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
+        { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
+        { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
+        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet }
     ]},
     course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
-        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "" }
+        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
+        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" }
     ]},
     course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
-        { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "" }
+        { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
+    ]},
+    course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", videos: [
+        { title: "1. English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" },
+        { title: "4. Right Forms of Verbs Part - 01", id: "Niz67Fg9BhI", sheet: "https://drive.google.com/file/d/1asiNcLlB6WmlAAGQnwJgPd_fKhW40uSc/view" }
+    ]},
+    course17: { sub: "ict", title: "ICT CQ Complete Preparation by Sheroare Hossain Emon", img: "hOoUDyqzHiI", videos: [
+        { title: "প্রোগ্রামিং ভাষা - Programing One Shot Revision Class ! 🚀", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
+        { title: "ওয়েব ডিজাইন ও HTML - Web Design One Shot 🔥", id: "jflnzv-Obag", sheet: ictCqSheetFolder }
     ]}
 };
 
@@ -761,11 +892,13 @@ function renderAllCourses() {
     grid.innerHTML = "";
     Object.keys(courseData).forEach(key => {
         let c = courseData[key];
+        let totalAllowedMembers = window.allowedEmails ? window.allowedEmails.length : 0;
+        
         grid.innerHTML += `
         <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
-            <div class="enrollment-stat">👥 Active</div>
+            <div class="enrollment-stat">👥 ${totalAllowedMembers} Members</div>
             <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
-            <div class="card-tags"><span class="tag" style="background: var(--color-${c.sub});">${c.sub}</span></div></div>
+            <div class="card-tags"><span class="tag" style="background: var(--color-${c.sub}); color:${c.sub === 'chemistry' || c.sub === 'biology' ? '#000' : '#fff'}">${c.sub}</span></div></div>
             <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
         </div>`;
     });
@@ -776,12 +909,15 @@ function showHome() {
     document.getElementById('home-view').style.display = 'block';
     document.getElementById('tracker-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'none';
-    if(window.plyrPlayer) window.plyrPlayer.stop();
+    document.querySelector('header').style.display = 'flex';
+    
+    if(window.plyrPlayer) { window.plyrPlayer.stop(); }
+    sessionStorage.removeItem('deblevate_state');
     window.scrollTo(0,0);
 }
 
 function filterSubject(sub, btn) {
-    document.querySelectorAll('#subject-filters .filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     if(btn) btn.classList.add('active');
     document.querySelectorAll('.course-card').forEach(c => {
         c.style.display = (c.getAttribute('data-subject') === sub) ? 'block' : 'none';
@@ -789,9 +925,12 @@ function filterSubject(sub, btn) {
 }
 
 function openCourse(key, targetVidIndex = 0) {
+    window.currentCourseKey = key;
+    
     document.getElementById('home-view').style.display = 'none';
     document.getElementById('tracker-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
+    document.querySelector('header').style.display = 'none';
     
     const data = courseData[key];
     const container = document.getElementById("playlistView");
@@ -803,10 +942,10 @@ function openCourse(key, targetVidIndex = 0) {
         div.onclick = () => {
             document.querySelectorAll('.playlist-item').forEach(e=>e.classList.remove('active'));
             div.classList.add('active');
-            setVideo(vid.id, vid.title);
+            setVideo(vid.id, vid.title, vid.sheet, i);
         };
         div.innerHTML = `
-            <img class="pl-thumb" src="https://img.youtube.com/vi/${vid.id}/mqdefault.jpg">
+            <img class="pl-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/mqdefault.jpg" alt="thumbnail" onerror="this.src='channels4_profile.jpg'">
             <div class="pl-details">
                 <span class="pl-title">${vid.title}</span>
                 <span class="pl-author">▶ Click to Watch</span>
@@ -816,21 +955,70 @@ function openCourse(key, targetVidIndex = 0) {
     });
     
     if(data.videos.length > 0) {
-        let targetVid = data.videos[targetVidIndex];
-        setVideo(targetVid.id, targetVid.title);
+        let targetVid = data.videos[targetVidIndex] || data.videos[0];
+        setVideo(targetVid.id, targetVid.title, targetVid.sheet, targetVidIndex);
     }
     window.scrollTo(0,0);
 }
 
-window.plyrPlayer = null;
-function setVideo(id, title) {
-    document.getElementById("mainVideoTitle").innerText = title;
-    if(window.plyrPlayer) {
-        window.plyrPlayer.source = { type: 'video', sources: [{ src: id, provider: 'youtube' }] };
-    } else {
-        document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
-        window.plyrPlayer = new Plyr('#studioPlayer', { youtube: { noCookie: true, rel: 0 } });
+function getDirectDownloadLink(url) {
+    if (!url) return "#";
+    const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/uc?export=download&id=${fileMatch[1]}`;
     }
+    return url;
+}
+
+window.plyrPlayer = null;
+function setVideo(id, title, sheetLink, vidIndex = 0) {
+    window.currentVideoId = id;
+    document.getElementById("mainVideoTitle").innerText = title;
+    
+    if(!id || id.trim() === "") {
+        if(window.plyrPlayer) { window.plyrPlayer.stop(); }
+        document.getElementById('studioPlayer').innerHTML = `<div style="padding:4rem; text-align:center; color:var(--text-muted); font-weight:bold;">No video asset linked yet for this topic. Accessing interactive lecture sheets below.</div>`;
+    } else {
+        if(window.plyrPlayer) {
+            window.plyrPlayer.source = { type: 'video', sources: [{ src: id, provider: 'youtube' }] };
+        } else {
+            document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
+            window.plyrPlayer = new Plyr('#studioPlayer', { youtube: { noCookie: true, rel: 0 } });
+        }
+    }
+
+    const materialsSection = document.getElementById("materialsSection");
+    const slideFrameContainer = document.getElementById("slideFrameContainer");
+    const slideIframe = document.getElementById("slideIframe");
+    const dlBtn = document.getElementById("sheetDownloadBtn");
+    const toggleSlideBtn = document.getElementById("toggleSlideBtn");
+
+    if(sheetLink && sheetLink.trim() !== "") {
+        materialsSection.style.display = "block";
+        slideFrameContainer.style.display = "none";
+        toggleSlideBtn.classList.remove('active');
+        dlBtn.href = getDirectDownloadLink(sheetLink);
+        slideIframe.src = sheetLink.includes('/view') ? sheetLink.replace('/view', '/preview') : sheetLink;
+    } else {
+        materialsSection.style.display = "none";
+        slideIframe.src = "";
+    }
+}
+
+function toggleSlide() {
+    const container = document.getElementById("slideFrameContainer");
+    const btn = document.getElementById("toggleSlideBtn");
+    if(container.style.display === "none") {
+        container.style.display = "block";
+        btn.classList.add('active');
+    } else {
+        container.style.display = "none";
+        btn.classList.remove('active');
+    }
+}
+
+function closeImageViewer() {
+    document.getElementById('imageViewerModal').style.display = 'none';
 }
 </script>
 </body>
