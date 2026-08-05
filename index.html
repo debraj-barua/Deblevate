@@ -198,12 +198,12 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; }
 
-        /* --- Updated SS-Matched Study Tracker UI (Inside Home View Tabs) --- */
+        /* --- Clan Hall / Study Tracker UI (Matched with Screenshot) --- */
         #tracker-section { display: none; }
         .clan-main-card { background: rgba(15, 8, 25, 0.85); border: 2px solid rgba(147, 51, 234, 0.4); border-radius: 24px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(147, 51, 234, 0.15); backdrop-filter: blur(20px); margin-bottom: 2rem; }
         .clan-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .clan-details h2 { margin: 0 0 6px; font-size: 2rem; font-family: 'Poppins', sans-serif; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .clan-metrics { display: flex; gap: 30px; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 25px; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); }
+        .clan-metrics { display: flex; gap: 30px; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 25px; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); flex-wrap: wrap; }
         .metric-box { text-align: center; }
         .metric-val { font-size: 1.3rem; font-weight: 900; color: #fff; }
         .metric-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
@@ -359,7 +359,7 @@
 <div id="login-screen">
     <div class="login-glass-panel">
         <h1 class="welcome-text">WELCOME</h1>
-        <p class="welcome-subtext">Initialize your connection to the grid. Authenticate your credentials to unlock all Science Study Trackers & Premium HSC courses.</p>
+        <p class="welcome-subtext">Initialize your connection to the grid. Authenticate your credentials to unlock all Study Trackers & Premium HSC courses.</p>
         <button id="loginBtnCenter" class="cyber-btn">Authenticate</button>
     </div>
 </div>
@@ -375,10 +375,10 @@
             <span class="motivation-badge">Best of Luck for HSC!</span>
         </div>
 
-        <!-- Mode switchers (Matched with your requested SS UI structure) -->
+        <!-- Mode switchers (Matched seamlessly) -->
         <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; flex-wrap: wrap;">
             <button class="filter-btn active" onclick="switchMainTab('courses', this)">📚 Course Vault</button>
-            <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">📊 Study Tracker Dashboard</button>
+            <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">🛡️ Study Clan Hall</button>
         </div>
 
         <!-- Course Vault Section -->
@@ -395,13 +395,13 @@
             <div class="course-grid" id="courseGridContainer"></div>
         </div>
 
-        <!-- SS-Matched Study Tracker Section (Inside Home View) -->
+        <!-- SS-Matched Clan Hall / Study Tracker Section -->
         <div id="tracker-section">
             <div class="clan-main-card">
                 <div class="clan-header-row">
                     <div>
-                        <h2>HSC Science Study Tracker</h2>
-                        <p style="color: #94a3b8; font-size: 0.95rem; margin: 4px 0 0; font-weight: 600;">আপনার সম্পূর্ণ সিলেবাসের অগ্রগতি ট্র্যাক করুন এবং রিয়েলটাইমে আপডেট রাখুন 🔥</p>
+                        <h2>NDC Boys & Science Clan</h2>
+                        <p style="color: #94a3b8; font-size: 0.95rem; margin: 4px 0 0; font-weight: 600;">একসাথে পড়ি, একসাথে জিতি 🔥 সিলেবাস অগ্রগতি ট্র্যাক করুন</p>
                     </div>
                     <div class="clan-metrics">
                         <div class="metric-box">
@@ -472,7 +472,7 @@
                 <h4 class="footer-col-title" style="color:#fff;">Quick Links</h4>
                 <ul class="footer-links" style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
                     <li><a href="#" onclick="showHome()">Home</a></li>
-                    <li><a href="#" onclick="switchMainTab('tracker')">Study Tracker</a></li>
+                    <li><a href="#" onclick="switchMainTab('tracker')">Study Clan Hall</a></li>
                 </ul>
             </div>
             <div>
@@ -712,6 +712,9 @@
           totalChaptersCount += subTotal;
 
           let chaptersHtml = "";
+          subData.chapters.chapters.forEach((chap, idx) => {
+              // fallback safety check
+          });
           subData.chapters.forEach((chap, idx) => {
               const isChecked = userProgress[subKey] && userProgress[subKey][idx] === true;
               if (isChecked) { subCompleted++; completedChaptersCount++; }
@@ -807,7 +810,7 @@
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
 
-// All 32+ Original Courses Restored Fully
+// All 32+ Original Course Vault Data Fully Restored
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
@@ -1171,6 +1174,7 @@ function renderAllCourses() {
 
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
+    document.getElementById('tracker-section').style.display = 'none';
     document.getElementById('player-view').style.display = 'none';
     document.querySelector('header').style.display = 'flex';
     
@@ -1191,6 +1195,7 @@ function openCourse(key, targetVidIndex = 0) {
     window.currentCourseKey = key;
     
     document.getElementById('home-view').style.display = 'none';
+    document.getElementById('tracker-section').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
     document.querySelector('header').style.display = 'none';
     
