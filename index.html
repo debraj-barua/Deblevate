@@ -198,23 +198,32 @@
         .card-content { padding: 1.8rem; }
         .card-title { font-size: 1.25rem; font-weight: 800; margin: 0; color: #fff; }
 
-        /* --- Complete Science Study Tracker UI --- */
-        #tracker-view { display: none; max-width: 1200px; margin: 0 auto; padding: 2rem 5%; }
-        .tracker-header-box { background: rgba(15, 8, 25, 0.85); border: 2px solid var(--accent-purple); border-radius: 20px; padding: 2rem; margin-bottom: 2rem; backdrop-filter: blur(15px); }
-        .tracker-overall-bar { width: 100%; height: 14px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; margin-top: 15px; border: 1px solid rgba(147,51,234,0.3); }
-        .tracker-overall-fill { height: 100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); border-radius: 10px; transition: width 0.4s ease; box-shadow: 0 0 15px var(--accent-cyan); }
+        /* --- Updated SS-Matched Study Tracker UI (Inside Home View Tabs) --- */
+        #tracker-section { display: none; }
+        .clan-main-card { background: rgba(15, 8, 25, 0.85); border: 2px solid rgba(147, 51, 234, 0.4); border-radius: 24px; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 30px rgba(147, 51, 234, 0.15); backdrop-filter: blur(20px); margin-bottom: 2rem; }
+        .clan-header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .clan-details h2 { margin: 0 0 6px; font-size: 2rem; font-family: 'Poppins', sans-serif; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .clan-metrics { display: flex; gap: 30px; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 25px; border-radius: 16px; border: 1px solid rgba(147,51,234,0.25); }
+        .metric-box { text-align: center; }
+        .metric-val { font-size: 1.3rem; font-weight: 900; color: #fff; }
+        .metric-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
         
-        .tracker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
-        .tracker-subject-card { background: rgba(12, 6, 22, 0.9); border: 1px solid rgba(147, 51, 234, 0.3); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px); }
-        .tracker-sub-title { font-size: 1.2rem; font-weight: 900; color: #fff; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(147,51,234,0.2); padding-bottom: 8px; }
-        .chapter-list { display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto; padding-right: 5px; margin-top: 10px; }
-        .chapter-item { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem; cursor: pointer; transition: 0.2s; }
+        .clan-xp-section { margin: 1.5rem 0 1rem; }
+        .xp-info-row { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; color: var(--accent-purple-light); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .xp-progress-bar { width: 100%; height: 10px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; border: 1px solid rgba(147,51,234,0.3); }
+        .xp-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); border-radius: 10px; box-shadow: 0 0 15px var(--accent-cyan); transition: width 0.4s ease; }
+
+        .tracker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        .tracker-subject-card { background: rgba(12, 6, 22, 0.9); border: 1px solid rgba(147, 51, 234, 0.3); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .tracker-sub-title { font-size: 1.1rem; font-weight: 900; color: #fff; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(147,51,234,0.2); padding-bottom: 8px; }
+        .chapter-list { display: flex; flex-direction: column; gap: 8px; max-height: 280px; overflow-y: auto; padding-right: 5px; margin-top: 10px; }
+        .chapter-item { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); font-size: 0.88rem; cursor: pointer; transition: 0.2s; }
         .chapter-item:hover { background: rgba(147, 51, 234, 0.15); border-color: var(--accent-purple); }
         .chapter-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent-cyan); cursor: pointer; }
         .chapter-item.completed span { text-decoration: line-through; color: var(--text-muted); }
 
         #player-view { display: none; max-width: 1200px; margin: 0 auto; padding: 0.5rem 2% 1.5rem; }
-        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1.2rem; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 0.6rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1.2rem; border-radius: 10px; cursor: pointer; font-weight: bold; margin-bottom: 0.6rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; }
         .back-btn:hover { background: var(--accent-purple); color: #fff; }
         
         .protected-video-wrapper { position: relative; max-width: 950px; margin: 0 auto 0.8rem; width: 100%; border-radius: 14px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.35); box-shadow: 0 20px 40px rgba(0,0,0,0.95); }
@@ -366,12 +375,13 @@
             <span class="motivation-badge">Best of Luck for HSC!</span>
         </div>
 
-        <!-- Mode switchers -->
+        <!-- Mode switchers (Matched with your requested SS UI structure) -->
         <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 2rem; flex-wrap: wrap;">
             <button class="filter-btn active" onclick="switchMainTab('courses', this)">📚 Course Vault</button>
-            <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">📊 Complete Science Study Tracker</button>
+            <button class="filter-btn" onclick="switchMainTab('tracker', this)" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); color:#fff; border:none;">📊 Study Tracker Dashboard</button>
         </div>
 
+        <!-- Course Vault Section -->
         <div id="courses-section">
             <div class="filters" id="subject-filters">
                 <button class="filter-btn active" data-target="physics" onclick="filterSubject('physics', this)">Physics</button>
@@ -384,25 +394,41 @@
             </div>
             <div class="course-grid" id="courseGridContainer"></div>
         </div>
-    </div>
 
-    <!-- Complete Science Study Tracker View -->
-    <div id="tracker-view">
-        <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-        
-        <div class="tracker-header-box">
-            <h2 style="margin: 0; font-family: 'Poppins', sans-serif; font-size: 1.8rem; background: linear-gradient(to right, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Complete Science Study Tracker</h2>
-            <p style="color: #a78bfa; margin: 5px 0 15px; font-weight: 600;">বিজ্ঞান বিভাগের সকল সাবজেক্টের চ্যাপ্টারভিত্তিক অগ্রগতি ট্র্যাক করুন এবং রিয়েলটাইমে আপডেট রাখুন।</p>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem;">
-                <span>Total Completion Progress</span>
-                <span id="overallProgressPercentage">0% Completed</span>
+        <!-- SS-Matched Study Tracker Section (Inside Home View) -->
+        <div id="tracker-section">
+            <div class="clan-main-card">
+                <div class="clan-header-row">
+                    <div>
+                        <h2>HSC Science Study Tracker</h2>
+                        <p style="color: #94a3b8; font-size: 0.95rem; margin: 4px 0 0; font-weight: 600;">আপনার সম্পূর্ণ সিলেবাসের অগ্রগতি ট্র্যাক করুন এবং রিয়েলটাইমে আপডেট রাখুন 🔥</p>
+                    </div>
+                    <div class="clan-metrics">
+                        <div class="metric-box">
+                            <div class="metric-val" id="totalChaptersDoneVal">0 / 0</div>
+                            <div class="metric-lbl">Completed</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-val" id="overallProgressVal" style="color: var(--accent-cyan);">0%</div>
+                            <div class="metric-lbl">Progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- XP / Overall Progress Bar -->
+                <div class="clan-xp-section">
+                    <div class="xp-info-row">
+                        <span>Overall Syllabus Progress</span>
+                        <span id="overallProgressText">0% Done</span>
+                    </div>
+                    <div class="xp-progress-bar">
+                        <div id="overallProgressFill" class="xp-progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
             </div>
-            <div class="tracker-overall-bar">
-                <div id="overallProgressFill" class="tracker-overall-fill" style="width: 0%;"></div>
-            </div>
+
+            <div class="tracker-grid" id="trackerSubjectsContainer"></div>
         </div>
-
-        <div class="tracker-grid" id="trackerSubjectsContainer"></div>
     </div>
 
     <!-- Video Player View -->
@@ -752,10 +778,13 @@
       updateOverallProgress(completedChaptersCount, totalChaptersCount);
   }
 
-  function updateOverallProgress(done, total) {
+  window.updateOverallProgress = function(done, total) {
       let overallPercent = total > 0 ? Math.round((done / total) * 100) : 0;
       document.getElementById('overallProgressPercentage').innerText = `${overallPercent}% Completed (${done}/${total} Chapters)`;
       document.getElementById('overallProgressFill').style.width = `${overallPercent}%`;
+      document.getElementById('totalChaptersDoneVal').innerText = `${done} / ${total}`;
+      document.getElementById('overallProgressVal').innerText = `${overallPercent}%`;
+      document.getElementById('overallProgressText').innerText = `${overallPercent}% Done`;
   }
 
   window.switchMainTab = function(tab, btn) {
@@ -765,10 +794,10 @@
       }
       if(tab === 'courses') {
           document.getElementById('courses-section').style.display = 'block';
-          document.getElementById('tracker-view').style.display = 'none';
+          document.getElementById('tracker-section').style.display = 'none';
       } else if(tab === 'tracker') {
           document.getElementById('courses-section').style.display = 'none';
-          document.getElementById('tracker-view').style.display = 'block';
+          document.getElementById('tracker-section').style.display = 'block';
           initStudyTracker();
       }
   };
@@ -778,7 +807,7 @@
 const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
 const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
 
-// Restored All 32 Original Courses Completely
+// All 32+ Original Courses Restored Fully
 const courseData = {
     course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
         { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
@@ -1142,7 +1171,6 @@ function renderAllCourses() {
 
 function showHome() {
     document.getElementById('home-view').style.display = 'block';
-    document.getElementById('tracker-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'none';
     document.querySelector('header').style.display = 'flex';
     
@@ -1163,7 +1191,6 @@ function openCourse(key, targetVidIndex = 0) {
     window.currentCourseKey = key;
     
     document.getElementById('home-view').style.display = 'none';
-    document.getElementById('tracker-view').style.display = 'none';
     document.getElementById('player-view').style.display = 'block';
     document.querySelector('header').style.display = 'none';
     
