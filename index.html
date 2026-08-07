@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deblevate's Dream Edtech | Premium</title>
     
+    <link rel="icon" type="image/jpg" href="channels4_profile.jpg">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
     <style>
@@ -2148,10 +2149,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 sources: [{ src: id, provider: 'youtube' }]
             };
             setTimeout(() => {
-                if(window.plyrPlayer.embed && typeof window.plyrPlayer.embed.setPlaybackRate === 'function') {
-                    window.plyrPlayer.embed.setPlaybackRate(1);
-                }
-                window.plyrPlayer.speed = 1;
                 window.plyrPlayer.play();
             }, 500);
         } else {
@@ -2169,11 +2166,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                if(player.embed && typeof player.embed.setPlaybackRate === 'function') {
-                    player.embed.setPlaybackRate(1);
-                }
-                player.speed = 1;
-
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
                 if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
                     const minusBtn = document.createElement('button');
@@ -2281,10 +2273,6 @@ window.applyResumeTime = function(shouldResume) {
     if (shouldResume && pendingResumeTime > 0 && window.plyrPlayer) {
         window.plyrPlayer.muted = false; 
         window.plyrPlayer.volume = 1;
-        if(window.plyrPlayer.embed && typeof window.plyrPlayer.embed.setPlaybackRate === 'function') {
-            window.plyrPlayer.embed.setPlaybackRate(1);
-        }
-        window.plyrPlayer.speed = 1;
         window.plyrPlayer.currentTime = pendingResumeTime;
         window.plyrPlayer.play();
     } else {
@@ -2292,10 +2280,6 @@ window.applyResumeTime = function(shouldResume) {
         if(window.plyrPlayer) {
             window.plyrPlayer.muted = false;
             window.plyrPlayer.volume = 1;
-            if(window.plyrPlayer.embed && typeof window.plyrPlayer.embed.setPlaybackRate === 'function') {
-                window.plyrPlayer.embed.setPlaybackRate(1);
-            }
-            window.plyrPlayer.speed = 1;
             window.plyrPlayer.play();
         }
     }
