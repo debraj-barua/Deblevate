@@ -2169,13 +2169,11 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                // Force YouTube API and Plyr speed state strictly to 1x on load
                 if(player.embed && typeof player.embed.setPlaybackRate === 'function') {
                     player.embed.setPlaybackRate(1);
                 }
                 player.speed = 1;
 
-                // Injecting circular seek buttons (⟲5 and 5⟳) directly inside plyr control bar beside play button
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
                 if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
                     const minusBtn = document.createElement('button');
