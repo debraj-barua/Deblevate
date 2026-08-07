@@ -242,33 +242,36 @@
         .studio-container { display: flex; flex-direction: column; width: 100%; } 
         .main-content { width: 100%; display: flex; flex-direction: column; }
         
-        .protected-video-wrapper { position: relative; max-width: 900px; margin: 0 auto 0.8rem; width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
+        .protected-video-wrapper { position: relative; max-width: 900px; margin: 0 auto 0.6rem; width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
         .plyr__video-wrapper::after { content: ''; position: absolute; inset: 0; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
-        .custom-plyr-seek-btn, .custom-speed-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #fff;
-            height: 32px;
-            padding: 0 8px;
-            border-radius: 16px;
-            display: inline-flex;
-            align-items: center;
+        .video-seek-controls {
+            display: flex;
             justify-content: center;
-            cursor: pointer;
-            margin: 0 4px;
-            transition: all 0.2s ease;
-            font-size: 0.75rem;
-            font-weight: 700;
-            flex-shrink: 0;
+            gap: 12px;
+            margin-bottom: 12px;
         }
-        .custom-plyr-seek-btn { width: 32px; border-radius: 50%; padding: 0; }
-        .custom-plyr-seek-btn:hover, .custom-speed-btn:hover {
-            background: rgba(6, 182, 212, 0.3);
-            color: var(--accent-cyan);
-            transform: scale(1.05);
+        .seek-btn {
+            background: rgba(147, 51, 234, 0.15);
+            border: 1px solid var(--accent-cyan);
+            color: #fff;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(5px);
+        }
+        .seek-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 12px var(--accent-cyan);
         }
 
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
@@ -662,6 +665,12 @@
 
                 <div class="protected-video-wrapper" id="videoWrapperContainer">
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
+                </div>
+
+                <!-- Seek Buttons (-5s & +5s) Below Player -->
+                <div class="video-seek-controls" id="externalSeekControls">
+                    <button class="seek-btn" onclick="seekVideo(-5)">⏪ -5s</button>
+                    <button class="seek-btn" onclick="seekVideo(5)">+5s ⏩</button>
                 </div>
 
                 <div class="video-info">
@@ -2121,19 +2130,6 @@ function seekVideo(seconds) {
     }
 }
 
-function changeSpeed() {
-    if (window.plyrPlayer) {
-        const speeds = [0.75, 1, 1.25, 1.5, 1.75, 2];
-        let currentSpeed = window.plyrPlayer.speed;
-        let nextIndex = (speeds.indexOf(currentSpeed) + 1) % speeds.length;
-        let newSpeed = speeds[nextIndex];
-        window.plyrPlayer.speed = newSpeed;
-        
-        const speedBtn = document.getElementById('inPlayerSpeedBtn');
-        if (speedBtn) speedBtn.innerText = newSpeed + 'x';
-    }
-}
-
 function setVideo(id, title, sheetLink, vidIndex = 0) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
@@ -2143,12 +2139,16 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     pendingResumeTime = 0;
     
     const videoWrapperContainer = document.getElementById('videoWrapperContainer');
+    const externalSeekControls = document.getElementById('externalSeekControls');
 
     if(!id || id.trim() === "") {
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
         videoWrapperContainer.style.display = "none";
+        if(externalSeekControls) externalSeekControls.style.display = "none";
     } else {
         videoWrapperContainer.style.display = "block";
+        if(externalSeekControls) externalSeekControls.style.display = "flex";
+        
         let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
 
         if (savedTime > 5) {
@@ -2169,7 +2169,7 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             
             window.plyrPlayer = new Plyr('#studioPlayer', {
                 youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1, hq: 1 },
-                controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
+                controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'speed', 'fullscreen' ],
                 settings: ['quality', 'speed'],
                 speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3] },
                 tooltips: { controls: true, seek: true }
@@ -2179,35 +2179,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
-                if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
-                    const minusBtn = document.createElement('button');
-                    minusBtn.id = 'inPlayerSeekMinus';
-                    minusBtn.className = 'custom-plyr-seek-btn';
-                    minusBtn.innerHTML = '⟲5';
-                    minusBtn.title = 'Rewind 5 seconds';
-                    minusBtn.onclick = () => seekVideo(-5);
-
-                    const plusBtn = document.createElement('button');
-                    plusBtn.id = 'inPlayerSeekPlus';
-                    plusBtn.className = 'custom-plyr-seek-btn';
-                    plusBtn.innerHTML = '5⟳';
-                    plusBtn.title = 'Forward 5 seconds';
-                    plusBtn.onclick = () => seekVideo(5);
-
-                    const speedBtn = document.createElement('button');
-                    speedBtn.id = 'inPlayerSpeedBtn';
-                    speedBtn.className = 'custom-speed-btn';
-                    speedBtn.innerHTML = '1x';
-                    speedBtn.title = 'Change Playback Speed';
-                    speedBtn.onclick = changeSpeed;
-
-                    playBtn.parentNode.insertBefore(minusBtn, playBtn);
-                    playBtn.parentNode.insertBefore(plusBtn, playBtn.nextSibling);
-                    playBtn.parentNode.insertBefore(speedBtn, plusBtn.nextSibling);
-                }
-
-                // Force High Quality Selection
                 try {
                     if (player.quality && typeof player.quality === 'object') {
                         player.quality.current = 1080;
