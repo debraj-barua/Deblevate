@@ -247,7 +247,6 @@
         .plyr__video-wrapper::after { content: ''; position: absolute; inset: 0; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
-        /* Clean Modern Plyr Control Seek Buttons Style matching APAR'S / YouTube UI */
         .custom-plyr-seek-btn {
             background: rgba(255, 255, 255, 0.1);
             border: none;
@@ -2132,7 +2131,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     const videoWrapperContainer = document.getElementById('videoWrapperContainer');
 
     if(!id || id.trim() === "") {
-        // If video ID is empty (Slide Only mode)
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
         videoWrapperContainer.style.display = "none";
     } else {
@@ -2151,7 +2149,7 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             };
             setTimeout(() => {
                 window.plyrPlayer.play();
-            }, 600);
+            }, 500);
         } else {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
             
@@ -2167,7 +2165,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                // Clean circular buttons placed beside play button
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
                 if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
                     const minusBtn = document.createElement('button');
@@ -2188,16 +2185,16 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                     playBtn.parentNode.insertBefore(plusBtn, playBtn.nextSibling);
                 }
 
+                // Force High Quality Selection
                 try {
                     if (player.quality && typeof player.quality === 'object') {
                         player.quality.current = 1080;
                     }
                 } catch(e) {}
 
-                // Auto play video on select
                 setTimeout(() => {
                     player.play();
-                }, 500);
+                }, 400);
             });
         }
 
@@ -2224,7 +2221,7 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     if(sheetLink && sheetLink.trim() !== "") {
         materialsSection.style.display = "block";
         if (!id || id.trim() === "") {
-            slideFrameContainer.style.display = "block"; // Auto open slides if no video
+            slideFrameContainer.style.display = "block";
             toggleSlideBtn.classList.add('active');
         } else {
             slideFrameContainer.style.display = "none";
@@ -2308,9 +2305,7 @@ document.addEventListener('keydown', (e) => {
             if (window.plyrPlayer.muted) window.plyrPlayer.muted = false;
             e.preventDefault();
         } else if (e.key === 'ArrowDown') {
-            window.plyrPlayer.volume = Math.max(currentVol - 0.05,er => {
-                window.plyrPlayer.volume = Math.max(currentVol - 0.05, 0);
-            });
+            window.plyrPlayer.volume = Math.max(currentVol - 0.05, 0);
             e.preventDefault();
         }
     }
