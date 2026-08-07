@@ -2143,16 +2143,17 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             document.getElementById('resume-banner').style.display = 'flex';
         }
 
+        // Persistent Speed retention logic
+        let currentSpeed = parseFloat(localStorage.getItem('deblevate_playback_speed') || 1);
+
         if(window.plyrPlayer) {
             window.plyrPlayer.source = {
                 type: 'video',
                 sources: [{ src: id, provider: 'youtube' }]
             };
             setTimeout(() => {
+                window.plyrPlayer.speed = currentSpeed;
                 window.plyrPlayer.play();
-                // Ensure custom playback speed is retained when switching videos
-                let rememberedSpeed = localStorage.getItem('deblevate_playback_speed') || 1;
-                window.plyrPlayer.speed = parseFloat(rememberedSpeed);
             }, 500);
         } else {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
@@ -2161,24 +2162,19 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1, hq: 1 },
                 controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'speed', 'fullscreen' ],
                 settings: ['quality', 'speed'],
-                speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3] },
+                speed: { selected: currentSpeed, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3] },
                 tooltips: { controls: true, seek: true }
             });
 
             window.plyrPlayer.on('ready', event => {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
-                
-                // Track speed change to remember user preference across videos
+                player.speed = currentSpeed;
+
+                // Sync speed changes properly
                 player.on('ratechange', () => {
                     localStorage.setItem('deblevate_playback_speed', player.speed);
                 });
-
-                // Set saved speed if exists
-                let rememberedSpeed = localStorage.getItem('deblevate_playback_speed');
-                if (rememberedSpeed) {
-                    player.speed = parseFloat(rememberedSpeed);
-                }
 
                 // Injecting circular seek buttons (⟲5 and 5⟳) directly inside plyr control bar beside play button
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
@@ -2285,9 +2281,11 @@ function toggleChat() {
 
 window.applyResumeTime = function(shouldResume) {
     document.getElementById('resume-banner').style.display = 'none';
+    let rememberedSpeed = parseFloat(localStorage.getItem('deblevate_playback_speed') || 1);
     if (shouldResume && pendingResumeTime > 0 && window.plyrPlayer) {
         window.plyrPlayer.muted = false; 
         window.plyrPlayer.volume = 1;
+        window.plyrPlayer.speed = rememberedSpeed;
         window.plyrPlayer.currentTime = pendingResumeTime;
         window.plyrPlayer.play();
     } else {
@@ -2295,6 +2293,7 @@ window.applyResumeTime = function(shouldResume) {
         if(window.plyrPlayer) {
             window.plyrPlayer.muted = false;
             window.plyrPlayer.volume = 1;
+            window.plyrPlayer.speed = rememberedSpeed;
             window.plyrPlayer.play();
         }
     }
