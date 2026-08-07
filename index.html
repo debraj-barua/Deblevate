@@ -263,6 +263,34 @@
         .plyr__video-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
+        /* Video Seek Custom Buttons Style */
+        .video-seek-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .seek-btn {
+            background: rgba(147, 51, 234, 0.2);
+            border: 1px solid var(--accent-cyan);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(5px);
+        }
+        .seek-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .video-info { background: rgba(18, 9, 30, 0.8); backdrop-filter: blur(16px); padding: 1rem 1.2rem; border-radius: 14px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 8px 30px rgba(0,0,0,0.7); margin-bottom: 1.2rem; max-width: 950px; margin-left: auto; margin-right: auto; width: 100%;}
         .video-title { margin: 0; font-size: 1.35rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -680,6 +708,12 @@
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
 
+                <!-- Seek Buttons (-5s & +5s) -->
+                <div class="video-seek-controls">
+                    <button class="seek-btn" onclick="seekVideo(-5)">⏪ -5s</button>
+                    <button class="seek-btn" onclick="seekVideo(5)">+5s ⏩</button>
+                </div>
+
                 <div class="video-info">
                     <div class="video-header-panel">
                         <h2 id="mainVideoTitle" class="video-title">Loading...</h2>
@@ -918,7 +952,7 @@
       "Dr. Khastagir Govt. Girls' High School & College", "Fateyabad City Corporation Girls School And College", "Faujdarhat Cadet College",
       "Gachhbaria Govt College", "Goshaildanga Barik Mia High School & College", "Government Art College, Chittagong",
       "Government College of Commerce, Chittagong", "Government Teachers' Training College, Chittagong", "Govt. Alaol College",
-      "Govt. Chittagong College", "Govt. City College, Chittagong", "Govt. Hazi Muhammad Mohsin College, Chattogram", 
+      "Govt. Chittagong College", "Govt. City College, Chattogram", "Govt. Hazi Muhammad Mohsin College, Chattogram", 
       "Govt. Muslim High School & College", "Halishahar Cantonment Public School & College", "Hazera Taju Degree College",
       "Institute of Applied Health Sciences", "Islamia Degree College", "Ispahani Public School & College, Chattogram",
       "Kafco School And College", "Kapasgola City Corparation Mohila College", "Mahajanhat Fazlur Rahman School And College",
@@ -2280,6 +2314,14 @@ window.plyrPlayer = null;
 let timeSaveInterval = null;
 let pendingResumeTime = 0;
 
+// Seek Helper function for custom buttons
+function seekVideo(seconds) {
+    if (window.plyrPlayer && window.plyrPlayer.duration) {
+        let newTime = window.plyrPlayer.currentTime + seconds;
+        window.plyrPlayer.currentTime = Math.max(0, Math.min(newTime, window.plyrPlayer.duration));
+    }
+}
+
 function setVideo(id, title, sheetLink, vidIndex = 0) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
@@ -2308,7 +2350,14 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
             
             window.plyrPlayer = new Plyr('#studioPlayer', {
-                youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1 },
+                youtube: { 
+                    noCookie: true, 
+                    rel: 0, 
+                    showinfo: 0, 
+                    iv_load_policy: 3, 
+                    modestbranding: 1,
+                    hq: 1 // Force high quality parameter initialization
+                },
                 controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen' ],
                 settings: ['quality', 'speed'],
                 speed: { 
@@ -2321,6 +2370,13 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             window.plyrPlayer.on('ready', event => {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3, 3.5, 4];
+                
+                // Force high quality setting selection if available
+                try {
+                    if (player.quality && typeof player.quality === 'object' && typeof player.quality.settings === 'function') {
+                        player.quality.current = 1080; // Try to set highest HD resolution
+                    }
+                } catch(e) {}
             });
         }
 
@@ -2408,6 +2464,28 @@ window.applyResumeTime = function(shouldResume) {
     }
     pendingResumeTime = 0;
 };
+
+// Global Keydown listener for Arrow keys (-5s / +5s)
+document.addEventListener('keydown', (e) => {
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+        return;
+    }
+
+    if (window.plyrPlayer && window.plyrPlayer.playing !== undefined) {
+        let currentTime = window.plyrPlayer.currentTime;
+        let duration = window.plyrPlayer.duration;
+
+        if (e.key === 'ArrowRight') {
+            let newTime = Math.min(currentTime + 5, duration);
+            window.plyrPlayer.currentTime = newTime;
+            e.preventDefault();
+        } else if (e.key === 'ArrowLeft') {
+            let newTime = Math.max(currentTime - 5, 0);
+            window.plyrPlayer.currentTime = newTime;
+            e.preventDefault();
+        }
+    }
+});
 </script>
 </body>
 </html>
