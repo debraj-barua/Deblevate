@@ -247,7 +247,7 @@
         .plyr__video-wrapper::after { content: ''; position: absolute; inset: 0; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
-        /* Circular Clean Seek Buttons Inside Plyr Control Bar matching APAR's UI */
+        /* Perfect Circular Seek Buttons inside Plyr Control Bar (matching reference image) */
         .custom-plyr-seek-btn {
             background: rgba(255, 255, 255, 0.12);
             border: none;
@@ -664,7 +664,7 @@
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
 
-                <!-- Circular Seek Buttons inside Plyr Control bar injected dynamically via JS -->
+                <!-- Circular Seek Buttons Inside Plyr Control Bar Injected via JS -->
 
                 <div class="video-info">
                     <div class="video-header-panel">
@@ -2172,6 +2172,27 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
+                // Injecting circular seek buttons (⟲5 and 5⟳) directly inside plyr control bar
+                const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
+                if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
+                    const minusBtn = document.createElement('button');
+                    minusBtn.id = 'inPlayerSeekMinus';
+                    minusBtn.className = 'custom-plyr-seek-btn';
+                    minusBtn.innerHTML = '⟲5';
+                    minusBtn.title = 'Rewind 5 seconds';
+                    minusBtn.onclick = () => seekVideo(-5);
+
+                    const plusBtn = document.createElement('button');
+                    plusBtn.id = 'inPlayerSeekPlus';
+                    plusBtn.className = 'custom-plyr-seek-btn';
+                    plusBtn.innerHTML = '5⟳';
+                    plusBtn.title = 'Forward 5 seconds';
+                    plusBtn.onclick = () => seekVideo(5);
+
+                    playBtn.parentNode.insertBefore(minusBtn, playBtn);
+                    playBtn.parentNode.insertBefore(plusBtn, playBtn.nextSibling);
+                }
+
                 try {
                     if (player.quality && typeof player.quality === 'object') {
                         player.quality.current = 1080;
