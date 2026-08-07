@@ -242,36 +242,33 @@
         .studio-container { display: flex; flex-direction: column; width: 100%; } 
         .main-content { width: 100%; display: flex; flex-direction: column; }
         
-        .protected-video-wrapper { position: relative; max-width: 900px; margin: 0 auto 0.6rem; width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
+        .protected-video-wrapper { position: relative; max-width: 900px; margin: 0 auto 0.8rem; width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.9); }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
         .plyr__video-wrapper::after { content: ''; position: absolute; inset: 0; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
-        /* Custom Plyr Bar Seek Buttons Customization */
-        .plyr__controls {
-            display: flex;
-            align-items: center;
-        }
-        .custom-seek-btn {
-            background: rgba(147, 51, 234, 0.25);
-            border: 1px solid var(--accent-cyan);
+        /* Clean Modern Plyr Control Seek Buttons Style matching APAR'S / YouTube UI */
+        .custom-plyr-seek-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
             color: #fff;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.2s;
-            margin: 0 4px;
-            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            margin: 0 4px;
+            transition: all 0.2s ease;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
         }
-        .custom-seek-btn:hover {
-            background: var(--accent-cyan);
-            color: #000;
-            box-shadow: 0 0 8px var(--accent-cyan);
+        .custom-plyr-seek-btn:hover {
+            background: rgba(6, 182, 212, 0.3);
+            color: var(--accent-cyan);
+            transform: scale(1.08);
         }
 
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
@@ -2163,25 +2160,25 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                // Injecting -5s and +5s buttons right beside the plyr progress seek bar
-                const progressContainer = player.elements.container.querySelector('.plyr__progress');
-                if (progressContainer && !document.getElementById('inPlayerSeekMinus')) {
+                // Properly placing sleek circular 5s buttons right beside play button inside player control bar
+                const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
+                if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
                     const minusBtn = document.createElement('button');
                     minusBtn.id = 'inPlayerSeekMinus';
-                    minusBtn.className = 'custom-seek-btn';
-                    minusBtn.innerHTML = '-5s';
+                    minusBtn.className = 'custom-plyr-seek-btn';
+                    minusBtn.innerHTML = '⟲5';
                     minusBtn.title = 'Rewind 5 seconds';
                     minusBtn.onclick = () => seekVideo(-5);
 
                     const plusBtn = document.createElement('button');
                     plusBtn.id = 'inPlayerSeekPlus';
-                    plusBtn.className = 'custom-seek-btn';
-                    plusBtn.innerHTML = '+5s';
+                    plusBtn.className = 'custom-plyr-seek-btn';
+                    plusBtn.innerHTML = '5⟳';
                     plusBtn.title = 'Forward 5 seconds';
                     plusBtn.onclick = () => seekVideo(5);
 
-                    progressContainer.parentNode.insertBefore(minusBtn, progressContainer);
-                    progressContainer.parentNode.insertBefore(plusBtn, progressContainer.nextSibling);
+                    playBtn.parentNode.insertBefore(minusBtn, playBtn);
+                    playBtn.parentNode.insertBefore(plusBtn, playBtn.nextSibling);
                 }
 
                 try {
@@ -2274,7 +2271,6 @@ window.applyResumeTime = function(shouldResume) {
     pendingResumeTime = 0;
 };
 
-// Keyboard Shortcuts (Arrow Left/Right for 5s seek, Arrow Up/Down for Volume)
 document.addEventListener('keydown', (e) => {
     if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
 
