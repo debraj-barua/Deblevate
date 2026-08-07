@@ -660,7 +660,7 @@
                     </div>
                 </div>
 
-                <div class="protected-video-wrapper">
+                <div class="protected-video-wrapper" id="videoWrapperContainer">
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
 
@@ -2082,7 +2082,7 @@ function openCourse(key, targetVidIndex = 0) {
             <img class="pl-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/mqdefault.jpg" alt="thumb" onerror="this.src='channels4_profile.jpg'">
             <div class="pl-details">
                 <span class="pl-title">${vid.title}</span>
-                <span class="pl-author">▶ Click to Watch</span>
+                <span class="pl-author">${vid.id ? '▶ Click to Watch' : '📖 Slide Only'}</span>
             </div>
         `;
         container.appendChild(div);
@@ -2129,10 +2129,14 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     document.getElementById('resume-banner').style.display = 'none';
     pendingResumeTime = 0;
     
+    const videoWrapperContainer = document.getElementById('videoWrapperContainer');
+
     if(!id || id.trim() === "") {
+        // If video ID is empty (Slide Only mode)
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
-        document.getElementById('studioPlayer').innerHTML = `<div style="padding:3rem; text-align:center; color:var(--text-muted); font-weight:bold;">No video asset linked yet. Check lecture sheets below.</div>`;
+        videoWrapperContainer.style.display = "none";
     } else {
+        videoWrapperContainer.style.display = "block";
         let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
 
         if (savedTime > 5) {
@@ -2145,6 +2149,9 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 type: 'video',
                 sources: [{ src: id, provider: 'youtube' }]
             };
+            setTimeout(() => {
+                window.plyrPlayer.play();
+            }, 600);
         } else {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
             
@@ -2160,7 +2167,7 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                // Properly placing sleek circular 5s buttons right beside play button inside player control bar
+                // Clean circular buttons placed beside play button
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
                 if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
                     const minusBtn = document.createElement('button');
@@ -2186,6 +2193,11 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                         player.quality.current = 1080;
                     }
                 } catch(e) {}
+
+                // Auto play video on select
+                setTimeout(() => {
+                    player.play();
+                }, 500);
             });
         }
 
@@ -2211,8 +2223,13 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
 
     if(sheetLink && sheetLink.trim() !== "") {
         materialsSection.style.display = "block";
-        slideFrameContainer.style.display = "none";
-        toggleSlideBtn.classList.remove('active');
+        if (!id || id.trim() === "") {
+            slideFrameContainer.style.display = "block"; // Auto open slides if no video
+            toggleSlideBtn.classList.add('active');
+        } else {
+            slideFrameContainer.style.display = "none";
+            toggleSlideBtn.classList.remove('active');
+        }
 
         dlBtn.href = getDirectDownloadLink(sheetLink);
         if (dlBtn.href.includes('uc?export=download')) {
@@ -2266,6 +2283,7 @@ window.applyResumeTime = function(shouldResume) {
         if(window.plyrPlayer) {
             window.plyrPlayer.muted = false;
             window.plyrPlayer.volume = 1;
+            window.plyrPlayer.play();
         }
     }
     pendingResumeTime = 0;
@@ -2290,7 +2308,9 @@ document.addEventListener('keydown', (e) => {
             if (window.plyrPlayer.muted) window.plyrPlayer.muted = false;
             e.preventDefault();
         } else if (e.key === 'ArrowDown') {
-            window.plyrPlayer.volume = Math.max(currentVol - 0.05, 0);
+            window.plyrPlayer.volume = Math.max(currentVol - 0.05,er => {
+                window.plyrPlayer.volume = Math.max(currentVol - 0.05, 0);
+            });
             e.preventDefault();
         }
     }
