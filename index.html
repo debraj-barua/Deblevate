@@ -247,7 +247,7 @@
         .plyr__video-wrapper::after { content: ''; position: absolute; inset: 0; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
-        /* Perfect Circular Seek Buttons inside Plyr Control Bar (matching reference image) */
+        /* Perfect Circular Seek Buttons inside Plyr Control Bar (⟲5 and 5⟳) */
         .custom-plyr-seek-btn {
             background: rgba(255, 255, 255, 0.12);
             border: none;
@@ -663,8 +663,6 @@
                 <div class="protected-video-wrapper" id="videoWrapperContainer">
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
-
-                <!-- Circular Seek Buttons Inside Plyr Control Bar Injected via JS -->
 
                 <div class="video-info">
                     <div class="video-header-panel">
@@ -2132,16 +2130,12 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
     pendingResumeTime = 0;
     
     const videoWrapperContainer = document.getElementById('videoWrapperContainer');
-    const externalSeekControls = document.getElementById('externalSeekControls');
 
     if(!id || id.trim() === "") {
         if(window.plyrPlayer) { window.plyrPlayer.stop(); }
         videoWrapperContainer.style.display = "none";
-        if(externalSeekControls) externalSeekControls.style.display = "none";
     } else {
         videoWrapperContainer.style.display = "block";
-        if(externalSeekControls) externalSeekControls.style.display = "flex";
-        
         let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
 
         if (savedTime > 5) {
@@ -2156,6 +2150,9 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             };
             setTimeout(() => {
                 window.plyrPlayer.play();
+                // Ensure custom playback speed is retained when switching videos
+                let rememberedSpeed = localStorage.getItem('deblevate_playback_speed') || 1;
+                window.plyrPlayer.speed = parseFloat(rememberedSpeed);
             }, 500);
         } else {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
@@ -2172,7 +2169,18 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 const player = event.detail.plyr;
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
-                // Injecting circular seek buttons (⟲5 and 5⟳) directly inside plyr control bar
+                // Track speed change to remember user preference across videos
+                player.on('ratechange', () => {
+                    localStorage.setItem('deblevate_playback_speed', player.speed);
+                });
+
+                // Set saved speed if exists
+                let rememberedSpeed = localStorage.getItem('deblevate_playback_speed');
+                if (rememberedSpeed) {
+                    player.speed = parseFloat(rememberedSpeed);
+                }
+
+                // Injecting circular seek buttons (⟲5 and 5⟳) directly inside plyr control bar beside play button
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
                 if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
                     const minusBtn = document.createElement('button');
