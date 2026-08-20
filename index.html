@@ -1463,7 +1463,7 @@
       const isSystemAdmin = (window.auth.currentUser.email.toLowerCase() === "debrajbarua8@gmail.com");
 
       if (authorUid !== currentUid && !isSystemAdmin) {
-          alert("❌ আপনি অন্য কারও মেসেজ ডিলিট করতে পারবেন না!");
+          alert("❌ আপনি অন্য কারও মেসেজ ডিলিট করতে পারবেন পুনরায় চেষ্টা করবেন না!");
           return;
       }
 
@@ -2291,18 +2291,20 @@ document.addEventListener('keydown', (e) => {
 
     if (window.plyrPlayer && window.plyrPlayer.ready) {
         if (e.key === 'ArrowRight') {
-            window.plyrPlayer.forward(5);
+            window.plyrPlayer.currentTime = Math.min(window.plyrPlayer.currentTime + 5, window.plyrPlayer.duration);
             e.preventDefault();
         } else if (e.key === 'ArrowLeft') {
-            window.plyrPlayer.rewind(5);
+            window.plyrPlayer.currentTime = Math.max(window.plyrPlayer.currentTime - 5, 0);
             e.preventDefault();
         } else if (e.key === 'ArrowUp') {
+            let newVol = Math.min(window.plyrPlayer.volume + 0.05, 1);
+            window.plyrPlayer.volume = Number(newVol.toFixed(2));
             if (window.plyrPlayer.muted) window.plyrPlayer.muted = false;
-            window.plyrPlayer.increaseVolume(0.05);
             e.preventDefault();
         } else if (e.key === 'ArrowDown') {
-            if (window.plyrPlayer.muted) window.plyrPlayer.muted = false;
-            window.plyrPlayer.decreaseVolume(0.05);
+            let newVol = Math.max(window.plyrPlayer.volume - 0.05, 0);
+            window.plyrPlayer.volume = Number(newVol.toFixed(2));
+            if (window.plyrPlayer.muted && newVol > 0) window.plyrPlayer.muted = false;
             e.preventDefault();
         }
     }
