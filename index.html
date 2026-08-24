@@ -271,6 +271,54 @@
             transform: scale(1.1);
         }
 
+        /* --- Audio Booster Styles --- */
+        .audio-enhancer-panel {
+            max-width: 900px;
+            margin: 0 auto 0.8rem;
+            background: rgba(18, 9, 30, 0.85);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            border-radius: 12px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 100%;
+        }
+        .audio-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .boost-selector {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .boost-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(147, 51, 234, 0.4);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.75rem;
+            transition: all 0.2s ease;
+        }
+        .boost-btn:hover, .boost-btn.active {
+            background: var(--accent-cyan);
+            color: #000;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         .video-info { background: rgba(18, 9, 30, 0.85); backdrop-filter: blur(10px); padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 6px 20px rgba(0,0,0,0.6); margin-bottom: 1rem; max-width: 900px; margin-left: auto; margin-right: auto; width: 100%;}
         .video-title { margin: 0; font-size: 1.2rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -662,6 +710,18 @@
 
                 <div class="protected-video-wrapper" id="videoWrapperContainer">
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
+                </div>
+
+                <!-- NEW AUDIO ENHANCER PANEL ADDED HERE -->
+                <div class="audio-enhancer-panel">
+                    <div class="audio-label">
+                        <span>🔊 Sound Booster</span>
+                    </div>
+                    <div class="boost-selector">
+                        <button class="boost-btn active" onclick="setVolumeBoost(1.0, this)">100%</button>
+                        <button class="boost-btn" onclick="setVolumeBoost(1.8, this)">180%</button>
+                        <button class="boost-btn" onclick="setVolumeBoost(2.5, this)">250% Boost</button>
+                    </div>
                 </div>
 
                 <div class="video-info">
@@ -1463,7 +1523,7 @@
       const isSystemAdmin = (window.auth.currentUser.email.toLowerCase() === "debrajbarua8@gmail.com");
 
       if (authorUid !== currentUid && !isSystemAdmin) {
-          alert("❌ আপনি অন্য কারও মেসেজ ডিলিট করতে পারবেন পুনরায় চেষ্টা করবেন না!");
+          alert("❌ আপনি অন্য কারও মেসেজ ডিলিট করতে পারবেন পুনরায় চেষ্টা করবেন না!");
           return;
       }
 
@@ -2110,6 +2170,57 @@ function getDirectDownloadLink(url) {
     return url;
 }
 
+// Web Audio API Gain Node Architecture for boosting volume past 100%
+let audioCtx = null;
+let gainNode = null;
+let sourceNode = null;
+
+function initAudioContext() {
+    if (!audioCtx) {
+        // Fallback for native HTML5 <video> elements (Web Audio API requires direct source, won't apply to cross-origin YT iframes natively, but ensures Plyr hits max fallback limits)
+        const videoEl = document.querySelector('video');
+        if (!videoEl) return;
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        gainNode = audioCtx.createGain();
+
+        try {
+            sourceNode = audioCtx.createMediaElementSource(videoEl);
+            sourceNode.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+        } catch (e) {
+            console.warn("AudioContext setup notice (Cross-Origin or Iframe source):", e);
+        }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}
+
+window.setVolumeBoost = function(multiplier, btnElement) {
+    initAudioContext();
+    if (gainNode && audioCtx) {
+        gainNode.gain.setValueAtTime(multiplier, audioCtx.currentTime);
+    }
+    if (window.plyrPlayer) {
+        window.plyrPlayer.volume = 1.0;
+        window.plyrPlayer.muted = false;
+    }
+
+    document.querySelectorAll('.boost-btn').forEach(btn => btn.classList.remove('active'));
+    if (btnElement) {
+        btnElement.classList.add('active');
+    }
+};
+
+document.addEventListener('click', () => {
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+}, { once: true });
+
+
 window.plyrPlayer = null;
 let timeSaveInterval = null;
 let pendingResumeTime = 0;
@@ -2149,6 +2260,8 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 sources: [{ src: id, provider: 'youtube' }]
             };
             setTimeout(() => {
+                window.plyrPlayer.volume = 1.0;
+                window.plyrPlayer.muted = false;
                 window.plyrPlayer.play();
             }, 500);
         } else {
@@ -2164,6 +2277,11 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
 
             window.plyrPlayer.on('ready', event => {
                 const player = event.detail.plyr;
+                
+                // Volume Enforcement Hooks
+                player.volume = 1.0;
+                player.muted = false;
+
                 player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
@@ -2195,6 +2313,12 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 setTimeout(() => {
                     player.play();
                 }, 400);
+            });
+
+            window.plyrPlayer.on('play', () => {
+                if (window.plyrPlayer.volume < 0.95) {
+                    window.plyrPlayer.volume = 1.0;
+                }
             });
         }
 
