@@ -1791,6 +1791,17 @@ const courseData = {
         { title: "13. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
     ]},
 
+    course33: { sub: "biology", title: "🧬 Varsity Biology Backup", img: "PIXc0iZZeio", videos: [
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", id: "PIXc0iZZeio", sheet: "https://drive.google.com/file/d/1rW0uEJFmblIpZv8BstK2BvgiNxrkg7KB/view" },
+        { title: "২. চলন ও অঙ্গচালনা ০১", id: "geW4KDtQeWU", sheet: "https://drive.google.com/file/d/1hysIr8wX0f1_iuKw-E3GISIcBTW7UZMc/view" },
+        { title: "৩. চলন ও অঙ্গচালনা ০২", id: "7UI6YpHDYBI", sheet: "https://drive.google.com/file/d/10yALWuoI3GfxkQ3KlBDauCUwMg_rYU7A/view" },
+        { title: "৪. কোষ রসায়ন", id: "kD_Jfso2Z18", sheet: "https://pdf.bondipathshala.education/1787998126346.pdf" },
+        { title: "৫. উদ্ভিদ প্রজনন", id: "jUs1om06YtI", sheet: "https://drive.google.com/file/d/1cflyr8cXyMIRAIpyTw7gTvsiNBXjobOc/view" },
+        { title: "৬. জীবপ্রযুক্তি", id: "K3Wi2tkDx0g", sheet: "https://drive.google.com/file/d/1J4Wx2mKbA9ofGjPwXefBNBfY8cEXJtbw/view" },
+        { title: "৭. পরিপাক ও শোষণ", id: "yiBqQ7VnfUM", sheet: "https://drive.google.com/drive/folders/1x_9L6aK_dYgSkDBFaRioVL09LSVjDPzJ" },
+        { title: "৮. ব্রায়োফাইটা ও টেরেডোফাইটা", id: "53CrE6A94po", sheet: "https://drive.google.com/file/d/1bmvN8XT2ExRS7eBKwymHy7pJpOWom35b/view" }
+    ]},
+
     course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
         { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
         { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
@@ -2290,7 +2301,7 @@ window.applyResumeTime = function(shouldResume) {
     } else {
         if(window.currentVideoId) localStorage.removeItem(`video_time_${window.currentVideoId}`);
         if(window.plyrPlayer) {
-            window.plyrPlayer.muted = false;
+            window.plyrPlayer.muted = false; 
             window.plyrPlayer.volume = 1;
             window.plyrPlayer.play();
         }
