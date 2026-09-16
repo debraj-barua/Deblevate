@@ -29,6 +29,7 @@
             --color-ict: #a855f7;
             --color-bangla: #0ea5e9;
             --color-english: #06b6d4;
+            --color-varsity: #8b5cf6;
             
             --plyr-color-main: var(--accent-cyan);
             --plyr-video-control-background-hover: rgba(6, 182, 212, 0.4);
@@ -221,6 +222,7 @@
         .filter-btn[data-target="chemistry"].active { background: var(--color-chemistry); color: #000; border-color: var(--color-chemistry); box-shadow: 0 0 18px rgba(251,191,36,0.35); }
         .filter-btn[data-target="math"].active { background: var(--color-math); color: #fff; border-color: var(--color-math); box-shadow: 0 0 18px rgba(249,115,22,0.35); }
         .filter-btn[data-target="biology"].active { background: var(--color-biology); color: #000; border-color: var(--color-biology); box-shadow: 0 0 18px rgba(16,185,129,0.35); }
+        .filter-btn[data-target="varsity-bio"].active { background: var(--color-varsity); color: #fff; border-color: var(--color-varsity); box-shadow: 0 0 18px rgba(139,92,246,0.5); }
         .filter-btn[data-target="ict"].active { background: var(--color-ict); color: #fff; border-color: var(--color-ict); box-shadow: 0 0 18px rgba(168,85,247,0.35); }
         .filter-btn[data-target="bangla"].active { background: var(--color-bangla); color: #000; border-color: var(--color-bangla); box-shadow: 0 0 18px rgba(14,165,233,0.35); }
         .filter-btn[data-target="english"].active { background: var(--color-english); color: #000; border-color: var(--color-english); box-shadow: 0 0 18px rgba(6,182,212,0.35); }
@@ -636,6 +638,7 @@
             <button class="filter-btn" data-target="chemistry" onclick="filterSubject('chemistry', this)">Chemistry</button>
             <button class="filter-btn" data-target="math" onclick="filterSubject('math', this)">Math</button>
             <button class="filter-btn" data-target="biology" onclick="filterSubject('biology', this)">Biology</button>
+            <button class="filter-btn" data-target="varsity-bio" onclick="filterSubject('varsity-bio', this)">Varsity Backup</button>
             <button class="filter-btn" data-target="ict" onclick="filterSubject('ict', this)">ICT</button>
             <button class="filter-btn" data-target="bangla" onclick="filterSubject('bangla', this)">Bangla</button>
             <button class="filter-btn" data-target="english" onclick="filterSubject('english', this)">English</button>
@@ -1791,7 +1794,7 @@ const courseData = {
         { title: "13. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
     ]},
 
-    course33: { sub: "biology", title: "🧬 Varsity Biology Backup", img: "PIXc0iZZeio", videos: [
+    course33: { sub: "varsity-bio", title: "🧬 Varsity Biology Backup", img: "PIXc0iZZeio", videos: [
         { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", id: "PIXc0iZZeio", sheet: "https://drive.google.com/file/d/1rW0uEJFmblIpZv8BstK2BvgiNxrkg7KB/view" },
         { title: "২. চলন ও অঙ্গচালনা ০১", id: "geW4KDtQeWU", sheet: "https://drive.google.com/file/d/1hysIr8wX0f1_iuKw-E3GISIcBTW7UZMc/view" },
         { title: "৩. চলন ও অঙ্গচালনা ০২", id: "7UI6YpHDYBI", sheet: "https://drive.google.com/file/d/10yALWuoI3GfxkQ3KlBDauCUwMg_rYU7A/view" },
@@ -2043,11 +2046,14 @@ function renderAllCourses() {
         let c = courseData[key];
         let totalAllowedMembers = window.allowedEmails ? window.allowedEmails.length : 0;
         
+        let tagColor = `var(--color-${c.sub})`;
+        if (c.sub === 'varsity-bio') tagColor = 'var(--color-varsity)';
+        
         grid.innerHTML += `
         <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
             <div class="enrollment-stat">👥 ${totalAllowedMembers} Members</div>
             <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
-            <div class="card-tags"><span class="tag" style="background: var(--color-${c.sub}); color:${c.sub === 'chemistry' || c.sub === 'biology' ? '#000' : '#fff'}">${c.sub}</span></div></div>
+            <div class="card-tags"><span class="tag" style="background: ${tagColor}; color:${c.sub === 'chemistry' || c.sub === 'biology' ? '#000' : '#fff'}">${c.sub === 'varsity-bio' ? 'Varsity' : c.sub}</span></div></div>
             <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
         </div>`;
     });
