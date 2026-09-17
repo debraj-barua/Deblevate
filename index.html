@@ -21,20 +21,25 @@
             --accent-pink: #ec4899;
             --accent-cyan: #06b6d4;
             --accent-gold: #fbbf24;
+            --accent-green: #00c988;
             
             --color-physics: #ec4899;
             --color-chemistry: #fbbf24;
             --color-math: #f97316;
             --color-biology: #10b981;
+            --color-varsity: #8b5cf6;
             --color-ict: #a855f7;
             --color-bangla: #0ea5e9;
             --color-english: #06b6d4;
-            --color-varsity: #8b5cf6;
             
-            --plyr-color-main: var(--accent-cyan);
-            --plyr-video-control-background-hover: rgba(6, 182, 212, 0.4);
-            --plyr-menu-background: rgba(15, 8, 25, 0.95);
+            /* Plyr Styling matching custom theme */
+            --plyr-color-main: var(--accent-green);
+            --plyr-video-control-color: #ffffff;
+            --plyr-video-control-background-hover: rgba(0, 201, 136, 0.35);
+            --plyr-menu-background: rgba(15, 8, 25, 0.98);
             --plyr-menu-color: #fff;
+            --plyr-range-thumb-background: var(--accent-green);
+            --plyr-range-fill-background: var(--accent-green);
         }
 
         * {
@@ -65,25 +70,25 @@
         }
         .loader-spinner {
             width: 60px; height: 60px; border: 4px solid rgba(147, 51, 234, 0.2);
-            border-top: 4px solid var(--accent-purple-light); border-right: 4px solid var(--accent-cyan);
+            border-top: 4px solid var(--accent-purple-light); border-right: 4px solid var(--accent-green);
             border-radius: 50%;
             animation: spin 0.8s linear infinite; 
-            box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+            box-shadow: 0 0 20px rgba(0, 201, 136, 0.3);
             margin-bottom: 18px;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loader-text {
             font-family: 'Poppins', sans-serif; color: #fff; font-weight: 800;
             letter-spacing: 2px; font-size: 1.1rem; text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+            text-shadow: 0 0 15px rgba(0, 201, 136, 0.6);
         }
 
         #resume-banner {
-            display: none; background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(6, 182, 212, 0.25));
-            border: 1px solid var(--accent-cyan); padding: 12px 20px; border-radius: 12px; margin-bottom: 20px;
+            display: none; background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(0, 201, 136, 0.25));
+            border: 1px solid var(--accent-green); padding: 12px 20px; border-radius: 12px; margin-bottom: 20px;
             align-items: center; justify-content: space-between; backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.2); animation: slideDown 0.3s ease-out;
+            box-shadow: 0 8px 25px rgba(0, 201, 136, 0.2); animation: slideDown 0.3s ease-out;
         }
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-10px); }
@@ -91,8 +96,8 @@
         }
         .resume-text { font-size: 0.95rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 8px; }
         .resume-actions { display: flex; gap: 10px; }
-        .resume-btn-yes { background: var(--accent-cyan); color: #000; border: none; padding: 6px 16px; border-radius: 6px; font-weight: 800; cursor: pointer; transition: 0.2s; }
-        .resume-btn-yes:hover { background: #fff; box-shadow: 0 0 10px var(--accent-cyan); }
+        .resume-btn-yes { background: var(--accent-green); color: #000; border: none; padding: 6px 16px; border-radius: 6px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        .resume-btn-yes:hover { background: #fff; box-shadow: 0 0 10px var(--accent-green); }
         .resume-btn-no { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .resume-btn-no:hover { background: rgba(255,255,255,0.2); }
 
@@ -239,47 +244,101 @@
         .card-content { padding: 1.4rem; }
         .card-title { font-size: 1.15rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.35; }
 
-        #player-view { display: none; max-width: 1100px; margin: 0 auto; padding: 0.5rem 3% 1.5rem; }
-        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 0.5rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+        /* ================= PLAYER VIEW & MODERN SCREENSHOT CONTROLS ================= */
+        #player-view { display: none; max-width: 1400px; margin: 0 auto; padding: 0.8rem 3% 2rem; }
+        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 0.8rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; }
         .back-btn:hover { background: var(--accent-purple); color: #fff; transform: translateX(-3px); }
-        .studio-container { display: flex; flex-direction: column; width: 100%; } 
+        
+        .studio-container { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; align-items: start; }
+        @media (max-width: 1024px) {
+            .studio-container { grid-template-columns: 1fr; }
+        }
         .main-content { width: 100%; display: flex; flex-direction: column; }
         
-        .protected-video-wrapper { position: relative; max-width: 900px; margin: 0 auto 0.6rem; width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid rgba(192, 132, 252, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.9); transform: translateZ(0); will-change: transform; }
+        .protected-video-wrapper { 
+            position: relative; width: 100%; border-radius: 16px; overflow: hidden; 
+            border: 2px solid rgba(0, 201, 136, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.9); 
+            background: #000; transform: translateZ(0); will-change: transform; 
+        }
         .plyr__video-wrapper iframe { pointer-events: none !important; }
         .plyr__video-wrapper::after { content: ''; position: absolute; inset: 0; z-index: 1; background: transparent; pointer-events: none;}
         .plyr__controls, .plyr__control--overlaid { z-index: 3 !important; }
 
-        .custom-plyr-seek-btn {
-            background: rgba(255, 255, 255, 0.12);
+        /* Central Big Play Icon matching screenshot */
+        .plyr__control--overlaid {
+            background: var(--accent-green) !important;
+            color: #000 !important;
+            width: 65px !important;
+            height: 65px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 0 30px rgba(0, 201, 136, 0.5) !important;
+        }
+        .plyr__control--overlaid svg {
+            width: 24px !important;
+            height: 24px !important;
+            fill: #000 !important;
+            transform: translateX(2px);
+        }
+
+        /* Bottom Controls Bar Styling */
+        .plyr__controls {
+            background: linear-gradient(rgba(0,0,0,0), rgba(10, 13, 20, 0.95)) !important;
+            padding: 10px 14px !important;
+            gap: 6px !important;
+        }
+        .plyr__menu__container {
+            background: rgba(16, 22, 34, 0.98) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 10px !important;
+            backdrop-filter: blur(10px) !important;
+            padding: 8px !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.9) !important;
+        }
+        .plyr__menu__container [role="menuitem"], .plyr__menu__container button {
+            border-radius: 6px !important;
+            font-size: 0.85rem !important;
+            padding: 7px 12px !important;
+        }
+        .plyr__menu__container [role="menuitem"][aria-checked="true"]::after {
+            background: var(--accent-green) !important;
+        }
+
+        /* 10s Rewind and Forward Seek Buttons */
+        .plyr-seek-10-btn {
+            background: transparent;
             border: none;
             color: #fff;
+            cursor: pointer;
             width: 32px;
             height: 32px;
-            border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            margin: 0 4px;
-            transition: all 0.2s ease;
-            font-size: 0.75rem;
-            font-weight: 700;
+            border-radius: 50%;
+            transition: background 0.2s;
+            position: relative;
             flex-shrink: 0;
+            margin: 0 2px;
         }
-        .custom-plyr-seek-btn:hover {
-            background: rgba(6, 182, 212, 0.4);
-            color: var(--accent-cyan);
-            transform: scale(1.1);
+        .plyr-seek-10-btn:hover { background: rgba(255, 255, 255, 0.15); color: var(--accent-green); }
+        .plyr-seek-10-btn span {
+            font-size: 0.65rem;
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: -0.5px;
         }
+        .plyr-seek-10-btn svg { width: 22px; height: 22px; fill: currentColor; }
 
         .video-header-panel { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        .video-info { background: rgba(18, 9, 30, 0.85); backdrop-filter: blur(10px); padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 6px 20px rgba(0,0,0,0.6); margin-bottom: 1rem; max-width: 900px; margin-left: auto; margin-right: auto; width: 100%;}
-        .video-title { margin: 0; font-size: 1.2rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .live-viewer-badge { display: flex; align-items: center; gap: 6px; background: rgba(236,72,153,0.1); border: 1px solid rgba(236,72,153,0.3); padding: 4px 10px; border-radius: 50px; color: #fff; font-weight: bold; font-size: 0.8rem; }
-        .pulse-dot { width: 7px; height: 7px; background-color: var(--accent-pink); border-radius: 50%; display: inline-block; animation: pulseDotAnim 1.5s infinite; }
+        .video-info { background: rgba(18, 9, 30, 0.85); backdrop-filter: blur(10px); padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(147,51,234,0.25); box-shadow: 0 6px 20px rgba(0,0,0,0.6); margin-top: 1rem; width: 100%;}
+        .video-title { margin: 0; font-size: 1.2rem; color: #fff; font-weight: 900; background: linear-gradient(to right, #fff, var(--accent-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .live-viewer-badge { display: flex; align-items: center; gap: 6px; background: rgba(0,201,136,0.1); border: 1px solid var(--accent-green); padding: 4px 10px; border-radius: 50px; color: #fff; font-weight: bold; font-size: 0.8rem; }
+        .pulse-dot { width: 7px; height: 7px; background-color: var(--accent-green); border-radius: 50%; display: inline-block; animation: pulseDotAnim 1.5s infinite; }
         .pulse-dot-small { width: 7px; height: 7px; background-color: #10b981; border-radius: 50%; display: inline-block; animation: pulseDotGreen 1.5s infinite; }
-        @keyframes pulseDotAnim { 0% { box-shadow: 0 0 0 0 rgba(236,72,153,0.7); } 70% { box-shadow: 0 0 0 8px rgba(236,72,153,0); } 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0); } }
+        @keyframes pulseDotAnim { 0% { box-shadow: 0 0 0 0 rgba(0,201,136,0.7); } 70% { box-shadow: 0 0 0 8px rgba(0,201,136,0); } 100% { box-shadow: 0 0 0 0 rgba(0,201,136,0); } }
         @keyframes pulseDotGreen { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.7); } 70% { box-shadow: 0 0 0 6px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
 
         .reaction-center { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
@@ -287,46 +346,69 @@
         .reaction-btn:hover { background: rgba(147, 51, 234, 0.3); }
         .reaction-btn span { color: var(--accent-cyan); }
 
-        .materials-section { margin-bottom: 1.2rem; display: none; max-width: 900px; margin-left: auto; margin-right: auto; width: 100%;}
+        .materials-section { margin-top: 1.2rem; display: none; width: 100%;}
         .section-heading { display: flex; align-items: center; gap: 8px; font-size: 1rem; font-weight: 800; color: #e2e8f0; margin-bottom: 0.7rem; letter-spacing: 0.5px; }
         .material-buttons { display: flex; gap: 12px; margin-bottom: 0.7rem;}
         .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 6px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.25s; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
-        .material-btn:hover, .material-btn.active { border-color: var(--accent-cyan); color: #fff; background: rgba(6, 182, 212, 0.15); }
+        .material-btn:hover, .material-btn.active { border-color: var(--accent-green); color: #fff; background: rgba(0, 201, 136, 0.15); }
         
         .slide-frame-container { width: 100%; height: 500px; background: #000; border-radius: 12px; overflow: hidden; border: 2px solid rgba(147,51,234,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.7); display: none; margin-top: 0.8rem;}
         .slide-frame-container iframe { width: 100%; height: 100%; border: none; pointer-events: auto !important; }
 
-        .playlist-section { margin-bottom: 1.2rem; max-width: 900px; margin-left: auto; margin-right: auto; width: 100%; }
-        .vertical-playlist { display: flex; flex-direction: column; gap: 8px; }
-
+        /* Sidebar Playlist Card */
+        .playlist-card-container {
+            background: rgba(15, 8, 25, 0.85);
+            border: 1px solid rgba(147,51,234,0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+        .playlist-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(147,51,234,0.25);
+            background: rgba(5, 2, 10, 0.9);
+        }
+        .playlist-header-title {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; color: #fff;
+        }
+        .playlist-header-modules {
+            font-size: 0.75rem; color: var(--accent-cyan); font-weight: 700;
+        }
+        .vertical-playlist { 
+            display: flex; flex-direction: column; gap: 6px; 
+            padding: 12px; max-height: 560px; overflow-y: auto; 
+        }
         .playlist-item { 
             display: flex; align-items: center; gap: 10px; padding: 8px 10px; 
-            background: rgba(20, 12, 35, 0.8); border: 1px solid rgba(147,51,234,0.25); 
+            background: rgba(20, 12, 35, 0.8); border: 1px solid rgba(147,51,234,0.2); 
             border-radius: 10px; cursor: pointer; transition: 0.25s ease; 
         }
         .playlist-item:hover { background: rgba(35, 18, 60, 0.9); border-color: var(--accent-purple-light); }
-        .playlist-item.active { background: rgba(12, 25, 45, 0.9); border: 2px solid var(--accent-cyan); }
-        .pl-thumb { width: 80px; height: 45px; border-radius: 5px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
+        .playlist-item.active { background: rgba(0, 201, 136, 0.12); border: 1.5px solid var(--accent-green); }
+        .pl-thumb { width: 85px; height: 48px; border-radius: 6px; object-fit: cover; background: #000; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.1); }
         .pl-details { display: flex; flex-direction: column; justify-content: center; gap: 2px; overflow: hidden; }
-        .pl-title { font-size: 0.85rem; font-weight: 700; color: #fff; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.25; }
-        .pl-author { font-size: 0.7rem; color: var(--accent-cyan); font-weight: 600; }
+        .pl-title { font-size: 0.82rem; font-weight: 700; color: #fff; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.25; }
+        .pl-author { font-size: 0.7rem; color: var(--accent-green); font-weight: 600; }
 
+        /* Floating Live Chat */
         @keyframes chatPulse {
-            0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.5); }
-            70% { box-shadow: 0 0 0 12px rgba(6, 182, 212, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 201, 136, 0.5); }
+            70% { box-shadow: 0 0 0 12px rgba(0, 201, 136, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 201, 136, 0); }
         }
         .floating-chat-btn {
             position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px;
             background: rgba(20, 15, 30, 0.9);
-            border: 2px solid var(--accent-cyan);
+            border: 2px solid var(--accent-green);
             border-radius: 50%; color: #fff; font-size: 1.3rem;
             cursor: pointer; z-index: 1000; display: flex; justify-content: center; align-items: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
             transition: transform 0.3s ease;
             animation: chatPulse 2s infinite;
         }
-        .floating-chat-btn svg { width: 22px; height: 22px; fill: var(--accent-cyan); }
+        .floating-chat-btn svg { width: 22px; height: 22px; fill: var(--accent-green); }
 
         .floating-chat-panel {
             position: fixed; bottom: 85px; right: 15px; width: 340px; height: 480px;
@@ -357,11 +439,11 @@
         .chat-messages::-webkit-scrollbar-thumb { background: rgba(147,51,234,0.5); border-radius: 10px; }
 
         .chat-msg { position: relative; background: rgba(147,51,234,0.08); border: 1px solid rgba(147,51,234,0.18); padding: 7px 10px; padding-right: 50px; border-radius: 8px; border-top-left-radius: 2px; font-size: 0.82rem; color: #e2e8f0; line-height: 1.25; word-break: break-word; }
-        .chat-msg.self { background: rgba(6,182,212,0.12); border-color: rgba(6,182,212,0.25); border-top-left-radius: 8px; border-top-right-radius: 2px; align-self: flex-end; }
+        .chat-msg.self { background: rgba(0,201,136,0.12); border-color: rgba(0,201,136,0.25); border-top-left-radius: 8px; border-top-right-radius: 2px; align-self: flex-end; }
         .chat-author { font-size: 0.68rem; color: var(--accent-purple-light); font-weight: 800; margin-bottom: 2px; display: block; }
-        .chat-msg.self .chat-author { color: var(--accent-cyan); text-align: right; }
+        .chat-msg.self .chat-author { color: var(--accent-green); text-align: right; }
         
-        .chat-reply-preview { font-size: 0.72rem; background: rgba(0,0,0,0.3); border-left: 2px solid var(--accent-cyan); padding: 2px 5px; margin-bottom: 3px; border-radius: 3px; color: #cbd5e1; }
+        .chat-reply-preview { font-size: 0.72rem; background: rgba(0,0,0,0.3); border-left: 2px solid var(--accent-green); padding: 2px 5px; margin-bottom: 3px; border-radius: 3px; color: #cbd5e1; }
         
         .msg-reactions-container { display: flex; gap: 3px; margin-top: 4px; flex-wrap: wrap; }
         .msg-reaction-badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(147,51,234,0.3); border-radius: 10px; padding: 1px 5px; font-size: 0.7rem; cursor: pointer; display: inline-flex; align-items: center; gap: 2px; color: #fff; }
@@ -379,8 +461,8 @@
         .replying-banner { display: none; padding: 5px 10px; background: rgba(147,51,234,0.15); border-top: 1px solid rgba(147,51,234,0.3); font-size: 0.72rem; align-items: center; justify-content: space-between; color: var(--accent-purple-light); }
         .replying-banner button { background: transparent; border: none; color: #f87171; cursor: pointer; font-weight: bold; }
 
-        .typing-indicator-box { padding: 3px 10px; font-size: 0.7rem; color: var(--accent-cyan); font-style: italic; min-height: 18px; background: rgba(10,5,20,0.9); border-top: 1px solid rgba(147,51,234,0.1); display: none; align-items: center; gap: 4px; }
-        .typing-dots span { height: 4px; width: 4px; background: var(--accent-cyan); border-radius: 50%; display: inline-block; animation: typingBounce 1.4s infinite ease-in-out both; }
+        .typing-indicator-box { padding: 3px 10px; font-size: 0.7rem; color: var(--accent-green); font-style: italic; min-height: 18px; background: rgba(10,5,20,0.9); border-top: 1px solid rgba(147,51,234,0.1); display: none; align-items: center; gap: 4px; }
+        .typing-dots span { height: 4px; width: 4px; background: var(--accent-green); border-radius: 50%; display: inline-block; animation: typingBounce 1.4s infinite ease-in-out both; }
         .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
         .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
@@ -406,14 +488,14 @@
         .whatsapp-emoji-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; max-height: 120px; overflow-y: auto; }
         .whatsapp-emoji-grid span { font-size: 1.1rem; cursor: pointer; text-align: center; padding: 2px; }
 
-        .send-btn { background: var(--accent-cyan); color: #000; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; flex-shrink: 0;}
+        .send-btn { background: var(--accent-green); color: #000; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; flex-shrink: 0;}
         .send-btn svg { width: 14px; height: 14px; fill: #000; margin-left: 2px; }
 
         .msg-seen-status { font-size: 0.6rem; color: #94a3b8; float: right; margin-left: 4px; font-weight: bold; }
-        .msg-seen-status.seen { color: var(--accent-cyan); }
+        .msg-seen-status.seen { color: var(--accent-green); }
 
         #imageViewerModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 99999; justify-content: center; align-items: center; }
-        #imageViewerModal img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; border: 2px solid var(--accent-cyan); }
+        #imageViewerModal img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 8px; border: 2px solid var(--accent-green); }
         #imageViewerClose { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
 
         footer {
@@ -441,12 +523,12 @@
         .footer-col-title { color: #fff; font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; }
         .footer-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
         .footer-links a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.2s; }
-        .footer-links a:hover { color: var(--accent-cyan); }
+        .footer-links a:hover { color: var(--accent-green); }
 
         .footer-contact { display: flex; flex-direction: column; gap: 10px; }
         .contact-item { display: flex; align-items: center; gap: 10px; color: #94a3b8; font-size: 0.9rem; font-weight: 600; }
-        .contact-item svg { width: 16px; height: 16px; fill: var(--accent-cyan); vertical-align: middle; }
-        .contact-item span { color: var(--accent-cyan); font-size: 1rem; }
+        .contact-item svg { width: 16px; height: 16px; fill: var(--accent-green); vertical-align: middle; }
+        .contact-item span { color: var(--accent-green); font-size: 1rem; }
 
         .footer-bottom {
             max-width: 1400px;
@@ -505,7 +587,7 @@
         <div class="profile-form-group">
             <label>Profile Picture (Upload JPG/PNG)</label>
             <div style="display: flex; gap: 12px; align-items: center; background: rgba(0,0,0,0.5); padding: 8px; border-radius: 8px; border: 1px solid var(--accent-purple);">
-                <img id="profPicPreview" src="" alt="Avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-cyan); background: #333;">
+                <img id="profPicPreview" src="" alt="Avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-green); background: #333;">
                 <div style="display: flex; flex-direction: column; gap: 5px; width: 100%;">
                     <input type="file" id="profPicFile" accept="image/*" style="color: #fff; font-size: 0.85rem;">
                     <button type="button" onclick="removeProfilePic()" style="background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #f87171; padding: 3px 8px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; cursor: pointer; width: fit-content;">Remove Picture</button>
@@ -556,7 +638,7 @@
         <div style="overflow-x: auto; background: rgba(0,0,0,0.6); border-radius: 10px; border: 1px solid var(--accent-purple);">
             <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; color: #fff;">
                 <thead>
-                    <tr style="border-bottom: 2px solid var(--accent-purple); color: var(--accent-cyan); background: rgba(147, 51, 234, 0.25);">
+                    <tr style="border-bottom: 2px solid var(--accent-purple); color: var(--accent-green); background: rgba(147, 51, 234, 0.25);">
                         <th style="padding: 10px;">Name</th>
                         <th style="padding: 10px;">Batch</th>
                         <th style="padding: 10px;">Class</th>
@@ -602,7 +684,7 @@
             <div id="userInfo" class="user-profile" style="display: none;">
                 <img id="userPic" src="" alt="User">
                 <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                    <div id="userName" style="color: var(--accent-cyan); font-size: 0.85rem; font-weight: 900; margin-bottom: 2px;"></div>
+                    <div id="userName" style="color: var(--accent-green); font-size: 0.85rem; font-weight: 900; margin-bottom: 2px;"></div>
                     <div style="display: flex; gap: 8px;">
                         <button id="profileBtnUI" class="logout-btn" style="color: var(--accent-purple-light);" onclick="openProfileModal()">⚙️ Profile</button>
                         <button id="adminBtnUI" class="logout-btn" style="color: var(--accent-gold); display: none;" onclick="openAdminDashboard()">👑 Admin</button>
@@ -650,19 +732,19 @@
     <div id="player-view">
         <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
 
-        <div class="studio-container">
-            <div class="main-content">
-                
-                <div id="resume-banner">
-                    <div class="resume-text">
-                        <span>⚡</span> Resume playback from where you left off?
-                    </div>
-                    <div class="resume-actions">
-                        <button class="resume-btn-yes" onclick="applyResumeTime(true)">Resume</button>
-                        <button class="resume-btn-no" onclick="applyResumeTime(false)">Start Over</button>
-                    </div>
-                </div>
+        <div id="resume-banner">
+            <div class="resume-text">
+                <span>⚡</span> Resume playback from where you left off?
+            </div>
+            <div class="resume-actions">
+                <button class="resume-btn-yes" onclick="applyResumeTime(true)">Resume</button>
+                <button class="resume-btn-no" onclick="applyResumeTime(false)">Start Over</button>
+            </div>
+        </div>
 
+        <div class="studio-container">
+            <!-- Main Content: Left Side -->
+            <div class="main-content">
                 <div class="protected-video-wrapper" id="videoWrapperContainer">
                     <div id="studioPlayer" data-plyr-provider="youtube" data-plyr-embed-id=""></div>
                 </div>
@@ -682,7 +764,7 @@
                         <button id="btn-wow" class="reaction-btn" onclick="triggerReaction('wow')">😲 <span id="wow-count">0</span></button>
                         <button id="btn-sad" class="reaction-btn" onclick="triggerReaction('sad')">😢 <span id="sad-count">0</span></button>
                     </div>
-                    <div id="reaction-names-display" style="margin-top: 6px; font-size: 0.8rem; color: var(--accent-cyan); font-weight: 600; min-height: 18px;"></div>
+                    <div id="reaction-names-display" style="margin-top: 6px; font-size: 0.8rem; color: var(--accent-green); font-weight: 600; min-height: 18px;"></div>
                 </div>
 
                 <div class="materials-section" id="materialsSection">
@@ -699,12 +781,18 @@
                         <iframe id="slideIframe" src="" allowfullscreen="true"></iframe>
                     </div>
                 </div>
+            </div>
 
-                <div class="playlist-section">
-                    <h3 class="section-heading">অধ্যায়ের ক্লাস:</h3>
-                    <div class="vertical-playlist" id="playlistView"></div>
+            <!-- Playlist: Right Side matching screenshot -->
+            <div class="playlist-card-container">
+                <div class="playlist-header">
+                    <div class="playlist-header-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--accent-green)"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>
+                        CLASS PLAYLIST
+                    </div>
+                    <div class="playlist-header-modules" id="playlistModuleCount">0 Modules</div>
                 </div>
-
+                <div class="vertical-playlist" id="playlistView"></div>
             </div>
         </div>
 
@@ -791,13 +879,13 @@
                     <div class="contact-item"><span>🌐</span> Deblevate Edtech Platform</div>
                     <div class="contact-item">
                         <span>
-                            <svg style="width:16px;height:16px;fill:var(--accent-cyan);vertical-align:middle;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.21 3.45-.49.33-.94.5-1.34.49-.44-.01-1.28-.24-1.9-.44-.76-.24-1.36-.37-1.31-.78.02-.21.32-.42.89-.63 3.5-1.52 5.84-2.53 7.01-3.02 3.33-1.39 4.02-1.63 4.47-1.64.1 0 .32.02.46.14.12.09.15.22.16.33.02.1.02.21.01.31z"/></svg>
+                            <svg style="width:16px;height:16px;fill:var(--accent-green);vertical-align:middle;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.84 1.18-5.21 3.45-.49.33-.94.5-1.34.49-.44-.01-1.28-.24-1.9-.44-.76-.24-1.36-.37-1.31-.78.02-.21.32-.42.89-.63 3.5-1.52 5.84-2.53 7.01-3.02 3.33-1.39 4.02-1.63 4.47-1.64.1 0 .32.02.46.14.12.09.15.22.16.33.02.1.02.21.01.31z"/></svg>
                         </span>
                         <a href="https://t.me/deblevate_admin_bot" target="_blank" style="color: #94a3b8; text-decoration: none;">Telegram: @deblevate_admin_bot</a>
                     </div>
                     <div class="contact-item">
                         <span>
-                            <svg style="width:16px;height:16px;fill:var(--accent-cyan);vertical-align:middle;" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                            <svg style="width:16px;height:16px;fill:var(--accent-green);vertical-align:middle;" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
                         </span>
                         <a href="https://www.youtube.com/@debraj_barua-2006" target="_blank" style="color: #94a3b8; text-decoration: none;">YouTube: Deblevate</a>
                     </div>
@@ -821,7 +909,6 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
   import { getDatabase, ref as dbRef, set, onValue, get, onDisconnect, remove, push, onChildAdded, onChildRemoved, off, update, query, orderByKey } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
-  import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-storage.js";
 
   emailjs.init("5lxeGsSKHJNwQzRuV");
 
@@ -841,7 +928,6 @@
   const app = initializeApp(firebaseConfig);
   window.auth = getAuth(app);
   window.db = getDatabase(app);
-  window.storage = getStorage(app); 
   const provider = new GoogleAuthProvider();
 
   const allowedEmailsDbRef = dbRef(window.db, 'whitelisted_emails');
@@ -1175,7 +1261,7 @@
                       </td>
                       <td style="padding: 10px;">${profile.batch || 'N/A'}</td>
                       <td style="padding: 10px;">${profile.classLevel || 'N/A'}</td>
-                      <td style="padding: 10px; color: var(--accent-cyan); font-family: monospace;">${profile.phonePersonal || 'N/A'}</td>
+                      <td style="padding: 10px; color: var(--accent-green); font-family: monospace;">${profile.phonePersonal || 'N/A'}</td>
                       <td style="padding: 10px;">${profile.institution || 'N/A'}</td>
                       <td style="padding: 10px; font-size:0.75rem; color: #a78bfa;">${profile.email || 'Hidden'}</td>
                   `;
@@ -1598,7 +1684,7 @@
           document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.3)');
           if (window.currentReaction) {
               const activeBtn = document.getElementById(`btn-${window.currentReaction}`);
-              if(activeBtn) activeBtn.style.borderColor = 'var(--accent-cyan)';
+              if(activeBtn) activeBtn.style.borderColor = 'var(--accent-green)';
           }
       });
   };
@@ -2085,6 +2171,7 @@ function openCourse(key, targetVidIndex = 0) {
     
     const data = courseData[key];
     const container = document.getElementById("playlistView");
+    document.getElementById('playlistModuleCount').innerText = `${data.videos.length} Modules`;
     container.innerHTML = "";
     
     data.videos.forEach((vid, i) => {
@@ -2131,13 +2218,6 @@ window.plyrPlayer = null;
 let timeSaveInterval = null;
 let pendingResumeTime = 0;
 
-function seekVideo(seconds) {
-    if (window.plyrPlayer && window.plyrPlayer.duration) {
-        let newTime = window.plyrPlayer.currentTime + seconds;
-        window.plyrPlayer.currentTime = Math.max(0, Math.min(newTime, window.plyrPlayer.duration));
-    }
-}
-
 function setVideo(id, title, sheetLink, vidIndex = 0) {
     window.currentVideoId = id;
     document.getElementById("mainVideoTitle").innerText = title;
@@ -2174,10 +2254,43 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
             document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
             
             window.plyrPlayer = new Plyr('#studioPlayer', {
-                youtube: { noCookie: true, rel: 0, showinfo: 0, iv_load_policy: 3, modestbranding: 1, hq: 1, playsinline: 1 },
-                controls: [ 'play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'speed', 'fullscreen' ],
+                youtube: { 
+                    noCookie: true, 
+                    rel: 0, 
+                    showinfo: 0, 
+                    iv_load_policy: 3, 
+                    modestbranding: 1, 
+                    playsinline: 1,
+                    enablejsapi: 1 
+                },
+                controls: [
+                    'play-large',
+                    'play',
+                    'progress',
+                    'current-time',
+                    'duration',
+                    'mute',
+                    'volume',
+                    'settings',
+                    'pip',
+                    'fullscreen'
+                ],
                 settings: ['quality', 'speed'],
-                speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3] },
+                quality: {
+                    default: 1080,
+                    options: [1080, 720, 480, 360],
+                    forced: true,
+                    onChange: (newQuality) => {
+                        try {
+                            const internal = window.plyrPlayer.embed;
+                            if (internal && internal.setPlaybackQualityRange) {
+                                const qMap = { 1080: 'hd1080', 720: 'hd720', 480: 'large', 360: 'medium' };
+                                internal.setPlaybackQualityRange(qMap[newQuality] || 'default');
+                            }
+                        } catch(e) {}
+                    }
+                },
+                speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] },
                 tooltips: { controls: true, seek: true }
             });
 
@@ -2186,38 +2299,30 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                 
                 player.volume = 1.0;
                 player.muted = false;
-
-                player.options.speed.options = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
                 
                 const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
-                if (playBtn && !document.getElementById('inPlayerSeekMinus')) {
-                    const minusBtn = document.createElement('button');
-                    minusBtn.id = 'inPlayerSeekMinus';
-                    minusBtn.className = 'custom-plyr-seek-btn';
-                    minusBtn.innerHTML = '⟲5';
-                    minusBtn.title = 'Rewind 5 seconds';
-                    minusBtn.onclick = () => seekVideo(-5);
+                if (playBtn && !document.getElementById('customSeekBack10')) {
+                    // 10s Rewind Button
+                    const back10 = document.createElement('button');
+                    back10.id = 'customSeekBack10';
+                    back10.className = 'plyr-seek-10-btn';
+                    back10.title = 'Rewind 10 seconds';
+                    back10.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05 1-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.2 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg><span>10</span>`;
+                    back10.onclick = () => { player.currentTime = Math.max(0, player.currentTime - 10); };
 
-                    const plusBtn = document.createElement('button');
-                    plusBtn.id = 'inPlayerSeekPlus';
-                    plusBtn.className = 'custom-plyr-seek-btn';
-                    plusBtn.innerHTML = '5⟳';
-                    plusBtn.title = 'Forward 5 seconds';
-                    plusBtn.onclick = () => seekVideo(5);
+                    // 10s Forward Button
+                    const forward10 = document.createElement('button');
+                    forward10.id = 'customSeekForward10';
+                    forward10.className = 'plyr-seek-10-btn';
+                    forward10.title = 'Forward 10 seconds';
+                    forward10.innerHTML = `<svg viewBox="0 0 24 24"><path d="M11.5 8c2.65 0 5.05 1 6.9 2.6L22 7v9h-9l3.62-3.62c-1.39-1.2-3.16-1.88-5.12-1.88-3.54 0-6.55 2.31-7.6 5.5l-2.37-.78C2.92 11.03 6.85 8 11.5 8z"/></svg><span>10</span>`;
+                    forward10.onclick = () => { player.currentTime = Math.min(player.duration, player.currentTime + 10); };
 
-                    playBtn.parentNode.insertBefore(minusBtn, playBtn);
-                    playBtn.parentNode.insertBefore(plusBtn, playBtn.nextSibling);
+                    playBtn.parentNode.insertBefore(back10, playBtn.nextSibling);
+                    back10.parentNode.insertBefore(forward10, back10.nextSibling);
                 }
 
-                try {
-                    if (player.quality && typeof player.quality === 'object') {
-                        player.quality.current = 1080;
-                    }
-                } catch(e) {}
-
-                setTimeout(() => {
-                    player.play();
-                }, 300);
+                setTimeout(() => { player.play(); }, 300);
             });
 
             window.plyrPlayer.on('play', () => {
@@ -2320,10 +2425,10 @@ document.addEventListener('keydown', (e) => {
 
     if (window.plyrPlayer && window.plyrPlayer.ready) {
         if (e.key === 'ArrowRight') {
-            window.plyrPlayer.currentTime = Math.min(window.plyrPlayer.currentTime + 5, window.plyrPlayer.duration);
+            window.plyrPlayer.currentTime = Math.min(window.plyrPlayer.currentTime + 10, window.plyrPlayer.duration);
             e.preventDefault();
         } else if (e.key === 'ArrowLeft') {
-            window.plyrPlayer.currentTime = Math.max(window.plyrPlayer.currentTime - 5, 0);
+            window.plyrPlayer.currentTime = Math.max(window.plyrPlayer.currentTime - 10, 0);
             e.preventDefault();
         } else if (e.key === 'ArrowUp') {
             let newVol = Math.min(window.plyrPlayer.volume + 0.05, 1);
