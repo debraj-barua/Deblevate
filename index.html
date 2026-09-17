@@ -313,7 +313,7 @@
             justify-content: center;
             border-radius: 50%;
             transition: all 0.2s ease;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             line-height: 1;
             flex-shrink: 0;
             margin: 0 2px;
@@ -2306,7 +2306,7 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                         }), '*');
                     }
                 } catch(err) {
-                    console.warn("Quality override issue:", err);
+                    console.warn("Quality override:", err);
                 }
             };
 
@@ -2336,6 +2336,10 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                     playBtn.parentNode.insertBefore(forwardBtn, playBtn.nextSibling);
                 }
 
+                // Force 1080p selection in Plyr menu & engine
+                try {
+                    player.quality = 1080;
+                } catch(e) {}
                 window.changeYouTubeQuality(1080);
                 setTimeout(() => { player.play(); }, 300);
             });
