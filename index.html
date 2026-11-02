@@ -57,9 +57,9 @@
             padding: 0; 
             background-color: var(--bg-main); 
             color: var(--text-light); 
-            position: relative;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            position: relative; 
+            overflow-x: hidden; 
+            -webkit-font-smoothing: antialiased; 
         }
 
         #global-loader {
@@ -243,7 +243,7 @@
         .card-content { padding: 1.4rem; }
         .card-title { font-size: 1.15rem; font-weight: 800; margin: 0; color: #fff; line-height: 1.35; }
 
-        /* ================= PLAYER LAYOUT WITH SCREENSHOT STYLING ================= */
+        /* ================= PLAYER LAYOUT ================= */
         #player-view { display: none; max-width: 1400px; margin: 0 auto; padding: 0.8rem 3% 2rem; }
         .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 0.8rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; }
         .back-btn:hover { background: var(--accent-purple); color: #fff; transform: translateX(-3px); }
@@ -370,6 +370,28 @@
         .vertical-playlist { 
             display: flex; flex-direction: column; gap: 6px; 
             padding: 12px; max-height: 560px; overflow-y: auto; 
+        }
+        .playlist-section-header {
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin: 6px 0 2px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .playlist-section-header.botany {
+            color: var(--accent-green);
+            background: rgba(0, 201, 136, 0.12);
+            border-left: 3px solid var(--accent-green);
+        }
+        .playlist-section-header.zoology {
+            color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.12);
+            border-left: 3px solid var(--accent-cyan);
         }
         .playlist-item { 
             display: flex; align-items: center; gap: 10px; padding: 8px 10px; 
@@ -1869,14 +1891,29 @@ const courseData = {
     ]},
 
     course33: { sub: "varsity-bio", title: "🧬 Varsity Biology Backup", img: "PIXc0iZZeio", videos: [
+        // ==================== BOTANY (উদ্ভিদবিজ্ঞান) ====================
+        { section: "🌿 উদ্ভিদবিজ্ঞান (Botany)" },
+        { title: "কোষ রসায়ন (Cell Chemistry) - ০১", id: "gvKvjbzRajY", sheet: "" },
+        { title: "কোষ রসায়ন (Cell Chemistry)", id: "kD_Jfso2Z18", sheet: "https://pdf.bondipathshala.education/1787998126346.pdf" },
+        { title: "শৈবাল ও ছত্রাক (Algae and Fungi)", id: "vLRxlRLAMsU", sheet: "" },
+        { title: "ব্রায়োফাইটা ও টেরেডোফাইটা", id: "53CrE6A94po", sheet: "https://drive.google.com/file/d/1bmvN8XT2ExRS7eBKwymHy7pJpOWom35b/view" },
+        { title: "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ (Angiosperm and Gymnosperm)", id: "jL8KdaXxy40", sheet: "" },
+        { title: "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ (Varsity Written Class)", id: "pEUsDQ-3x84", sheet: "" },
+        { title: "উদ্ভিদ প্রজনন (Plant Reproduction)", id: "jUs1om06YtI", sheet: "https://drive.google.com/file/d/1cflyr8cXyMIRAIpyTw7gTvsiNBXjobOc/view" },
+        { title: "উদ্ভিদ প্রজনন (Varsity Written Class)", id: "odiGe_SmOW8", sheet: "" },
+        { title: "জীবপ্রযুক্তি (Biotechnology)", id: "K3Wi2tkDx0g", sheet: "https://drive.google.com/file/d/1J4Wx2mKbA9ofGjPwXefBNBfY8cEXJtbw/view" },
+        { title: "জীবপ্রযুক্তি (Varsity Written Class)", id: "G9KmJ3_m15k", sheet: "" },
+
+        // ==================== ZOOLOGY (প্রাণিবিজ্ঞান) ====================
+        { section: "🐾 প্রাণিবিজ্ঞান (Zoology)" },
         { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", id: "PIXc0iZZeio", sheet: "https://drive.google.com/file/d/1rW0uEJFmblIpZv8BstK2BvgiNxrkg7KB/view" },
-        { title: "২. চলন ও অঙ্গচালনা ০১", id: "geW4KDtQeWU", sheet: "https://drive.google.com/file/d/1hysIr8wX0f1_iuKw-E3GISIcBTW7UZMc/view" },
-        { title: "৩. চলন ও অঙ্গচালনা ০২", id: "7UI6YpHDYBI", sheet: "https://drive.google.com/file/d/10yALWuoI3GfxkQ3KlBDauCUwMg_rYU7A/view" },
-        { title: "৪. কোষ রসায়ন", id: "kD_Jfso2Z18", sheet: "https://pdf.bondipathshala.education/1787998126346.pdf" },
-        { title: "৫. উদ্ভিদ প্রজনন", id: "jUs1om06YtI", sheet: "https://drive.google.com/file/d/1cflyr8cXyMIRAIpyTw7gTvsiNBXjobOc/view" },
-        { title: "৬. জীবপ্রযুক্তি", id: "K3Wi2tkDx0g", sheet: "https://drive.google.com/file/d/1J4Wx2mKbA9ofGjPwXefBNBfY8cEXJtbw/view" },
-        { title: "৭. পরিপাক ও শোষণ", id: "yiBqQ7VnfUM", sheet: "https://drive.google.com/drive/folders/1x_9L6aK_dYgSkDBFaRioVL09LSVjDPzJ" },
-        { title: "৮. ব্রায়োফাইটা ও টেরেডোফাইটা", id: "53CrE6A94po", sheet: "https://drive.google.com/file/d/1bmvN8XT2ExRS7eBKwymHy7pJpOWom35b/view" }
+        { title: "পরিপাক ও শোষণ (Digestion & Absorption)", id: "yiBqQ7VnfUM", sheet: "https://drive.google.com/drive/folders/1x_9L6aK_dYgSkDBFaRioVL09LSVjDPzJ" },
+        { title: "রক্ত ও সংবহন (Blood and Circulation)", id: "c-eiRneCPmw", sheet: "" },
+        { title: "চলন ও অঙ্গচালনা ০১", id: "geW4KDtQeWU", sheet: "https://drive.google.com/file/d/1hysIr8wX0f1_iuKw-E3GISIcBTW7UZMc/view" },
+        { title: "চলন ও অঙ্গচালনা ০২", id: "7UI6YpHDYBI", sheet: "https://drive.google.com/file/d/10yALWuoI3GfxkQ3KlBDauCUwMg_rYU7A/view" },
+        { title: "জিনতত্ত্ব ও বিবর্তন (Genetics and Evolution)", id: "l2OclruKlV0", sheet: "" },
+        { title: "জিনতত্ত্ব ও বিবর্তন ০২ (Genetics and Evolution 02)", id: "ak8jHwzxoZQ", sheet: "" },
+        { title: "জিনতত্ত্ব ও বিবর্তন (Varsity Written Class)", id: "OZesKYdk0PE", sheet: "" }
     ]},
 
     course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
@@ -2159,16 +2196,29 @@ function openCourse(key, targetVidIndex = 0) {
     
     const data = courseData[key];
     const container = document.getElementById("playlistView");
-    document.getElementById('playlistModuleCount').innerText = `${data.videos.length} Modules`;
+    
+    const actualVideos = data.videos.filter(v => !v.section);
+    document.getElementById('playlistModuleCount').innerText = `${actualVideos.length} Modules`;
     container.innerHTML = "";
     
-    data.videos.forEach((vid, i) => {
+    let playableIndex = 0;
+    data.videos.forEach((vid) => {
+        if (vid.section) {
+            let secDiv = document.createElement("div");
+            let isBotany = vid.section.includes("উদ্ভিদবিজ্ঞান") || vid.section.toLowerCase().includes("botany");
+            secDiv.className = `playlist-section-header ${isBotany ? 'botany' : 'zoology'}`;
+            secDiv.innerHTML = vid.section;
+            container.appendChild(secDiv);
+            return;
+        }
+
+        const currentPlayableIndex = playableIndex;
         let div = document.createElement("div");
-        div.className = "playlist-item" + (i === targetVidIndex ? " active" : "");
+        div.className = "playlist-item" + (currentPlayableIndex === targetVidIndex ? " active" : "");
         div.onclick = () => {
-            document.querySelectorAll('.playlist-item').forEach(e=>e.classList.remove('active'));
+            document.querySelectorAll('.playlist-item').forEach(e => e.classList.remove('active'));
             div.classList.add('active');
-            setVideo(vid.id, vid.title, vid.sheet, i);
+            setVideo(vid.id, vid.title, vid.sheet, currentPlayableIndex);
         };
         div.innerHTML = `
             <img class="pl-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/mqdefault.jpg" alt="thumb" onerror="this.src='channels4_profile.jpg'">
@@ -2178,10 +2228,11 @@ function openCourse(key, targetVidIndex = 0) {
             </div>
         `;
         container.appendChild(div);
+        playableIndex++;
     });
     
-    if(data.videos.length > 0) {
-        let targetVid = data.videos[targetVidIndex] || data.videos[0];
+    if(actualVideos.length > 0) {
+        let targetVid = actualVideos[targetVidIndex] || actualVideos[0];
         setVideo(targetVid.id, targetVid.title, targetVid.sheet, targetVidIndex);
     }
     window.scrollTo(0,0);
@@ -2336,7 +2387,6 @@ function setVideo(id, title, sheetLink, vidIndex = 0) {
                     playBtn.parentNode.insertBefore(forwardBtn, playBtn.nextSibling);
                 }
 
-                // Force 1080p selection in Plyr menu & engine
                 try {
                     player.quality = 1080;
                 } catch(e) {}
