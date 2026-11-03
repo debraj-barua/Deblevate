@@ -57,9 +57,9 @@
             padding: 0; 
             background-color: var(--bg-main); 
             color: var(--text-light); 
-            position: relative; 
-            overflow-x: hidden; 
-            -webkit-font-smoothing: antialiased; 
+            position: relative;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         #global-loader {
@@ -84,7 +84,7 @@
 
         #resume-banner {
             display: none; background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(0, 201, 136, 0.25));
-            border: 1px solid var(--accent-green); padding: 12px 20px; border-radius: 12px; margin-bottom: 20px;
+            border: 1px solid var(--accent-green); padding: 12px 20px; border-radius: 12px; margin-bottom: 15px;
             align-items: center; justify-content: space-between; backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             box-shadow: 0 8px 25px rgba(0, 201, 136, 0.2); animation: slideDown 0.3s ease-out;
@@ -99,6 +99,13 @@
         .resume-btn-yes:hover { background: #fff; box-shadow: 0 0 10px var(--accent-green); }
         .resume-btn-no { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .resume-btn-no:hover { background: rgba(255,255,255,0.2); }
+
+        #playlist-notice-banner {
+            display: none; background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(6, 182, 212, 0.25));
+            border: 1.5px solid var(--accent-cyan); padding: 12px 18px; border-radius: 12px; margin-bottom: 20px;
+            align-items: center; justify-content: space-between; gap: 15px; box-shadow: 0 0 20px rgba(6, 182, 212, 0.25);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: slideDown 0.3s ease-out;
+        }
 
         .bg-animated-shapes { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; overflow: hidden; background: var(--bg-main); pointer-events: none; }
         .shape { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; will-change: transform; transform: translateZ(0); }
@@ -245,33 +252,9 @@
 
         /* ================= PLAYER LAYOUT ================= */
         #player-view { display: none; max-width: 1400px; margin: 0 auto; padding: 0.8rem 3% 2rem; }
-        .player-top-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 0.8rem; }
-        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+        .back-btn { background: rgba(147,51,234,0.15); color: var(--accent-purple-light); border: 1px solid rgba(147,51,234,0.35); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: bold; margin-bottom: 0.8rem; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; }
         .back-btn:hover { background: var(--accent-purple); color: #fff; transform: translateX(-3px); }
         
-        /* High Quality / 4K YouTube Playlist Button */
-        .playlist-hq-btn {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(16, 185, 129, 0.25));
-            border: 1px solid var(--accent-green);
-            color: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 800;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(0, 201, 136, 0.25);
-            transition: all 0.3s ease;
-        }
-        .playlist-hq-btn:hover {
-            background: linear-gradient(135deg, #ef4444, var(--accent-green));
-            color: #000;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 201, 136, 0.5);
-        }
-
         .studio-container { display: grid; grid-template-columns: 1fr 340px; gap: 1.5rem; align-items: start; }
         @media (max-width: 1024px) {
             .studio-container { grid-template-columns: 1fr; }
@@ -364,7 +347,7 @@
 
         .materials-section { margin-top: 1.2rem; display: none; width: 100%;}
         .section-heading { display: flex; align-items: center; gap: 8px; font-size: 1rem; font-weight: 800; color: #e2e8f0; margin-bottom: 0.7rem; letter-spacing: 0.5px; }
-        .material-buttons { display: flex; gap: 12px; margin-bottom: 0.7rem; flex-wrap: wrap;}
+        .material-buttons { display: flex; gap: 12px; margin-bottom: 0.7rem;}
         .material-btn { background: transparent; color: #a78bfa; border: 1px solid rgba(147, 51, 234, 0.4); padding: 6px 12px; border-radius: 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.25s; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;}
         .material-btn:hover, .material-btn.active { border-color: var(--accent-green); color: #fff; background: rgba(0, 201, 136, 0.15); }
         
@@ -394,28 +377,6 @@
         .vertical-playlist { 
             display: flex; flex-direction: column; gap: 6px; 
             padding: 12px; max-height: 560px; overflow-y: auto; 
-        }
-        .playlist-section-header {
-            font-size: 0.78rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 6px 10px;
-            border-radius: 6px;
-            margin: 8px 0 3px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .playlist-section-header.botany {
-            color: var(--accent-green);
-            background: rgba(0, 201, 136, 0.12);
-            border-left: 3px solid var(--accent-green);
-        }
-        .playlist-section-header.zoology {
-            color: var(--accent-cyan);
-            background: rgba(6, 182, 212, 0.12);
-            border-left: 3px solid var(--accent-cyan);
         }
         .playlist-item { 
             display: flex; align-items: center; gap: 10px; padding: 8px 10px; 
@@ -596,6 +557,7 @@
             .slide-frame-container { height: 380px; }
             .floating-chat-panel { width: calc(100% - 20px); right: 10px; bottom: 75px; height: 400px;}
             .floating-chat-btn { width: 45px; height: 45px; bottom: 15px; right: 15px; font-size: 1.1rem;}
+            #playlist-notice-banner { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -766,13 +728,7 @@
     </div>
 
     <div id="player-view">
-        <div class="player-top-actions">
-            <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
-            <a id="externalPlaylistBtn" href="https://youtube.com/playlist?list=PLQJ6Sgh-dCUI&si=5EHB0RAndDUsJJzy" target="_blank" class="playlist-hq-btn" style="display: none;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                Watch in 4K / HQ Playlist on YouTube ↗
-            </a>
-        </div>
+        <button class="back-btn" onclick="showHome()">← Back to Dashboard</button>
 
         <div id="resume-banner">
             <div class="resume-text">
@@ -782,6 +738,20 @@
                 <button class="resume-btn-yes" onclick="applyResumeTime(true)">Resume</button>
                 <button class="resume-btn-no" onclick="applyResumeTime(false)">Start Over</button>
             </div>
+        </div>
+
+        <!-- High-Quality Official Playlist Notice Banner -->
+        <div id="playlist-notice-banner">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 1.4rem;">🎬</span>
+                <div>
+                    <div style="font-size: 0.95rem; font-weight: 800; color: #fff;">Looking for higher quality or complete sequential classes?</div>
+                    <div style="font-size: 0.8rem; color: #cbd5e1;">Better resolution and original uploads are available on the official YouTube playlist.</div>
+                </div>
+            </div>
+            <a id="mainPlaylistRedirectBtn" href="https://www.youtube.com/playlist?list=PLQJ6Sgh-dCUI" target="_blank" style="background: var(--accent-cyan); color: #000; text-decoration: none; padding: 8px 18px; border-radius: 8px; font-weight: 900; font-size: 0.85rem; letter-spacing: 0.5px; white-space: nowrap; transition: 0.3s; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);">
+                Open Main Playlist ↗
+            </a>
         </div>
 
         <div class="studio-container">
@@ -816,9 +786,6 @@
                         </button>
                         <a id="sheetDownloadBtn" href="#" class="material-btn" target="_blank" style="color:#10b981; border-color: rgba(16, 185, 129, 0.4);">
                             ⬇ Download PDF
-                        </a>
-                        <a id="hqPlaylistLink" href="https://youtube.com/playlist?list=PLQJ6Sgh-dCUI&si=5EHB0RAndDUsJJzy" target="_blank" class="material-btn" style="color:var(--accent-cyan); border-color: rgba(6, 182, 212, 0.4); display: none;">
-                            📺 Open Full 4K YouTube Playlist
                         </a>
                     </div>
                     <div class="slide-frame-container" id="slideFrameContainer">
@@ -1487,4 +1454,1075 @@
           if (mediaRecorder) mediaRecorder.stop();
           isRecording = false;
           btn.style.color = 'var(--accent-purple-light)';
-          document.getElementById('chatInput').placeholder = "Type a message
+          document.getElementById('chatInput').placeholder = "Type a message...";
+      }
+  };
+
+  const whatsappEmojis = {
+      smileys: ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😜", "🤪", "😝", "🤑", "🤗", "🤭", "🤫", "🤔", "🤐", "🤨", "😐", "😑", "😶", "😏", "😒", "🙄", "😬", "🤥", "😌", "😔", "😷", "🤒", "🤕", "🤢", "🤮", "🤧", "🥵", "🥶", "🥴", "😵", "🤯", "🤠", "🥳", "😎", "🤓", "🧐", "😕", "😟", "🙁", "😮", "😯", "😲", "😳", "🥺", "😦", "😧", "😨", "😰", "😥", "😢", "😭", "😱", "😖", "😣", "😞", "😓", "😩", "😫", "🥱", "😤", "😡", "😠", "🤬", "😈", "👿", "💀", "☠️", "💩", "🤡", "👹", "👺", "👻", "👽", "👾"],
+      gestures: ["👋", "🤚", "🖐️", "✋", "🖖", "👌", "🤌", "🤏", "✌️", "🤞", "🫰", "🤟", "🤘", "🤙", "👈", "👉", "👆", "🖕", "👇", "☝️", "👍", "👎", "✊", "👊", "🤛", "🤜", "👏", "🙌", "👐", "🤲", "🤝", "🙏", "✍️", "💅", "🤳", "💪", "🦾", "🦿", "🦵", "🦶", "👂", "🦻", "👃", "🧠", "🦷", "🦴", "👀", "👁️", "👅", "👄", "💋", "🩸"],
+      symbols: ["❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "🤎", "💔", "❤️‍🔥", "❤️‍🩹", "💕", "💞", "💓", "💗", "💖", "💘", "💝", "🔥", "✨", "🌟", "💫", "💥", "💢", "💦", "💨", "🕳️", "💬", "👁️‍🗨️", "🗨️", "🗯️", "💭", "💤", "💯", "💎", "🏆", "🎯", "🚀", "💡", "📢", "🔔", "⭐", "⚡"]
+  };
+
+  window.toggleWhatsappEmoji = function() {
+      const panel = document.getElementById('whatsappEmojiPanel');
+      if (panel.style.display === 'flex') {
+          panel.style.display = 'none';
+      } else {
+          panel.style.display = 'flex';
+          switchEmojiTab('smileys');
+      }
+  };
+
+  window.switchEmojiTab = function(category) {
+      document.querySelectorAll('.whatsapp-emoji-tab').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const grid = document.getElementById('whatsappEmojiGrid');
+      grid.innerHTML = "";
+      whatsappEmojis[category].forEach(em => {
+          const span = document.createElement('span');
+          span.innerText = em;
+          span.onclick = () => {
+              const input = document.getElementById('chatInput');
+              input.value += em;
+              input.focus();
+              window.handleTypingInput();
+          };
+          grid.appendChild(span);
+      });
+  };
+
+  window.openImageViewer = function(url) {
+      document.getElementById('fullScreenImageElement').src = url;
+      document.getElementById('imageViewerModal').style.display = 'flex';
+  };
+
+  window.closeImageViewer = function() {
+      document.getElementById('imageViewerModal').style.display = 'none';
+  };
+
+  window.toggleChatExpand = function() {
+      const panel = document.getElementById('floatingChatPanel');
+      const btn = document.getElementById('chatExpandBtn');
+      panel.classList.toggle('expanded');
+      btn.innerText = panel.classList.contains('expanded') ? "🗗" : "⛶";
+      scrollToBottomChat();
+  };
+
+  let typingTimer = null;
+  window.handleTypingInput = function() {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      const uid = window.auth.currentUser.uid;
+      const typingRefPath = dbRef(window.db, `typing_status/${window.currentCourseKey}/${window.currentVideoId}/${uid}`);
+
+      set(typingRefPath, { name: window.globalIdentityName, timestamp: Date.now() });
+
+      if (typingTimer) clearTimeout(typingTimer);
+      typingTimer = setTimeout(() => { remove(typingRefPath).catch(()=>{}); }, 2500);
+  };
+
+  window.stopTypingIndicator = function() {
+      if (window.auth.currentUser && window.currentCourseKey && window.currentVideoId) {
+          remove(dbRef(window.db, `typing_status/${window.currentCourseKey}/${window.currentVideoId}/${window.auth.currentUser.uid}`)).catch(()=>{});
+      }
+  };
+
+  window.setReplyTo = function(id, author, text) {
+      window.replyingToMessage = { id, author, text };
+      document.getElementById('replyBannerText').innerText = `Replying to ${author}: "${text.substring(0, 20)}..."`;
+      document.getElementById('replyingBanner').style.display = 'flex';
+      document.getElementById('chatInput').focus();
+  };
+
+  window.cancelReply = function() {
+      window.replyingToMessage = null;
+      window.editingMessageId = null;
+      document.getElementById('replyingBanner').style.display = 'none';
+      document.getElementById('chatInput').value = "";
+  };
+
+  window.toggleMessageReactionPicker = function(msgId) {
+      const picker = document.getElementById(`picker-${msgId}`);
+      if (picker) picker.style.display = (picker.style.display === 'flex') ? 'none' : 'flex';
+  };
+
+  window.reactToMessage = function(msgId, emoji) {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      set(dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}/${msgId}/message_reactions/${window.auth.currentUser.uid}`), {
+          emoji: emoji, name: window.globalIdentityName
+      });
+      const picker = document.getElementById(`picker-${msgId}`);
+      if(picker) picker.style.display = 'none';
+  };
+
+  window.requestCommentDeletion = function(commentId, authorUid) {
+      if(!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      const currentUid = window.auth.currentUser.uid;
+      const isSystemAdmin = (window.auth.currentUser.email.toLowerCase() === "debrajbarua8@gmail.com");
+
+      if (authorUid !== currentUid && !isSystemAdmin) {
+          alert("❌ আপনি অন্য কারও মেসেজ ডিলিট করতে পারবেন পুনরায় চেষ্টা করবেন না!");
+          return;
+      }
+
+      if(confirm("Delete this comment?")) {
+          remove(dbRef(window.db, `comments/${window.currentCourseKey}/${window.currentVideoId}/${commentId}`)).catch(err => alert(err.message));
+      }
+  };
+
+  window.triggerReaction = function(type) {
+      if (!window.auth.currentUser || !window.currentCourseKey || !window.currentVideoId) return;
+      const userReactionRef = dbRef(window.db, `reactions/${window.currentCourseKey}/${window.currentVideoId}/${window.auth.currentUser.uid}`);
+
+      if (window.currentReaction === type) {
+          remove(userReactionRef);
+      } else {
+          set(userReactionRef, { type: type, name: window.globalIdentityName });
+      }
+  };
+
+  let activeChatListenerRef = null;
+  let activeReactionListenerRef = null;
+  let activeTypingListenerRef = null;
+
+  window.setupLiveFeatures = function(courseKey, videoId) {
+      if (!window.auth.currentUser) return;
+
+      if (activeChatListenerRef) off(activeChatListenerRef);
+      if (activeReactionListenerRef) off(activeReactionListenerRef);
+      if (activeTypingListenerRef) off(activeTypingListenerRef);
+
+      const chatBox = document.getElementById('chatMessagesBox');
+      chatBox.innerHTML = ""; 
+
+      document.getElementById('like-count').innerText = "0";
+      document.getElementById('love-count').innerText = "0";
+      document.getElementById('wow-count').innerText = "0";
+      document.getElementById('sad-count').innerText = "0";
+      document.getElementById('reaction-names-display').innerText = "";
+
+      activeChatListenerRef = query(dbRef(window.db, `comments/${courseKey}/${videoId}`), orderByKey());
+      
+      onChildAdded(activeChatListenerRef, (snapshot) => {
+          const data = snapshot.val();
+          const now = Date.now();
+          if (now - data.timestamp > 24 * 60 * 60 * 1000) {
+              remove(snapshot.ref); 
+              return;
+          }
+          if (data.uid !== window.auth.currentUser.uid && !data.seen) {
+              update(snapshot.ref, { seen: true });
+          }
+          addChatMessage(snapshot.key, data.uid, data.author, data.text, data.uid === window.auth.currentUser.uid, data.replyToAuthor, data.replyToText, data.seen, data.message_reactions, data.mediaUrl, data.mediaType, data.audioUrl, data.edited);
+      });
+
+      onValue(activeChatListenerRef, (snapshot) => {
+          const allMsgs = snapshot.val() || {};
+          Object.keys(allMsgs).forEach(msgKey => {
+              const msgData = allMsgs[msgKey];
+              const domEl = document.getElementById(`msg-${msgKey}`);
+              if (domEl) {
+                  const textNode = domEl.querySelector('.msg-text-content');
+                  if (textNode && msgData.text && !msgData.mediaUrl && !msgData.audioUrl) {
+                      textNode.innerText = msgData.text + (msgData.edited ? " (edited)" : "");
+                  }
+                  const seenSpan = domEl.querySelector('.msg-seen-status');
+                  if (seenSpan && msgData.uid === window.auth.currentUser.uid && msgData.seen) {
+                      seenSpan.innerText = "✓✓ Seen";
+                      seenSpan.className = "msg-seen-status seen";
+                  }
+              }
+          });
+      });
+
+      onChildRemoved(activeChatListenerRef, (snapshot) => {
+          const domEl = document.getElementById(`msg-${snapshot.key}`);
+          if(domEl) domEl.remove();
+      });
+
+      const typingNodeRef = dbRef(window.db, `typing_status/${courseKey}/${videoId}`);
+      activeTypingListenerRef = typingNodeRef;
+      
+      onValue(typingNodeRef, (snapshot) => {
+          const typingData = snapshot.val() || {};
+          const myUid = window.auth.currentUser.uid;
+          let activeTypers = [];
+          const now = Date.now();
+          for (const [tUid, tVal] of Object.entries(typingData)) {
+              if (tUid !== myUid && (now - tVal.timestamp < 3000)) activeTypers.push(tVal.name);
+          }
+          const typingBox = document.getElementById('typingIndicatorBox');
+          const typingText = document.getElementById('typingNamesText');
+          if (activeTypers.length > 0) {
+              typingText.innerText = `${activeTypers[0]} typing...`;
+              typingBox.style.display = "flex";
+          } else {
+              typingBox.style.display = "none";
+          }
+      });
+
+      activeReactionListenerRef = dbRef(window.db, `reactions/${courseKey}/${videoId}`);
+      onValue(activeReactionListenerRef, (snapshot) => {
+          const reactionsData = snapshot.val() || {};
+          let counts = { like: 0, love: 0, wow: 0, sad: 0 };
+          let recentReactors = []; 
+          window.currentReaction = null;
+
+          for (const [uid, reactData] of Object.entries(reactionsData)) {
+              let reactType = typeof reactData === 'object' ? reactData.type : reactData;
+              let reactorName = typeof reactData === 'object' ? reactData.name : "Someone";
+              if (counts[reactType] !== undefined) {
+                  counts[reactType]++;
+                  if (!recentReactors.includes(reactorName) && reactorName !== "Someone") recentReactors.push(reactorName); 
+              }
+              if (uid === window.auth.currentUser.uid) window.currentReaction = reactType; 
+          }
+
+          document.getElementById('like-count').innerText = counts.like;
+          document.getElementById('love-count').innerText = counts.love;
+          document.getElementById('wow-count').innerText = counts.wow;
+          document.getElementById('sad-count').innerText = counts.sad;
+
+          const namesDisplay = document.getElementById('reaction-names-display');
+          if (recentReactors.length > 0) {
+              namesDisplay.innerText = `Reacted by: ${recentReactors.slice(0, 2).join(", ")}${recentReactors.length > 2 ? ' and others' : ''}`;
+          } else {
+              namesDisplay.innerText = "";
+          }
+
+          document.querySelectorAll('.reaction-btn').forEach(btn => btn.style.borderColor = 'rgba(147, 51, 234, 0.3)');
+          if (window.currentReaction) {
+              const activeBtn = document.getElementById(`btn-${window.currentReaction}`);
+              if(activeBtn) activeBtn.style.borderColor = 'var(--accent-green)';
+          }
+      });
+  };
+
+  function addChatMessage(msgId, senderUid, author, text, isSelf, replyAuthor, replyText, seen, messageReactions, mediaUrl, mediaType, audioUrl, edited) {
+      const chatBox = document.getElementById('chatMessagesBox');
+      if (document.getElementById(`msg-${msgId}`)) return;
+
+      const isSystemAdmin = (window.auth.currentUser.email.toLowerCase() === "debrajbarua8@gmail.com");
+      const div = document.createElement('div');
+      div.id = `msg-${msgId}`;
+      div.className = isSelf ? 'chat-msg self' : 'chat-msg';
+      
+      let replyPreviewHtml = (replyAuthor && replyText) ? `<div class="chat-reply-preview">↳ <b>${replyAuthor}</b>: ${replyText}</div>` : "";
+      let mediaHtml = mediaUrl ? (mediaType === 'video' ? `<div class="chat-media-content"><video src="${mediaUrl}" controls></video></div>` : `<div class="chat-media-content" onclick="openImageViewer('${mediaUrl}')"><img src="${mediaUrl}"></div>`) : (audioUrl ? `<div class="chat-audio-content"><audio src="${audioUrl}" controls></audio></div>` : "");
+      let seenHtml = isSelf ? (seen ? `<span class="msg-seen-status seen">✓✓</span>` : `<span class="msg-seen-status">✓</span>`) : "";
+
+      let reactionsHtml = "";
+      if (messageReactions) {
+          let countsMap = {};
+          Object.values(messageReactions).forEach(r => countsMap[r.emoji] = (countsMap[r.emoji] || 0) + 1);
+          for (const [em, count] of Object.entries(countsMap)) {
+              reactionsHtml += `<span class="msg-reaction-badge">${em} ${count}</span>`;
+          }
+      }
+
+      let actionsMarkup = `<div class="comment-actions">
+          <button class="comment-react-btn" onclick="toggleMessageReactionPicker('${msgId}')">😊</button>`;
+      if (isSelf) actionsMarkup += `<button class="comment-edit-btn" onclick="editMessage('${msgId}', \`${text.replace(/`/g, '')}\`)">✏️</button>`;
+      actionsMarkup += `<button class="comment-reply-btn" onclick="setReplyTo('${msgId}', '${author}', \`${text.replace(/`/g, '')}\`)">↩</button>`;
+      if (isSelf || isSystemAdmin) actionsMarkup += `<button class="comment-delete-btn" onclick="requestCommentDeletion('${msgId}', '${senderUid}')">✕</button>`;
+      actionsMarkup += `</div>`;
+
+      let pickerMarkup = `<div id="picker-${msgId}" class="msg-reaction-picker">
+          <span onclick="reactToMessage('${msgId}', '👍')">👍</span>
+          <span onclick="reactToMessage('${msgId}', '❤️')">❤️</span>
+          <span onclick="reactToMessage('${msgId}', '🔥')">🔥</span>
+          <span onclick="reactToMessage('${msgId}', '😂')">😂</span>
+          <span onclick="reactToMessage('${msgId}', '😮')">😮</span>
+      </div>`;
+
+      let displayBodyText = (mediaUrl || audioUrl) ? "" : (text + (edited ? " <span style='font-size:0.6rem; color:#a78bfa;'>(edited)</span>" : ""));
+
+      div.innerHTML = `<span class="chat-author">${author}</span>${replyPreviewHtml}<span class="msg-text-content">${displayBodyText}</span>${mediaHtml} ${seenHtml} ${actionsMarkup} ${pickerMarkup}<div class="msg-reactions-container">${reactionsHtml}</div>`;
+      chatBox.appendChild(div);
+      scrollToBottomChat();
+  }
+
+  function scrollToBottomChat() {
+      const chatBox = document.getElementById('chatMessagesBox');
+      if(chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+
+<script>
+document.addEventListener('copy', (e) => e.preventDefault());
+document.addEventListener('cut', (e) => e.preventDefault());
+document.addEventListener('paste', (e) => {
+    if (document.activeElement.id === 'chatInput') return;
+    e.preventDefault();
+});
+
+const mathSheet = "https://drive.google.com/drive/u/0/mobile/folders/1rklXiN0l5QzEni4_OZKynxlY1l0wVc_g?usp=drive_link";
+const ictCqSheetFolder = "https://drive.google.com/drive/folders/1NhR40HVQUtARgxL-iuMob9uHxS4mpl5m";
+
+const courseData = {
+    course1: { sub: "physics", title: "Physics 1st Paper MCQ", img: "lhC3bVV_g9M", videos: [
+        { title: "১. ভৌত রাশি ও পরিমাপ", id: "lhC3bVV_g9M", sheet: "https://drive.google.com/file/d/1mssukq_5cTniIHR0Q63dXiinIRSZrIE6/view" },
+        { title: "২. ভেক্টর", id: "hPoEUHtpfm8", sheet: "https://drive.google.com/file/d/1Ivm0Z4gsZ1yD4avoDl82BbGk_C1-rIOS/view" },
+        { title: "৩. গতিবিদ্যা", id: "HUtcNV8VjW4", sheet: "https://drive.google.com/file/d/1mdLKSdHcmevs_o7fgxb6xMv9X7A3Rx0f/view" },
+        { title: "৪. নিউটনীয় বলবিদ্যা", id: "tni_iSOPZOg", sheet: "https://drive.google.com/file/d/1dEf7sEiYPzayZljk_0HnsDEXLnBER98p/view" },
+        { title: "৫. কাজ, শক্তি ও ক্ষমতা", id: "H8OmfUSJXTA", sheet: "https://drive.google.com/file/d/1iSJsRvIKaerYGO0fVuRGuP6NiEBf9ZQV/view" },
+        { title: "৬. মহাকর্ষ ও অভিকর্ষ", id: "KZb--LSkico", sheet: "https://drive.google.com/file/d/1zaVJKxbfktMnv30UXuEZTw4CyHBd5jgr/view" },
+        { title: "৭. পদার্থের গাঠনিক ধর্ম", id: "gMcfrDdtoFU", sheet: "https://drive.google.com/file/d/1Lp0y3Y1wKVy7PRBnYNxCFKMdjbh1_3Df/view" },
+        { title: "৮. পর্যাবৃত্ত গতি", id: "GrIGp_KkGfs", sheet: "https://drive.google.com/file/d/1_r4ayFTScUwQjSCtekBwu7vvR10DFOVk/view" },
+        { title: "৯. তরঙ্গ", id: "z-sq1FI52F4", sheet: "https://drive.google.com/file/d/1pZM6Y576gycqmWbPQuvKcQRKKghT0dN6/view" },
+        { title: "১০. আদর্শ গ্যাস ও গ্যাসের গতি তত্ত্ব", id: "ZuquDb_oBJk", sheet: "https://drive.google.com/file/d/17N4-my0gynYYv3AJXWo9Ns35flF30-Mf/view" }
+    ]},
+    course2: { sub: "physics", title: "Physics 2nd Paper MCQ", img: "Mte0En3e-TQ", videos: [
+        { title: "১. তাপগতিবিদ্যা", id: "Mte0En3e-TQ", sheet: "https://drive.google.com/file/d/1exetzDM6UZKEXWHyve44o6St-0rYOLzA/view" }, 
+        { title: "২. স্থির তড়িৎ", id: "qFB1T_x3pEU", sheet: "https://drive.google.com/file/d/1TvwOW383fCxySP2R1Uvnc9HVB2xjPcg_/view" }, 
+        { title: "৩. চল তড়িৎ", id: "jBz4518XC7Y", sheet: "https://drive.google.com/file/d/1ziDfpWqzKxC48PnsaLwTBoscgIFF3Bct/view" }, 
+        { title: "৪. তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vqEc9y5OMQw", sheet: "https://drive.google.com/file/d/1UX-MESFI7_slYiMKlTg1dwmj79uioApi/view" }, 
+        { title: "৫. তাড়িতচৌম্বক আবেশ", id: "mbH0BSv5MAY", sheet: "https://drive.google.com/file/d/1VCU8xCnfizpDsJWYjSnIyRFddXTpOt-n/view" }, 
+        { title: "৬. জ্যামিতিক আলোকবিজ্ঞান", id: "iNn79I5_RkU", sheet: "https://drive.google.com/file/d/1KadbmPPBVjhrBEA5UDs7soKLjIz4r2bC/view" }, 
+        { title: "৭. ভৌত আলোকবিজ্ঞান", id: "xYFnKAbm8lY", sheet: "https://drive.google.com/file/d/10qxCqZsxQyR3b9Rrr3dAzh58nf6jbjOw/view" }, 
+        { title: "৮. আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QmBkHQoXYgk", sheet: "https://drive.google.com/file/d/1tS_xgrpZD_XWB8POFVtI9lBBWFaEXL5r/view" }, 
+        { title: "৯. পরমাণুর মডেল ও নিউক্লিয়ার", id: "x3pN3lHvXE4", sheet: "https://drive.google.com/file/d/1fZtIEFvdrafQYCfPOtp9T65Z_J0ODZTI/view" }, 
+        { title: "১০. সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "6nGv5Ta3AW4", sheet: "https://drive.google.com/file/d/1KuwD3QkluKd7FBcGfCs2Yb6yviTqGbHR/view" }, 
+        { title: "১১. জ্যোতির্বিজ্ঞান", id: "b4Sxz3Cst68", sheet: "https://drive.google.com/file/d/1W8SMpejOsPTZKE1unrQ07llnPoSyZLMs/view" }
+    ]},
+    course3: { sub: "ict", title: "HSC ICT MCQ Boost", img: "O1G18efvIyA", videos: [
+        { title: "১. বিশ্ব ও বাংলাদেশ প্রেক্ষিত", id: "O1G18efvIyA", sheet: "https://drive.google.com/file/d/18ECvn2IMw_QCokKv2I56HHxtur27DUAp/view" },
+        { title: "২. কমিউনিকেশন সিস্টেমস", id: "pHr0F7oYl-0", sheet: "https://drive.google.com/file/d/1eeMxdiSoRKKLtgau3NsWuGuPqmQJM_ES/view" },
+        { title: "৩. সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস", id: "PNfuQ1ccPGk", sheet: "https://drive.google.com/file/d/1kvAPifua_YRTDlSscH1DdpwOOnej6x7r/view" },
+        { title: "৪. ওয়েব ডিজাইন পরিচিতি", id: "4iJUsw6t1II", sheet: "https://drive.google.com/file/d/1DS6d7roHud7SZgLxstoJYg5_fTY5wVWT/view" },
+        { title: "৫. প্রোগ্রামিং ভাষা", id: "luG2iwsJYZM", sheet: "https://drive.google.com/file/d/1kdzDr_sMpENtJkszyUXdQUxPHGHCRmwL/view" },
+        { title: "৬. ডেটাবেজ ম্যানেজমেন্ট সিস্টেম", id: "DVVjD_aHVA4", sheet: "https://drive.google.com/file/d/1fRttUaaBnzwHjHwvtlN3Hi08W4PyCxUq/view" }
+    ]},
+
+    course4: { sub: "chemistry", title: "Chemistry 1st Paper", img: "HtPDwesuQfc", videos: [
+        { title: "১. ল্যাবরেটরির নিরাপদ ব্যবহার", id: "HtPDwesuQfc", sheet: "https://drive.google.com/file/d/13siOUxqzFFP8lMrpSvSpRlhA_5nhQ8kI/view" },
+        { title: "২. গুণগত রসায়ন", id: "woi3gpE440I", sheet: "https://drive.google.com/file/d/1RrxezDCAkA3u7gH6rjoCsWM3z1_4h1d3/view" },
+        { title: "৩. মৌলের পর্যায়বৃত্ত ধর্ম", id: "1TQwYI4pyeM", sheet: "https://drive.google.com/file/d/11lxNKYioqE2YrdtlzMfX4G3p6Wq6I19p/view" },
+        { title: "৪. রাসায়নিক পরিবর্তন", id: "474f4e7lEVU", sheet: "https://drive.google.com/file/d/1PnDafrn7JE_RAsgVJB87liI33LVdX3qq/view" },
+        { title: "৫. কর্মমুখী রসায়ন", id: "6iG0rG8Wp0c", sheet: "https://drive.google.com/file/d/1hOSIhYR_QoQuT44XnvCUWDeLpdTwTbwh/view" },
+        { title: "স্পেশাল: ক এবং খ (১ম পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1X4zV_EBY8opcjRrPqlPvjWBwi5O0gs06/view" }
+    ]},
+
+    course5: { sub: "chemistry", title: "Chemistry 2nd Paper", img: "_HV5fDT1txg", videos: [
+        { title: "১. পরিবেশ রসায়ন", id: "_HV5fDT1txg", sheet: "https://drive.google.com/file/d/1JX-C3eUSMvwIT87jRxgJsMfNwfy9fC5V/view" },
+        { title: "২. জৈব রসায়ন", id: "N3LEq4eanWA", sheet: "https://drive.google.com/file/d/1P3FhepQ6xJhpy3G1YUQ7lg4n3vDWVz4v/view" },
+        { title: "৩. পরিমাণগত রসায়ন", id: "CcJv3tcSKms", sheet: "https://drive.google.com/file/d/1EzSaMT_bsjaoevlTONDYIGJj7NfFjGEf/view" },
+        { title: "৪. তড়িৎ রসায়ন", id: "fKMNRfHq6_M", sheet: "https://drive.google.com/file/d/1CEsyYrOfbmrG0PMceD7ZQsUz4zF1qO9Q/view" },
+        { title: "৫. অর্থনৈতিক রসায়ন", id: "nlzCvDm1JUo", sheet: "https://drive.google.com/file/d/123OHXMd0KjP4R1lfOPhDl14qZNopDm_V/view" },
+        { title: "স্পেশাল: ক এবং খ (২য় পত্র)", id: "sOEf_d4-d4E", sheet: "https://drive.google.com/file/d/1NHnLSzgtJrN9RIkC27DZSlKCG-gcgud7/view" }
+    ]},
+    
+    course6: { sub: "biology", title: "🌿 ১ম পত্র: উদ্ভিদবিজ্ঞান (Rajib Sir)", img: "WQ-f52E61i0", videos: [
+        { title: "১. কোষ ও এর গঠন (Cell & Its Structure) - CQ", id: "WQ-f52E61i0", sheet: "" },
+        { title: "১. কোষ ও এর গঠন - MCQ", id: "rK25BTW72Lk", sheet: "" },
+        { title: "২. কোষ বিভাজন (Cell Division) - CQ", id: "0FmnnibILno", sheet: "" },
+        { title: "২. কোষ বিভাজন - MCQ", id: "ibTniWbGCQU", sheet: "" },
+        { title: "৩. অণুজীব (Microbiology) - CQ", id: "u4fOPHw9jHk", sheet: "" },
+        { title: "৩. অণুজীব - MCQ", id: "Jqfhj2funDA", sheet: "" },
+        { title: "৪. ব্রায়োফাইটা ও টেরিডোফাইটা (Bryophyta & Pteridophyta) - CQ", id: "PWagkOyd5EY", sheet: "" },
+        { title: "৪. ব্রায়োফাইটা ও টেরিডোফাইটা - MCQ", id: "ehVq1GMktXY", sheet: "" },
+        { title: "৫. টিস্যু ও টিস্যুতন্ত্র (Tissue & Tissue System) - CQ", id: "8cbCHHdF_rs", sheet: "" },
+        { title: "৫. টিস্যু ও টিস্যুতন্ত্র - MCQ", id: "u-YGWIXuzDo", sheet: "" },
+        { title: "৬. নগ্নবীজী ও আবৃতবীজী (Gymnosperms & Angiosperms) - CQ", id: "ifk31j2d3cI", sheet: "" },
+        { title: "৬. নগ্নবীজী ও আবৃতবীজী - MCQ", id: "2B3HhQORN9o", sheet: "" },
+        { title: "৭. উদ্ভিদ শারীরতত্ত্ব (Plant Physiology) - CQ", id: "obqMOUUh1GU", sheet: "" },
+        { title: "৭. উদ্ভিদ শারীরতত্ত্ব - MCQ", id: "Rl1UOJvsTbM", sheet: "" },
+        { title: "৮. উদ্ভিদ প্রজনন (Plant Reproduction) - CQ", id: "zWclGo7cXic", sheet: "" },
+        { title: "৮. উদ্ভিদ প্রজনন - MCQ", id: "z16ybpT8vLo", sheet: "" },
+        { title: "৯. জীবপ্রযুক্তি (Biotechnology) - CQ", id: "9Oo4qZ-uSZU", sheet: "" },
+        { title: "৯. জীবপ্রযুক্তি - MCQ", id: "eH3Y2KnN-aw", sheet: "" }
+    ]},
+
+    course7: { sub: "biology", title: "🐾 ২য় পত্র: প্রাণিবিজ্ঞান (Rajib Sir)", img: "LrklqNYuQc4", videos: [
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস (Animal Diversity & Classification) - CQ", id: "LrklqNYuQc4", sheet: "" },
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস - MCQ", id: "onWu2kujIR8", sheet: "" },
+        { title: "২. প্রাণীর পরিচিতি (Hydra, Grasshopper, Ruhi Fish) - CQ", id: "wjnPT32kocI", sheet: "" },
+        { title: "২. প্রাণীর পরিচিতি - MCQ", id: "OdK9vF8pd5E", sheet: "" },
+        { title: "৩. পরিপাক ও শোষণ (Digestion & Absorption) - CQ", id: "CNA2Wui5NKE", sheet: "" },
+        { title: "৩. পরিপাক ও শোষণ - MCQ", id: "iEirASma5kQ", sheet: "" },
+        { title: "৪. রক্ত ও সংবহন - CQ", id: "MiWb7xid8To", sheet: "" },
+        { title: "৪. রক্ত ও সংবহন - MCQ", id: "OGSPQveZmhE", sheet: "" },
+        { title: "৫. শ্বসন ও শ্বাসক্রিয়া (Breathing & Respiration) - CQ", id: "VXR1lsheFQc", sheet: "" },
+        { title: "৫. শ্বসন ও শ্বাসক্রিয়া - MCQ", id: "eAnYsKNp-qE", sheet: "" },
+        { title: "৬. বর্জ্য ও নিষ্কাশন (Excretion & Elimination) - CQ", id: "OekZQy8Ejus", sheet: "" },
+        { title: "৬. বর্জ্য ও নিষ্কাশন - MCQ", id: "x2378jhkkpE", sheet: "" },
+        { title: "৭. চলন ও অঙ্গচালনা (Locomotion & Movement) - CQ", id: "pqk8WJOGfC8", sheet: "" },
+        { title: "৭. চলন ও অঙ্গচালনা - MCQ", id: "YkAgS9vXlqE", sheet: "" },
+        { title: "৮. মানবদেহের প্রতিরক্ষা (Immunity) - CQ", id: "O_JSyI0eRzM", sheet: "" },
+        { title: "৮. মানবদেহের প্রতিরক্ষা - MCQ", id: "l7eH61SkqSI", sheet: "" },
+        { title: "৯. জিনতত্ত্ব ও বিবর্তন - CQ", id: "K-dERoYfVOw", sheet: "" },
+        { title: "৯. জিনতত্ত্ব ও বিবর্তন (Genetics & Evolution) - MCQ", id: "Mtia3cpqwRI", sheet: "" }
+    ]},
+
+    course22: { sub: "biology", title: "🌿 উদ্ভিদবিজ্ঞান মাস্টারক্লাস (Fahad's Biology Mcq Hacks)", img: "VuDg0aOIbgs", videos: [
+        { title: "1. ক্রোমোসোম থেকে শেষ পর্যন্ত", id: "VuDg0aOIbgs", sheet: "https://drive.google.com/file/d/1CUUB2IFJdgZQyEU7bH2ObGHdA9OIgJhJ/view" },
+        { title: "2. ক্রোমোসোমের পূর্ব পর্যন্ত", id: "tGhNeIiCY90", sheet: "https://drive.google.com/file/d/1bawjOw4IXhkZOfLMJPKsv0ufbRsoS8Sp/view" },
+        { title: "3. কোষ বিভাজন", id: "VIAOG6TPE4U", sheet: "https://drive.google.com/file/d/1-lOod5CxCUJyIp2l3i2J-4eelASMQ9cY/view" },
+        { title: "4. কোষ রসায়ন", id: "oCvXRfmJyAg", sheet: "https://drive.google.com/file/d/1w1MzZN8OiYeEgEvg-hMnA0sDpndlz8Co/view" },
+        { title: "5. ম্যালেরিয়া ও ব্যাক্টেরিয়া", id: "_W8OqFhMp2Q", sheet: "https://drive.google.com/file/d/1q_zwb2o_OiwvKEwFFN842OZT5kSucg0J/view" },
+        { title: "6. ভাইরাস", id: "BbXtqM51Zl8", sheet: "https://drive.google.com/file/d/1vK5PRaW7Yh1oXb5Laca7wCRqchQnAJfr/view" },
+        { title: "7. শৈবাল ও ছত্রাক", id: "SZJmPD1oOZU", sheet: "https://drive.google.com/file/d/14ZZWiGDeYVvgJgrn6xAz_doyfVTn9dgs/view" },
+        { title: "8. ব্রায়োফাইটা ও টেরিডোফাইটা", id: "0dLxCyAH-iU", sheet: "https://drive.google.com/file/d/1Zvzabuua1WHy12x3i32LjJPQdiAiit57/view" },
+        { title: "9. নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", id: "OOiX2pw8AQo", sheet: "https://drive.google.com/file/d/1qLLxV5pykFzU4GHAf1vtdm3iZgui3G7a/view" },
+        { title: "10. টিস্যু ও টিস্যুতন্ত্র", id: "DReEczJnN6g", sheet: "https://drive.google.com/file/d/106t_OZMC1esvwzrEzsywW2umkARTmCXB/view" },
+        { title: "11. সালোকসংশ্লেষণ ও শ্বসন", id: "UIC2HIneq_A", sheet: "https://drive.google.com/file/d/1xtfOgwM_Z_RRxISmIeGBPBUm9GsgqSkt/view" },
+        { title: "12. প্রস্বেদন", id: "LA4tqQb6sQM", sheet: "https://drive.google.com/file/d/1p5-n8Pf1xaahtJmKB-eU_5soTE5vEniX/view" },
+        { title: "13. খনিজ লবণ পরিশোষণ", id: "kB7qD9jGp2g", sheet: "https://drive.google.com/file/d/1EZ3C0kXTqFxEjm6bAwWrWpKYGtSIU9b7/view" },
+        { title: "14. উদ্ভিদ প্রজনন", id: "sVwj2iagNSU", sheet: "https://drive.google.com/file/d/1WZ9maxJsbWy0C5kHR8DcVMRqvSemJT3G/view" },
+        { title: "15. জীবপ্রযুক্তি", id: "tFTYZdZiMwc", sheet: "https://drive.google.com/file/d/19mqBrOM9VWSC-dMvpbMhmLugY5a1wg9e/view" },
+        { title: "16. জীবের পরিবেশ, বিস্তার ও সংরক্ষণ", id: "SZn0Cy-ps1A", sheet: "https://drive.google.com/file/d/1vHTN0YQzh8MszGYLwQwAbUKd2mBMdg9Q/view" }
+    ]},
+
+    course32: { sub: "biology", title: "🐾 প্রাণিবিজ্ঞান মাস্টারক্লাস (Fahad's Biology Mcq Hacks)", img: "huWPpDlRzGs", videos: [
+        { title: "1. প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস", id: "huWPpDlRzGs", sheet: "https://drive.google.com/file/d/1QuvH4C9fCCcK8Bwex_gJzDlQsT86RWc9/view" },
+        { title: "2. হাইড্রা, ঘাসফড়িং ও রুইমাছ", id: "UuicmxQoTvQ", sheet: "https://drive.google.com/file/d/1TK_RWTZGlAbXpejpTIoPKGbMlv9VBGHi/view" },
+        { title: "3. পরিপাক ও শোষণ", id: "BN4-Nmz3qxM", sheet: "https://drive.google.com/file/d/11W7N7fu5i-MZeRz4H13dR9YMyjDXScrA/view" },
+        { title: "4. রক্ত ও সঞ্চালন", id: "j4Whj3cCma0", sheet: "https://drive.google.com/file/d/1BcFzGIIl5RrsrB66gQrNHWCxWm4xCfnx/view" },
+        { title: "5. শ্বসন ও শ্বাসক্রিয়া", id: "RhkFRP6RHMA", sheet: "https://drive.google.com/file/d/19eYyRNhiaeOgR8I0Y3MdKfdWyrGclML6/view" },
+        { title: "6. বর্জ্য ও নিষ্কাশন", id: "k_VVqtoXuu4", sheet: "https://drive.google.com/file/d/1MNLX54pRBtIMMebTy35UDnDRU6cNvGzE/view" },
+        { title: "7. চলন ও অঙ্গচালনা", id: "wLg5jlNveJo", sheet: "https://drive.google.com/file/d/1-7akr891LwIeUo-8fffny9p53Q6UgEow/view" },
+        { title: "8. সমন্বয় ও নিয়ন্ত্রণ - ১", id: "EvwRlv8_8hg", sheet: "https://drive.google.com/file/d/16Hh5rpPXDT-nTS2v6KrGmHsblDKNIl4A/view" },
+        { title: "9. চোখ, কান ও গ্রন্থি", id: "u4aYob3Dbr4", sheet: "https://drive.google.com/file/d/16HLTNTHMO-wsZ8cnDB_C4RUKz_Vgh7SY/view" },
+        { title: "10. মানব জীবনের ধারাবাহিকতা", id: "GJnW3bSdlUk", sheet: "https://drive.google.com/file/d/1e-Oc2emXhigrWBfd27KWqesmHJPoxP9Z/view" },
+        { title: "11. মানবদেহের প্রতিরক্ষা", id: "ZOtXOlyZmEk", sheet: "https://drive.google.com/file/d/12DEksY_PUa-DrTmK0tgSQKhS0oBeN4v2/view" },
+        { title: "12. জিনতত্ত্ব ও বিবর্তন", id: "flnRmk2KmGA", sheet: "https://drive.google.com/file/d/1we88pp6tL1IHTFRGh0e9M0e3ySFOWdxf/view" },
+        { title: "13. প্রাণীর আচরণ", id: "N9rCpsp3O5M", sheet: "https://drive.google.com/file/d/19QRn2kwf36nhEplaKdS96KQwaJp7oNz9/view" }
+    ]},
+
+    // ================= NEW BOTANY SPECIAL SECTION =================
+    course_botany_extra: { 
+        sub: "biology", 
+        title: "🌿 উদ্ভিদবিজ্ঞান স্পেশাল চ্যাপ্টারস (Botany Series)", 
+        img: "vLRxlRLAMsU", 
+        playlistLink: "https://www.youtube.com/playlist?list=PLQJ6Sgh-dCUI",
+        videos: [
+            { title: "অধ্যায় ৩: কোষ রসায়ন (Cell Chemistry 01)", id: "gvKvjbzRajY", sheet: "" },
+            { title: "অধ্যায় ৫: শৈবাল ও ছত্রাক (Algae and Fungi)", id: "vLRxlRLAMsU", sheet: "" },
+            { title: "অধ্যায় ৭: নগ্নবীজী ও আবৃতবীজী উদ্ভিদ (Angiosperm & Gymnosperm)", id: "jL8KdaXxy40", sheet: "" },
+            { title: "অধ্যায় ৮: উদ্ভিদ প্রজনন (Varsity Written - Plant Reproduction)", id: "odiGe_SmOW8", sheet: "" },
+            { title: "অধ্যায় ১১: জীবপ্রযুক্তি (Varsity Written - Biotechnology)", id: "G9KmJ3_m15k", sheet: "" }
+        ]
+    },
+
+    // ================= NEW ZOOLOGY SPECIAL SECTION =================
+    course_zoology_extra: { 
+        sub: "biology", 
+        title: "🐾 প্রাণিবিজ্ঞান স্পেশাল চ্যাপ্টারস (Zoology Series)", 
+        img: "c-eiRneCPmw", 
+        playlistLink: "https://www.youtube.com/playlist?list=PLQJ6Sgh-dCUI",
+        videos: [
+            { title: "অধ্যায় ৪: রক্ত ও সংবহন (Blood and Circulation)", id: "c-eiRneCPmw", sheet: "" },
+            { title: "অধ্যায় ১১: জিনতত্ত্ব ও বিবর্তন ০১ (Genetics & Evolution 01)", id: "l2OclruKlV0", sheet: "" },
+            { title: "অধ্যায় ১১: জিনতত্ত্ব ও বিবর্তন ০২ (Genetics & Evolution 02)", id: "ak8jHwzxoZQ", sheet: "" },
+            { title: "অধ্যায় ১১: জিনতত্ত্ব ও বিবর্তন (Varsity Written - Genetics & Evolution)", id: "OZesKYdk0PE", sheet: "" }
+        ]
+    },
+
+    course33: { sub: "varsity-bio", title: "🧬 Varsity Biology Backup", img: "PIXc0iZZeio", videos: [
+        { title: "১. প্রাণীর বিভিন্নতা ও শ্রেণীবিন্যাস", id: "PIXc0iZZeio", sheet: "https://drive.google.com/file/d/1rW0uEJFmblIpZv8BstK2BvgiNxrkg7KB/view" },
+        { title: "২. চলন ও অঙ্গচালনা ০১", id: "geW4KDtQeWU", sheet: "https://drive.google.com/file/d/1hysIr8wX0f1_iuKw-E3GISIcBTW7UZMc/view" },
+        { title: "৩. চলন ও অঙ্গচালনা ০২", id: "7UI6YpHDYBI", sheet: "https://drive.google.com/file/d/10yALWuoI3GfxkQ3KlBDauCUwMg_rYU7A/view" },
+        { title: "৪. কোষ রসায়ন", id: "kD_Jfso2Z18", sheet: "https://pdf.bondipathshala.education/1787998126346.pdf" },
+        { title: "৫. উদ্ভিদ প্রজনন", id: "jUs1om06YtI", sheet: "https://drive.google.com/file/d/1cflyr8cXyMIRAIpyTw7gTvsiNBXjobOc/view" },
+        { title: "৬. জীবপ্রযুক্তি", id: "K3Wi2tkDx0g", sheet: "https://drive.google.com/file/d/1J4Wx2mKbA9ofGjPwXefBNBfY8cEXJtbw/view" },
+        { title: "৭. পরিপাক ও শোষণ", id: "yiBqQ7VnfUM", sheet: "https://drive.google.com/drive/folders/1x_9L6aK_dYgSkDBFaRioVL09LSVjDPzJ" },
+        { title: "৮. ব্রায়োফাইটা ও টেরেডোফাইটা", id: "53CrE6A94po", sheet: "https://drive.google.com/file/d/1bmvN8XT2ExRS7eBKwymHy7pJpOWom35b/view" }
+    ]},
+
+    course8: { sub: "math", title: "Higher Math 1st Paper MCQ", img: "nE4kCCRdUTA", videos: [
+        { title: "১. ম্যাট্রিক্স ও নির্ণায়ক", id: "nE4kCCRdUTA", sheet: mathSheet },
+        { title: "২. সরলরেখা", id: "ma93WvKzNwU", sheet: mathSheet },
+        { title: "৩. বৃত্ত", id: "3WwoIiE-ZUo", sheet: mathSheet },
+        { title: "৪. বিন্যাস ও সমাবেশ", id: "qyP-bbCSAr4", sheet: mathSheet },
+        { title: "৫. ত্রিকোণমিতি", id: "IvMPzm4Ap3w", sheet: mathSheet },
+        { title: "৬. অন্তরীকরণ", id: "FyUgAIq9tNk", sheet: mathSheet },
+        { title: "৭. যোগজীকরণ", id: "na266mfpM2M", sheet: mathSheet }
+    ]},
+    course9: { sub: "math", title: "Higher Math 2nd Paper MCQ", img: "FxUUvxX9HRw", videos: [
+        { title: "১. বাস্তব সংখ্যা ও অসমতা", id: "FxUUvxX9HRw", sheet: mathSheet },
+        { title: "২. বহুপদী ও বহুপদী সমীকরণ", id: "IUqg_CnDEPI", sheet: mathSheet },
+        { title: "৩. জটিল সংখ্যা", id: "rrcLECXJH9Y", sheet: mathSheet },
+        { title: "৪. দ্বিপদী বিস্তৃতি", id: "1eggqLXdC5s", sheet: mathSheet },
+        { title: "৫. কণিক", id: "9Yfyc9P57RA", sheet: mathSheet },
+        { title: "৬. বিপরীত ত্রিকোণমিতিক ফাংশন", id: "_61saMk7yy0", sheet: mathSheet },
+        { title: "৭. স্থিতিবিদ্যা", id: "V4Kw5eSujD4", sheet: mathSheet },
+        { title: "৮. গতিবিদ্যা", id: "5CIUlfU689s", sheet: mathSheet }
+    ]},
+    course10: { sub: "bangla", title: "Bangla 1st Paper (Omor Faruq)", img: "L_TDshu8WLs", videos: [
+        { title: "১. গদ্য ও পদ্য ওয়ানশট", id: "L_TDshu8WLs", sheet: "https://drive.google.com/file/d/15mpRCxaQYRg3fWrFCOH-G6GgMzabYNCn/view" },
+        { title: "২. বাংলা সহপাঠ", id: "txl2S89xwnw", sheet: "https://drive.google.com/file/d/1Eq3GFK_xNmPjtMlIDIYDFAoU9Kd9IPaV/view" },
+        { title: "৩. MCQ Boost", id: "nK0yjjK37cQ", sheet: "" },
+        { title: "৪. সকল কনফিউজিং MCQ এর সমাধান 🔥", id: "2pDp58dcL_s", sheet: "https://drive.google.com/file/d/1-qpxUIU64w1uMtIn6fpTwhNbRNvV9vOG/view?usp=sharing" }
+    ]},
+    course11: { sub: "bangla", title: "Bangla 1st Paper (Sakib Vai)", img: "-wwSNXrP9QE", videos: [
+        { title: "১. MCQ Boost (Fahad's Tutorial)", id: "-wwSNXrP9QE", sheet: "https://drive.google.com/drive/folders/1TEcQGH6MGtN-MF1W-C84NEd83HlHWQ-2?usp=drive_link" }
+    ]},
+    course12: { sub: "bangla", title: "Bangla 2nd Paper (Omor Faruq)", img: "sSWsrnn0qa0", videos: [
+        { title: "১. ব্যাকরণ ও নির্মিতি", id: "sSWsrnn0qa0", sheet: "https://drive.google.com/file/d/1BrvqvJnuUceiO_tqoIcZ5wwa78nmxfRd/view" }
+    ]},
+    course13: { sub: "bangla", title: "Bangla 2nd Paper (Sakib Vai)", img: "OJAq_YD8bCc", videos: [
+        { title: "১. ব্যাকরণ ও নির্মিতি (Fahad's Tutorial)", id: "OJAq_YD8bCc", sheet: "https://drive.google.com/drive/u/0/mobile/folders/18Bgh7HvaYAXeJ-vf3eDsqzn_E00lfv2u?usp=drive_link" }
+    ]},
+    course14: { sub: "english", title: "English 1st Paper", img: "jegosLHD8vs", videos: [
+        { title: "English 1st Paper Full Class", id: "jegosLHD8vs", sheet: "https://drive.google.com/file/d/17qn0q4cgU1_ak_DPc2bI_bFYgwcy2fV6/view" }
+    ]},
+    course15: { sub: "english", title: "English 2nd Paper", img: "RI1y7DxcT70", videos: [
+        { title: "1. English 2nd Paper Full Class", id: "RI1y7DxcT70", sheet: "https://drive.google.com/file/d/1jpAZ-MxFTnKxmb1A3H5Wxmfm1gpAVlQV/view" },
+        { title: "4. Right Forms of Verbs Part - 01", id: "Niz67Fg9BhI", sheet: "https://drive.google.com/file/d/1asiNcLlB6WmlAAGQnwJgPd_fKhW40uSc/view" },
+        { title: "5. Right Forms of Verbs Part - 02", id: "xV7_aRHYH_M", sheet: "https://drive.google.com/file/d/1zdqtIIrPVYzI-NQPGHH_jZsbYZeNPIWV/view" },
+        { title: "6. Right Forms of Verbs Part - 03", id: "eCGp5sAn-HA", sheet: "" },
+        { title: "7. Article Part - 1", id: "Qcbs4rOR2oM", sheet: "https://drive.google.com/file/d/1-axodtGi50Roe67W7ZOvG3kyR1JL9xVk/view" },
+        { title: "8. Article Part - 2", id: "IHQ97n5WYAA", sheet: "" },
+        { title: "9. Preposition Part - 1", id: "DC1chh79JRQ", sheet: "https://drive.google.com/file/d/1Xsa0RIyBNJf-RrjAbcCslPRpAG_wNarH/view" },
+        { title: "10. Preposition Part - 2", id: "pbf076PphSs", sheet: "https://drive.google.com/file/d/1Lf4xV1RZbWHLn-Up3cec4JbR4v1OkMYA/view" },
+        { title: "11. Completing Sentences Part - 1", id: "ELP8M25bfqg", sheet: "https://drive.google.com/file/d/11YHwUA87p4Gqjd0RdvV0_CHeIYuZHrVr/view" },
+        { title: "12. Completing Sentences Part - 2", id: "7-WaxtGA0os", sheet: "https://drive.google.com/file/d/1KKSlJkgT9hYA8_N3NlkUwH-bEXdQwLSz/view" },
+        { title: "13. Writing Part", id: "qxfMqAzCY40", sheet: "" },
+        { title: "14. Narration - 01", id: "p9qNK2oKVxo", sheet: "https://drive.google.com/file/d/1WgpWJfmxXBidRwqenHKXvOX_EqSHwuc7/view" },
+        { title: "15. Narration - 02", id: "jA84rqbfYts", sheet: "https://drive.google.com/file/d/12-DUpEOZY8LWXESWbHwDJM7I4PB4h7U2/view" },
+        { title: "16. Simple - Complex - Compound", id: "QvI4HQRa3n0", sheet: "" },
+        { title: "17. Changing Sentences Part - 1", id: "NJitxRCKIMI", sheet: "https://drive.google.com/file/d/1AyQdnDpGkb3yEuBFfjY83k1wxe8TMG-F/view" },
+        { title: "18. Changing Sentences Part - 2", id: "YbyRydpv2G0", sheet: "https://drive.google.com/file/d/1U_Mmjx1s4KkjXaOecaHRMIMSF_Ym9NOy/view" },
+        { title: "19. Words & Phrases", id: "XVcVJfa6kWU", sheet: "https://drive.google.com/file/d/1VuVsXgy7KWFqzLB8XfGn0wAkiFQB4Lud/view" },
+        { title: "20. Sentence Connectors", id: "T__jyXYs92M", sheet: "https://drive.google.com/file/d/13XQplEk87VcVB29hdEr4Ll-7GQb0yhvK/view" },
+        { title: "21. Pronoun Reference [Slide Only]", id: "", sheet: "https://drive.google.com/file/d/1qG1Xueu-z3HdMbzgnvzfuoxv6UKHTm30/view" },
+        { title: "22. Modifiers [Slide Only]", id: "", sheet: "https://drive.google.com/file/d/12_VkuQXnKsOH90Ug8c9Jt9989Z5ccCmy/view" },
+        { title: "23. Synonym & Antonym [Slide Only]", id: "", sheet: "https://drive.google.com/file/d/19XK65gHoq0ePDjutyfMkkSC8p3ZQUS3y/view" }
+    ]},
+    course16: { sub: "physics", title: "LAST SHOT BEFORE HSC", img: "6-DGKnPqch0", videos: [
+        { title: "Physics CQ 50/50 Marks Confirm", id: "6-DGKnPqch0", sheet: "https://drive.google.com/file/d/1YCnOkNd041oXieMXw_CfEq--b7kn89kt/view?usp=sharing" }
+    ]},
+    
+    course17: { sub: "ict", title: "ICT CQ Complete Preparation by Sheroare Hossain Emon", img: "hOoUDyqzHiI", videos: [
+        { title: "প্রোগ্রামিং ভাষা - Programing One Shot Revision Class ! 🚀", id: "hOoUDyqzHiI", sheet: ictCqSheetFolder },
+        { title: "ওয়েব ডিজাইন ও HTML - Web Design One Shot 🔥", id: "jflnzv-Obag", sheet: ictCqSheetFolder },
+        { title: "সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস - Number System 💻", id: "JnVGOM1-alE", sheet: ictCqSheetFolder },
+        { title: "কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং - Networking 🌐", id: "Mjhru0bPqiE", sheet: ictCqSheetFolder },
+        { title: "ডেটাবেজ ম্যানেজমেন্ট সিস্টেম - DBMS One Shot 🗄️", id: "b1uoOcSHaPM", sheet: ictCqSheetFolder },
+        { title: "🔥 Programming Language MCQ Oneshot", id: "-B3gJpv5N0U", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Board Question Solve", id: "g6cnTvpktCo", sheet: ictCqSheetFolder },
+        { title: "বিশ্ব ও বাংলাদেশ প্রেক্ষিত Oneshot", id: "n8LwkB9Xk5I", sheet: ictCqSheetFolder },
+        { title: "🔥 ICT Chapter 5 MCQ One Shot", id: "mQycPAFmE2A", sheet: ictCqSheetFolder }
+    ]},
+
+    course18: { sub: "physics", title: "Physics 2nd Paper CQ", img: "XFtnfc6QjGs", videos: [
+        { title: "এক ক্লাসেই পদার্থবিজ্ঞান ২য় পত্রের CQ ৫০/৫০ নিশ্চিত || HSC 26 || Apurbo Opu", id: "XFtnfc6QjGs", sheet: "https://drive.google.com/file/d/1nO5wyvLx0l99Igvbcb13s2ImSwu0v80Q/view?usp=sharing" }
+    ]},
+
+    course19: { sub: "math", title: "Higher Math Masterclass by Abhi Dada", img: "67B9P3TgKa8", videos: [
+        { title: "১ ক্লাসে ম্যাট্রিক্স ও নির্ণায়ক ১০০% কমপ্লিট 🔥", id: "67B9P3TgKa8", sheet: mathSheet },
+        { title: "১ ক্লাসে ভেক্টর ১০০% কমপ্লিট 🔥", id: "uFGOaRvfFZA", sheet: mathSheet },
+        { title: "১ ক্লাসে সরলরেখা ১০০% কমপ্লিট 🔥", id: "P2aww5m6Dys", sheet: mathSheet },
+        { title: "১ ক্লাসে বৃত্ত ১০০% কমপ্লিট 🔥", id: "JOYyLwUc8L8", sheet: mathSheet },
+        { title: "১ ক্লাসে বিন্যাস ও সমাবেশ ১০০% কমপ্লিট 🔥", id: "LiojRZ99COw", sheet: mathSheet },
+        { title: "১ ক্লাসে ত্রিকোণমিতিক অনুপাত ১০০% কমপ্লিট 🔥", id: "-dw3s6D1G8U", sheet: mathSheet },
+        { title: "১ ক্লাসে সংযুক্ত কোণের ত্রিকোণমিতি ১০০% কমপ্লিট 🔥", id: "B-3OK_kMMG8", sheet: mathSheet },
+        { title: "১ ক্লাসে ফাংশন ও লেখচিত্র ১০০% কমপ্লিট 🔥", id: "-jrU6XcZDaw", sheet: mathSheet },
+        { title: "১ ক্লাসে অন্তরীকরণ ১০০% কমপ্লিট 🔥", id: "du_ieKRj9jo", sheet: mathSheet },
+        { title: "১ ক্লাসে যোগজীকরণ ১০০% কমপ্লিট 🔥", id: "vPXNfbsM7sY", sheet: mathSheet },
+        { title: "১ ক্লাসে বাস্তব সংখ্যা ও অসমতা ১০০% কমপ্লিট 🔥", id: "ZN0Qt0Pr1VE", sheet: mathSheet },
+        { title: "১ ক্লাসে যোগাশ্রয়ী প্রোগ্রাম ১০০% কমপ্লিট 🔥", id: "Y9_5c54IsXM", sheet: mathSheet },
+        { title: "১ ক্লাসে জটিল সংখ্যা ১০০% কমপ্লিট 🔥", id: "gF-xD2nXZRk", sheet: mathSheet },
+        { title: "১ ক্লাসে বহুপদী ও বহুপদী সমীকরণ ১০০% কমপ্লিট 🔥", id: "sw5OdmDCuUs", sheet: mathSheet },
+        { title: "১ ক্লাসে দ্বিপদী বিস্তৃতি ১০০% কমপ্লিট 🔥", id: "nvbo0UTxW9E", sheet: mathSheet },
+        { title: "১ ক্লাসে কণিক ১০০% কমপ্লিট 🔥", id: "e5UjvcHh87E", sheet: mathSheet },
+        { title: "১ ক্লাসে বিপরীত ত্রিকোণমিতি ১০০% কমপ্লিট 🔥", id: "Jz3izwfa8Kw", sheet: mathSheet },
+        { title: "১ ক্লাসে স্থিতিবিদ্যা ১০০% কমপ্লিট 🔥", id: "4r-XUo8S8pg", sheet: mathSheet },
+        { title: "১ ক্লাসে সমতলে বস্তুকণার গতি ১০০% কমপ্লিট 🔥", id: "Tvti76PQ3iQ", sheet: mathSheet },
+        { title: "১ ক্লাসে সম্ভাবনা ১০০% কমপ্লিট 🔥", id: "ioJGYawWJE0", sheet: mathSheet }
+    ]},
+
+    course20: { sub: "math", title: "Higher Math Masterclass by Rakib Bhai", img: "KtqyZ-ANMUk", videos: [
+        { title: "ম্যাট্রিক্স ও নির্ণায়ক ক্যালকুলেটর শর্টকাট", id: "KtqyZ-ANMUk", sheet: mathSheet },
+        { title: "ভেক্টর ওয়ান শট", id: "JLuKC_yxoWs", sheet: mathSheet },
+        { title: "সরলরেখা মাস্টারক্লাস", id: "-WP3xRkTuaM", sheet: mathSheet },
+        { title: "৩ ঘন্টার ১ ক্লাসেই বৃত্ত ১০০% শেষ! 🔥", id: "1jjTSSpq2pQ", sheet: mathSheet },
+        { title: "বিন্যাস ও সমাবেশ ওয়ান শট", id: "pU_iwduItHs", sheet: mathSheet },
+        { title: "ত্রিকোণমিতিক অনুপাত", id: "9pwpsJD0tL8", sheet: mathSheet },
+        { title: "🔥 ১ ক্লাসেই ত্রিকোণমিতি ১০০% শেষ", id: "piZLlyz3wbs", sheet: mathSheet },
+        { title: "ফাংশন ও লেখচিত্র", id: "oYeRl4OQo0Y", sheet: mathSheet },
+        { title: "অন্তরীকরণ ওয়ান শট", id: "DKSpBV109fE", sheet: mathSheet },
+        { title: "যোগজীকরণ ওয়ান শট - পর্ব ০১", id: "WXMaW-VdpzA", sheet: mathSheet },
+        { title: "যোগজীকরণ ওয়ান শট - পর্ব ০২", id: "6hhbuYeI1cU", sheet: mathSheet },
+        { title: "এক ক্লাসেই বাস্তব সংখ্যা ও অসমতা ১০০% কাভার", id: "C1OAPt1Q26U", sheet: mathSheet },
+        { title: "যোগাশ্রয়ী প্রোগ্রাম ওয়ান শট", id: "yO-qpIO6rQU", sheet: mathSheet },
+        { title: "জটিল সংখ্যা", id: "KBrLO601OVU", sheet: mathSheet },
+        { title: "বহুপদী ও বহুপদী সমীকরণ", id: "g4dmJ7vVY5U", sheet: mathSheet },
+        { title: "দ্বিপদী বিস্তৃতি", id: "-G8AOnuWUII", sheet: mathSheet },
+        { title: "🔥 ১ ক্লাসেই কণিক ১০০% প্রস্তুতি", id: "e5UjvcHh87E", sheet: mathSheet },
+        { title: "🔥 ১ ক্লাসেই কণিক ১০০% প্রস্তুতি", id: "dxU1TOy9jvM", sheet: mathSheet },
+        { title: "বিপরীত ত্রিকোণমিতি ওয়ান শট", id: "n9kLnm_Tqg8", sheet: mathSheet },
+        { title: "গতিবিদ্যা", id: "K5ddkgvdVvM", sheet: mathSheet },
+        { title: "সম্ভাবনা", id: "9wdcmsJcHXI", sheet: mathSheet }
+    ]},
+
+    course21: { sub: "chemistry", title: "🧪 Chemistry Masterclass (AR Bhai)", img: "7Y-HJhO3kU0", videos: [
+        { title: "গুণগত রসায়ন -CQ", id: "7Y-HJhO3kU0", sheet: "" },
+        { title: "গুণগত রসায়ন -MCQ", id: "GHUweO9UzFM", sheet: "" },
+        { title: " জৈব রসায়ন - part-01 ", id: "uU5-5P24hYM", sheet: "" },
+        { title: "জৈব রসায়ন - Part 02", id: "DtH9GHvQaCY", sheet: "" },
+        { title: " জৈব রসায়ন MCQ", id: "gNDfRTTU034", sheet: "" },
+        { title: " মৌলের পর্যায়বৃত্ত ধর্ম CQ", id: "7MNsw-0cdrI", sheet: "" },
+        { title: "মৌলের পর্যায়বৃত্ত ধর্ম MCQ ", id: "tbDXYvjogdk", sheet: "" },
+        { title: "তড়িৎ রসায়ন CQ", id: "Up_chQ6uSsM", sheet: "" },
+        { title: "তড়িৎ রসায়ন MCQ", id: "m-wxYAm7Wh0", sheet: "" },
+        { title: "পরিমাণগত রসায়ন CQ", id: "Hu1Uej1kcVg", sheet: "" },
+        { title: "পরিমাণগত রসায়ন MCQ", id: "ugzFHuEQHEw", sheet: "" },
+        { title: "পরিবেশ রসায়ন CQ", id: "Fl7dxkdet70", sheet: "" },
+        { title: "পরিবেশ রসায়ন MCQ", id: "158RXVE-MJo", sheet: "" },
+        { title: "রাসায়নিক পরিবর্তন CQ", id: "CHJYjLUc9Sc", sheet: "" },
+        { title: "রাসায়নিক পরিবর্তন MCQ", id: "xNMDGbeuxmk", sheet: "" },
+    ]},
+
+    course23: { sub: "math", title: "🧮 Calculator Hacks Masterclass (Rakib Bhai)", img: "vqUuah_v9w0", videos: [
+        { title: "ম্যাট্রিক্স ও নির্ণায়ক ক্যালকুলেটর শর্টকাট", id: "vqUuah_v9w0", sheet: "" },
+        { title: "ত্রিকোণমিতি ক্যালকুলেটর শর্টকাট", id: "ZiquEjEEidY", sheet: "" },
+        { title: "জটিল সংখ্যা ক্যালকুলেটর শর্টকাট", id: "MX1re8Iql0Y", sheet: "" },
+        { title: "বহুপদী সমীকরণ ক্যালকুলেটর শর্টকাট", id: "614V4t76tss", sheet: "" },
+        { title: "বিপরীত ত্রিকোণমিতি ক্যালকুলেটর শর্টকাট", id: "QYIw6Pg_VXE", sheet: "" },
+        { title: "অন্তরীকরণ ক্যালকুলেটর শর্টকাট", id: "ld0g2bj6esQ", sheet: "" },
+        { title: "যোগজীকরণ ক্যালকুলেটর শর্টকাট", id: "k7sgHtBWSEM", sheet: "" },
+        { title: "ভেক্টর ক্যালকুলেটর শর্টকাট", id: "wY9tfRNjzqU", sheet: "" },
+        { title: "আইসিটি (ICT) ক্যালকুলেটর শর্টকাট", id: "Rbsj9_40-bA", sheet: "" }
+    ]},
+
+    course24: { sub: "physics", title: "⚡ Physics 2nd Paper One Shot (Sheroare Emon Bhai)", img: "syrne0alvLA", videos: [
+        { title: "ওয়ান শট রিভিশন | তাপগতিবিদ্যা", id: "syrne0alvLA", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | স্থির তড়িৎ", id: "J3-2FuXBygs", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | চল তড়িৎ", id: "JwHhWS30GdI", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | তড়িতের চৌম্বক ক্রিয়া ও চুম্বকত্ব", id: "vEZH4PlOPhY", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | তাড়িতচৌম্বক আবেশ ও পরিবর্তী প্রবাহ", id: "vEZH4PlOPhY", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | জ্যামিতিক আলোকবিজ্ঞান", id: "Rj2XZxqXhsk", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | ভৌত আলোকবিজ্ঞান", id: "rHEKPRvLw0g", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | আধুনিক পদার্থবিজ্ঞানের সূচনা", id: "QH_JXl5u7TI", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পরমাণুর মডেল ও নিউক্লিয়ার পদার্থবিজ্ঞান", id: "rI_tlCVAcR4", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | সেমিকন্ডাক্টর ও ইলেকট্রনিক্স", id: "empCP3CgNf0", sheet: "" },
+        { title: "পদার্থবিজ্ঞান ২য় পত্র বোর্ড MCQ সলভ", id: "I6aq621IvwI", sheet: "" },
+        { title: "পদার্থবিজ্ঞান ২য় পত্র বোর্ড CQ সলভ", id: "tQHSM5LaONc", sheet: "" }
+    ]},
+
+    course25: { sub: "physics", title: "⚡ Physics 1st Paper One Shot (Sheroare Emon Bhai)", img: "n8b09hq7qQM", videos: [
+        { title: "ওয়ান শট রিভিশন | পর্যাবৃত্ত গতি", id: "n8b09hq7qQM", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব", id: "1IVhi8tDoJw", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | মহাকর্ষ ও অভিকর্ষ", id: "2tpVLOX3Ep8", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পদার্থের গাঠনিক ধর্ম", id: "4pfOjfZtGRU", sheet: "" },
+        { title: "ওয়ান শট রিভিশন | পদার্থবিজ্ঞান ১ম পত্র MCQ সলভ", id: "IaXcTpUx63k", sheet: "" },
+    ]},
+
+    course26: { sub: "physics", title: "🎯 Physics CQ One Shot (Apurbo & Mashrur Series)", img: "pc42PaR2OE8", videos: [
+        { title: "HSC ONESHOT | ভেক্টর CQ SOLVING", id: "pc42PaR2OE8", sheet: "" },
+        { title: "HSC ONESHOT | গতিবিদ্যা CQ SOLVING", id: "9oxhLHSATYM", sheet: "" },
+        { title: "HSC ONESHOT | নিউটনীয় বলবিদ্যা CQ SOLVING", id: "w6zMqa9d2_0", sheet: "" },
+        { title: "HSC ONESHOT | কাজ,শক্তি ও ক্ষমতা  CQ SOLVING", id: "smEzjF7b-Sc", sheet: "" },
+        { title: "HSC ONESHOT | মহাকর্ষ ও অভিকর্ষ CQ SOLVING", id: "GTbjmYNs9bs", sheet: "" },
+        { title: "HSC ONESHOT |পদার্থের গাঠনিক ধর্ম  CQ SOLVING", id: "fkWjqr4z8SQ", sheet: "" },
+        { title: "HSC ONESHOT | পর্যাবৃত্ত গতি CQ SOLVING", id: "K-OzRLh5700", sheet: "" },
+        { title: "HSC ONESHOT | তরঙ্গ ও শব্দCQ SOLVING", id: "YpuH2KnOYMg", sheet: "" },
+        { title: "HSC ONESHOT | আদর্শ গ্যাস ও গতিতত্ত্ব যা CQ SOLVING", id: "oaisKu1kM2M", sheet: "" },
+        { title: "HSC ONESHOT | তাপগতিবিদ্যা  CQ SOLVING", id: "vJMAqRV-5Co", sheet: "" },
+        { title: "HSC ONESHOT | স্থির তড়িৎ  CQ SOLVING", id: "iRB2m5Q-XlI", sheet: "" },
+        { title: "HSC ONESHOT | চৌম্বক ক্রিয়া CQ SOLVING", id: "RgKwIx7vUNw", sheet: "" },
+        { title: "HSC ONESHOT | জ্যামিতিক আলোকবিজ্ঞান CQ SOLVING", id: "TcVNF7Ep2_c", sheet: "" },
+        { title: "HSC ONESHOT । ভৌত আলোকবিজ্ঞান  CQ SOLVING", id: "3Eg4Yn6HgaI", sheet: "" },
+        { title: "HSC ONESHOT | সেমিকন্ডাক্টর CQ SOLVING", id: "wCBMLjQ_2BM", sheet: "" }
+    ]},
+
+    course27: { sub: "chemistry", title: "🧪 Chemistry One Shot Masterclass (Pahlovi Bhai)", img: "y7NJqUQ5F9o", videos: [
+        { title: "ONE SHOT | গুণগত রসায়ন", id: "y7NJqUQ5F9o", sheet: "" },
+        { title: "ONE SHOT | পরিমাণগত রসায়ন", id: "zl96gik6QxQ", sheet: "" },
+        { title: "ONE SHOT | রাসায়নিক পরিবর্তন", id: "U8eYlXa4fOo", sheet: "" },
+        { title: "ONE SHOT | মৌলের পর্যায়বৃত্ত ধর্ম", id: "YlIJOJCB0-E", sheet: "" },
+        { title: "ONE SHOT | জৈব রসায়ন", id: "_hZdz20OSno", sheet: "" },
+        { title: "ONE SHOT | পরিবেশ রসায়ন", id: "cnEPq4_J38Q", sheet: "" },
+        { title: "ONE SHOT | কর্মমুখী রসায়ন - Part 02", id: "OSki_6tSg1s", sheet: "" },
+        { title: "ONE SHOT | তড়িৎ রসায়ন", id: "1h95ZsL89ZM", sheet: "" },
+    ]},
+
+    course28: { sub: "chemistry", title: "🧪 Chemistry CQ One Shot (Sanjay Sir)", img: "9a9s24DBBi0", videos: [
+        { title: "গুণগত রসায়ন | board CQ solve", id: "9a9s24DBBi0", sheet: "" },
+        { title: "মৌলের পর্যায়বৃত্ত ধর্ম | board CQ solve", id: "FGG7Jbb-wwA", sheet: "" },
+        { title: "কর্মমুখী রসায়ন | board CQ ও MCQ solve", id: "alnjGSZrCmc", sheet: "" },
+        { title: " রাসায়নিক পরিবর্তন | CQ solve", id: "gxCLUsIW2jk", sheet: "" },
+        { title: "জৈব রসায়ন | board CQ solve", id: "AK30NGQSQhQ", sheet: "" }
+    ]},
+
+    course29: { sub: "chemistry", title: "🧪 Chemistry MCQ One Shot (Sanjay Sir)", img: "_5TLvMuGsRI", videos: [
+        { title: "গুণগত রসায়ন | MCQ Boost", id: "_5TLvMuGsRI", sheet: "" },
+        { title: "মৌলের পর্যায়বৃত্ত ধর্ম | MCQ Boost", id: "EKRKRMISk08", sheet: "" },
+        { title: "রাসায়নিক পরিবর্তন | MCQ Boost", id: "akUAmr7I3Q8", sheet: "" },
+        { title: "কর্মমুখী রসায়ন রসায়ন | MCQ Boost", id: "alnjGSZrCmc", sheet: "" },
+        { title: "জৈব রসায়ন (এলিফেটিক)| MCQ Boost", id: "ZQT6obCMGNE", sheet: "" }
+    ]},
+
+    course30: { sub: "chemistry", title: "🧪 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ 🔥 (Sakib Bhai)", img: "vPhcbeaYhlA", videos: [
+        { title: "🔥 এক ক্লাসেই রসায়ন ১ম পত্রের সকল MCQ - Md Nazmus Sakib", id: "vPhcbeaYhlA", sheet: "" }
+    ]},
+
+    course31: { sub: "chemistry", title: "🧪 এক ক্লাসেই রসায়ন ২য় পত্রের সকল MCQ 🔥 (Sakib Bhai)", img: "Vt09nW8PtPY", videos: [
+        { title: "🔥 এক ক্লাসেই রসায়ন ২য় পত্রের সকল MCQ - Md Nazmus Sakib", id: "Vt09nW8PtPY", sheet: "" }
+    ]}
+};
+
+function renderAllCourses() {
+    const grid = document.getElementById('courseGridContainer');
+    grid.innerHTML = "";
+    Object.keys(courseData).forEach(key => {
+        let c = courseData[key];
+        let totalAllowedMembers = window.allowedEmails ? window.allowedEmails.length : 0;
+        
+        let tagColor = `var(--color-${c.sub})`;
+        if (c.sub === 'varsity-bio') tagColor = 'var(--color-varsity)';
+        
+        grid.innerHTML += `
+        <div class="course-card" data-subject="${c.sub}" onclick="openCourse('${key}')">
+            <div class="enrollment-stat">👥 ${totalAllowedMembers} Members</div>
+            <div class="card-img-wrapper"><img src="https://img.youtube.com/vi/${c.img}/maxresdefault.jpg">
+            <div class="card-tags"><span class="tag" style="background: ${tagColor}; color:${c.sub === 'chemistry' || c.sub === 'biology' ? '#000' : '#fff'}">${c.sub === 'varsity-bio' ? 'Varsity' : c.sub}</span></div></div>
+            <div class="card-content"><h3 class="card-title">${c.title}</h3></div>
+        </div>`;
+    });
+    filterSubject('physics', document.querySelector('.filter-btn'));
+}
+
+function showHome() {
+    document.getElementById('home-view').style.display = 'block';
+    document.getElementById('player-view').style.display = 'none';
+    document.querySelector('header').style.display = 'flex';
+    if(window.plyrPlayer) { window.plyrPlayer.stop(); }
+    sessionStorage.removeItem('deblevate_state');
+    window.scrollTo(0,0);
+}
+
+function filterSubject(sub, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    document.querySelectorAll('.course-card').forEach(c => {
+        c.style.display = (c.getAttribute('data-subject') === sub) ? 'block' : 'none';
+    });
+}
+
+function openCourse(key, targetVidIndex = 0) {
+    window.currentCourseKey = key;
+    document.getElementById('home-view').style.display = 'none';
+    document.getElementById('player-view').style.display = 'block';
+    document.querySelector('header').style.display = 'none';
+    
+    const data = courseData[key];
+
+    // Toggle playlist link notice banner
+    const playlistNotice = document.getElementById("playlist-notice-banner");
+    const redirectBtn = document.getElementById("mainPlaylistRedirectBtn");
+    if (data.playlistLink) {
+        playlistNotice.style.display = "flex";
+        redirectBtn.href = data.playlistLink;
+    } else {
+        playlistNotice.style.display = "none";
+    }
+
+    const container = document.getElementById("playlistView");
+    document.getElementById('playlistModuleCount').innerText = `${data.videos.length} Modules`;
+    container.innerHTML = "";
+    
+    data.videos.forEach((vid, i) => {
+        let div = document.createElement("div");
+        div.className = "playlist-item" + (i === targetVidIndex ? " active" : "");
+        div.onclick = () => {
+            document.querySelectorAll('.playlist-item').forEach(e=>e.classList.remove('active'));
+            div.classList.add('active');
+            setVideo(vid.id, vid.title, vid.sheet, i);
+        };
+        div.innerHTML = `
+            <img class="pl-thumb" src="https://img.youtube.com/vi/${vid.id || 'placeholder'}/mqdefault.jpg" alt="thumb" onerror="this.src='channels4_profile.jpg'">
+            <div class="pl-details">
+                <span class="pl-title">${vid.title}</span>
+                <span class="pl-author">${vid.id ? '▶ Click to Watch' : '📖 Slide Only'}</span>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    
+    if(data.videos.length > 0) {
+        let targetVid = data.videos[targetVidIndex] || data.videos[0];
+        setVideo(targetVid.id, targetVid.title, targetVid.sheet, targetVidIndex);
+    }
+    window.scrollTo(0,0);
+
+    if(window.trackRealViewers) {
+        window.trackRealViewers(key);
+    }
+
+    sessionStorage.setItem('deblevate_state', JSON.stringify({ view: 'player', courseKey: key, videoIndex: targetVidIndex }));
+}
+
+function getDirectDownloadLink(url) {
+    if (!url) return "#";
+    const fileMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+    if (fileMatch && fileMatch[1]) {
+        return `https://drive.google.com/uc?export=download&id=${fileMatch[1]}`;
+    }
+    return url;
+}
+
+window.plyrPlayer = null;
+let timeSaveInterval = null;
+let pendingResumeTime = 0;
+
+function setVideo(id, title, sheetLink, vidIndex = 0) {
+    window.currentVideoId = id;
+    document.getElementById("mainVideoTitle").innerText = title;
+    
+    if (timeSaveInterval) clearInterval(timeSaveInterval);
+    document.getElementById('resume-banner').style.display = 'none';
+    pendingResumeTime = 0;
+    
+    const videoWrapperContainer = document.getElementById('videoWrapperContainer');
+
+    if(!id || id.trim() === "") {
+        if(window.plyrPlayer) { window.plyrPlayer.stop(); }
+        videoWrapperContainer.style.display = "none";
+    } else {
+        videoWrapperContainer.style.display = "block";
+        let savedTime = localStorage.getItem(`video_time_${id}`) || 0;
+
+        if (savedTime > 5) {
+            pendingResumeTime = parseFloat(savedTime);
+            document.getElementById('resume-banner').style.display = 'flex';
+        }
+
+        if(window.plyrPlayer) {
+            window.plyrPlayer.source = {
+                type: 'video',
+                sources: [{ src: id, provider: 'youtube' }]
+            };
+            setTimeout(() => {
+                window.plyrPlayer.volume = 1.0;
+                window.plyrPlayer.muted = false;
+                window.plyrPlayer.play();
+                if (window.changeYouTubeQuality) window.changeYouTubeQuality(1080);
+            }, 400);
+        } else {
+            document.getElementById('studioPlayer').setAttribute('data-plyr-embed-id', id);
+            
+            window.plyrPlayer = new Plyr('#studioPlayer', {
+                youtube: { 
+                    noCookie: true, 
+                    rel: 0, 
+                    showinfo: 0, 
+                    iv_load_policy: 3, 
+                    modestbranding: 1, 
+                    playsinline: 1,
+                    enablejsapi: 1 
+                },
+                controls: [
+                    'play-large',
+                    'play',
+                    'progress',
+                    'current-time',
+                    'duration',
+                    'mute',
+                    'volume',
+                    'settings',
+                    'pip',
+                    'fullscreen'
+                ],
+                settings: ['quality', 'speed'],
+                quality: {
+                    default: 1080,
+                    options: [1080, 720, 480, 360],
+                    forced: true,
+                    onChange: (selectedQuality) => {
+                        window.changeYouTubeQuality(selectedQuality);
+                    }
+                },
+                speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] },
+                tooltips: { controls: true, seek: true }
+            });
+
+            window.changeYouTubeQuality = function(q) {
+                const qMap = {
+                    1080: 'hd1080',
+                    720: 'hd720',
+                    480: 'large',
+                    360: 'medium'
+                };
+                const targetQuality = qMap[q] || 'default';
+
+                try {
+                    if (window.plyrPlayer && window.plyrPlayer.embed) {
+                        const yt = window.plyrPlayer.embed;
+                        if (typeof yt.setPlaybackQualityRange === 'function') {
+                            yt.setPlaybackQualityRange(targetQuality, targetQuality);
+                        }
+                        if (typeof yt.setPlaybackQuality === 'function') {
+                            yt.setPlaybackQuality(targetQuality);
+                        }
+                    }
+
+                    const iframe = document.querySelector('.plyr__video-wrapper iframe');
+                    if (iframe && iframe.contentWindow) {
+                        iframe.contentWindow.postMessage(JSON.stringify({
+                            event: 'command',
+                            func: 'setPlaybackQuality',
+                            args: [targetQuality]
+                        }), '*');
+                    }
+                } catch(err) {
+                    console.warn("Quality override:", err);
+                }
+            };
+
+            window.plyrPlayer.on('ready', event => {
+                const player = event.detail.plyr;
+                
+                player.volume = 1.0;
+                player.muted = false;
+                
+                const playBtn = player.elements.container.querySelector('[data-plyr="play"]');
+                if (playBtn && !document.getElementById('customSeekBackSymbol')) {
+                    const backBtn = document.createElement('button');
+                    backBtn.id = 'customSeekBackSymbol';
+                    backBtn.className = 'plyr-seek-symbol-btn';
+                    backBtn.title = 'Rewind 10 seconds';
+                    backBtn.innerHTML = '⟲';
+                    backBtn.onclick = () => { player.currentTime = Math.max(0, player.currentTime - 10); };
+
+                    const forwardBtn = document.createElement('button');
+                    forwardBtn.id = 'customSeekForwardSymbol';
+                    forwardBtn.className = 'plyr-seek-symbol-btn';
+                    forwardBtn.title = 'Forward 10 seconds';
+                    forwardBtn.innerHTML = '⟳';
+                    forwardBtn.onclick = () => { player.currentTime = Math.min(player.duration, player.currentTime + 10); };
+
+                    playBtn.parentNode.insertBefore(backBtn, playBtn);
+                    playBtn.parentNode.insertBefore(forwardBtn, playBtn.nextSibling);
+                }
+
+                try {
+                    player.quality = 1080;
+                } catch(e) {}
+                window.changeYouTubeQuality(1080);
+                setTimeout(() => { player.play(); }, 300);
+            });
+
+            window.plyrPlayer.on('play', () => {
+                if (window.plyrPlayer.volume < 0.95) {
+                    window.plyrPlayer.volume = 1.0;
+                }
+            });
+        }
+
+        timeSaveInterval = setInterval(() => {
+            if(window.plyrPlayer && window.plyrPlayer.playing) {
+                let currentTime = window.plyrPlayer.currentTime;
+                if(currentTime > 0) localStorage.setItem(`video_time_${id}`, currentTime);
+            }
+        }, 4000);
+
+        window.addEventListener('beforeunload', () => {
+            if(window.plyrPlayer && window.currentVideoId) {
+                localStorage.setItem(`video_time_${window.currentVideoId}`, window.plyrPlayer.currentTime);
+            }
+        });
+    }
+
+    const materialsSection = document.getElementById("materialsSection");
+    const slideFrameContainer = document.getElementById("slideFrameContainer");
+    const slideIframe = document.getElementById("slideIframe");
+    const dlBtn = document.getElementById("sheetDownloadBtn");
+    const toggleSlideBtn = document.getElementById("toggleSlideBtn");
+
+    if(sheetLink && sheetLink.trim() !== "") {
+        materialsSection.style.display = "block";
+        if (!id || id.trim() === "") {
+            slideFrameContainer.style.display = "block";
+            toggleSlideBtn.classList.add('active');
+        } else {
+            slideFrameContainer.style.display = "none";
+            toggleSlideBtn.classList.remove('active');
+        }
+
+        dlBtn.href = getDirectDownloadLink(sheetLink);
+        if (dlBtn.href.includes('uc?export=download')) {
+            dlBtn.removeAttribute('target');
+        } else {
+            dlBtn.setAttribute('target', '_blank');
+        }
+
+        slideIframe.src = sheetLink.includes('/view') ? sheetLink.replace('/view', '/preview') : sheetLink;
+    } else {
+        materialsSection.style.display = "none";
+        slideIframe.src = "";
+    }
+
+    if(window.setupLiveFeatures && window.currentCourseKey && id) {
+        window.setupLiveFeatures(window.currentCourseKey, id);
+    }
+}
+
+function toggleSlide() {
+    const container = document.getElementById("slideFrameContainer");
+    const btn = document.getElementById("toggleSlideBtn");
+    if(container.style.display === "none") {
+        container.style.display = "block";
+        btn.classList.add('active');
+    } else {
+        container.style.display = "none";
+        btn.classList.remove('active');
+    }
+}
+
+function toggleChat() {
+    const panel = document.getElementById("floatingChatPanel");
+    if(panel.style.display === "none" || panel.style.display === "") {
+        panel.style.display = "flex";
+        scrollToBottomChat();
+    } else {
+        panel.style.display = "none";
+    }
+}
+
+window.applyResumeTime = function(shouldResume) {
+    document.getElementById('resume-banner').style.display = 'none';
+    if (shouldResume && pendingResumeTime > 0 && window.plyrPlayer) {
+        window.plyrPlayer.muted = false; 
+        window.plyrPlayer.volume = 1;
+        window.plyrPlayer.currentTime = pendingResumeTime;
+        window.plyrPlayer.play();
+    } else {
+        if(window.currentVideoId) localStorage.removeItem(`video_time_${window.currentVideoId}`);
+        if(window.plyrPlayer) {
+            window.plyrPlayer.muted = false; 
+            window.plyrPlayer.volume = 1;
+            window.plyrPlayer.play();
+        }
+    }
+    pendingResumeTime = 0;
+};
+
+document.addEventListener('keydown', (e) => {
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+
+    if (window.plyrPlayer && window.plyrPlayer.ready) {
+        if (e.key === 'ArrowRight') {
+            window.plyrPlayer.currentTime = Math.min(window.plyrPlayer.currentTime + 10, window.plyrPlayer.duration);
+            e.preventDefault();
+        } else if (e.key === 'ArrowLeft') {
+            window.plyrPlayer.currentTime = Math.max(window.plyrPlayer.currentTime - 10, 0);
+            e.preventDefault();
+        } else if (e.key === 'ArrowUp') {
+            let newVol = Math.min(window.plyrPlayer.volume + 0.05, 1);
+            window.plyrPlayer.volume = Number(newVol.toFixed(2));
+            if (window.plyrPlayer.muted) window.plyrPlayer.muted = false;
+            e.preventDefault();
+        } else if (e.key === 'ArrowDown') {
+            let newVol = Math.max(window.plyrPlayer.volume - 0.05, 0);
+            window.plyrPlayer.volume = Number(newVol.toFixed(2));
+            if (window.plyrPlayer.muted && newVol > 0) window.plyrPlayer.muted = false;
+            e.preventDefault();
+        }
+    }
+});
+</script>
+</body>
+</html>
